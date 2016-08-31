@@ -15,3 +15,20 @@ C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Contex
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csproj.GenerateResource.Cache
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.dll
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Context.dll.config
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Context.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Context.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Object.Mapping.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Objects.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\EntityFramework.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Object.Mapping.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\BhuInfo.Data.Objects.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\EntityFramework.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csprojResolveAssemblyReference.cache
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.InitialCreate.resources
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.Migration1.resources
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csproj.GenerateResource.Cache
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.pdb
