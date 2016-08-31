@@ -29,9 +29,6 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             this.Property(n => n.DateCreated).HasColumnName("DateCreated");
             this.Property(n => n.DateLastModified).HasColumnName("DateLastModified");
             this.Property(n => n.NewsView).HasColumnName("NewsView");
-
-
-            
         }
     }
 }

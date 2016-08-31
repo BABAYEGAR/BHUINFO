@@ -24,6 +24,8 @@ namespace BhuInfo.Data.Objects.Entities
         public DateTime DateLastModified { get; set; }
         public int NewsView { get; set; }
 
+        public ICollection<NewsComment> NewComments { get; set; }
+
 
 
     }
