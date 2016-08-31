@@ -1,0 +1,144 @@
+﻿@using BhuInfo.Data.Service.Enums
+@model BhuInfo.Data.Objects.Entities.AppUser
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+    ViewBag.HeaderClass = "page-header";
+}
+
+@section css{
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bhu-Info | Home</title>
+    <!-- Custom Theme files -->
+    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+<body>
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="index.html">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                <li>
+                    <a class="active" href="index.html">News/Articles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="contact.html">Register User</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="tagline">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="col-md-12">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <hr/>
+                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
+                                    @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
+                                    @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                    @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+                                    @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "Select Login role", new {@class = "form-control select-dropdown"})
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default"/>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div>
+                        @Html.ActionLink("Back to List", "Index")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

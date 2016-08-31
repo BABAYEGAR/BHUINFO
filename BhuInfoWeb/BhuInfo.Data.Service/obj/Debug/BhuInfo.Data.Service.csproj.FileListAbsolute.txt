@@ -1,0 +1,7 @@
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\bin\Debug\BhuInfo.Data.Service.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\bin\Debug\BhuInfo.Data.Service.pdb
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\bin\Debug\BhuInfo.Data.Objects.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\bin\Debug\BhuInfo.Data.Objects.pdb
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\obj\Debug\BhuInfo.Data.Service.csprojResolveAssemblyReference.cache
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\obj\Debug\BhuInfo.Data.Service.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Service\obj\Debug\BhuInfo.Data.Service.pdb

@@ -1,0 +1,362 @@
+﻿@using System.Globalization
+@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
+@{
+    ViewBag.Title = "Sports";
+
+    var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.Sports, 4);
+    var news = newsList.ToList();
+
+    var newsCategoryList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Sports, 3);
+    var recentNews = newsCategoryList.ToList();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BhuInfo | Sports</title>
+    <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <!-- Custom Theme files -->
+    <link href="~/AppTheme/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+<body>
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Login", "Account")">Log In</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a class="active" href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>Sports</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Home")">General</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SportsNews", "Home")" class="active">Sports</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                </li>|
+                <li>
+                    <a href="materials.html">SRC Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+<div class="content">
+<div class="col-md-7 printing-content">
+    <div class="print-main">
+        <h3>3D Printing materials</h3>
+        <a href="single.html">3D Printed Dress at Paris Fashion week</a>
+        <p class="sub_head">
+            Posted by <a href="#">Admin</a> on june 14,2015
+        </p>
+        <a href="single.html">
+            <img src="~/AppTheme/images/ep3.jpg" class="img-responsive" alt=""/>
+        </a>
+        <p class="ptext">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like</p>
+    </div>
+    <div class="print-grids">
+        @try
+        {
+            <div class="print-grid">
+                <div class="print-img">
+                    <a href="single.html">
+                        <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
+                    </a>
+                </div>
+                <div class="print-text">
+                    <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(0).NewsId})">@recentNews.ElementAt(0).Title</a>
+                    <p>
+                        <a href="#">@recentNews.ElementAt(0).DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(recentNews.ElementAt(0).DateCreated.Month) | @recentNews.ElementAt(0).DateCreated.Year</a>
+                    </p>
+                    <p>@recentNews.ElementAt(0).Content</p>
+                    <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(0).NewsId})">...Read More</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="print-grid">
+                <div class="print-img">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">
+                        <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
+                    </a>
+                </div>
+                <div class="print-text">
+                    <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">@recentNews.ElementAt(1).Title</a>
+                    <p>
+                        <a href="#">@recentNews.ElementAt(1).DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(recentNews.ElementAt(1).DateCreated.Month) | @recentNews.ElementAt(1).DateCreated.Year</a>
+                    </p>
+                    <p>@recentNews.ElementAt(1).Content</p>
+                    <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">...Read More</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+        }
+    </div>
+</div>
+<div class="col-md-5 content-right">
+    <div class="content-right-top">
+        <h5 class="head">Popular</h5>
+        @try
+        {
+            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(0).NewsId})">
+                <div class="editor text-center">
+                    <h3>@news.ElementAt(0).Title</h3>
+                    <p>@news.ElementAt(0).Content</p>
+                    @if (news.ElementAt(0).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@news.ElementAt(0).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(0).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                    <span></span>
+                </div>
+            </a>
+            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(1).NewsId})">
+                ">
+                <div class="editor text-center">
+                    <h3>@news.ElementAt(1).Title</h3>
+                    <p>@news.ElementAt(1).Content</p>
+                    @if (news.ElementAt(1).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@news.ElementAt(1).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(1).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                    <span></span>
+                </div>
+            </a>
+            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(2).NewsId})">
+                ">
+                <div class="editor text-center">
+                    <h3>@news.ElementAt(2).Title</h3>
+                    <p>@news.ElementAt(2).Content</p>
+                    @if (news.ElementAt(2).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@news.ElementAt(2).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(2).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                    <span></span>
+                </div>
+            </a>
+            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(3).NewsId})">
+                ">
+                <div class="editor text-center">
+                    <h3>@news.ElementAt(3).Title</h3>
+                    <p>@news.ElementAt(3).Content</p>
+                    @if (news.ElementAt(3).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@news.ElementAt(3).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(3).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                    <span></span>
+                </div>
+            </a>
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+        }
+    </div>
+    <div class="editors-pic-grids">
+        @try
+        {
+            <h5>Recent News</h5>
+            <div class="editors-pic">
+                <div class="e-pic">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(0).NewsId})">
+                        <img src="~/AppTheme/images/ep1.jpg" alt=""/>
+                    </a>
+                </div>
+                <div class="e-pic-info">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(0).NewsId})">@Html.DisplayFor(model => model.ElementAt(0).Title)</a>
+                    <span></span>
+                    @if (Model.ElementAt(0).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@Model.ElementAt(0).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(0).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="editors-pic">
+                <div class="e-pic">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(1).NewsId})">
+                        <img src="~/AppTheme/images/ep2.jpg" alt=""/>
+                    </a>
+                </div>
+                <div class="e-pic-info">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(1).NewsId})">@Html.DisplayFor(model => model.ElementAt(1).Title)</a>
+                    <span></span>
+                    @if (Model.ElementAt(0).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@Model.ElementAt(1).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(1).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="editors-pic">
+                <div class="e-pic">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(2).NewsId})">
+                        <img src="~/AppTheme/images/ep3.jpg" alt=""/>
+                    </a>
+                </div>
+                <div class="e-pic-info">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(2).NewsId})">@Html.DisplayFor(model => model.ElementAt(2).Title)</a>
+                    <span></span>
+                    @if (Model.ElementAt(2).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@Model.ElementAt(2).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(2).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="editors-pic">
+                <div class="e-pic">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(3).NewsId})">
+                        <img src="~/AppTheme/images/ep4.jpg" alt=""/>
+                    </a>
+                </div>
+                <div class="e-pic-info">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(3).NewsId})">@Html.DisplayFor(model => model.ElementAt(3).Title)</a>
+                    <span></span>
+                    @if (Model.ElementAt(3).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                    {
+                        <label>@Model.ElementAt(3).DateCreated.ToShortTimeString()</label>
+                    }
+                    else
+                    {
+                        <label>@Model.ElementAt(3).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                    }
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+        }
+    </div>
+</div>
+<div class="clearfix"></div>
+
+<div class="clearfix"></div>
+</div>
+</div>
+<div class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="col-md-3 footer-links">
+                <h4>Other pages and things</h4>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website</a>
+                <a href="#">Single Page sales portfolio </a>
+                <a href="#">Flat product website in Photoshop</a>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website</a>
+                <a href="#">Single Page sales portfolio </a>
+                <a href="#">Flat product website</a>
+            </div>
+            <div class="col-md-3 footer-links span_66">
+                <a href="#">Flat product website in Photoshop</a>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website </a>
+            </div>
+            <div class="col-md-3 footer-links">
+                <h4>Relevant Articles</h4>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website</a>
+                <a href="#">Single Page sales portfolio </a>
+                <a href="#">Flat product website</a>
+                <a href="#">Design a creative Blog</a>
+            </div>
+            <div class="col-md-3 footer-links">
+                <h4>Other pages and things</h4>
+                <a href="#">Blaz Robar</a>
+                <a href="#">Nick Toranto</a>
+                <a href="#">Joisp Kelava</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="copyrights">
+                <p>
+                    Konstructs © 2015 All rights reserved | Template by <a href="http://w3layouts.com"> W3layouts</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

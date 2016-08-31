@@ -1,0 +1,9 @@
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.pdb
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Objects.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Objects.pdb
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.csprojResolveAssemblyReference.cache
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.dll
+C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.pdb
