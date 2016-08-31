@@ -5,11 +5,13 @@
 @{
     ViewBag.Title = "Fashion";
 
-    var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.Fashion, 5);
+    var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.Fashion, 4);
     var news = newsList.ToList();
 
-    var newsCategoryList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Fashion, 3);
-    var recentNews = newsCategoryList.ToList();
+    var newsCategoryList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Fashion, 2);
+    var recentCategoryNews = newsCategoryList.ToList();
+
+    var recentNews = Model.Take(4);
 }
 <!DOCTYPE html>
 <html>
@@ -106,23 +108,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="print-grids">
         @try
         {
-            <div class="print-grid">
-                <div class="print-img">
-                    <a href="single.html">
-                        <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
-                    </a>
+            foreach (var item in recentCategoryNews)
+            {
+                <div class="print-grid">
+                    <div class="print-img">
+                        <a href="single.html">
+                            <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt="" />
+                        </a>
+                    </div>
+                    <div class="print-text">
+                        <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                        <p>
+                            <a href="#">@item.DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.DateCreated.Month) | @item.DateCreated.Year</a>
+                        </p>
+                        <p>@item.Content</p>
+                        <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">...Read More</a>
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="print-text">
-                    <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(0).NewsId})">@recentNews.ElementAt(0).Title</a>
-                    <p>
-                        <a href="#">@recentNews.ElementAt(0).DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(recentNews.ElementAt(0).DateCreated.Month) | @recentNews.ElementAt(0).DateCreated.Year</a>
-                    </p>
-                    <p>@recentNews.ElementAt(0).Content</p>
-                    <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(0).NewsId})">...Read More</a>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="print-grid">
+            }
+
+            @*<div class="print-grid">
                 <div class="print-img">
                     <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">
                         <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
@@ -137,7 +143,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">...Read More</a>
                 </div>
                 <div class="clearfix"></div>
-            </div>
+            </div>*@
         }
         catch (ArgumentOutOfRangeException ex)
         {
@@ -149,69 +155,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <h5 class="head">Popular</h5>
         @try
         {
-            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(0).NewsId})">
-                <div class="editor text-center">
-                    <h3>@news.ElementAt(0).Title</h3>
-                    <p>@news.ElementAt(0).Content</p>
-                    @if (news.ElementAt(0).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+            foreach (var item in news)
+            {
+                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(0).NewsId})">
+                    <div class="editor text-center">
+                        <h3>@item.Title</h3>
+                        <p>@item.Content</p>
+                        @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
                     {
-                        <label>@news.ElementAt(0).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(0).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                    <span></span>
-                </div>
-            </a>
-            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(1).NewsId})">
+                            <label>@item.DateCreated.ToShortTimeString()</label>
+                        }
+                        else
+                        {
+                            <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                        }
+                        <span></span>
+                    </div>
+                </a>
+            }
 
-                <div class="editor text-center">
-                    <h3>@news.ElementAt(1).Title</h3>
-                    <p>@news.ElementAt(1).Content</p>
-                    @if (news.ElementAt(1).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                        <label>@news.ElementAt(1).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(1).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                    <span></span>
-                </div>
-            </a>
-            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(2).NewsId})">
 
-                <div class="editor text-center">
-                    <h3>@news.ElementAt(2).Title</h3>
-                    <p>@news.ElementAt(2).Content</p>
-                    @if (news.ElementAt(2).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                        <label>@news.ElementAt(2).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(2).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                    <span></span>
-                </div>
-            </a>
-            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(3).NewsId})">
-
-                <div class="editor text-center">
-                    <h3>@news.ElementAt(3).Title</h3>
-                    <p>@news.ElementAt(3).Content</p>
-                    @if (news.ElementAt(3).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                        <label>@news.ElementAt(3).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(3).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                    <span></span>
-                </div>
-            </a>
         }
         catch (ArgumentOutOfRangeException ex)
         {
@@ -221,86 +184,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <h5>Recent News</h5>
         @try
         {
-            <div class="editors-pic">
-                <div class="e-pic">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(0).NewsId})">
-                        <img src="~/AppTheme/images/ep1.jpg" alt=""/>
-                    </a>
-                </div>
-                <div class="e-pic-info">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(0).NewsId})">@Html.DisplayFor(model => model.ElementAt(0).Title)</a>
-                    <span></span>
-                    @if (Model.ElementAt(0).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+            foreach (var item in recentNews)
+            {
+                <div class="editors-pic">
+                    <div class="e-pic">
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                            <img src="~/AppTheme/images/ep1.jpg" alt="" />
+                        </a>
+                    </div>
+                    <div class="e-pic-info">
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                        <span></span>
+                        @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
                     {
-                        <label>@Model.ElementAt(0).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(0).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
+                            <label>@item.DateCreated.ToShortTimeString()</label>
+                        }
+                        else
+                        {
+                            <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
+                        }
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="editors-pic">
-                <div class="e-pic">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(1).NewsId})">
-                        <img src="~/AppTheme/images/ep2.jpg" alt=""/>
-                    </a>
-                </div>
-                <div class="e-pic-info">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(1).NewsId})">@Html.DisplayFor(model => model.ElementAt(1).Title)</a>
-                    <span></span>
-                    @if (Model.ElementAt(0).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                        <label>@Model.ElementAt(1).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(1).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="editors-pic">
-                <div class="e-pic">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(2).NewsId})">
-                        <img src="~/AppTheme/images/ep3.jpg" alt=""/>
-                    </a>
-                </div>
-                <div class="e-pic-info">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(2).NewsId})">@Html.DisplayFor(model => model.ElementAt(2).Title)</a>
-                    <span></span>
-                    @if (Model.ElementAt(2).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                        <label>@Model.ElementAt(2).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(2).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="editors-pic">
-                <div class="e-pic">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(3).NewsId})">
-                        <img src="~/AppTheme/images/ep4.jpg" alt=""/>
-                    </a>
-                </div>
-                <div class="e-pic-info">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(3).NewsId})">@Html.DisplayFor(model => model.ElementAt(3).Title)</a>
-                    <span></span>
-                    @if (Model.ElementAt(3).DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                        <label>@Model.ElementAt(3).DateCreated.ToShortTimeString()</label>
-                    }
-                    else
-                    {
-                        <label>@Model.ElementAt(3).DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                    }
-                </div>
-                <div class="clearfix"></div>
-            </div>
+            }
+
+
         }
         catch (ArgumentOutOfRangeException ex)
         {

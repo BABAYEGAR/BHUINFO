@@ -13,7 +13,7 @@ namespace BhuInfo.Data.Objects.Entities
         public string CommentBy { get; set; }
         public string Email { get; set; }
         public string Comment { get; set; }
-        public int NewsId { get; set; }
+        public long NewsId { get; set; }
         [ForeignKey("NewsId")]
         public virtual News News { get; set; }
         public  DateTime DateCreated { get; set; }
