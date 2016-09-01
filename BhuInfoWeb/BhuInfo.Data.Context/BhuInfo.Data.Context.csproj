@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\AppUserDataContext.cs" />
+    <Compile Include="DataContext\NewsCommentDataContext.cs" />
     <Compile Include="DataContext\NewsDataContext.cs" />
     <Compile Include="DataContext\NewsCategoryDataContext.cs" />
     <Compile Include="Migrations\201608260105109_InitialCreate.cs" />

@@ -18,6 +18,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
     public class NewsController : Controller
     {
         private NewsDataContext db = new NewsDataContext();
+        private NewsComentDataContext dbc = new NewsComentDataContext();
 
         // GET: News
         public ActionResult Index()
@@ -133,5 +134,24 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             return RedirectToAction("Index");
         }
 
+
+        // POST: News/CreateNewsComments
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateNewsComment([Bind(Include = "CommentBy,Comment,Email")] NewsComment newsComments, FormCollection collectedValues)
+        {
+            if (ModelState.IsValid)
+            {
+                newsComments.DateCreated = DateTime.Now;
+                newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
+                dbc.NewsComments.Add(newsComments);
+                db.SaveChanges();
+                return RedirectToAction("Index","Home");
+            }
+
+            return View(newsComments.News);
+        }
     }
 }

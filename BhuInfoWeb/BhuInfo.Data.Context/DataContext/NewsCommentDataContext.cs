@@ -6,7 +6,7 @@ namespace BhuInfo.Data.Context.DataContext
     using System.Linq;
     using System.Reflection.Emit;
 
-    public class NewsDataContext : DbContext
+    public class NewsComentDataContext : DbContext
     {
 
         // Your context has been configured to use a 'NewsCategoryDataContext' connection string from your application's 
@@ -15,7 +15,7 @@ namespace BhuInfo.Data.Context.DataContext
         // 
         // If you wish to target a different database and/or database provider, modify the 'NewsCategoryDataContext' 
         // connection string in the application configuration file.
-        public NewsDataContext()
+        public NewsComentDataContext()
             : base("name=BhuInfo")
         {
         }
@@ -24,7 +24,7 @@ namespace BhuInfo.Data.Context.DataContext
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
          public virtual DbSet<News> News { get; set; }
-         public virtual DbSet<NewsCategory> NewsCategories { get; set; }
+         public virtual DbSet<NewsComment> NewsComments { get; set; }
     }
 
 }
