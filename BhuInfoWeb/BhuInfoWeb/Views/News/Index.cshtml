@@ -1,7 +1,10 @@
-﻿@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 
 @{
     ViewBag.Title = "Index";
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 
 @section css{
@@ -34,9 +37,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="pages">
             <ul>
-                <li>
-                    <a class="active" href="index.html">Admin/News</a>
-                </li>
+                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index","News")">Admin/News</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index","News")">Manager/News</a>
+                    </li>
+                }
             </ul>
         </div>
         <div class="navigation">

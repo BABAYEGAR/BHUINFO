@@ -41,9 +41,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="pages">
             <ul>
-                <li>
-                    <a class="active" href="index.html">Admin/Users</a>
-                </li>
+                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index","AppUsers")">Admin/Users</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index","AppUsers")">Manager/Users</a>
+                    </li>
+                }
             </ul>
         </div>
         <div class="navigation">
@@ -74,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
                 </li>|
                 <li>
-                    <a href="@Url.Action("Index", "NewsCategories")">Events</a>
+                    <a href="@Url.Action("Index", "Events")">Events</a>
                 </li>|
                 <li>
                     <a href="materials.html">SRC Team</a>
