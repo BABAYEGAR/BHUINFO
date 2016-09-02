@@ -9,7 +9,7 @@ namespace BhuInfo.Data.Objects.Entities
 {
     public class NewsComment
     {
-        public int NewsCommentId { get; set; }
+        public long NewsCommentId { get; set; }
         public string CommentBy { get; set; }
         public string Email { get; set; }
         public string Comment { get; set; }

@@ -147,8 +147,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 newsComments.DateCreated = DateTime.Now;
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
                 dbc.NewsComments.Add(newsComments);
-                db.SaveChanges();
-                return RedirectToAction("Index","Home");
+                dbc.SaveChanges();
+                return RedirectToAction("ViewNewsDetails","Home",new {Id = newsComments.NewsId});
             }
 
             return View(newsComments.News);

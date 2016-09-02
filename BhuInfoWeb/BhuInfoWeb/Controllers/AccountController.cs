@@ -28,7 +28,19 @@ namespace BhuInfoWeb.Controllers
             var appUser = new AuthenticationFactory().AuthenticateAppUserLogin(collectedValues["Email"].Trim(),
                 collectedValues["Password"].Trim(), role);
             Session["bhuinfologgedinuser"] = appUser;
-            return RedirectToAction("Index", "Home");
+            if (role == UserType.Administrator.ToString())
+            {
+                return RedirectToAction("Index", "AppUsers");
+            }
+            else if(role == UserType.Manager.ToString())
+            {
+                return RedirectToAction("Index", "News");
+            }
+            else
+            {
+                  return RedirectToAction("Index", "Home");
+            }
+          
         }
 
 

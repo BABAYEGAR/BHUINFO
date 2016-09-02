@@ -206,7 +206,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BhuWebControllers\AdminController.cs" />
     <Compile Include="Controllers\BhuWebControllers\AppUsersController.cs" />
+    <Compile Include="Controllers\BhuWebControllers\EventsController.cs" />
     <Compile Include="Controllers\BhuWebControllers\NewsCategoriesController.cs" />
     <Compile Include="Controllers\BhuWebControllers\NewsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -247,6 +249,10 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
+    <Content Include="JqueryPlugins\bootstrap-datetimepicker\css\bootstrap-datetimepicker-standalone.css" />
+    <Content Include="JqueryPlugins\bootstrap-datetimepicker\css\bootstrap-datetimepicker.css" />
+    <Content Include="JqueryPlugins\bootstrap-datetimepicker\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="JqueryPlugins\bootstrap-datetimepicker\js\bootstrap-datetimepicker.min.js" />
     <Content Include="JqueryPlugins\datatables\datatables.min.js" />
     <Content Include="JqueryPlugins\datatables\extensions\col_reorder.min.js" />
     <Content Include="JqueryPlugins\datatables\extensions\col_vis.min.js" />
@@ -926,9 +932,15 @@
     <Content Include="Views\AppUsers\Details.cshtml" />
     <Content Include="Views\AppUsers\Edit.cshtml" />
     <Content Include="Views\AppUsers\Index.cshtml" />
+    <Content Include="Views\Events\Create.cshtml" />
+    <Content Include="Views\Events\Delete.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Events\Edit.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
     <Folder Include="Views\NewsComment\" />
   </ItemGroup>
   <ItemGroup>

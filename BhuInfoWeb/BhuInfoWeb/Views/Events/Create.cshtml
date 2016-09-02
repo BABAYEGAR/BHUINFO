@@ -1,0 +1,158 @@
+﻿@model BhuInfo.Data.Objects.Entities.Event
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@section css{
+<link href="~/JqueryPlugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bhu-Info | Home</title>
+    <!-- Custom Theme files -->
+    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
+    <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet"/>
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+<body>
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="index.html">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                <li>
+                    <a class="active" href="index.html">News/Articles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="contact.html">Register User</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="tagline">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="col-md-12">
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        <fieldset>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.EventName, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextBoxFor(model => model.EventName, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.EventName, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Venue, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextBoxFor(model => model.Venue, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.Venue, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.StartDate, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextBoxFor(model => model.StartDate, new {@class = "form-control startDate" })
+                                    @Html.ValidationMessageFor(model => model.StartDate, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.EndDate, new {@class = "control-label col-md-3 endDate"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextBoxFor(model => model.EndDate,  new {@class = "form-control endDate" })
+                                    @Html.ValidationMessageFor(model => model.EndDate, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Organizer, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextBoxFor(model => model.Organizer,  new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.Organizer, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Create" class="btn btn-default"/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+@section scripts {
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
+    <script src="~/JqueryPlugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+
+    <script>
+        $(document)
+            .ready(function() {
+
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
+
+                // init datepicker for issue date
+                $('.endDate').datepicker();
+
+                // init datepicker for issue date
+                $('.startDate').datepicker();
+
+            })
+    </script>
+}

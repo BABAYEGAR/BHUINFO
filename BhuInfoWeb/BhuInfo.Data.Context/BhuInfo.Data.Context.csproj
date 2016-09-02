@@ -51,10 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContext\EventDataContext.cs" />
     <Compile Include="DataContext\AppUserDataContext.cs" />
     <Compile Include="DataContext\NewsCommentDataContext.cs" />
     <Compile Include="DataContext\NewsDataContext.cs" />
     <Compile Include="DataContext\NewsCategoryDataContext.cs" />
+    <Compile Include="DataManager\DataManager.cs" />
     <Compile Include="Migrations\201608260105109_InitialCreate.cs" />
     <Compile Include="Migrations\201608260105109_InitialCreate.Designer.cs">
       <DependentUpon>201608260105109_InitialCreate.cs</DependentUpon>
@@ -77,16 +79,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Migrations\201608260105109_InitialCreate.resx">
       <DependentUpon>201608260105109_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608270203131_Migration1.resx">
       <DependentUpon>201608270203131_Migration1.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,7 +13,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         private readonly NewsComentDataContext db = new NewsComentDataContext();
 
         //This method retrives all the comments for a news from the database
-        public IEnumerable<NewsComment> GetNewsComments(long newsId)
+        public IEnumerable<NewsComment> GetNewsComments(int newsId)
         {
             var comments = db.NewsComments.ToList();
             var newsComments = comments.Where(n => n.NewsId == newsId);

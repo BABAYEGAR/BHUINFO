@@ -9,8 +9,9 @@
 
     var allNewsList = new NewsDataFactory().GetTopNthPopularNews(4);
     var popularNews = allNewsList.ToList();
+    var newsId = Model.NewsId;
 
-    var newsComments = new NewsCommentFactory().GetNewsComments(Model.NewsId);
+    var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
 }
 
 @{
@@ -27,7 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 <head>
     <title>@Html.DisplayFor(model => model.Title)</title>
-    <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css"/>
     <!-- Custom Theme files -->
     <link href="~/AppTheme/css/style.css" rel="stylesheet" type="text/css" media="all"/>
     <!-- Custom Theme files -->
@@ -179,24 +180,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @Html.Hidden("newsId", Model.NewsId)
 
                     <p class="comment-form-author-name">
-                        @Html.Label("CommentBy")
-                        @Html.TextBox("CommentBy", new {@class = "form-control"})
+                        @Html.Label("CommentBy", null, new {@class = "control-label"})
+                        @Html.TextBox("CommentBy", null, new {@class = "form-control"})
 
                     </p>
                     <p class="comment-form-author-name">
-                        @Html.Label("Email")
-                        @Html.TextBox("Email", new {@class = "form-control"})
+                        @Html.Label("Email", null, new { @class = "control-label" })
+                        @Html.TextBox("Email", null, new {@class = "form-control"})
 
                     </p>
                     <p class="comment-form-author-comment">
-                        @Html.Label("Comment")
-                        @Html.TextArea("Comment", new {@class = "form-control"})
+                        @Html.Label("Comment", null, new { @class = "control-label" })
+                        @Html.TextArea("Comment", null, new {@class = "form-control"})
 
                     </p>
-                    <div class="clearfix"></div>
-                    <p>
+
+                    <div class="col-md-12">
                         <input type="submit" value="submit" class="btn btn-primary"/>
-                    </p>
+
+                    </div>
                 }
 
                 <div class="comments1">
@@ -212,7 +214,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <p>@item.Comment.</p>
                                 <div class="cmts">
                                     <div class="col-md-6 cmnts-left">
-                                        <p>On @item.DateCreated.Date</p>
+                                        <p>On @item.DateCreated</p>
                                     </div>
                                     <div class="col-md-6 cmnts-right">
                                         <a href="#">Reply</a>
