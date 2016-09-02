@@ -1,10 +1,13 @@
-﻿@model IEnumerable<BhuInfo.Data.Objects.Entities.AppUser>
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.AppUser>
 
 @{
     ViewBag.Title = "Index";
 }
 @{
     ViewBag.HeaderClass = "page-header";
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 
 @section css{
@@ -46,37 +49,40 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="navigation">
             <ul>
                 <li>
-                  
+
                 </li>
             </ul>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-    <div class="container">
-        <div class="header-bottom">
-            <div class="type">
-                <h5>Article Category</h5>
-            </div>
-            <span class="menu"></span>
-            <div class="list-nav">
-                <ul>
-                    <li>
-                        <a href="@Url.Action("Index", "Home")" class="active">General</a>
-                    </li>|
-                    <li>
-                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
-                    </li>|
-                    <li>
-                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
-                    </li>|
-                    <li>
-                        <a href="materials.html">SRC Team</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- script for menu -->
-            <script>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>Article Category</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "AppUsers")" class="active">Users</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "News")">News</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "NewsCategories")">Events</a>
+                </li>|
+                <li>
+                    <a href="materials.html">SRC Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
             $("span.menu")
                 .click(function() {
                     $(".list-nav")
@@ -85,12 +91,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 // Animation complete.
                             });
                 });
-            </script>
-            <!-- script for menu -->
+        </script>
+        <!-- script for menu -->
 
-            <div class="clearfix"></div>
-        </div>
+        <div class="clearfix"></div>
     </div>
+</div>
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
     <div class="container">
@@ -107,10 +113,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="panel-body">
                 <div class="col-md-12">
+                    @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                    {
+                        <p>
+                            @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
+                        </p>
+                    }
 
-                    <p>
-                        @Html.ActionLink("Create New", "Create",null,new {@class = "btn btn-success"})
-                    </p>
                     <table class="table table-condensed table-hover dataTable">
                         <tr>
                             <th>
@@ -128,7 +137,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <th>
                                 @Html.DisplayNameFor(model => model.Role).ToString()
                             </th>
-                            <th>Action</th>
+                            @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                            {
+                                <th>Action</th>
+                            }
                         </tr>
 
                         @foreach (var item in Model)
@@ -149,12 +161,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Role)
                                 </td>
-
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-primary"}) |
-                                    @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-default"}) |
-                                    @Html.ActionLink("Delete", "Delete", new {id = item.AppUserId}, new {@class = "btn btn-danger"})
-                                </td>
+                                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                                {
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-default"}) |
+                                        @Html.ActionLink("Delete", "Delete", new {id = item.AppUserId}, new {@class = "btn btn-danger"})
+                                    </td>
+                                }
                             </tr>
                         }
 

@@ -4,60 +4,168 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EventName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Organizer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
-        <th></th>
-    </tr>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bhu-Info | Events</title>
+    <!-- Custom Theme files -->
+    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Venue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Organizer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EventId })
-        </td>
-    </tr>
-}
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+<body>
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="index.html">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                <li>
+                    <a class="active" href="index.html">Admin/Users</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul>
+                <li>
 
-</table>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>Article Category</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "AppUsers")">Users</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "News")">News</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "NewsCategories")" class="active">Events</a>
+                </li>|
+                <li>
+                    <a href="materials.html">SRC Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="tagline">@ViewBag.Title</h2>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="col-md-12">
+
+
+                    <p>
+                        @Html.ActionLink("Create New", "Create",null,new {@class = "btn btn-success"})
+                    </p>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EventName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Venue)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Organizer)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DateCreated)
+                            </th>
+                            <th>Action</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EventName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Venue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Organizer)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DateCreated)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new {id = item.EventId},new {@class = "btn btn-primary"}) |
+                                    @Html.ActionLink("Details", "Details", new {id = item.EventId}, new { @class = "btn btn-default" }) |
+                                    @Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new { @class = "btn btn-danger" })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

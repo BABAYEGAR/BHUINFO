@@ -35,7 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="pages">
             <ul>
                 <li>
-                    <a class="active" href="index.html">News/Articles</a>
+                    <a class="active" href="index.html">Admin/News</a>
                 </li>
             </ul>
         </div>
@@ -55,6 +55,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"></div>
     </div>
 </div>
+    <div class="container">
+        <div class="header-bottom">
+            <div class="type">
+                <h5>Article Category</h5>
+            </div>
+            <span class="menu"></span>
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "AppUsers")" >Users</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "News")" class="active">News</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "Events")">Events</a>
+                    </li>|
+                    <li>
+                        <a href="materials.html">SRC Team</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- script for menu -->
+            <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+            </script>
+            <!-- script for menu -->
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
     <div class="container">
@@ -73,7 +114,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="col-md-12">
 
                     <p>
-                        @Html.ActionLink("Create New", "Create",new {} ,new {@class = "btn btn-primary"})
+                        @Html.ActionLink("Create New", "Create",new {} ,new {@class = "btn btn-success"})
                     </p>
                         <table class="table table-condensed table-hover">
                             <tr>
