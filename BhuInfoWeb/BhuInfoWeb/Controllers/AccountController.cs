@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Web.Security;
 using BhuInfo.Data.Factory;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
@@ -93,6 +94,16 @@ namespace BhuInfoWeb.Controllers
             int Id = Convert.ToInt32(collectedValues["Id"]);
                 new AuthenticationFactory().ResetUserPassword(collectedValues["Password"], Id);
             return View("Login");
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session["bhuinfologgedinuser"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }

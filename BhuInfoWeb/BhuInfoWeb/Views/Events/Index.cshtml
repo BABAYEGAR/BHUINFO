@@ -29,7 +29,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="index.html">
+            <a href="@Url.Action("Index","Home")">
                 <h1>Bhu-Info</h1>
             </a>
         </div>
@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="navigation">
             <ul>
                 <li>
-
+                <a href="@Url.Action("LogOut","Account")">Log-Out</a>
                 </li>
             </ul>
         </div>
@@ -62,7 +62,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
     <div class="header-bottom">
         <div class="type">
-            <h5>Article Category</h5>
+            <h5>Event Management</h5>
         </div>
         <span class="menu"></span>
         <div class="list-nav">
@@ -102,13 +102,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
-    <div class="container">
+    @*<div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h2 class="tagline">@ViewBag.Title</h2>
             </div>
         </div>
-    </div>
+    </div>*@
 </header>
 <div class="container">
     <div class="row">

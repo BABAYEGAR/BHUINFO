@@ -19,6 +19,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
     {
         private NewsDataContext db = new NewsDataContext();
         private NewsComentDataContext dbc = new NewsComentDataContext();
+        
 
         // GET: News
         public ActionResult Index()
@@ -62,15 +63,25 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NewsId,Title,Content")] News news,FormCollection collectedValues)
         {
+          var user = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                news.DateCreated = DateTime.Now;
-                news.DateLastModified = DateTime.Now;
-                news.NewsCategoryId = long.Parse(collectedValues["NewsCategory"]);
-                //HttpPostedFileBase file = Request.Files["uploadedFile"];
-                //news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
-                db.News.Add(news);
-                db.SaveChanges();
+                if (user != null)
+                {
+                    news.DateCreated = DateTime.Now;
+                    news.DateLastModified = DateTime.Now;
+                    news.NewsCategoryId = long.Parse(collectedValues["NewsCategory"]);
+                    news.CreatedById = user.AppUserId;
+                    news.LastModifiedById = user.AppUserId;
+                    var file = Request.Files["uploadedFile"];
+                    news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
+                    db.News.Add(news);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
 
@@ -99,10 +110,19 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "NewsId,Title,Content,Image,CreatedById,LastModifiedById,DateCreated,DateLastModified")] News news)
         {
+            var user = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                db.Entry(news).State = EntityState.Modified;
-                db.SaveChanges();
+                if (user != null)
+                {
+                    news.LastModifiedById = user.AppUserId;
+                    db.Entry(news).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
             return View(news);

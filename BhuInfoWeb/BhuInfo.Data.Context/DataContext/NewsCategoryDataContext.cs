@@ -1,5 +1,4 @@
 using System.Data.Entity.Infrastructure;
-using BhuInfo.Data.Context.Migrations;
 
 namespace BhuInfo.Data.Context.DataContext
 {
@@ -22,11 +21,18 @@ namespace BhuInfo.Data.Context.DataContext
 
           
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // other code 
+            Database.SetInitializer<NewsCategoryDataContext>(null);
+            // more code
+        }
+
 
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-        public virtual DbSet<NewsCategory> NewsCategory { get; set; }
+        public virtual DbSet<NewsCategory> NewsCategories { get; set; }
         public virtual DbSet<News> News { get; set; }
     }
 

@@ -28,7 +28,7 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\Entit
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csprojResolveAssemblyReference.cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.InitialCreate.resources
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.Migration1.resources
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.NewsCategoryDataContext.resources
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csproj.GenerateResource.Cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.pdb

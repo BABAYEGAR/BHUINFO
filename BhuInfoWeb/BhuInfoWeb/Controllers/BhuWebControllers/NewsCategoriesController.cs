@@ -19,7 +19,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // GET: NewsCategories
         public ActionResult Index()
         {
-            return View(db.NewsCategory.ToList());
+            return View(db.NewsCategories.ToList());
         }
 
         // GET: NewsCategories/Details/5
@@ -29,7 +29,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NewsCategory newsCategory = db.NewsCategory.Find(id);
+            NewsCategory newsCategory = db.NewsCategories.Find(id);
             if (newsCategory == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 newsCategory.DateCreated = DateTime.Now;
                 newsCategory.DateLastModified = DateTime.Now;
-                db.NewsCategory.Add(newsCategory);
+                db.NewsCategories.Add(newsCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,7 +69,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NewsCategory newsCategory = db.NewsCategory.Find(id);
+            NewsCategory newsCategory = db.NewsCategories.Find(id);
             if (newsCategory == null)
             {
                 return HttpNotFound();
@@ -100,7 +100,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NewsCategory newsCategory = db.NewsCategory.Find(id);
+            NewsCategory newsCategory = db.NewsCategories.Find(id);
             if (newsCategory == null)
             {
                 return HttpNotFound();
@@ -113,8 +113,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            NewsCategory newsCategory = db.NewsCategory.Find(id);
-            db.NewsCategory.Remove(newsCategory);
+            NewsCategory newsCategory = db.NewsCategories.Find(id);
+            db.NewsCategories.Remove(newsCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

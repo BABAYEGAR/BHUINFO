@@ -11,7 +11,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
 
         public IEnumerable<NewsCategory> GetAllNewsCategories()
         {
-            var newsCategories = db.NewsCategory.ToList();
+            var newsCategories = db.NewsCategories.ToList();
             return newsCategories;
         }
     }

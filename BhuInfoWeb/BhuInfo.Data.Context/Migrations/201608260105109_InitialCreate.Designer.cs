@@ -6,7 +6,7 @@ namespace BhuInfo.Data.Context.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
     public sealed partial class InitialCreate : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));

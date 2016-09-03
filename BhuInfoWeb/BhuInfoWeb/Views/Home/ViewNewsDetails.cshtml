@@ -1,5 +1,7 @@
 ﻿@using System.Globalization
 @using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using Microsoft.Ajax.Utilities
 @model BhuInfo.Data.Objects.Entities.News
 @{
     var newsList = new NewsDataFactory().GetAllNews();
@@ -12,6 +14,8 @@
     var newsId = Model.NewsId;
 
     var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 
 @{
@@ -45,33 +49,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="index.html">
+            <a href="@Url.Action("Index", "Home")">
                 <h1>Bhu-Info</h1>
             </a>
         </div>
         <div class="pages">
             <ul>
+
                 <li>
-                    <a href="index.html">Articles</a>
-                </li>
-                <li>
-                    <a href="3dprinting.html">3D Printers</a>
-                </li>
-                <li>
-                    <a class="active" href="404.html">Tutorials</a>
+                    <a class="active" href="@Url.Action("Index", "Home")">News/Articles</a>
                 </li>
             </ul>
         </div>
         <div class="navigation">
             <ul>
+                @if (loggedinuser != null)
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">@loggedinuser.DisplayName</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
                 <li>
-                    <a href="contact.html">Advertise</a>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
                 </li>
                 <li>
-                    <a class="active" href="about.html">About Us</a>
-                </li>
-                <li>
-                    <a href="contact.html">Contact Us</a>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
                 </li>
             </ul>
         </div>
@@ -87,22 +95,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="list-nav">
             <ul>
                 <li>
-                    <a href="3dprinting.html">3D Printing</a>
+                    <a href="@Url.Action("Index", "Home")" class="active">General</a>
                 </li>|
                 <li>
-                    <a href="materials.html">Materials</a>
+                    <a href="@Url.Action("SportsNews", "Home")">Sports</a>
                 </li>|
                 <li>
-                    <a href="printing.html">Printing</a>
+                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
                 </li>|
                 <li>
-                    <a href="filestoprint.html">Files to Print</a>
-                </li>|
-                <li>
-                    <a class="active" href="404.html">Videos</a>
-                </li>|
-                <li>
-                    <a href="about.html">About</a>
+                    <a href="materials.html">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -185,12 +187,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     </p>
                     <p class="comment-form-author-name">
-                        @Html.Label("Email", null, new { @class = "control-label" })
+                        @Html.Label("Email", null, new {@class = "control-label"})
                         @Html.TextBox("Email", null, new {@class = "form-control"})
 
                     </p>
                     <p class="comment-form-author-comment">
-                        @Html.Label("Comment", null, new { @class = "control-label" })
+                        @Html.Label("Comment", null, new {@class = "control-label"})
                         @Html.TextArea("Comment", null, new {@class = "form-control"})
 
                     </p>

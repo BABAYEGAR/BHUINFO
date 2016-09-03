@@ -18,7 +18,6 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             this.ToTable("NewsCategories");
             this.Property(n => n.NewsCategoryId).HasColumnName("NewsCategoryId");
             this.Property(n => n.Name).HasColumnName("Name");
-            this.Property(n => n.Name).HasColumnName("News");
             this.Property(n => n.CreatedById).HasColumnName("CreatedById");
             this.Property(n => n.LastModifiedById).HasColumnName("LastModifiedById");
             this.Property(n => n.DateCreated).HasColumnName("DateCreated");

@@ -61,9 +61,9 @@
     <Compile Include="Migrations\201608260105109_InitialCreate.Designer.cs">
       <DependentUpon>201608260105109_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608270203131_Migration1.cs" />
-    <Compile Include="Migrations\201608270203131_Migration1.Designer.cs">
-      <DependentUpon>201608270203131_Migration1.cs</DependentUpon>
+    <Compile Include="Migrations\201609022203332_NewsCategoryDataContext.cs" />
+    <Compile Include="Migrations\201609022203332_NewsCategoryDataContext.Designer.cs">
+      <DependentUpon>201609022203332_NewsCategoryDataContext.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,8 +86,8 @@
     <EmbeddedResource Include="Migrations\201608260105109_InitialCreate.resx">
       <DependentUpon>201608260105109_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608270203131_Migration1.resx">
-      <DependentUpon>201608270203131_Migration1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609022203332_NewsCategoryDataContext.resx">
+      <DependentUpon>201609022203332_NewsCategoryDataContext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
