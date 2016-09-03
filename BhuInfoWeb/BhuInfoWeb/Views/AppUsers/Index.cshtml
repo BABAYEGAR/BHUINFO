@@ -10,9 +10,8 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 
-@section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-}
+  
+
 
 <!DOCTYPE html>
 <html>
@@ -23,6 +22,7 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet"/>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet" />
     <!-- Custom Theme files -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -189,7 +189,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 </body>
 </html>
-@section scripts{
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -198,10 +197,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="~/JqueryPlugins/ui/nicescroll.min.js"></script>
     <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
 
-    <script>
-        $(document)
-            .ready(function() {
-                $('.dataTable').dataTable();
-            });
-    </script>
-}
+<script>
+    $(document)
+        .ready(function() {
+            $('.dataTable').dataTable();
+        });
+</script>

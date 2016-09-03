@@ -96,14 +96,14 @@ namespace BhuInfoWeb.Controllers
             return View("Login");
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             Session["bhuinfologgedinuser"] = null;
-            return RedirectToAction("Index", "Home");
+            FormsAuthentication.RedirectToLoginPage(null);
+            return RedirectToAction("Login", "Account");
         }
     }
 }

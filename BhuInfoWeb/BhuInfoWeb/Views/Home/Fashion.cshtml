@@ -1,5 +1,6 @@
 ﻿@using System.Globalization
 @using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
@@ -92,133 +93,98 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <div class="container">
-<div class="content">
-<div class="col-md-7 printing-content">
-    <div class="print-main">
-        <h3>3D Printing materials</h3>
-        <a href="single.html">3D Printed Dress at Paris Fashion week</a>
-        <p class="sub_head">
-            Posted by <a href="#">Admin</a> on june 14,2015
-        </p>
-        <a href="single.html">
-            <img src="~/AppTheme/images/ep3.jpg" class="img-responsive" alt=""/>
-        </a>
-        <p class="ptext">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like</p>
-    </div>
-    <div class="print-grids">
-        @try
-        {
-            foreach (var item in recentCategoryNews)
-            {
-                <div class="print-grid">
-                    <div class="print-img">
-                        <a href="single.html">
-                            <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt="" />
-                        </a>
-                    </div>
-                    <div class="print-text">
-                        <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
-                        <p>
-                            <a href="#">@item.DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.DateCreated.Month) | @item.DateCreated.Year</a>
-                        </p>
-                        <p>@item.Content</p>
-                        <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">...Read More</a>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            }
-
-            @*<div class="print-grid">
-                <div class="print-img">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">
-                        <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
-                    </a>
-                </div>
-                <div class="print-text">
-                    <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">@recentNews.ElementAt(1).Title</a>
-                    <p>
-                        <a href="#">@recentNews.ElementAt(1).DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(recentNews.ElementAt(1).DateCreated.Month) | @recentNews.ElementAt(1).DateCreated.Year</a>
-                    </p>
-                    <p>@recentNews.ElementAt(1).Content</p>
-                    <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = recentNews.ElementAt(1).NewsId})">...Read More</a>
-                </div>
-                <div class="clearfix"></div>
-            </div>*@
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-        }
-    </div>
-</div>
-<div class="col-md-5 content-right">
-    <div class="content-right-top">
-        <h5 class="head">Popular</h5>
-        @try
-        {
-            foreach (var item in news)
-            {
-                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(0).NewsId})">
-                    <div class="editor text-center">
-                        <h3>@item.Title</h3>
-                        <p>@item.Content</p>
-                        @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                    {
-                            <label>@item.DateCreated.ToShortTimeString()</label>
-                        }
-                        else
-                        {
-                            <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                        }
-                        <span></span>
-                    </div>
+    <div class="content">
+        <div class="col-md-7 printing-content">
+            <div class="print-main">
+                <h3>3D Printing materials</h3>
+                <a href="single.html">3D Printed Dress at Paris Fashion week</a>
+                <p class="sub_head">
+                    Posted by <a href="#">Admin</a> on june 14,2015
+                </p>
+                <a href="single.html">
+                    <img src="~/AppTheme/images/ep3.jpg" class="img-responsive" alt=""/>
                 </a>
-            }
-
-
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-        }
-    </div>
-    <div class="editors-pic-grids">
-        <h5>Recent News</h5>
-        @try
-        {
-            foreach (var item in recentNews)
-            {
-                <div class="editors-pic">
-                    <div class="e-pic">
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
-                            <img src="~/AppTheme/images/ep1.jpg" alt="" />
-                        </a>
-                    </div>
-                    <div class="e-pic-info">
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
-                        <span></span>
-                        @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
+                <p class="ptext">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like</p>
+            </div>
+            <div class="print-grids">
+                @try
+                {
+                    foreach (var item in recentCategoryNews)
                     {
-                            <label>@item.DateCreated.ToShortTimeString()</label>
-                        }
-                        else
-                        {
-                            <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                        }
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            }
+                        <div class="print-grid">
+                            <div class="print-img">
+                                <a href="single.html">
+                                    <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
+                                </a>
+                            </div>
+                            <div class="print-text">
+                                <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                                <p>
+                                    <a href="#">@item.DateCreated.Day | @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.DateCreated.Month) | @item.DateCreated.Year</a>
+                                </p>
+                                <p>@item.Content</p>
+                                <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">...Read More</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                }
+            </div>
+        </div>
+        <div class="col-md-5 content-right">
+            <div class="content-right-top">
+                <h5 class="head">Popular</h5>
+                @try
+                {
+                    foreach (var item in news)
+                    {
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = news.ElementAt(0).NewsId})">
+                            <div class="editor text-center">
+                                <h3>@item.Title</h3>
+                                <p>@item.Content</p>
+                                <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                                <span></span>
+                            </div>
+                        </a>
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                }
+            </div>
+            <div class="editors-pic-grids">
+                <h5>Recent News</h5>
+                @try
+                {
+                    foreach (var item in recentNews)
+                    {
+                        <div class="editors-pic">
+                            <div class="e-pic">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                                    <img src="~/AppTheme/images/ep1.jpg" alt=""/>
+                                </a>
+                            </div>
+                            <div class="e-pic-info">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                                <span></span>
+                                <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                }
+            </div>
+        </div>
+        <div class="clearfix"></div>
 
-
-        }
-        catch (ArgumentOutOfRangeException ex)
-        {
-        }
+        <div class="clearfix"></div>
     </div>
-</div>
-<div class="clearfix"></div>
-
-<div class="clearfix"></div>
-</div>
 </div>
 <div class="footer">
     <div class="footer-top">

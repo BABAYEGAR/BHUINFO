@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
+    <Compile Include="DateTimeHelper\DateTimeCalculator.cs" />
     <Compile Include="Encryption\Md5Ecryption.cs" />
     <Compile Include="Enums\NewsCategoryEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />

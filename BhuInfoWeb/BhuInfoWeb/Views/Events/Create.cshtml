@@ -3,11 +3,6 @@
 @{
     ViewBag.Title = "Create";
 }
-
-@section css{
-<link href="~/JqueryPlugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-<link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +10,8 @@
     <!-- Custom Theme files -->
     <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
     <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet"/>
-
+    <link href="~/JqueryPlugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <!-- Custom Theme files -->
@@ -105,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
 
                             <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.EndDate, new {@class = "control-label col-md-3 endDate"})
+                                @Html.LabelFor(model => model.EndDate, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
                                     @Html.TextBoxFor(model => model.EndDate,  new {@class = "form-control endDate" })
                                     @Html.ValidationMessageFor(model => model.EndDate, "", new {@class = "text-danger"})
@@ -134,7 +130,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 </body>
 </html>
-@section scripts {
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
+<script src="~/JqueryPlugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+
+<script>
+        $(document)
+            .ready(function() {
+
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
+
+                // init datepicker for issue date
+                $('.startDate').datetimepicker();
+
+                // init datepicker for issue date
+                $('.endDate').datetimepicker();
+
+            })
+
+</script>
+@*@section scripts {
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
     <script src="~/JqueryPlugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
@@ -155,4 +172,4 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             })
     </script>
-}
+}*@

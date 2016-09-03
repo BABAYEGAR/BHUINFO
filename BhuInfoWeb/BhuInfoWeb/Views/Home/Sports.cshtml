@@ -1,5 +1,6 @@
 ﻿@using System.Globalization
 @using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
@@ -144,14 +145,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="editor text-center">
                                 <h3>@item.Title</h3>
                                 <p>@item.Content</p>
-                                @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                                {
-                                    <label>@item.DateCreated.ToShortTimeString()</label>
-                                }
-                                else
-                                {
-                                    <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                                }
+                                <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                 <span></span>
                             </div>
                         </a>
@@ -176,14 +170,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="e-pic-info">
                                 <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(0).NewsId})">@item.Title</a>
                                 <span></span>
-                                @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                                {
-                                    <label>@item.DateCreated.ToShortTimeString()</label>
-                                }
-                                else
-                                {
-                                    <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                                }
+                                <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                             </div>
                             <div class="clearfix"></div>
                         </div>
