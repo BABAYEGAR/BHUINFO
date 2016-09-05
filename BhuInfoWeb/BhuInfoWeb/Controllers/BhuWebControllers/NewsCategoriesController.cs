@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
-using BhuInfo.Data.Factory;
 using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class NewsCategoriesController : Controller
     {
-        private NewsCategoryDataContext db = new NewsCategoryDataContext();
+        private readonly NewsCategoryDataContext db = new NewsCategoryDataContext();
 
         // GET: NewsCategories
         public ActionResult Index()
@@ -26,14 +22,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Details(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NewsCategory newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = db.NewsCategories.Find(id);
             if (newsCategory == null)
-            {
                 return HttpNotFound();
-            }
             return View(newsCategory);
         }
 
@@ -66,14 +58,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Edit(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NewsCategory newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = db.NewsCategories.Find(id);
             if (newsCategory == null)
-            {
                 return HttpNotFound();
-            }
             return View(newsCategory);
         }
 
@@ -82,7 +70,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NewsCategoryId,Name,DateCreated,DateLastModified,CreatedById,LastModifiedById")] NewsCategory newsCategory)
+        public ActionResult Edit(
+            [Bind(Include = "NewsCategoryId,Name,DateCreated,DateLastModified,CreatedById,LastModifiedById")] NewsCategory newsCategory)
         {
             if (ModelState.IsValid)
             {
@@ -97,23 +86,20 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Delete(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NewsCategory newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = db.NewsCategories.Find(id);
             if (newsCategory == null)
-            {
                 return HttpNotFound();
-            }
             return View(newsCategory);
         }
 
         // POST: NewsCategories/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            NewsCategory newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = db.NewsCategories.Find(id);
             db.NewsCategories.Remove(newsCategory);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -122,9 +108,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

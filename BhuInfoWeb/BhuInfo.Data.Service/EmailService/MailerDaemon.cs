@@ -1,10 +1,9 @@
-﻿using BhuInfo.Data.Objects.Entities;
-using System;
+﻿using System;
 using System.IO;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
+using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.Configuration;
 
 namespace BhuInfo.Data.Service.EmailService
@@ -51,8 +50,9 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("PASSWORD", user.Password);
         }
 
-        /// <summary>
         ///     This method sends an email to a user who has forgotten his passwrd
+
+        /// <summary>
         /// </summary>
         /// <param name="forgottenPasswordrequest"></param>
         //public void ResetUserPassword(ForgottenPasswordRequest forgottenPasswordrequest)

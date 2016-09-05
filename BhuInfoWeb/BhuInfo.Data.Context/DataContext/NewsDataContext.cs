@@ -1,14 +1,10 @@
+using System.Data.Entity;
+using BhuInfo.Data.Objects.Entities;
+
 namespace BhuInfo.Data.Context.DataContext
 {
-    using Objects.Entities;
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Reflection.Emit;
-
     public class NewsDataContext : DbContext
     {
-
         // Your context has been configured to use a 'NewsCategoryDataContext' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
         // 'BhuInfo.Data.Context.DataContext.NewsCategoryDataContext' database on your LocalDb instance. 
@@ -23,8 +19,7 @@ namespace BhuInfo.Data.Context.DataContext
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-         public virtual DbSet<News> News { get; set; }
-         public virtual DbSet<NewsCategory> NewsCategories { get; set; }
+        public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<NewsCategory> NewsCategories { get; set; }
     }
-
 }

@@ -30,21 +30,22 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         public IEnumerable<News> GetTopFiveMostRecentNewsByCategory(string name)
         {
             var news = db.News.ToList();
-            var latestNews = news.OrderByDescending(n => n.DateCreated).Where(n=>n.NewsCategory.Name == name );
+            var latestNews = news.OrderByDescending(n => n.DateCreated).Where(n => n.NewsCategory.Name == name);
             var topFiveNews = latestNews.Take(4);
             return topFiveNews;
         }
 
         //This method retrives a list of news by its category
-        public IEnumerable<News> GetLatestNewsByCategory(NewsCategoryEnum categoryType,int number)
+        public IEnumerable<News> GetLatestNewsByCategory(NewsCategoryEnum categoryType, int number)
         {
             var news = db.News.Where(n => n.NewsCategory.Name == categoryType.ToString());
             var newList = news.OrderByDescending(n => n.DateCreated);
             var latestNews = newList.Take(number);
             return latestNews;
         }
+
         /// <summary>
-        /// This method returns a news by its ID
+        ///     This method returns a news by its ID
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -53,8 +54,9 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var news = db.News.Find(Id);
             return news;
         }
+
         /// <summary>
-        /// This method returns a list in descending order by the most viewed to the list viewed
+        ///     This method returns a list in descending order by the most viewed to the list viewed
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
@@ -66,6 +68,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
 
             return news;
         }
+
         public IEnumerable<News> GetTopNthPopularNewsForCategory(NewsCategoryEnum categoryTyp, int number)
         {
             var newsList = db.News.ToList();

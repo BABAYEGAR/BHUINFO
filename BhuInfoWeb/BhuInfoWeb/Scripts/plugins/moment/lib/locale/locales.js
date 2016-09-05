@@ -1,20 +1,20 @@
-import isArray from '../utils/is-array';
-import hasOwnProp from '../utils/has-own-prop';
-import isUndefined from '../utils/is-undefined';
-import compareArrays from '../utils/compare-arrays';
-import { deprecateSimple } from '../utils/deprecate';
-import { mergeConfigs } from './set';
-import { Locale } from './constructor';
-import keys from '../utils/keys';
+import isArray from "../utils/is-array";
+import hasOwnProp from "../utils/has-own-prop";
+import isUndefined from "../utils/is-undefined";
+import compareArrays from "../utils/compare-arrays";
+import { deprecateSimple } from "../utils/deprecate";
+import { mergeConfigs } from "./set";
+import { Locale } from "./constructor";
+import keys from "../utils/keys";
 
-import { baseConfig } from './base-config';
+import { baseConfig } from "./base-config";
 
 // internal storage for locale config files
 var locales = {};
 var globalLocale;
 
 function normalizeLocale(key) {
-    return key ? key.toLowerCase().replace('_', '-') : key;
+    return key ? key.toLowerCase().replace("_", "-") : key;
 }
 
 // pick the locale from the array
@@ -24,12 +24,12 @@ function chooseLocale(names) {
     var i = 0, j, next, locale, split;
 
     while (i < names.length) {
-        split = normalizeLocale(names[i]).split('-');
+        split = normalizeLocale(names[i]).split("-");
         j = split.length;
         next = normalizeLocale(names[i + 1]);
-        next = next ? next.split('-') : null;
+        next = next ? next.split("-") : null;
         while (j > 0) {
-            locale = loadLocale(split.slice(0, j).join('-'));
+            locale = loadLocale(split.slice(0, j).join("-"));
             if (locale) {
                 return locale;
             }
@@ -47,15 +47,18 @@ function chooseLocale(names) {
 function loadLocale(name) {
     var oldLocale = null;
     // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
-            module && module.exports) {
+    if (!locales[name] &&
+        (typeof module !== "undefined") &&
+        module &&
+        module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            require('./locale/' + name);
+            require("./locale/" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
-        } catch (e) { }
+        } catch (e) {
+        }
     }
     return locales[name];
 }
@@ -63,13 +66,12 @@ function loadLocale(name) {
 // This function will load locale and then set the global locale.  If
 // no arguments are passed in, it will simply return the current global
 // locale key.
-export function getSetGlobalLocale (key, values) {
+export function getSetGlobalLocale(key, values) {
     var data;
     if (key) {
         if (isUndefined(values)) {
             data = getLocale(key);
-        }
-        else {
+        } else {
             data = defineLocale(key, values);
         }
 
@@ -82,24 +84,24 @@ export function getSetGlobalLocale (key, values) {
     return globalLocale._abbr;
 }
 
-export function defineLocale (name, config) {
+export function defineLocale(name, config) {
     if (config !== null) {
         var parentConfig = baseConfig;
         config.abbr = name;
         if (locales[name] != null) {
-            deprecateSimple('defineLocaleOverride',
-                    'use moment.updateLocale(localeName, config) to change ' +
-                    'an existing locale. moment.defineLocale(localeName, ' +
-                    'config) should only be used for creating a new locale ' +
-                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+            deprecateSimple("defineLocaleOverride",
+                "use moment.updateLocale(localeName, config) to change " +
+                "an existing locale. moment.defineLocale(localeName, " +
+                "config) should only be used for creating a new locale " +
+                "See http://momentjs.com/guides/#/warnings/define-locale/ for more info.");
             parentConfig = locales[name]._config;
         } else if (config.parentLocale != null) {
             if (locales[config.parentLocale] != null) {
                 parentConfig = locales[config.parentLocale]._config;
             } else {
                 // treat as if there is no base config
-                deprecateSimple('parentLocaleUndefined',
-                        'specified parentLocale is not defined yet. See http://momentjs.com/guides/#/warnings/parent-locale/');
+                deprecateSimple("parentLocaleUndefined",
+                    "specified parentLocale is not defined yet. See http://momentjs.com/guides/#/warnings/parent-locale/");
             }
         }
         locales[name] = new Locale(mergeConfigs(parentConfig, config));
@@ -143,7 +145,7 @@ export function updateLocale(name, config) {
 }
 
 // returns locale data
-export function getLocale (key) {
+export function getLocale(key) {
     var locale;
 
     if (key && key._locale && key._locale._abbr) {

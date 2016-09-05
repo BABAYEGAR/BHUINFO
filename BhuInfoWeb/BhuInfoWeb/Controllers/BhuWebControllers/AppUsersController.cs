@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
-using BhuInfo.Data.Factory;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.EmailService;
@@ -20,7 +16,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class AppUsersController : Controller
     {
-        private AppUserDataContext db = new AppUserDataContext();
+        private readonly AppUserDataContext db = new AppUserDataContext();
 
         // GET: AppUsers
         public ActionResult Index()
@@ -32,14 +28,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Details(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AppUser appUser = db.AppUsers.Find(id);
+            var appUser = db.AppUsers.Find(id);
             if (appUser == null)
-            {
                 return HttpNotFound();
-            }
             return View(appUser);
         }
 
@@ -54,21 +46,20 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Firstname,Lastname,Email,Mobile,Password")] AppUser appUser,FormCollection collectedValues)
+        public ActionResult Create([Bind(Include = "Firstname,Lastname,Email,Mobile,Password")] AppUser appUser,
+            FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
                 appUser.DateCreated = DateTime.Now;
                 appUser.DateLastModified = DateTime.Now;
-                appUser.Role = typeof(UserType).GetEnumName(Int32.Parse(collectedValues["Role"]));
-                var password = System.Web.Security.Membership.GeneratePassword(8, 1);
+                appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                var password = Membership.GeneratePassword(8, 1);
                 var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
-                appUser.Password =  new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+                appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
                 var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim());
-                if (userExist == true)
-                {
+                if (userExist)
                     return View(appUser);
-                }
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
                 appUser.Password = password;
@@ -83,14 +74,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Edit(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AppUser appUser = db.AppUsers.Find(id);
+            var appUser = db.AppUsers.Find(id);
             if (appUser == null)
-            {
                 return HttpNotFound();
-            }
             return View(appUser);
         }
 
@@ -99,7 +86,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Lastname,Email,Mobile,Password,Role,DateCreated,DateLastModified,CreatedById,LastModifiedById")] AppUser appUser)
+        public ActionResult Edit(
+            [Bind(
+                 Include =
+                     "AppUserId,Firstname,Lastname,Email,Mobile,Password,Role,DateCreated,DateLastModified,CreatedById,LastModifiedById"
+             )] AppUser appUser)
         {
             if (ModelState.IsValid)
             {
@@ -114,23 +105,20 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Delete(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AppUser appUser = db.AppUsers.Find(id);
+            var appUser = db.AppUsers.Find(id);
             if (appUser == null)
-            {
                 return HttpNotFound();
-            }
             return View(appUser);
         }
 
         // POST: AppUsers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            AppUser appUser = db.AppUsers.Find(id);
+            var appUser = db.AppUsers.Find(id);
             db.AppUsers.Remove(appUser);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -139,9 +127,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

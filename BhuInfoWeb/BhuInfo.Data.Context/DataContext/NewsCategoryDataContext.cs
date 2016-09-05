@@ -1,12 +1,8 @@
-using System.Data.Entity.Infrastructure;
+using System.Data.Entity;
+using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Context.DataContext
 {
-    using Objects.Entities;
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-
     public class NewsCategoryDataContext : DbContext
     {
         // Your context has been configured to use a 'NewsCategoryDataContext' connection string from your application's 
@@ -18,14 +14,6 @@ namespace BhuInfo.Data.Context.DataContext
         public NewsCategoryDataContext()
             : base("name=BhuInfo")
         {
-
-          
-        }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // other code 
-            Database.SetInitializer<NewsCategoryDataContext>(null);
-            // more code
         }
 
 
@@ -34,6 +22,12 @@ namespace BhuInfo.Data.Context.DataContext
 
         public virtual DbSet<NewsCategory> NewsCategories { get; set; }
         public virtual DbSet<News> News { get; set; }
-    }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // other code 
+            Database.SetInitializer<NewsCategoryDataContext>(null);
+            // more code
+        }
+    }
 }

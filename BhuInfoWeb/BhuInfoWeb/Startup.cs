@@ -1,7 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using BhuInfoWeb;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(BhuInfoWeb.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace BhuInfoWeb
 {
     public partial class Startup

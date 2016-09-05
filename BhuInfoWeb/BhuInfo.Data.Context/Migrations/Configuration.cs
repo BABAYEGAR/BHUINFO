@@ -1,11 +1,8 @@
+using System.Data.Entity.Migrations;
+
 namespace BhuInfo.Data.Context.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<BhuInfo.Data.Context.DataContext.NewsCategoryDataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<DataContext.NewsCategoryDataContext>
     {
         public Configuration()
         {
@@ -13,7 +10,7 @@ namespace BhuInfo.Data.Context.Migrations
             ContextKey = "BhuInfo.Data.Context.DataContext.NewsCategoryDataContext";
         }
 
-        protected override void Seed(BhuInfo.Data.Context.DataContext.NewsCategoryDataContext context)
+        protected override void Seed(DataContext.NewsCategoryDataContext context)
         {
             //  This method will be called after migrating to the latest version.
 

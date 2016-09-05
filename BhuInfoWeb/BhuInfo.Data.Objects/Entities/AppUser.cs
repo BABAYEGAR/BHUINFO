@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BhuInfo.Data.Objects.Entities
 {
@@ -29,10 +25,8 @@ namespace BhuInfo.Data.Objects.Entities
         public long CreatedById { get; set; }
 
         public long LastModifiedById { get; set; }
-        public  string DisplayName
-    => Firstname  + " " + Lastname;
 
-
-
+        public string DisplayName
+            => Firstname + " " + Lastname;
     }
 }

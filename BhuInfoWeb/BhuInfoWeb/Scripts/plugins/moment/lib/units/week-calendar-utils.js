@@ -1,6 +1,6 @@
-import { daysInYear } from './year';
-import { createLocal } from '../create/local';
-import { createUTCDate } from '../create/date-from-array';
+import { daysInYear } from "./year";
+import { createLocal } from "../create/local";
+import { createUTCDate } from "../create/date-from-array";
 
 // start-of-first-week - start-of-year
 function firstWeekOffset(year, dow, doy) {
@@ -17,7 +17,8 @@ export function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
     var localWeekday = (7 + weekday - dow) % 7,
         weekOffset = firstWeekOffset(year, dow, doy),
         dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
-        resYear, resDayOfYear;
+        resYear,
+        resDayOfYear;
 
     if (dayOfYear <= 0) {
         resYear = year - 1;
@@ -39,7 +40,8 @@ export function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
 export function weekOfYear(mom, dow, doy) {
     var weekOffset = firstWeekOffset(mom.year(), dow, doy),
         week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
-        resWeek, resYear;
+        resWeek,
+        resYear;
 
     if (week < 1) {
         resYear = mom.year() - 1;

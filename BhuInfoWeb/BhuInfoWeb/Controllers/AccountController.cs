@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Security;
-using BhuInfo.Data.Factory;
 using BhuInfo.Data.Factory.BusinessFactory;
-using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -33,26 +31,19 @@ namespace BhuInfoWeb.Controllers
                 Session["bhuinfologgedinuser"] = appUser;
                 if (role == UserType.Administrator.ToString())
                 {
-                    TempData["login"] = "Welcome "+appUser.DisplayName+"!";
+                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "AppUsers");
                 }
-                else if (role == UserType.Manager.ToString())
+                if (role == UserType.Manager.ToString())
                 {
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "News");
                 }
-                else
-                {
-                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
-                    return RedirectToAction("Index", "Home");
-                }
+                TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                TempData["login"] = "Check your login details and make sure you selected the correct user type!";
-                return RedirectToAction("Login", "Account");
-            }
-
+            TempData["login"] = "Check your login details and make sure you selected the correct user type!";
+            return RedirectToAction("Login", "Account");
         }
 
 
@@ -82,8 +73,7 @@ namespace BhuInfoWeb.Controllers
             if (ModelState.IsValid)
             {
                 var user = new AuthenticationFactory().ForgotPasswordRequest(collectedValues["Email"].Trim());
-                return RedirectToAction("ResetPassword",new {Id = user.AppUserId});
-
+                return RedirectToAction("ResetPassword", new {Id = user.AppUserId});
             }
             return View();
         }
@@ -102,8 +92,8 @@ namespace BhuInfoWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ResetPassword(FormCollection collectedValues)
         {
-            int Id = Convert.ToInt32(collectedValues["Id"]);
-                new AuthenticationFactory().ResetUserPassword(collectedValues["Password"], Id);
+            var Id = Convert.ToInt32(collectedValues["Id"]);
+            new AuthenticationFactory().ResetUserPassword(collectedValues["Password"], Id);
             return View("Login");
         }
 

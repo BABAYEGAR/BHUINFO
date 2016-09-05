@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
@@ -13,7 +10,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class EventsController : Controller
     {
-        private EventDataContext db = new EventDataContext();
+        private readonly EventDataContext db = new EventDataContext();
 
         // GET: Events
         public ActionResult Index()
@@ -25,14 +22,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Details(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Event @event = db.Events.Find(id);
+            var @event = db.Events.Find(id);
             if (@event == null)
-            {
                 return HttpNotFound();
-            }
             return View(@event);
         }
 
@@ -47,7 +40,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
+        public ActionResult Create(
+            [Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -65,14 +59,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Edit(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Event @event = db.Events.Find(id);
+            var @event = db.Events.Find(id);
             if (@event == null)
-            {
                 return HttpNotFound();
-            }
             return View(@event);
         }
 
@@ -81,7 +71,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
+        public ActionResult Edit(
+            [Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -96,23 +87,20 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Delete(long? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Event @event = db.Events.Find(id);
+            var @event = db.Events.Find(id);
             if (@event == null)
-            {
                 return HttpNotFound();
-            }
             return View(@event);
         }
 
         // POST: Events/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Event @event = db.Events.Find(id);
+            var @event = db.Events.Find(id);
             db.Events.Remove(@event);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -121,9 +109,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

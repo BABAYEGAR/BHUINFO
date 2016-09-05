@@ -7,7 +7,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
 {
     public class NewsCategoryDataFactory
     {
-        private NewsCategoryDataContext db = new NewsCategoryDataContext();
+        private readonly NewsCategoryDataContext db = new NewsCategoryDataContext();
 
         public IEnumerable<NewsCategory> GetAllNewsCategories()
         {

@@ -5,25 +5,28 @@ using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Factory.BusinessFactory
 {
-   public  class AppUserFactory
+    public class AppUserFactory
     {
-        private AppUserDataContext db = new AppUserDataContext();
+        private readonly AppUserDataContext db = new AppUserDataContext();
+
         /// <summary>
-        /// This method finds a yuser with the provided password and email
+        ///     This method finds a yuser with the provided password and email
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public AppUser GetAppUserByLogin(string email,string password, string role)
+        public AppUser GetAppUserByLogin(string email, string password, string role)
         {
             email = email.Trim();
-            var appUser = db.AppUsers.FirstOrDefault(n => n.Email == email && n.Password == password && n.Role == role);
+            var appUser =
+                db.AppUsers.FirstOrDefault(n => (n.Email == email) && (n.Password == password) && (n.Role == role));
             if (appUser != null) return appUser;
             return null;
         }
+
         /// <summary>
-        /// This method checks if a user exist
+        ///     This method checks if a user exist
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -34,19 +37,16 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             {
                 var allUsers = db.AppUsers;
                 if (allUsers.Any(n => n.Email == email))
-                {
                     userExist = true;
-                }
             }
             catch (Exception ex)
             {
-                
             }
             return userExist;
-
         }
+
         /// <summary>
-        /// This method is used to retrieve a user by user email
+        ///     This method is used to retrieve a user by user email
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -56,8 +56,9 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var appUser = db.AppUsers.Single(n => n.Email == email);
             return appUser;
         }
+
         /// <summary>
-        /// This method retrives a user by an id
+        ///     This method retrives a user by an id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

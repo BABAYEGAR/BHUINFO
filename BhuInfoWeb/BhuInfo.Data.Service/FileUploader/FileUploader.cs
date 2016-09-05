@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Web;
-using System.Web.UI.WebControls;
 using BhuInfo.Data.Service.Enums;
 
 /// <summary>
@@ -23,7 +22,7 @@ public class FileUploader
         {
             var fileInfo = new FileInfo(fileUpload.FileName);
             if ((fileInfo.Extension.ToLower() == ".jpg") || (fileInfo.Extension.ToLower() == ".jpeg")
-                || fileInfo.Extension.ToLower() == ".png")
+                || (fileInfo.Extension.ToLower() == ".png"))
                 try
                 {
                     var fileExtension = fileInfo.Extension;
@@ -31,7 +30,8 @@ public class FileUploader
                     filename = DateTime.Now.ToFileTime() + fileExtension;
 
                     //check if upload folder is available. Else create it
-                    var uploadFolderPath = HttpContext.Current.Server.MapPath("~/BhuInfo.Data.Service/UploadedFiles/" + uploadType);
+                    var uploadFolderPath =
+                        HttpContext.Current.Server.MapPath("~/BhuInfo.Data.Service/UploadedFiles/" + uploadType);
 
                     //check to see if the directory exists else, create directory
                     if (!Directory.Exists(uploadFolderPath))

@@ -62,27 +62,28 @@
 
             resetDrilldown($dcDrilldownObj, $dcWrapper);
 
-            $("li a", $dcDrilldownObj).click(function(e) {
+            $("li a", $dcDrilldownObj)
+                .click(function(e) {
 
-                $link = this;
-                $activeLi = $(this).parent("li").not(".disabled").stop();
-                $siblingsLi = $($activeLi).siblings();
+                    $link = this;
+                    $activeLi = $(this).parent("li").not(".disabled").stop();
+                    $siblingsLi = $($activeLi).siblings();
 
-                // Drilldown action
-                if ($("> ul", $activeLi).length) {
-                    if ($($link).hasClass(defaults.classActive)) {
-                        $("ul a", $activeLi).removeClass(defaults.classActive);
-                        resetDrilldown($dcDrilldownObj, $dcWrapper);
-                    } else {
-                        actionDrillDown($activeLi, $dcWrapper, $dcDrilldownObj);
+                    // Drilldown action
+                    if ($("> ul", $activeLi).length) {
+                        if ($($link).hasClass(defaults.classActive)) {
+                            $("ul a", $activeLi).removeClass(defaults.classActive);
+                            resetDrilldown($dcDrilldownObj, $dcWrapper);
+                        } else {
+                            actionDrillDown($activeLi, $dcWrapper, $dcDrilldownObj);
+                        }
                     }
-                }
 
-                // Prevent browsing to link if has child links
-                if ($(this).next("ul").length > 0) {
-                    e.preventDefault();
-                }
-            });
+                    // Prevent browsing to link if has child links
+                    if ($(this).next("ul").length > 0) {
+                        e.preventDefault();
+                    }
+                });
 
             // Set up accordion
             function setUpDrilldown() {
@@ -112,24 +113,27 @@
                 }
 
                 // Set sub menu width and offset
-                $("li", $dcDrilldownObj).each(function() {
-                    $("ul", this).css({ marginRight: "-" + totalWidth, marginTop: "0" });
-                    if ($("> ul", this).length) {
-                        $(this).addClass(defaults.classParent);
-                        $("> a", this).addClass(defaults.classParentLink).append($arrow);
-                        if (defaults.showCount == true) {
-                            var parentLink = $("a:not(." + defaults.classParentLink + ")", this);
-                            var countParent = parseInt($(parentLink).length);
-                            getCount = countParent;
-                            $("> a", this).append(" <span class=\"" + defaults.classCount + "\">(" + getCount + ")</span>");
+                $("li", $dcDrilldownObj)
+                    .each(function() {
+                        $("ul", this).css({ marginRight: "-" + totalWidth, marginTop: "0" });
+                        if ($("> ul", this).length) {
+                            $(this).addClass(defaults.classParent);
+                            $("> a", this).addClass(defaults.classParentLink).append($arrow);
+                            if (defaults.showCount == true) {
+                                var parentLink = $("a:not(." + defaults.classParentLink + ")", this);
+                                var countParent = parseInt($(parentLink).length);
+                                getCount = countParent;
+                                $("> a", this)
+                                    .append(" <span class=\"" + defaults.classCount + "\">(" + getCount + ")</span>");
+                            }
                         }
-                    }
-                });
+                    });
 
                 // Add css class
-                $("ul", $dcWrapper).each(function() {
-                    $("li:last", this).addClass("last");
-                });
+                $("ul", $dcWrapper)
+                    .each(function() {
+                        $("li:last", this).addClass("last");
+                    });
                 $("> ul > li:last", $dcWrapper).addClass("last");
                 if (defaults.linkType == "link") {
                     $(objUl).css("top", itemHeight + "px");
@@ -140,49 +144,55 @@
             }
 
             // Breadcrumbs
-            $("#" + idHeader).on("click", "a", function(e) {
+            $("#" + idHeader)
+                .on("click",
+                    "a",
+                    function(e) {
 
-                if ($(this).hasClass("link-back")) {
-                    linkIndex = $("#" + idWrapper + " ." + defaults.classParentLink + ".active-ul").length;
-                    linkIndex = linkIndex - 2;
-                    $("a." + defaults.classActive + ":last", $dcDrilldownObj).removeClass(defaults.classActive);
-                } else {
-                    // Get link index
-                    var linkIndex = parseInt($(this).index("#" + idHeader + " a"));
-                    if (linkIndex == 0) {
-                        $("a", $dcDrilldownObj).removeClass(defaults.classActive);
-                    } else {
-                        // Select equivalent active link
-                        linkIndex = linkIndex - 1;
-                        $("a." + defaults.classActive + ":gt(" + linkIndex + ")", $dcDrilldownObj).removeClass(defaults.classActive);
-                    }
-                }
-                resetDrilldown($dcDrilldownObj, $dcWrapper);
-                e.preventDefault();
-                e.stopPropagation();
-            });
+                        if ($(this).hasClass("link-back")) {
+                            linkIndex = $("#" + idWrapper + " ." + defaults.classParentLink + ".active-ul").length;
+                            linkIndex = linkIndex - 2;
+                            $("a." + defaults.classActive + ":last", $dcDrilldownObj).removeClass(defaults.classActive);
+                        } else {
+                            // Get link index
+                            var linkIndex = parseInt($(this).index("#" + idHeader + " a"));
+                            if (linkIndex == 0) {
+                                $("a", $dcDrilldownObj).removeClass(defaults.classActive);
+                            } else {
+                                // Select equivalent active link
+                                linkIndex = linkIndex - 1;
+                                $("a." + defaults.classActive + ":gt(" + linkIndex + ")", $dcDrilldownObj)
+                                    .removeClass(defaults.classActive);
+                            }
+                        }
+                        resetDrilldown($dcDrilldownObj, $dcWrapper);
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
         });
 
         function findMaxHeight(element) {
             var maxValue = undefined;
-            $(element).each(function() {
-                var val = parseInt($("> li", this).length);
-                $(this).attr("rel", val);
-                if (maxValue === undefined || maxValue < val) {
-                    maxValue = val;
-                }
-            });
+            $(element)
+                .each(function() {
+                    var val = parseInt($("> li", this).length);
+                    $(this).attr("rel", val);
+                    if (maxValue === undefined || maxValue < val) {
+                        maxValue = val;
+                    }
+                });
             return maxValue;
         }
 
         function findMaxIndex(element) {
             var maxIndex = undefined;
-            $(element).each(function() {
-                var val = parseInt($(this).parents("li").length);
-                if (maxIndex === undefined || maxIndex < val) {
-                    maxIndex = val;
-                }
-            });
+            $(element)
+                .each(function() {
+                    var val = parseInt($(this).parents("li").length);
+                    if (maxIndex === undefined || maxIndex < val) {
+                        maxIndex = val;
+                    }
+                });
             return maxIndex;
         }
 
@@ -217,7 +227,8 @@
             }
             if (defaults.linkType == "link") {
                 if (!$("a", $header).length) {
-                    $($header).prepend("<ul><li><a href=\"#\" class=\"first\"> " + defaults.resetText + "</a></li></ul>");
+                    $($header)
+                        .prepend("<ul><li><a href=\"#\" class=\"first\"> " + defaults.resetText + "</a></li></ul>");
                 }
             }
             // Update header text
@@ -311,10 +322,11 @@
                 createCookie(cookieId, obj);
             }
 
-            $("a." + defaults.classActive, obj).each(function(i) {
-                var $activeLi = $(this).parent("li").stop();
-                actionDrillDown($activeLi, wrapper, obj);
-            });
+            $("a." + defaults.classActive, obj)
+                .each(function(i) {
+                    var $activeLi = $(this).parent("li").stop();
+                    actionDrillDown($activeLi, wrapper, obj);
+                });
         }
 
         // Retrieve cookie value and set active items
@@ -323,12 +335,13 @@
             if (cookieVal != null) {
                 // create array from cookie string
                 var activeArray = cookieVal.split(",");
-                $.each(activeArray, function(index, value) {
-                    // mewsoft. fix firefox root menu not shown
-                    value = parseInt(value) + 0;
-                    var $cookieLi = $("li:eq(" + value + ")", obj);
-                    $("> a", $cookieLi).addClass(defaults.classActive);
-                });
+                $.each(activeArray,
+                    function(index, value) {
+                        // mewsoft. fix firefox root menu not shown
+                        value = parseInt(value) + 0;
+                        var $cookieLi = $("li:eq(" + value + ")", obj);
+                        $("> a", $cookieLi).addClass(defaults.classActive);
+                    });
             }
         }
 
@@ -336,11 +349,12 @@
         function createCookie(cookieId, obj) {
             var activeIndex = [];
             // Create array of active items index value
-            $("a." + defaults.classActive, obj).each(function(i) {
-                var $arrayItem = $(this).parent("li");
-                var itemIndex = $("li", obj).index($arrayItem);
-                activeIndex.push(itemIndex);
-            });
+            $("a." + defaults.classActive, obj)
+                .each(function(i) {
+                    var $arrayItem = $(this).parent("li");
+                    var itemIndex = $("li", obj).index($arrayItem);
+                    activeIndex.push(itemIndex);
+                });
             // Store in cookie
             $.cookie(cookieId, activeIndex, { path: "/" });
         }
@@ -417,7 +431,10 @@
 
             return (document.cookie = [
                 encode(key), "=", stringifyCookieValue(value),
-                options.expires ? "; expires=" + options.expires.toUTCString() : "", // use expires attribute, max-age is not supported by IE
+                options
+                .expires
+                ? "; expires=" + options.expires.toUTCString()
+                : "", // use expires attribute, max-age is not supported by IE
                 options.path ? "; path=" + options.path : "",
                 options.domain ? "; domain=" + options.domain : "",
                 options.secure ? "; secure" : ""

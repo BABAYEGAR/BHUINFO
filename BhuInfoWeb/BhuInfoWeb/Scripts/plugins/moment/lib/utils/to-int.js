@@ -1,4 +1,4 @@
-import absFloor from './abs-floor';
+import absFloor from "./abs-floor";
 
 export default function toInt(argumentForCoercion) {
     var coercedNumber = +argumentForCoercion,

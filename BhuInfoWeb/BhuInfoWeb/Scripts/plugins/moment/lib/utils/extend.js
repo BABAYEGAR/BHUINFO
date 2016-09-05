@@ -1,4 +1,4 @@
-import hasOwnProp from './has-own-prop';
+import hasOwnProp from "./has-own-prop";
 
 export default function extend(a, b) {
     for (var i in b) {
@@ -7,11 +7,11 @@ export default function extend(a, b) {
         }
     }
 
-    if (hasOwnProp(b, 'toString')) {
+    if (hasOwnProp(b, "toString")) {
         a.toString = b.toString;
     }
 
-    if (hasOwnProp(b, 'valueOf')) {
+    if (hasOwnProp(b, "valueOf")) {
         a.valueOf = b.valueOf;
     }
 

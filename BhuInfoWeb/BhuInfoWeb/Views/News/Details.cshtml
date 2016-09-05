@@ -8,7 +8,7 @@
     ViewBag.Title = "Index";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
-    AppUserDataContext db = new AppUserDataContext();
+    var db = new AppUserDataContext();
 }
 <!DOCTYPE html>
 <html>
@@ -182,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="panel-body">
                 <div class="col-md-8">
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 detailsDiv">
                             @Html.DisplayNameFor(model => model.Title)
                         </div>
 
@@ -191,7 +191,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 detailsDiv">
                             @Html.DisplayNameFor(model => model.Content)
                         </div>
 
@@ -200,7 +200,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 detailsDiv">
                             @Html.DisplayName("Created By")
                         </div>
 
@@ -210,7 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
 
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 detailsDiv">
                             @Html.DisplayName("Last ModifiedBy")
                         </div>
 
@@ -219,7 +219,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 detailsDiv">
                             @Html.DisplayNameFor(model => model.DateCreated)
                         </div>
 
@@ -230,7 +230,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </div>
 
                     <div class="form-group col-md-12">
-                        <div class="col-md-3">
+                        <div class="col-md-3 detailsDiv">
                             @Html.DisplayNameFor(model => model.DateLastModified)
                         </div>
 
@@ -248,8 +248,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <div class="row">
         <div class="col-md-12 text-right">
-            @Html.ActionLink("Edit", "Edit", new { id = Model.NewsId }, new { @class = "btn btn-default" }) |
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Edit", "Edit", new {id = Model.NewsId}, new {@class = "btn btn-default"}) |
+            @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-primary"})
         </div>
     </div>
 </div>

@@ -7,3 +7,4 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\BhuIn
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\BhuInfo.Data.Objects.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.csprojResolveAssemblyReference.cache

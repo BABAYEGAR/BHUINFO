@@ -1,11 +1,11 @@
-import hasOwnProp from './has-own-prop';
+import hasOwnProp from "./has-own-prop";
 
 var keys;
 
 if (Object.keys) {
     keys = Object.keys;
 } else {
-    keys = function (obj) {
+    keys = function(obj) {
         var i, res = [];
         for (i in obj) {
             if (hasOwnProp(obj, i)) {

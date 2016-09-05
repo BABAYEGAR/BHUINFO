@@ -1,14 +1,15 @@
-import extend from '../utils/extend';
-import { createUTC } from './utc';
-import getParsingFlags from '../create/parsing-flags';
-import some from '../utils/some';
+import extend from "../utils/extend";
+import { createUTC } from "./utc";
+import getParsingFlags from "../create/parsing-flags";
+import some from "../utils/some";
 
 export function isValid(m) {
     if (m._isValid == null) {
         var flags = getParsingFlags(m);
-        var parsedParts = some.call(flags.parsedDateParts, function (i) {
-            return i != null;
-        });
+        var parsedParts = some.call(flags.parsedDateParts,
+            function(i) {
+                return i != null;
+            });
         m._isValid = !isNaN(m._d.getTime()) &&
             flags.overflow < 0 &&
             !flags.empty &&
@@ -29,12 +30,11 @@ export function isValid(m) {
     return m._isValid;
 }
 
-export function createInvalid (flags) {
+export function createInvalid(flags) {
     var m = createUTC(NaN);
     if (flags != null) {
         extend(getParsingFlags(m), flags);
-    }
-    else {
+    } else {
         getParsingFlags(m).userInvalidated = true;
     }
 

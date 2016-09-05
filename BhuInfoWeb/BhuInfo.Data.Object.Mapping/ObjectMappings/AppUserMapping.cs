@@ -3,40 +3,40 @@ using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Object.Mapping.ObjectMappings
 {
-   public class AppUserMapping : EntityTypeConfiguration<AppUser>
+    public class AppUserMapping : EntityTypeConfiguration<AppUser>
     {
         public AppUserMapping()
         {
             //this property is a primary key
-            this.HasKey(n => n.AppUserId);
+            HasKey(n => n.AppUserId);
 
             //this are the remaining properties
-            this.Property(n => n.Firstname)
+            Property(n => n.Firstname)
                 .IsRequired();
-            this.Property(n => n.Lastname)
-               .IsRequired();
-            this.Property(n => n.Email)
-            .IsRequired();
-            this.Property(n => n.Password)
-            .IsRequired();
-            this.Property(n => n.Mobile)
-            .IsRequired();
-            this.Property(n => n.Role)
-           .IsRequired();
+            Property(n => n.Lastname)
+                .IsRequired();
+            Property(n => n.Email)
+                .IsRequired();
+            Property(n => n.Password)
+                .IsRequired();
+            Property(n => n.Mobile)
+                .IsRequired();
+            Property(n => n.Role)
+                .IsRequired();
 
             //mapping the object entities to their respective columns
-            this.ToTable("AppUser");
-            this.Property(n => n.AppUserId).HasColumnName("AppUserId");
-            this.Property(n => n.Firstname).HasColumnName("Firstname");
-            this.Property(n => n.Lastname).HasColumnName("Lastname");
-            this.Property(n => n.Email).HasColumnName("Email");
-            this.Property(n => n.Email).HasColumnName("Mobile");
-            this.Property(n => n.Password).HasColumnName("Password");
-            this.Property(n => n.Role).HasColumnName("Role");
-            this.Property(n => n.CreatedById).HasColumnName("CreatedById");
-            this.Property(n => n.LastModifiedById).HasColumnName("LastModifiedById");
-            this.Property(n => n.DateCreated).HasColumnName("DateCreated");
-            this.Property(n => n.DateLastModified).HasColumnName("DateLastModified");
+            ToTable("AppUser");
+            Property(n => n.AppUserId).HasColumnName("AppUserId");
+            Property(n => n.Firstname).HasColumnName("Firstname");
+            Property(n => n.Lastname).HasColumnName("Lastname");
+            Property(n => n.Email).HasColumnName("Email");
+            Property(n => n.Email).HasColumnName("Mobile");
+            Property(n => n.Password).HasColumnName("Password");
+            Property(n => n.Role).HasColumnName("Role");
+            Property(n => n.CreatedById).HasColumnName("CreatedById");
+            Property(n => n.LastModifiedById).HasColumnName("LastModifiedById");
+            Property(n => n.DateCreated).HasColumnName("DateCreated");
+            Property(n => n.DateLastModified).HasColumnName("DateLastModified");
         }
     }
 }
