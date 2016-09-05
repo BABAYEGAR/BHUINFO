@@ -54,7 +54,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 @event.DateCreated = DateTime.Now;
                 db.Events.Add(@event);
                 db.SaveChanges();
-                TempData["event"] = "Successfully registered";
+                TempData["event"] = "New event Successfully Created!";
                 return RedirectToAction("Index");
             }
 

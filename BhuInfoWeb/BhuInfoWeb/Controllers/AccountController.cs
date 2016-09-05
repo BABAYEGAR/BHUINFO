@@ -28,20 +28,31 @@ namespace BhuInfoWeb.Controllers
             var role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
             var appUser = new AuthenticationFactory().AuthenticateAppUserLogin(collectedValues["Email"].Trim(),
                 collectedValues["Password"].Trim(), role);
-            Session["bhuinfologgedinuser"] = appUser;
-            if (role == UserType.Administrator.ToString())
+            if (appUser != null)
             {
-                return RedirectToAction("Index", "AppUsers");
-            }
-            else if(role == UserType.Manager.ToString())
-            {
-                return RedirectToAction("Index", "News");
+                Session["bhuinfologgedinuser"] = appUser;
+                if (role == UserType.Administrator.ToString())
+                {
+                    TempData["login"] = "Welcome "+appUser.DisplayName+"!";
+                    return RedirectToAction("Index", "AppUsers");
+                }
+                else if (role == UserType.Manager.ToString())
+                {
+                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                    return RedirectToAction("Index", "News");
+                }
+                else
+                {
+                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {
-                  return RedirectToAction("Index", "Home");
+                TempData["login"] = "Check your login details and make sure you selected the correct user type!";
+                return RedirectToAction("Login", "Account");
             }
-          
+
         }
 
 

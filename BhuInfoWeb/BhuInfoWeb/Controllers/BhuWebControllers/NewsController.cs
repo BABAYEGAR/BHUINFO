@@ -77,9 +77,13 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
                     db.News.Add(news);
                     db.SaveChanges();
+                    TempData["news"] = "The article has been created Succesfully!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
                 else
                 {
+                    TempData["news"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index");
@@ -95,6 +99,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var newsCategories = db.NewsCategories.Select(c => new
+            {
+                NewsCategoryId = c.NewsCategoryId,
+                Name = c.Name
+            }).ToList();
+            ViewBag.Categories = new SelectList(newsCategories, "NewsCategoryId", "Name");
             News news = db.News.Find(id);
             if (news == null)
             {
@@ -108,7 +118,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NewsId,Title,Content,Image,CreatedById,LastModifiedById,DateCreated,DateLastModified")] News news)
+        public ActionResult Edit([Bind(Include = "NewsId,Title,Content,Image,CreatedById,LastModifiedById,DateLastModified")] News news,FormCollection collectedValues)
         {
             var user = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -116,11 +126,16 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 if (user != null)
                 {
                     news.LastModifiedById = user.AppUserId;
+                    news.DateLastModified = DateTime.Now;
                     db.Entry(news).State = EntityState.Modified;
                     db.SaveChanges();
+                    TempData["news"] = "This article has been modified Succesfully!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
                 else
                 {
+                    TempData["news"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index");
@@ -151,6 +166,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             News news = db.News.Find(id);
             db.News.Remove(news);
             db.SaveChanges();
+            TempData["news"] = "This article has been deleted Succesfully!";
+            TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
 

@@ -20,7 +20,7 @@ namespace BhuInfo.Data.Objects.Entities
         [ForeignKey("NewsCategoryId")]
         public virtual NewsCategory NewsCategory { get; set; }
         public long LastModifiedById { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
         public int NewsView { get; set; }
 

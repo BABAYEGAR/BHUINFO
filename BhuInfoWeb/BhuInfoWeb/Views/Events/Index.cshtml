@@ -186,12 +186,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <p>
                         @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
                     </p>
-                    <p>
                         @if (TempData["event"] != null)
                         {
-                            <p>@TempData["event"]</p>
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["event"]</p>
                         }
-                    </p>
+
                     <table class="table eventTable">
                         <tr>
                             <th>

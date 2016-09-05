@@ -75,6 +75,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 @using (Html.BeginForm("AppLogin", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                                 {
                                     @Html.AntiForgeryToken()
+                                   if (TempData["login"] != null)
+                                    {
+                                        <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["login"]</p>
+                                    }
                                     <h4>Use a local account to log in.</h4>
                                     <hr/>
                                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})

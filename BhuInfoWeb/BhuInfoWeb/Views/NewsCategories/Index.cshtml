@@ -200,12 +200,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <th>
                                 @Html.DisplayNameFor(model => model.DateLastModified)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CreatedById)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.LastModifiedById)
-                            </th>
                             <th></th>
                         </tr>
 
@@ -220,12 +214,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.DateLastModified)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreatedById)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LastModifiedById)
                                 </td>
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new {id = item.NewsCategoryId}, new {@class = "btn btn-primary"}) |

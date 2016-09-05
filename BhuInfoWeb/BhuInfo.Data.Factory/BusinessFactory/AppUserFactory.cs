@@ -18,8 +18,9 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         public AppUser GetAppUserByLogin(string email,string password, string role)
         {
             email = email.Trim();
-            var appUser = db.AppUsers.Single(n => n.Email == email && n.Password == password && n.Role == role);
-            return appUser;
+            var appUser = db.AppUsers.FirstOrDefault(n => n.Email == email && n.Password == password && n.Role == role);
+            if (appUser != null) return appUser;
+            return null;
         }
         /// <summary>
         /// This method checks if a user exist

@@ -1,12 +1,10 @@
-﻿@model BhuInfo.Data.Objects.Entities.News
+﻿@using BhuInfo.Data.Objects.Entities
+@model BhuInfo.Data.Objects.Entities.News
 
 @{
     ViewBag.Title = "Create";
     ViewBag.HeaderClass = "page-header";
-}
-
-@section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 <!DOCTYPE html>
 <html>
@@ -171,15 +169,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                         </fieldset>
 
-                        <hr/>
-                        <div class="col-md-12">
-                            <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
-                            <input type="submit" value="Create" class="btn btn-primary pull-right"/>
-
-                        </div>
                     }
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
+            <input type="submit" value="Create" class="btn btn-primary pull-right" />
+
         </div>
     </div>
 </div>

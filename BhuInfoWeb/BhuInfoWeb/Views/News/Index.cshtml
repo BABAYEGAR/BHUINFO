@@ -177,7 +177,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="panel-body">
                 <div class="col-md-12">
-
+                    @if (TempData["news"] != null)
+                    {
+                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                        {
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                        {
+                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                        {
+                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                        }
+                    }
                     <p>
                         @Html.ActionLink("Create New", "Create", new {}, new {@class = "btn btn-success"})
                     </p>
@@ -207,9 +221,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Title)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Content)
-                                </td>
+                                @if (item.Content.Length > 10)
+                                {
+                                    <td>
+                                        @item.Content.Substring(0, 7)...
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Content)
+                                    </td>
+                                }
                                 <td>
                                     @Html.DisplayFor(modelItem => item.NewsCategory.Name)
                                 </td>
