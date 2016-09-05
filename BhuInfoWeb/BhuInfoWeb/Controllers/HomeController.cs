@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory;
 using BhuInfo.Data.Factory.BusinessFactory;
+using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -14,6 +15,7 @@ namespace BhuInfoWeb.Controllers
     public class HomeController : Controller
     {
         private NewsDataContext db = new NewsDataContext();
+        private ContactUsDataContext dbc = new ContactUsDataContext();
         public ActionResult Index()
         {
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
@@ -32,6 +34,19 @@ namespace BhuInfoWeb.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ContactUs([Bind(Include = "SenderName,Message,Email")] ContactUs contact)
+        {
+            if (ModelState.IsValid)
+            {
+                contact.DateCreated = DateTime.Now;
+                dbc.Contact.Add(contact);
+                dbc.SaveChanges();
+                return RedirectToAction("Contact", "Home");
+            }
+            return RedirectToAction("Contact","Home");
         }
         public ActionResult ViewNewsDetails(long Id)
         {

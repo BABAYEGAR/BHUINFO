@@ -4,6 +4,34 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0;
+    padding-top: 0;
+
+}
+.navbar-footer 
+{
+    background-color:red;
+}
+.navbar-footer-content { padding:15px 15px 15px 15px; }
+.dropdown-menu {
+padding: 0;
+overflow: hidden;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
 body{
 	padding:0;
 	margin:0;
@@ -506,7 +534,7 @@ p.comment-form-author {
 .contact_address, .contact_email {
 	overflow: hidden;
 	font-size: 0.95em;
-	color: #999;
+	color: black;
 	line-height: 1.5em;
 }
 .contact_email a{

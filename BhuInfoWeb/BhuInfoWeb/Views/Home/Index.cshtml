@@ -31,10 +31,13 @@
     <title>Bhu-Info | Home</title>
     <!-- Custom Theme files -->
     <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <!-- Custom Theme files -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
@@ -58,29 +61,76 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </ul>
         </div>
         <div class="navigation">
-            <ul>
-                @if (loggedinuser != null)
-                {
-                    <li>
-                        <a href="@Url.Action("Login", "Account")">@loggedinuser.DisplayName</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Login", "Account")">Log In</a>
-                    </li>
-                }
+            <ul class="nav navbar-nav">
                 <li>
                     <a href="@Url.Action("About", "Home")">About Us</a>
                 </li>
                 <li>
                     <a href="@Url.Action("Contact", "Home")">Contact Us</a>
                 </li>
+
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+
+                                                    <p class="text-left">
+                                                        <a href="#" class="btn btn-primary">Profile</a>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
             </ul>
         </div>
-        <div class="clearfix"></div>
     </div>
+    <div class="clearfix"></div>
 </div>
 <div class="container">
     <div class="header-bottom">

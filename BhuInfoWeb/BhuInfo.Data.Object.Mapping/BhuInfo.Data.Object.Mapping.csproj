@@ -50,6 +50,7 @@
     <Compile Include="ObjectMappings\EventMapping .cs" />
     <Compile Include="ObjectMappings\AppUserMapping.cs" />
     <Compile Include="ObjectMappings\NewsCategoryMapping.cs" />
+    <Compile Include="ObjectMappings\ContactUsMapping.cs" />
     <Compile Include="ObjectMappings\NewsCommentMapping.cs" />
     <Compile Include="ObjectMappings\NewsMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

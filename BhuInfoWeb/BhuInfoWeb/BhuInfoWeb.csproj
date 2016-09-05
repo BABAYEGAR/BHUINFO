@@ -964,7 +964,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\font-awesome-4.6.3\scss\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\NewsComment\" />
   </ItemGroup>
   <ItemGroup>

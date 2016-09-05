@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DataContext\EventDataContext.cs" />
     <Compile Include="DataContext\AppUserDataContext.cs" />
+    <Compile Include="DataContext\ContactUsDataContext.cs" />
     <Compile Include="DataContext\NewsCommentDataContext.cs" />
     <Compile Include="DataContext\NewsDataContext.cs" />
     <Compile Include="DataContext\NewsCategoryDataContext.cs" />
