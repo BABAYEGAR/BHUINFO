@@ -11,7 +11,7 @@
     var list = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Announcement, 4);
     var annoucements = list.ToList();
 
-    var generalList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.General, 5);
+    var generalList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.General, 1);
     var generalNews = generalList.ToList();
 
     var sportList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Sports, 1);
@@ -179,25 +179,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     @if (Model != null)
                     {
-                        <h5 class="head">Recent news by category</h5>
-                        <h6>@generalNews.ElementAt(0).NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = generalNews.ElementAt(0).NewsId})">@generalNews.ElementAt(0).Title </a>
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = generalNews.ElementAt(0).NewsId})">
-                            <img src="~/AppTheme/images/a1.jpg" alt=""/>
-                        </a>
-                        <p>@generalNews.ElementAt(0).Content </p>
+                        <div class="article">
+                            <h5 class="head">Recent News By Category</h5>
+                            @foreach (var item in generalNews)
+                            {
+                                <h6>@item.NewsCategory.Name </h6>
+                                <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title </a>
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                                    <img src="~/AppTheme/images/a1.jpg" alt=""/>
+                                </a>
+                                <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
+                                <p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
+                            }
+                        </div>
                     }
                 </div>
                 <div class="article">
                     @if (Model != null)
                     {
-                        <h6>@fashionNews.ElementAt(0).NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = generalNews.ElementAt(1).NewsId})">@fashionNews.ElementAt(0).Title </a>
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = fashionNews.ElementAt(0).NewsId})">
-
-                            <img src="~/AppTheme/images/a2.jpg" alt=""/>
-                        </a>
-                        <p>@fashionNews.ElementAt(0).Content </p>
+                        <div class="article">
+                            <h5 class="head">Recent News By Category</h5>
+                            @foreach (var item in fashionNews)
+                            {
+                                <h6>@item.NewsCategory.Name </h6>
+                                <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title </a>
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                                    <img src="~/AppTheme/images/a1.jpg" alt=""/>
+                                </a>
+                                <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
+                                <p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
+                            }
+                        </div>
                     }
                 </div>
             }
@@ -221,7 +233,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <label>
                                         @if (item.DateCreated != null)
                                         {
-                                            @(new DateTimeCalculator().TimeAgo((DateTime) item.DateCreated))
+                                            @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                         }</label>
                                     <span></span>
                                 }
@@ -253,7 +265,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <label>
                                         @if (item.DateCreated != null)
                                         {
-                                            @(new DateTimeCalculator().TimeAgo((DateTime) item.DateCreated))
+                                            @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                         }</label>
                                 </div>
                                 <div class="clearfix"></div>
@@ -276,16 +288,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="col-md-7 content-left">
                 <div class="article">
                     <h5 class="head">Recent News By Category</h5>
-                    @if (sportNews != null)
+                    @foreach (var item in sportNews)
                     {
-                        <h6>@sportNews.ElementAt(0).NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = sportNews.ElementAt(0).NewsId})">@sportNews.ElementAt(0).Title </a>
+                        <h6>@item.NewsCategory.Name </h6>
+                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title </a>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                            <img src="~/AppTheme/images/a1.jpg" alt=""/>
+                        </a>
+                        <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
+                        <p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
                     }
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = sportNews.ElementAt(0).NewsId})">
-                        <img src="~/AppTheme/images/a1.jpg" alt=""/>
-                    </a>
-                    <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
-                    <p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
                 </div>
             </div>
         }
@@ -305,7 +317,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <label>
                                 @if (item.DateCreated != null)
                                 {
-                                    @(new DateTimeCalculator().TimeAgo((DateTime) item.DateCreated))
+                                    @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                 }</label>
                             <span></span>
                         </div>
