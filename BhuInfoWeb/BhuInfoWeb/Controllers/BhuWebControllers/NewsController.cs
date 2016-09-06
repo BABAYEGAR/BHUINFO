@@ -53,8 +53,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "NewsId,Title,Content")] News news, FormCollection collectedValues,
-            HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "NewsId,Title,Content")] News news, FormCollection collectedValues)
         {
             var user = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -66,7 +65,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.NewsCategoryId = long.Parse(collectedValues["NewsCategory"]);
                     news.CreatedById = user.AppUserId;
                     news.LastModifiedById = user.AppUserId;
-                    file = Request.Files["uploadedFile"];
+                    HttpPostedFileBase file = Request.Files["uploadedFile"];
                     news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
                     db.News.Add(news);
                     db.SaveChanges();
@@ -122,6 +121,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.CreatedById = long.Parse(collectedValues["createdby"]);
                     news.NewsView = int.Parse(collectedValues["newsview"]);
                     news.LastModifiedById = user.AppUserId;
+                    news.Image = collectedValues["image"];
                     db.Entry(news).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["news"] = "This article has been modified Succesfully!";

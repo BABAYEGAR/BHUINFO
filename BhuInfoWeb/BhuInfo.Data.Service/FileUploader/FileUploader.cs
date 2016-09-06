@@ -31,7 +31,7 @@ public class FileUploader
 
                     //check if upload folder is available. Else create it
                     var uploadFolderPath =
-                        HttpContext.Current.Server.MapPath("~/BhuInfo.Data.Service/UploadedFiles/" + uploadType);
+                        HttpContext.Current.Server.MapPath("~/UploadedFiles/" + uploadType);
 
                     //check to see if the directory exists else, create directory
                     if (!Directory.Exists(uploadFolderPath))

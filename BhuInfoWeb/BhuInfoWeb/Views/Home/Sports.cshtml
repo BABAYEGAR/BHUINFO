@@ -182,7 +182,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="print-grid">
                             <div class="print-img">
                                 <a href="single.html">
-                                    <img src="~/AppTheme/images/p4.jpg" class="img-responsive" alt=""/>
+                                    <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" class="img-responsive" alt=""/>
                                 </a>
                             </div>
                             <div class="print-text">
@@ -236,7 +236,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </a>
                             </div>
                             <div class="e-pic-info">
-                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = Model.ElementAt(0).NewsId})">@item.Title</a>
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
                                 <span></span>
                                 <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                             </div>

@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
 @using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.News
 @{
     var newsList = new NewsDataFactory().GetAllNews();
@@ -169,12 +170,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="single-page">
             <div class="print-main">
                 <h3>@Html.DisplayFor(model => model.NewsCategory.Name)</h3>
-                <a href="single.html">@Html.DisplayFor(model => model.Title)</a>
+                <a href="#">@Html.DisplayFor(model => model.Title)</a>
                 <p class="sub_head">
                     Posted by <a href="#">Admin</a> @Html.DisplayFor(model => model.DateCreated.Date.Day) @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.DateCreated.Month) @Html.DisplayFor(model => model.DateCreated.Date.Year)
                 </p>
-                <a href="single.html">
-                    <img src="~/AppTheme/images/printing.jpg" class="img-responsive" alt=""/>
+                <a href="#">
+                    <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" class="img-responsive" alt=""/>
                 </a>
                 <p class="ptext">
                     @Html.DisplayFor(model => model.Content)
@@ -270,7 +271,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
         </div>
         <div class="col-md-5 content-right content-right-top">
-            <h5 class="head">Recent</h5>
+            <h5 class="head">Recent News</h5>
             @foreach (var item in news)
             {
                 <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
@@ -296,13 +297,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="editors-pic-grids">
 
-                <h5>Recent News</h5>
+                <h5>Popular News</h5>
                 @foreach (var item in popularNews)
                 {
                     <div class="editors-pic">
                         <div class="e-pic">
                             <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
-                                <img src="~/AppTheme/images/ep1.jpg" alt=""/>
+                                <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                             </a>
                         </div>
                         <div class="e-pic-info">
