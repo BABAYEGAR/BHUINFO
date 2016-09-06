@@ -58,10 +58,16 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
                 appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
                 var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim());
-                if (userExist)
+                if (userExist == true)
+                {
+                    TempData["user"] = "This user email already exist,try a different email!";
+                    TempData["notificationtype"] = NotificationType.Danger.ToString();
                     return View(appUser);
+                }
                 db.AppUsers.Add(appUser);
                 db.SaveChanges();
+                TempData["user"] = "A new user has been created!";
+                TempData["notificationtype"] = NotificationType.Success.ToString();
                 appUser.Password = password;
                 new MailerDaemon().NewUser(appUser);
                 return RedirectToAction("Index");
@@ -86,16 +92,30 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-            [Bind(
-                 Include =
-                     "AppUserId,Firstname,Lastname,Email,Mobile,Password,Role,DateCreated,DateLastModified,CreatedById,LastModifiedById"
-             )] AppUser appUser)
+        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Lastname,Email,Mobile,Password,DateLastModified,CreatedById,LastModifiedById")] AppUser appUser, FormCollection collectedValues)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                db.Entry(appUser).State = EntityState.Modified;
-                db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    appUser.DateCreated = Convert.ToDateTime(collectedValues["date"]);
+                    appUser.DateLastModified = DateTime.Now;
+                    appUser.CreatedById = long.Parse(collectedValues["createdby"]);
+                    appUser.Password = collectedValues["password"];
+                    appUser.LastModifiedById = loggedinuser.AppUserId;
+                    appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                    db.Entry(appUser).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["user"] = "The user details has been modified successfully!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                }
+                else
+                {
+                    TempData["user"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
             return View(appUser);
@@ -121,6 +141,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var appUser = db.AppUsers.Find(id);
             db.AppUsers.Remove(appUser);
             db.SaveChanges();
+            TempData["user"] = "This user has deleted succesfully!";
+            TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
 

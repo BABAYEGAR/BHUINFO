@@ -141,6 +141,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <hr/>
                                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                                 @Html.HiddenFor(model => model.NewsCategoryId)
+                                @Html.Hidden("createdby",Model.CreatedById)
+                                @Html.Hidden("date",Model.DateCreated)
 
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3"})

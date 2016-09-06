@@ -7,9 +7,6 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 
-@section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-}
 
 <!DOCTYPE html>
 <html>
@@ -182,6 +179,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="panel-body">
                 <div class="col-md-12">
+                    @if (TempData["category"] != null)
+                    {
+                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                        {
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["category"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                        {
+                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["category"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                        {
+                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["category"]</p>
+                        }
+                    }
                     @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
                     {
                         <p>

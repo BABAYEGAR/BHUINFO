@@ -130,57 +130,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="panel-body">
                 <div class="col-md-12">
-
+                    @if (TempData["user"] != null)
+                    {
+                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                        {
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                        {
+                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                        {
+                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                        }
+                    }
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
 
                         <div class="form-horizontal">
-                            <hr/>
-                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                            <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
-                                <div class="col-sm-6 col-md-9">
-                                    @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
-                                    @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
-                                <div class="col-sm-6 col-md-9">
-                                    @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
-                                    @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
-                                <div class="col-sm-6 col-md-9">
-                                    @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
-                                    @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
-                                </div>
-                            </div>
-
-                            <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
-                                <div class="col-sm-6 col-md-9">
-                                    @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
-                                    @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
-                                </div>
-                            </div>
-                            <div class="form-group col-md-12">
-                                @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
-                                <div class="col-sm-6 col-md-9">
-                                    @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "Select Login role", new {@class = "form-control select-dropdown"})
+                            <div class="row">
+                                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
+                                    </div>
                                 </div>
 
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "select a user role", new {@class = "form-control select-dropdown"})
+                                    </div>
+
+                                </div>
+
                             </div>
-
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" class="btn btn-default"/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Create" class="btn btn-primary pull-right"/>
+                                    <a href="@Url.Action("Index", "AppUsers")" class="btn btn-default">Cancel</a>
                                 </div>
                             </div>
                         </div>

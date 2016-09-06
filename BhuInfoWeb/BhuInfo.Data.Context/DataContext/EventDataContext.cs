@@ -20,5 +20,12 @@ namespace BhuInfo.Data.Context.DataContext
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<Event> Events { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // other code 
+            Database.SetInitializer<EventDataContext>(null);
+            // more code
+        }
     }
 }

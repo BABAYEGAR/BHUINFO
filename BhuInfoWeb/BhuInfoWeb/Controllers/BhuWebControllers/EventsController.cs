@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
@@ -40,15 +41,28 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(
-            [Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
+        public ActionResult Create([Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                @event.DateCreated = DateTime.Now;
-                db.Events.Add(@event);
-                db.SaveChanges();
-                TempData["event"] = "New event Successfully Created!";
+                if (loggedinuser != null)
+                {
+                    @event.DateCreated = DateTime.Now;
+                    @event.DateLastModified  = DateTime.Now;
+                    @event.CreatedById = loggedinuser.AppUserId;
+                    @event.LastModifiedById = loggedinuser.AppUserId;
+                    db.Events.Add(@event);
+                    db.SaveChanges();
+                    TempData["event"] = "New event Successfully Created!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                }
+                else
+                {
+                    TempData["event"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
 
@@ -71,13 +85,28 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-            [Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
+        public ActionResult Edit([Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event,FormCollection collectedValues)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                db.Entry(@event).State = EntityState.Modified;
-                db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    @event.DateCreated = Convert.ToDateTime(collectedValues["date"]);
+                    @event.CreatedById = long.Parse(collectedValues["createdby"]);
+                    @event.DateLastModified = DateTime.Now;
+                    @event.LastModifiedById = loggedinuser.AppUserId;
+                    db.Entry(@event).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["event"] = "This Event has been modified successfully!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                }
+                else
+                {
+                    TempData["event"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
             return View(@event);
@@ -103,6 +132,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var @event = db.Events.Find(id);
             db.Events.Remove(@event);
             db.SaveChanges();
+            TempData["event"] = "Event has been deleted successfully!";
+            TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
 

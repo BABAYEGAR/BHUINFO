@@ -187,6 +187,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                             @Html.HiddenFor(model => model.NewsId)
                             @Html.Hidden("date", Model.DateCreated)
+                            @Html.Hidden("newsview", Model.NewsView)
+                            @Html.Hidden("createdby", Model.CreatedById)
 
                             <div class="row">
                                 <div class="form-group col-md-12">
@@ -208,7 +210,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.NewsCategory, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.DropDownListFor(model => model.NewsCategory, (SelectList) ViewBag.Categories, Model.NewsCategory.Name, new {@class = "form-control select-dropdown"})
+                                        @Html.DropDownList("Category", (SelectList) ViewBag.Categories, "select a category", new {@class = "form-control select-dropdown"})
                                     </div>
 
                                 </div>

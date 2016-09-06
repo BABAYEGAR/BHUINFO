@@ -107,7 +107,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "NewsId,Title,Content,Image,CreatedById,LastModifiedById")] News news,
+        public ActionResult Edit([Bind(Include = "NewsId,Title,Content,Image,CreatedById")] News news,
             FormCollection collectedValues)
         {
             var user = Session["bhuinfologgedinuser"] as AppUser;
@@ -118,7 +118,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.LastModifiedById = user.AppUserId;
                     news.DateLastModified = DateTime.Now;
                     news.DateCreated = Convert.ToDateTime(collectedValues["date"]);
-                    news.NewsCategoryId = Convert.ToInt32(collectedValues["NewsCategory"]);
+                    news.NewsCategoryId = long.Parse(collectedValues["Category"]);
+                    news.CreatedById = long.Parse(collectedValues["createdby"]);
+                    news.NewsView = int.Parse(collectedValues["newsview"]);
+                    news.LastModifiedById = user.AppUserId;
                     db.Entry(news).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["news"] = "This article has been modified Succesfully!";

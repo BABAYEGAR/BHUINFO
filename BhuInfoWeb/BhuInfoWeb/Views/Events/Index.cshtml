@@ -182,7 +182,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="panel-body">
                 <div class="col-md-12">
 
-
+                    @if (TempData["event"] != null)
+                    {
+                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                        {
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["event"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                        {
+                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["event"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                        {
+                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["event"]</p>
+                        }
+                    }
                     <p>
                         @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
                     </p>

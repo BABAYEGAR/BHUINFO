@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BhuInfo.Data.Objects.Entities
 {
@@ -17,5 +18,8 @@ namespace BhuInfo.Data.Objects.Entities
         public string Organizer { get; set; }
 
         public DateTime DateCreated { get; set; }
+        public long CreatedById { get; set; }
+        public long LastModifiedById { get; set; }
+        public DateTime DateLastModified { get; set; }
     }
 }

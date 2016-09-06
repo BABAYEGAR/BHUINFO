@@ -22,7 +22,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.Mobile)
                 .IsRequired();
             Property(n => n.Role)
-                .IsRequired();
+                .IsRequired(); 
 
             //mapping the object entities to their respective columns
             ToTable("AppUser");

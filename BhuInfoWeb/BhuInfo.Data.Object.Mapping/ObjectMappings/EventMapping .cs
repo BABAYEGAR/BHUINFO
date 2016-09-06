@@ -29,7 +29,10 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.StartDate).HasColumnName("StartDate");
             Property(n => n.EventName).HasColumnName("EventName");
             Property(n => n.Venue).HasColumnName("Venue");
+            Property(n => n.CreatedById).HasColumnName("CreatedById");
+            Property(n => n.LastModifiedById).HasColumnName("LastModifiedById");
             Property(n => n.DateCreated).HasColumnName("DateCreated");
+            Property(n => n.DateLastModified).HasColumnName("DateLastModified");
         }
     }
 }

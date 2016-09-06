@@ -146,11 +146,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="form-horizontal">
                             @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                             @Html.HiddenFor(model => model.AppUserId)
+                            @Html.Hidden("date",Model.DateCreated)
+                            @Html.Hidden("password",Model.Password)
+                            @Html.Hidden("createdby",Model.CreatedById)
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.TextBoxFor(model => model.Firstname,new {@class = "form-control"})
                                         @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
@@ -158,7 +161,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.TextBoxFor(model => model.Lastname,new {@class = "form-control"})
                                         @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
@@ -166,7 +169,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
                                         @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
@@ -174,7 +177,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.TextBoxFor(model => model.Mobile, new {@class = "form-control"})
                                         @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
@@ -182,7 +185,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "Select Login role", new {@class = "form-control select-dropdown"})
+                                        @Html.DropDownListFor(model=>model.Role,EnumHelper.GetSelectList(typeof(UserType)),"select a role", new {@class = "form-control select-dropdown"})
                                     </div>
 
                                 </div>
@@ -202,7 +205,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 </body>
 </html>
-
-<div>
-
-</div>

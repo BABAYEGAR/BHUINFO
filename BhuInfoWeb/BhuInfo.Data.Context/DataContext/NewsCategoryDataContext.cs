@@ -25,9 +25,9 @@ namespace BhuInfo.Data.Context.DataContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // other code 
+            
             Database.SetInitializer<NewsCategoryDataContext>(null);
-            // more code
+          
         }
     }
 }

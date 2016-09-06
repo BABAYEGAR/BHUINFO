@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
@@ -42,12 +43,26 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NewsCategoryId,Name")] NewsCategory newsCategory)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                newsCategory.DateCreated = DateTime.Now;
-                newsCategory.DateLastModified = DateTime.Now;
-                db.NewsCategories.Add(newsCategory);
-                db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    newsCategory.DateCreated = DateTime.Now;
+                    newsCategory.DateLastModified = DateTime.Now;
+                    newsCategory.CreatedById = loggedinuser.AppUserId;
+                    newsCategory.LastModifiedById = loggedinuser.AppUserId;
+                    db.NewsCategories.Add(newsCategory);
+                    db.SaveChanges();
+                    TempData["category"] = "This category has been created successfully!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                }
+                else
+                {
+                    TempData["category"] = "Your session has expired,Login and try again!";
+                    TempData["notificationtype"] = NotificationType.Danger.ToString();
+                    RedirectToAction("Create");
+                }
                 return RedirectToAction("Index");
             }
 
@@ -70,13 +85,28 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-            [Bind(Include = "NewsCategoryId,Name,DateCreated,DateLastModified,CreatedById,LastModifiedById")] NewsCategory newsCategory)
+        public ActionResult Edit([Bind(Include = "NewsCategoryId,Name,DateCreated,DateLastModified,CreatedById,LastModifiedById")] NewsCategory newsCategory,FormCollection collectedValues)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                db.Entry(newsCategory).State = EntityState.Modified;
-                db.SaveChanges();
+                if (loggedinuser != null)
+                {
+                    newsCategory.DateLastModified = DateTime.Now;
+                    newsCategory.LastModifiedById = loggedinuser.AppUserId;
+                    newsCategory.CreatedById = long.Parse(collectedValues["createdby"]);
+                    newsCategory.DateCreated = Convert.ToDateTime(collectedValues["date"]);
+                    db.Entry(newsCategory).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["category"] = "This category has been modified successfully!";
+                    TempData["notificationtype"] = NotificationType.Danger.ToString();
+                }
+                else
+                {
+                    TempData["category"] = "Your session has expired,Login and try again!";
+                    TempData["notificationtype"] = NotificationType.Danger.ToString();
+                    RedirectToAction("Edit");
+                }
                 return RedirectToAction("Index");
             }
             return View(newsCategory);
@@ -102,6 +132,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var newsCategory = db.NewsCategories.Find(id);
             db.NewsCategories.Remove(newsCategory);
             db.SaveChanges();
+            TempData["category"] = "This category has deleted succesfully!";
+            TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
         }
 

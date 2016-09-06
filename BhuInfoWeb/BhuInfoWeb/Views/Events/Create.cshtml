@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.Event
 
 @{
@@ -130,7 +131,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <div class="panel-body">
                 <div class="col-md-12">
-
+                    @if (TempData["event"] != null)
+                    {
+                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                        {
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["event"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                        {
+                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["event"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                        {
+                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["event"]</p>
+                        }
+                    }
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
@@ -212,25 +227,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         })
 
 </script>
-@*@section scripts {
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
-    <script src="~/JqueryPlugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
-
-    <script>
-        $(document)
-            .ready(function() {
-
-                // Init select2 for dropdown select
-                $('.select-dropdown').select2();
-
-                // init datepicker for issue date
-                $('.endDate').datepicker();
-
-                // init datepicker for issue date
-                $('.startDate').datepicker();
-
-            })
-    </script>
-}*@
