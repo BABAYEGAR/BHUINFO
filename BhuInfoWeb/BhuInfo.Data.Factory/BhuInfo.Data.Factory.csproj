@@ -52,7 +52,9 @@
   <ItemGroup>
     <Compile Include="BusinessFactory\AppUserFactory.cs" />
     <Compile Include="BusinessFactory\AuthenticationFactory.cs" />
+    <Compile Include="BusinessFactory\DiscussionCommentFactory.cs" />
     <Compile Include="BusinessFactory\NewsCommentFactory.cs" />
+    <Compile Include="BusinessFactory\SchoolDiscussionDataFactory.cs" />
     <Compile Include="BusinessFactory\NewsDataFactory.cs" />
     <Compile Include="BusinessFactory\NewsCategoryDataFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

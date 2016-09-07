@@ -49,14 +49,60 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <ul>
                 @if (loggedinuser != null)
                 {
-                    <li>
-                        <a href="@Url.Action("LogOut", "Account")">@loggedinuser.DisplayName</a>
-                    </li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+
+                                                    <p class="text-left">
+                                                        <a href="#" class="btn btn-primary">Profile</a>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 }
+
                 else
                 {
                     <li>
-                        <a href="@Url.Action("AppLogin", "Account")">Login</a>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
                     </li>
                 }
                 <li>
@@ -110,7 +156,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
     <div class="content">
         <div class="contact-section">
-            <h3 class="c-head">contact-us</h3>
+            <h3 class="c-head" style="font-family: -apple-system; font-weight: bolder">contact-us</h3>
             <div class="singel_right">
                 <div class="lcontact span_1_of_contact">
                     <div class="contact-form">
@@ -118,32 +164,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                            <div class=" row">
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Name", null, new {@class = "control-label"})
+                                    @Html.TextBox("SenderName", null, new {@class = "form-control", placeholder = "Enter your Name"})
 
-                            <p class="comment-form-author-name">
-                                @Html.Label("Name", null, new {@class = "control-label"})
-                                @Html.TextBox("SenderName", null, new {@class = "form-control", placeholder = "Enter your Name"})
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Email", null, new {@class = "control-label"})
+                                    @Html.TextBox("Email", null, new {@class = "form-control", placeholder = "Enter your Email"})
 
-                            </p>
-                            <p class="comment-form-author-name">
-                                @Html.Label("Email", null, new {@class = "control-label"})
-                                @Html.TextBox("Email", null, new {@class = "form-control", placeholder = "Enter an Email"})
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Message", null, new {@class = "control-label"})
+                                    @Html.TextArea("Message", null, new {@class = "form-control", placeholder = "Enter a message"})
 
-                            </p>
-                            <p class="comment-form-author">
-                                @Html.Label("Message", null, new {@class = "control-label"})
-                                @Html.TextArea("Message", null, new {@class = "form-control", placeholder = "Enter a message"})
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="submit" class="btn btn-primary pull-right"/>
 
-                            </p>
-
-                            <div class="col-md-12">
-                                <input type="submit" value="submit" class="btn btn-primary"/>
-
+                                </div>
                             </div>
                         }
                     </div>
                 </div>
                 <div class="contact_grid span_2_of_contact_right">
-                    <h3>Address</h3>
+                    <h3 class="detailsDiv">Address</h3>
                     <div class="address">
                         <i class="pin_icon"></i>
                         <div class="contact_address">
@@ -158,7 +206,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"></div>
                     </div>
                     <div class="address">
-                        <i class="phone"></i>
+                        <i class="fa-phone"></i>
                         <div class="contact_address">
                             The Registrar,
                             Bingham University,
@@ -180,8 +228,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <div class="clearfix"></div>
             </div>
             <div class="map">
-                <iframe src="https://www.google.com.ng/maps/place/Bingham+University/8.9537031,7.6964542,17z/data=!3m1!4b1!4m5!3m4!1s0x104e0361cc3b2deb:0xe580e5e42189c2c0!8m2!3d8.9537031!4d7.6986429"
-                        style="border: 0">
+                <iframe src="https://goo.gl/maps/tqjnKCQve3n" style="border: 0">
                 </iframe>
             </div>
         </div>

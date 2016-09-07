@@ -16,6 +16,8 @@
     var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+
+    var postedBy = new AppUserFactory().GetAppUserById((int) Model.CreatedById);
 }
 
 @{
@@ -172,7 +174,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <h3>@Html.DisplayFor(model => model.NewsCategory.Name)</h3>
                 <a href="#">@Html.DisplayFor(model => model.Title)</a>
                 <p class="sub_head">
-                    Posted by <a href="#">Admin</a> @Html.DisplayFor(model => model.DateCreated.Date.Day) @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.DateCreated.Month) @Html.DisplayFor(model => model.DateCreated.Date.Year)
+                    Posted by @postedBy.DisplayName On @Html.DisplayFor(model => model.DateCreated.Date.Day) @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.DateCreated.Month) @Html.DisplayFor(model => model.DateCreated.Date.Year)
                 </p>
                 <a href="#">
                     <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" class="img-responsive" alt=""/>

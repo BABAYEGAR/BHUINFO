@@ -4,10 +4,6 @@
 @{
     ViewBag.HeaderClass = "page-header";
 }
-
-@section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-}
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,14 +25,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="index.html">
+            <a href="@Url.Action("Index","Home")">
                 <h1>Bhu-Info</h1>
             </a>
         </div>
         <div class="pages">
             <ul>
                 <li>
-                    <a class="active" href="index.html">News/Articles</a>
+                    <a class="active" href="@Url.Action("Index","Home")">News/Articles</a>
                 </li>
             </ul>
         </div>

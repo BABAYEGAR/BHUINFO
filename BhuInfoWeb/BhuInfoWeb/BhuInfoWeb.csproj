@@ -211,6 +211,7 @@
     <Compile Include="Controllers\BhuWebControllers\EventsController.cs" />
     <Compile Include="Controllers\BhuWebControllers\NewsCategoriesController.cs" />
     <Compile Include="Controllers\BhuWebControllers\NewsController.cs" />
+    <Compile Include="Controllers\BhuWebControllers\SchoolDiscussionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -961,6 +962,12 @@
     <Content Include="Views\Events\Details.cshtml" />
     <Content Include="Views\Events\Edit.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\SchoolDiscussions\Create.cshtml" />
+    <Content Include="Views\SchoolDiscussions\Delete.cshtml" />
+    <Content Include="Views\SchoolDiscussions\Details.cshtml" />
+    <Content Include="Views\SchoolDiscussions\Edit.cshtml" />
+    <Content Include="Views\SchoolDiscussions\Index.cshtml" />
+    <Content Include="Views\SchoolDiscussions\Activity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -982,6 +989,10 @@
     <ProjectReference Include="..\BhuInfo.Data.Factory\BhuInfo.Data.Factory.csproj">
       <Project>{7B98C2FE-6E6F-4825-A8CB-C2C6F6B3D305}</Project>
       <Name>BhuInfo.Data.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BhuInfo.Data.Object.Mapping\BhuInfo.Data.Object.Mapping.csproj">
+      <Project>{41ee7f19-87fc-416a-909f-0071dd041854}</Project>
+      <Name>BhuInfo.Data.Object.Mapping</Name>
     </ProjectReference>
     <ProjectReference Include="..\BhuInfo.Data.Objects\BhuInfo.Data.Objects.csproj">
       <Project>{e0d5cc1c-9e28-40a6-9dff-3ad71cdf7f52}</Project>

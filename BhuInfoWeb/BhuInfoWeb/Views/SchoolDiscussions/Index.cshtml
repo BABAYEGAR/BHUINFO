@@ -1,0 +1,286 @@
+﻿@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.SchoolDiscussion>
+
+@{
+    ViewBag.Title = "Index";
+    var newsList = new NewsDataFactory().GetAllNews();
+    var orderNews = newsList.OrderByDescending(n => n.DateCreated);
+    var countedNews = orderNews.Take(4);
+    var news = countedNews.ToList();
+
+    var allNewsList = new NewsDataFactory().GetTopNthPopularNews(4);
+    var popularNews = allNewsList.ToList();
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>dvvddgdgd</title>
+    <!-- Custom Theme files -->
+    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <!-- Custom Theme files -->
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</head>
+<body>
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Home")">News/Articles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+
+                                                    <p class="text-left">
+                                                        <a href="#" class="btn btn-primary">Profile</a>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            @if ((loggedinuser != null) && (loggedinuser.Role.Equals(UserType.Administrator.ToString()) || loggedinuser.Role.Equals(UserType.Manager.ToString())))
+            {
+                <div class="col-lg-12">
+                    <a href="@Url.Action("Create")"class="btn btn-success">Create</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-12">
+
+                </div>
+            }
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>Article Types</h5>
+        </div>
+        <span class="menu"></span>
+        @if (loggedinuser == null)
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="active">General</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>|
+                    <li>
+                        <a href="materials.html">SRC Team</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "AppUsers")">Users</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "News")">News</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "Events")">Events</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
+                    </li>|
+                    <li>
+                        <a href="materials.html">SRC Team</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="content">
+
+        <div class="col-md-12 content-right content-right-top">
+
+            <div class="editors-pic-grids">
+
+                <h5 class="head">Discussion Topics</h5>
+                @foreach (var item in Model)
+                {
+                    <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">
+                        <div class="editor text-center">
+
+                            <h2>@item.Topic</h2>
+                            <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                            <span></span>
+
+                        </div>
+                    </a>
+                }
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="col-md-3 footer-links">
+                <h4>Other pages and things</h4>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website</a>
+                <a href="#">Single Page sales portfolio </a>
+                <a href="#">Flat product website in Photoshop</a>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website</a>
+                <a href="#">Single Page sales portfolio </a>
+                <a href="#">Flat product website</a>
+            </div>
+            <div class="col-md-3 footer-links span_66">
+                <a href="#">Flat product website in Photoshop</a>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website </a>
+            </div>
+            <div class="col-md-3 footer-links">
+                <h4>Relevant Articles</h4>
+                <a href="#">Design a creative Blog</a>
+                <a href="#">Design a iPad Website</a>
+                <a href="#">Single Page sales portfolio </a>
+                <a href="#">Flat product website</a>
+                <a href="#">Design a creative Blog</a>
+            </div>
+            <div class="col-md-3 footer-links">
+                <h4>Other pages and things</h4>
+                <a href="#">Blaz Robar</a>
+                <a href="#">Nick Toranto</a>
+                <a href="#">Joisp Kelava</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="copyrights">
+                <p>
+                    Konstructs © 2015 All rights reserved | Template by <a href="http://w3layouts.com"> W3layouts</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

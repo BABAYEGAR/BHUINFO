@@ -14,6 +14,7 @@ namespace BhuInfoWeb.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session["bhuinfologgedinuser"] = null;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -97,8 +98,6 @@ namespace BhuInfoWeb.Controllers
             return View("Login");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();

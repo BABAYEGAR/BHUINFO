@@ -190,3 +190,5 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Microsoft.Owin.Securi
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.csprojResolveAssemblyReference.cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Object.Mapping.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Object.Mapping.pdb

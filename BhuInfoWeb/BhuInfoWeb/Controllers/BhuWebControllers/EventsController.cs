@@ -41,7 +41,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event)
+        public ActionResult Create([Bind(Include = "EventId,EventName,Venue,StartDate,EndDate,Organizer,DateCreated")] Event @event,FormCollection collectedValues)
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
@@ -52,10 +52,19 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     @event.DateLastModified  = DateTime.Now;
                     @event.CreatedById = loggedinuser.AppUserId;
                     @event.LastModifiedById = loggedinuser.AppUserId;
-                    db.Events.Add(@event);
-                    db.SaveChanges();
-                    TempData["event"] = "New event Successfully Created!";
-                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                    if (@event.EndDate < @event.StartDate)
+                    {
+                        TempData["event"] = "The End date cannot be less than the start date!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                        return View(@event);
+                    }
+                    else
+                    {
+                        db.Events.Add(@event);
+                        db.SaveChanges();
+                        TempData["event"] = "New event Successfully Created!";
+                        TempData["notificationtype"] = NotificationType.Success.ToString();
+                    }
                 }
                 else
                 {

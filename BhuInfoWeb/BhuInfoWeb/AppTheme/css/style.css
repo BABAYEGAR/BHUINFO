@@ -506,7 +506,7 @@ p.comment-form-author { margin-bottom: 2em; }
 .contact-form label {
     color: #000;
     display: block;
-    font-family: 'Georgia Italic';
+    font-family: 'Georgia';
     font-size: 1em;
     text-transform: uppercase;
 }
@@ -989,6 +989,10 @@ p.span a {
 .features-list ul { margin-left: 1em; }
 
 .cmts-main-left img { width: 100%; }
+
+
+.single-content-center { padding: 5em; }
+
 
 /*-- responsive-design starts-here --*/
 

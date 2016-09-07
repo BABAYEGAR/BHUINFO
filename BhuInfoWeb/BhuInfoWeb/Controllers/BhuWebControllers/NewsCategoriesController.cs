@@ -99,7 +99,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     db.Entry(newsCategory).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["category"] = "This category has been modified successfully!";
-                    TempData["notificationtype"] = NotificationType.Danger.ToString();
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
                 else
                 {

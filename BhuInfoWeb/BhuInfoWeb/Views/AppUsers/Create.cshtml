@@ -3,7 +3,7 @@
 @model BhuInfo.Data.Objects.Entities.AppUser
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create User";
 }
 
 @{
@@ -31,14 +31,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="index.html">
+            <a href="@Url.Action("Index", "Home")">">
                 <h1>Bhu-Info</h1>
             </a>
         </div>
         <div class="pages">
             <ul>
                 <li>
-                    <a class="active" href="index.html">News/Articles</a>
+                    <a class="active" href="@Url.Action("Index", "Home")">">News/Articles</a>
                 </li>
             </ul>
         </div>
@@ -119,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="tagline">@ViewBag.Title</h2>
+                <h2 class="tagline" style="font-family: fantasy">@ViewBag.Title</h2>
             </div>
         </div>
     </div>

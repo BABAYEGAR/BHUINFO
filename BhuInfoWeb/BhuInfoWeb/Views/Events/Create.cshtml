@@ -15,12 +15,12 @@
     <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
     <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
+    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
     <!-- Custom Theme files -->
+
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <link href="~/JqueryPlugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
@@ -32,14 +32,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="index.html">
+            <a href="@Url.Action("Index", "Home")">">
                 <h1>Bhu-Info</h1>
             </a>
         </div>
         <div class="pages">
             <ul>
                 <li>
-                    <a class="active" href="index.html">News/Articles</a>
+                    <a class="active" href="@Url.Action("Index", "Home")">">News/Articles</a>
                 </li>
             </ul>
         </div>
@@ -120,7 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="tagline">@ViewBag.Title</h2>
+                @*<h2 class="tagline">@ViewBag.Title</h2>*@
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                        <fieldset>
+                        <div class="form-horizontal">
 
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.EventName, new {@class = "control-label col-md-3"})
@@ -159,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     @Html.ValidationMessageFor(model => model.EventName, "", new {@class = "text-danger"})
                                 </div>
                             </div>
-
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.Venue, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
@@ -167,7 +167,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     @Html.ValidationMessageFor(model => model.Venue, "", new {@class = "text-danger"})
                                 </div>
                             </div>
-
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.StartDate, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
@@ -175,7 +175,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     @Html.ValidationMessageFor(model => model.StartDate, "", new {@class = "text-danger"})
                                 </div>
                             </div>
-
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.EndDate, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
@@ -183,7 +183,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     @Html.ValidationMessageFor(model => model.EndDate, "", new {@class = "text-danger"})
                                 </div>
                             </div>
-
+                            <div class="clearfix"></div>
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.Organizer, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
@@ -191,13 +191,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     @Html.ValidationMessageFor(model => model.Organizer, "", new {@class = "text-danger"})
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Create" class="btn btn-default"/>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div>
+                                    <a href="@Url.Action("Index", "Events")" class="btn btn-default pull-left">Cancel</a>
+                                    <input type="submit" value="Create" class="btn btn-primary pull-right"/>
                                 </div>
                             </div>
-                        </fieldset>
+                        </div>
                     }
                 </div>
             </div>
@@ -206,9 +207,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 </body>
 </html>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
-<script src="~/JqueryPlugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Scripts/plugins/moment/min/moment.min.js"></script>
+<script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
 
 <script>
@@ -218,12 +218,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             // Init select2 for dropdown select
             $('.select-dropdown').select2();
 
-            // init datepicker for issue date
-            $('.startDate').datetimepicker();
+            // init datepicker for start date
+            $('.startDate').datepicker();
 
-            // init datepicker for issue date
-            $('.endDate').datetimepicker();
+            // init datepicker for start date
+            $('.endDate').datepicker();
 
+            // set start date of end date based on selected start date
+            $('.startDate')
+                .datepicker()
+                .on('changeDate',
+                    function(e) {
+
+                        // apply selected date as start date for expiry
+                        $('.endDate').datepicker('setStartDate', e.date);
+                    });
         })
 
 </script>
