@@ -9,28 +9,9 @@
     ViewBag.HeaderClass = "page-header";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Admin</title>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.css" rel="stylesheet"/>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-    <!-- Custom Theme files -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -176,7 +157,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-               
+
             </div>
         </div>
     </div>
@@ -213,7 +194,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </p>
                     }
 
-                    <table class="table table-condensed table-hover dataTable">
+                    <table class="table table-condensed table-hover appuser">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.Firstname)
@@ -271,19 +252,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-</body>
-</html>
+@section scripts {
+    <script src="~/JqueryPlugins/ui/drilldown.js"></script>
+    <script src="~/JqueryPlugins/ui/nicescroll.min.js"></script>
+    <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
+    <script src="~/JqueryPlugins/datatables/datatables.min.js"></script>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<script src="~/JqueryPlugins/datatables/datatables.min.js"></script>
-<script src="~/JqueryPlugins/ui/drilldown.js"></script>
-<script src="~/JqueryPlugins/ui/nicescroll.min.js"></script>
-<script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
-
-<script>
-    $(document)
-        .ready(function() {
-            $('.dataTable').dataTable();
-        });
-</script>
+    <script>
+        $(document)
+            .ready(function() {
+                $('.appuser').dataTable();
+            });
+    </script>
+}

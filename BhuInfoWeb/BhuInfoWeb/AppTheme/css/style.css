@@ -15,6 +15,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     padding-bottom: 0;
     padding-top: 0;
 }
+.team_grid{
+	padding:2em 0;
+}
 .detailsLabel{
     color: black;
     font-weight: bold;

@@ -5,19 +5,19 @@
 @using BhuInfo.Data.Service.TextFormatter
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
-    ViewBag.Title = "Fashion";
+    ViewBag.Title = "General";
 
-    var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.Fashion, 4);
+    var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.General, 4);
     var news = newsList.ToList();
 
-    var newsCategoryList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Fashion, 2);
+    var newsCategoryList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.General, 2);
     var recentCategoryNews = newsCategoryList.ToList();
 
     var recentNews = Model.Take(4);
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
-    var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.Fashion);
+    var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.General);
     var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);
 }
 @{
@@ -71,9 +71,18 @@
                                                     </p>
                                                     <p class="text-left small">@loggedinuser.Email</p>
 
-                                                    <p class="text-left">
-                                                        <a href="#" class="btn btn-primary">Profile</a>
-                                                    </p>
+                                                    @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
 
                                                 </div>
 
@@ -122,13 +131,13 @@
                     <a href="@Url.Action("Index", "Home")">Home</a>
                 </li>|
                 <li>
-                    <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                    <a href="@Url.Action("GeneralNews", "Home")" class="active">General</a>
                 </li>|
                 <li>
                     <a href="@Url.Action("SportsNews", "Home")">Sports</a>
                 </li>|
                 <li>
-                    <a href="@Url.Action("FashionNews", "Home")" class="active">Fashion</a>
+                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
                 </li>|
                 <li>
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
@@ -165,7 +174,6 @@
                 <a href="#">
                     <img src="~/UploadedFiles/@UploadType.NewsImage/@mostRecentSingleNews.Image" class="img-responsive" alt=""/>
                 </a>
-
                 @if (mostRecentSingleNews.Content.Length > 40)
                 {
                     <p class="ptext">@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content).Substring(0, 80))</p>
@@ -189,7 +197,7 @@
                             <div class="print-text">
                                 <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
                                 <p>
-                                    Posted by <a href="#">@mostRecentNewsPostedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
+                                    Posted by <a href="#">@(new AppUserFactory().GetAppUserById((int) item.CreatedById));</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                 </p>
                                 @if (item.Content.Length > 40)
                                 {

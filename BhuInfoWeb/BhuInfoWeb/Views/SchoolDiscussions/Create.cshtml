@@ -7,30 +7,14 @@
     ViewBag.Title = "Create";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Home</title>
-    <!-- Custom Theme files -->
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/ckeditor/contents.css" rel="stylesheet" />
-    <!-- Custom Theme files -->
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
     <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
-<!-- header-section-starts -->
+    <link href="~/Scripts/plugins/ckeditor/contents.css" rel="stylesheet"/>
+}
+
 <div class="header">
     <div class="container">
         <div class="logo">
@@ -165,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.Content, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
-                                    @Html.TextAreaFor(model => model.Content, new {@class = "form-control",id="content"})
+                                    @Html.TextAreaFor(model => model.Content, new {@class = "form-control", id = "content"})
                                     @Html.ValidationMessageFor(model => model.Content, "", new {@class = "text-danger"})
                                 </div>
                             </div>
@@ -180,17 +164,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-</body>
-</html>
-<script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
-<script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
-<script>
-    $(document)
-        .ready(function() {
+@section scripts{
+    <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+    <script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
 
-            // Init select2 for dropdown select
-            $('.select-dropdown').select2();
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
 
-            CKEDITOR.replace("content");
-        })
-</script>
+                CKEDITOR.replace("content");
+            })
+    </script>
+}

@@ -4,23 +4,9 @@
     ViewBag.Title = "Contact";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info|Contact</title>
-    <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet" type="text/css" media="all"/>
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <!-- Custom Theme files -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -71,9 +57,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     </p>
                                                     <p class="text-left small">@loggedinuser.Email</p>
 
-                                                    <p class="text-left">
-                                                        <a href="#" class="btn btn-primary">Profile</a>
-                                                    </p>
+                                                    @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
 
                                                 </div>
 
@@ -132,6 +127,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>|
                 <li>
                     <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
                     <a href="materials.html">SRC Team</a>
@@ -234,49 +232,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-<div class="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-            </div>
-            <div class="col-md-3 footer-links span_66">
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website </a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Relevant Articles</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-                <a href="#">Design a creative Blog</a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Blaz Robar</a>
-                <a href="#">Nick Toranto</a>
-                <a href="#">Joisp Kelava</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="copyrights">
-                <p>Bhu-Info © 2015 All rights reserved | Template by Babayegar </p>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-</html>

@@ -2,7 +2,7 @@
 @model BhuInfo.Data.Objects.Entities.NewsCategory
 
 @{
-    ViewBag.Title = "Create a Category";
+    ViewBag.Title = "Create";
 }
 
 @{
@@ -10,30 +10,15 @@
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Home</title>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="@Url.Action("Index", "Home")">">
+            <a href="@Url.Action("Index", "Home")">
+                ">
                 <h1>Bhu-Info</h1>
             </a>
         </div>
@@ -158,5 +143,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-</body>
-</html>

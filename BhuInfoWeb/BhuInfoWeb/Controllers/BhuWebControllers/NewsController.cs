@@ -81,8 +81,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 }
                 return RedirectToAction("Index");
             }
-
-            return View(news);
+            TempData["news"] = "Make sure you fill all the fields!";
+            TempData["notificationtype"] = NotificationType.Danger.ToString();
+            return RedirectToAction("Create","News",news);
         }
 
         // GET: News/Edit/5

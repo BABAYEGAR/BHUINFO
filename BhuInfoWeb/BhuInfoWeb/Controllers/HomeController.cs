@@ -69,5 +69,14 @@ namespace BhuInfoWeb.Controllers
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
             return View("Fashion", news);
         }
+        public ActionResult GeneralNews()
+        {
+            var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
+            return View("General", news);
+        }
+        public ActionResult SrcTeam()
+        {
+            return View("SrcTeam");
+        }
     }
 }

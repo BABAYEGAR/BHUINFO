@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
@@ -50,52 +51,33 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("PASSWORD", user.Password);
         }
 
-        ///     This method sends an email to a user who has forgotten his passwrd
+        public void ResetUserPassword(AppUser user)
+        {
+            var message = new MailMessage();
 
-        /// <summary>
-        /// </summary>
-        /// <param name="forgottenPasswordrequest"></param>
-        //public void ResetUserPassword(ForgottenPasswordRequest forgottenPasswordrequest)
-        //{
-        //    var message = new MailMessage();
-
-        //    message.From = new MailAddress(Config.SupportEmailAddress, Config.SupportDisplayName);
-        //    message.To.Add(forgottenPasswordrequest.AppUser.Email);
-        //    message.Subject = "New Password";
-        //    message.Priority = MailPriority.High;
-        //    message.SubjectEncoding = Encoding.UTF8;
-        //    message.Body = GetEmailBody_NewPasswordCreated(forgottenPasswordrequest.AppUser);
-        //    message.IsBodyHtml = true;
-        //    try
-        //    {
-
-        //        var mailClient = new SmtpClient();
-        //        mailClient.UseDefaultCredentials = false;
-        //        mailClient.Credentials = new NetworkCredential("haruna@emergingplatforms.com", "Brigada95");
-        //        mailClient.Port = 587;
-        //        mailClient.Host = "smtp.office365.com";
-        //        mailClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-        //        mailClient.EnableSsl = true;
-        //        mailClient.Send(message);
-        //    }
-        //    catch (Exception exception)
-        //    {
-        //        // 
-        //    }
-        //}
-
-        /// <summary>
-        ///     This method contains contents for the forgot password html page
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        //private static string GetEmailBody_NewPasswordCreated(AppUser user)
-        //{
-        //    return
-        //        new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ForgotPassword.html"))
-        //            .ReadToEnd()
-        //            .Replace("DISPLAYNAME", user.Firstname)
-        //            .Replace("URL","172.16.16.11/EPPortalBeta/ResetPassword.aspx?password="+user.Password);
-        //}
+            message.From = new MailAddress(Config.SupportEmailAddress, Config.SupportDisplayName);
+            message.To.Add(user.Email);
+            message.Subject = "New Password";
+            message.Priority = MailPriority.High;
+            message.SubjectEncoding = Encoding.UTF8;
+            message.Body = GetEmailBody_NewPasswordCreated(user);
+            message.IsBodyHtml = true;
+            try
+            {
+                new SmtpClient().Send(message);
+            }
+            catch (Exception exception)
+            {
+            }
+        }
+        private static string GetEmailBody_NewPasswordCreated(AppUser user)
+        {
+            return
+                new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ResetPassword.html"))
+                    .ReadToEnd()
+                    .Replace("FROM",Config.SupportEmailAddress)
+                    .Replace("DISPLAYNAME", user.Firstname)
+                    .Replace("Id",user.Password);
+        }
     }
 }

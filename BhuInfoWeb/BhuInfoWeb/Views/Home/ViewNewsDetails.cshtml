@@ -1,5 +1,4 @@
-﻿@using System.Globalization
-@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -23,31 +22,14 @@
     var discussions = new SchoolDiscussionDataFactory().GetAllDiscussions();
     var orderDiscussions = discussions.OrderByDescending(n => n.DiscussionView);
     var countedDiscussions = orderDiscussions.Take(5);
-
 }
 
 @{
-    ViewBag.Title = "ViewNewsDetails";
+    ViewBag.Title = "NewsDetails";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>@Html.DisplayFor(model => model.Title)</title>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -157,7 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
-                    <a href="materials.html">SRC Team</a>
+                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -201,7 +183,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @foreach (var item in countedDiscussions)
                     {
                         <li>
-                            <a href="@Url.Action("Activity","SchoolDiscussions",new {Id = item.SchoolDiscussionId})">@item.Topic</a>
+                            <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">@item.Topic</a>
                         </li>
                     }
                 </ul>
@@ -269,7 +251,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         <h3>@item.Title</h3>
                         <p>@item.Content</p>
-                    <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                        <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                         <span></span>
         
                     </div>
@@ -291,7 +273,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="e-pic-info">
                             <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title)</a>
                             <span></span>
-                          <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                            <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -303,53 +285,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"></div>
     </div>
 </div>
-
-<div class="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-            </div>
-            <div class="col-md-3 footer-links span_66">
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website </a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Relevant Articles</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-                <a href="#">Design a creative Blog</a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Blaz Robar</a>
-                <a href="#">Nick Toranto</a>
-                <a href="#">Joisp Kelava</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="copyrights">
-                <p>
-                    Konstructs © 2015 All rights reserved | Template by <a href="http://w3layouts.com"> W3layouts</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>

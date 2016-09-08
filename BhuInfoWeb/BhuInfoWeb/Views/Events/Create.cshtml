@@ -6,40 +6,26 @@
     ViewBag.Title = "Create";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Home</title>
-    <!-- Custom Theme files -->
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-    <!-- Custom Theme files -->
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+@section css{
 
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
         <div class="logo">
-            <a href="@Url.Action("Index", "Home")">">
+            <a href="@Url.Action("Index", "Home")">
+
                 <h1>Bhu-Info</h1>
             </a>
         </div>
         <div class="pages">
             <ul>
                 <li>
-                    <a class="active" href="@Url.Action("Index", "Home")">">News/Articles</a>
+                    <a class="active" href="@Url.Action("Index", "Home")">News/Articles</a>
                 </li>
             </ul>
         </div>
@@ -205,37 +191,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-</body>
-</html>
-<script src="~/Scripts/plugins/moment/min/moment.min.js"></script>
-<script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+@section scripts{
+    <script src="~/Scripts/plugins/moment/min/moment.min.js"></script>
+    <script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
 
-<script>
-    $(document)
-        .ready(function() {
+    <script>
+        $(document)
+            .ready(function() {
 
-            // Init select2 for dropdown select
-            $('.select-dropdown').select2();
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
 
-            // init datepicker for start date
-            $('.startDate').datepicker();
+                // init datepicker for start date
+                $('.startDate').datepicker();
 
-            // init datepicker for start date
-            $('.endDate').datepicker();
+                // init datepicker for start date
+                $('.endDate').datepicker();
 
-             // init datepicker for date
-            $('.startDate').datepicker({ 'endDate': new Date() });
+                // init datepicker for date
+                $('.startDate').datepicker({ 'endDate': new Date() });
 
-            // set start date of end date based on selected start date
-            $('.startDate')
-                .datepicker()
-                .on('changeDate',
-                    function(e) {
+                // set start date of end date based on selected start date
+                $('.startDate')
+                    .datepicker()
+                    .on('changeDate',
+                        function(e) {
 
-                        // apply selected date as start date for expiry
-                        $('.endDate').datepicker('setStartDate', e.date);
-                    });
-        })
+                            // apply selected date as start date for expiry
+                            $('.endDate').datepicker('setStartDate', e.date);
+                        });
+            })
 
-</script>
+    </script>
+}

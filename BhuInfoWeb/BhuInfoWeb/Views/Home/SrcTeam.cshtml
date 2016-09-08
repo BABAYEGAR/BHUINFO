@@ -1,0 +1,328 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
+@{
+    ViewBag.Title = "SRC Team";
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+@section css{
+
+    <link href="~/AppTheme/team.css" rel="stylesheet"/>
+}
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Home")">News/Articles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+
+                                                    @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>SRC Team</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SrcTeam", "Home")" class="active">SRC Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="content">
+
+        <div class="team_grid">
+            <h3 class="m_1">Meet Our Team</h3>
+            <div class="span_3">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>President</h2>
+                            <h3>President</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Vice President</h2>
+                            <h3>Vice President</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="span_4">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Secretary General</h2>
+                            <h3>Secretary General</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Accountant</h2>
+                            <h3>Accountant</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="span_3">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Assistant Secretary General</h2>
+                            <h3>Assistant Secretary General</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>P.R.0 1</h2>
+                            <h3>P.R.O 1</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="span_3">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>P.R.0 1</h2>
+                            <h3>P.R.O 1</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Director Of Sport</h2>
+                            <h3>Director Of Sport</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="span_3">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Director Of Socials</h2>
+                            <h3>Director Of Socials</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Director Of Sport</h2>
+                            <h3>Director Of Sport</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

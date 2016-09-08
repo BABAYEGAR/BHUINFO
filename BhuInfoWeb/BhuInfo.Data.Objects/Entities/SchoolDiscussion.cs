@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,9 @@ namespace BhuInfo.Data.Objects.Entities
     public class SchoolDiscussion
     {
         public long SchoolDiscussionId { get; set; }
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Topic { get; set; }
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Content { get; set; }
         public string Status { get; set; }
         public long CreatedById { get; set; }

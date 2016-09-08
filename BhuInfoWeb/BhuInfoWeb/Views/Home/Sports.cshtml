@@ -1,5 +1,4 @@
-﻿@using System.Globalization
-@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -19,27 +18,11 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.Sports);
-    var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int)mostRecentSingleNews.CreatedById);
+    var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>BhuInfo | Sports</title>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -88,9 +71,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     </p>
                                                     <p class="text-left small">@loggedinuser.Email</p>
 
-                                                    <p class="text-left">
-                                                        <a href="#" class="btn btn-primary">Profile</a>
-                                                    </p>
+                                                    @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
 
                                                 </div>
 
@@ -136,7 +128,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="list-nav">
             <ul>
                 <li>
-                    <a href="@Url.Action("Index", "Home")">General</a>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("GeneralNews", "Home")">General</a>
                 </li>|
                 <li>
                     <a href="@Url.Action("SportsNews", "Home")" class="active">Sports</a>
@@ -148,7 +143,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
-                    <a href="materials.html">SRC Team</a>
+                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -174,12 +169,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <h3>@mostRecentSingleNews.NewsCategory.Name</h3>
                 <a href="#">@mostRecentSingleNews.Title</a>
                 <p class="sub_head">
-                    Posted by <a href="#"><span style="font-weight: bold">@mostRecentNewsPostedBy.DisplayName</span></a> @(new DateTimeCalculator().TimeAgo(mostRecentSingleNews.DateCreated))
+                    Posted by <a href="#">
+                        <span style="font-weight: bold">@mostRecentNewsPostedBy.DisplayName</span></a> @(new DateTimeCalculator().TimeAgo(mostRecentSingleNews.DateCreated))
                 </p>
                 <a href="#">
-                    <img src="~/UploadedFiles/@UploadType.NewsImage/@mostRecentSingleNews.Image" class="img-responsive" alt="" />
+                    <img src="~/UploadedFiles/@UploadType.NewsImage/@mostRecentSingleNews.Image" class="img-responsive" alt=""/>
                 </a>
-                <p class="ptext">@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content))</p>
+                @if (mostRecentSingleNews.Content.Length > 40)
+                {
+                    <p class="ptext">@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content).Substring(0, 80))</p>
+                }
+                else
+                {
+                    <p>@mostRecentSingleNews.Content</p>
+                }
             </div>
             <div class="print-grids">
                 @try
@@ -197,7 +200,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <p>
                                     Posted by <a href="#">@(new AppUserFactory().GetAppUserById((int) item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                 </p>
-                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80))</p>
+                                @if (item.Content.Length > 40)
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80))</p>
+                                }
+                                else
+                                {
+                                    <p>@item.Content</p>
+                                }
                                 <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">...Read More</a>
                             </div>
                             <div class="clearfix"></div>
@@ -219,7 +229,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                             <div class="editor text-center">
                                 <h3>@item.Title</h3>
-                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content).Substring(0, 50))</p>
+                                @if (item.Content.Length > 40)
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80))</p>
+                                }
+                                else
+                                {
+                                    <p>@item.Content</p>
+                                }
                                 <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                 <span></span>
                             </div>
@@ -261,51 +278,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"></div>
     </div>
 </div>
-<div class="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-            </div>
-            <div class="col-md-3 footer-links span_66">
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website </a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Relevant Articles</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-                <a href="#">Design a creative Blog</a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Blaz Robar</a>
-                <a href="#">Nick Toranto</a>
-                <a href="#">Joisp Kelava</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="copyrights">
-                <p>
-                    Konstructs © 2015 All rights reserved | Template by <a href="http://w3layouts.com"> W3layouts</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-</body>
-</html>

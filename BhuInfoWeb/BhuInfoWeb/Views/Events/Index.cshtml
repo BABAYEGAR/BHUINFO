@@ -6,28 +6,13 @@
     ViewBag.Title = "Index";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+@section css{
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Events</title>
-    <!-- Custom Theme files -->
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+    <link href="~/Scripts/plugins/dataTables/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -152,7 +137,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
             </ul>
         </div>
-        <!-- script for menu -->
+        @*<!-- script for menu -->
         <script>
             $("span.menu")
                 .click(function() {
@@ -163,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             });
                 });
         </script>
-        <!-- script for menu -->
+        <!-- script for menu -->*@
 
         <div class="clearfix"></div>
     </div>
@@ -208,7 +193,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <p class="alert-success alert-dismissable" style="height: 30px">@TempData["event"]</p>
                     }
 
-                    <table class="table eventTable">
+                    <table class="table table-condensed table-hover event">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.EventName)
@@ -266,5 +251,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-</body>
-</html>
+@section scripts{
+    <script src="~/JqueryPlugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/plugins/dataTables/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document)
+            .ready(function() {
+                $('.event').dataTable();
+            });
+    </script>
+}

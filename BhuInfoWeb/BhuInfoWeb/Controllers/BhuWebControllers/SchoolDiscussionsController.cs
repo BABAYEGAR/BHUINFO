@@ -157,8 +157,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDiscussionComment(
             [Bind(Include = "CommentBy,Comment,Email")] SchoolDiscussionComment discussionComment,
-            FormCollection collectedValues)
-        {
+            FormCollection collectedValues) {
+            discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
+            var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(discussionComment.SchoolDiscussionId);
             if (ModelState.IsValid)
             {
                 discussionComment.DateCreated = DateTime.Now;
@@ -168,7 +169,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 return RedirectToAction("Activity", "SchoolDiscussions", new {Id = discussionComment.SchoolDiscussionId});
             }
 
-            return View(discussionComment.SchoolDiscussion);
+            return View("Activity",discussion);
         }
 
         protected override void Dispose(bool disposing)

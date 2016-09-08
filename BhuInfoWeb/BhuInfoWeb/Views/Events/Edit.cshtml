@@ -3,31 +3,16 @@
 @model BhuInfo.Data.Objects.Entities.Event
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Edit";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+@section css{
 
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Events</title>
-    <!-- Custom Theme files -->
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+    <link href="~/Scripts/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -190,8 +175,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                             @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                             @Html.HiddenFor(model => model.EventId)
-                            @Html.Hidden("date",Model.DateCreated)
-                            @Html.Hidden("createdby",Model.CreatedById)
+                            @Html.Hidden("date", Model.DateCreated)
+                            @Html.Hidden("createdby", Model.CreatedById)
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.EventName, new {@class = "control-label col-md-3"})
@@ -246,40 +231,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-</body>
-</html>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
-<script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+@section scripts{
+    <script src="~/Scripts/plugins/moment/min/moment.min.js"></script>
+    <script src="~/Scripts/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
 
-<script>
-    $(document)
-        .ready(function() {
 
-            // Init select2 for dropdown select
-            $('.select-dropdown').select2();
+                // init datepicker for start date
+                $('.startDate').datepicker();
 
-            // init datepicker for date
-            $('.startDate').datepicker({ 'startDate': new Date() });
+                // init datepicker for start date
+                $('.endDate').datepicker();
 
-            // init datepicker for issue date
-            $('.startDate').datepicker();
+                // init datepicker for date
+                $('.startDate').datepicker({ 'endDate': new Date() });
 
-            // init datepicker for issue date
-            $('.endDate').datepicker();
+                // set start date of end date based on selected start date
+                $('.startDate')
+                    .datepicker()
+                    .on('changeDate',
+                        function(e) {
 
-            // set start date of end date based on selected start date
-            $('.startDate')
-                .datepicker()
-                .on('changeDate',
-                    function (e) {
+                            // apply selected date as start date for expiry
+                            $('.endDate').datepicker('setStartDate', e.date);
+                        });
+            })
 
-                        // apply selected date as start date for expiry
-                        $('.endDate').datepicker('setStartDate', e.date);
-                    });
-          
-
-        })
-
-</script>
+    </script>
+}

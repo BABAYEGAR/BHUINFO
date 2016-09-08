@@ -49,27 +49,41 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Create([Bind(Include = "Firstname,Lastname,Email,Mobile,Password")] AppUser appUser,
             FormCollection collectedValues)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                appUser.DateCreated = DateTime.Now;
-                appUser.DateLastModified = DateTime.Now;
-                appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
-                var password = Membership.GeneratePassword(8, 1);
-                var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
-                appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-                var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim());
-                if (userExist == true)
+                if (loggedinuser != null)
                 {
-                    TempData["user"] = "This user email already exist,try a different email!";
-                    TempData["notificationtype"] = NotificationType.Danger.ToString();
-                    return View(appUser);
+                    appUser.DateCreated = DateTime.Now;
+                    appUser.DateLastModified = DateTime.Now;
+                    appUser.CreatedById = loggedinuser.AppUserId;
+                    appUser.LastModifiedById = loggedinuser.AppUserId;
+                    appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                    var password = Membership.GeneratePassword(8, 1);
+                    var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                    appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+                    var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim());
+                    if (userExist)
+                    {
+                        TempData["user"] = "This user email already exist,try a different email!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                        return View(appUser);
+                    }
+                    db.AppUsers.Add(appUser);
+                    db.SaveChanges();
+
+                    TempData["user"] = "A new user has been created!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                    appUser.Password = password;
+                    new MailerDaemon().NewUser(appUser);
                 }
-                db.AppUsers.Add(appUser);
-                db.SaveChanges();
-                TempData["user"] = "A new user has been created!";
-                TempData["notificationtype"] = NotificationType.Success.ToString();
-                appUser.Password = password;
-                new MailerDaemon().NewUser(appUser);
+
+                else
+                {
+                    TempData["user"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                    return RedirectToAction("Index");
+                }
                 return RedirectToAction("Index");
             }
 
@@ -92,7 +106,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AppUserId,Firstname,Lastname,Email,Mobile,Password,DateLastModified,CreatedById,LastModifiedById")] AppUser appUser, FormCollection collectedValues)
+        public ActionResult Edit(
+            [Bind(
+                 Include =
+                     "AppUserId,Firstname,Lastname,Email,Mobile,Password,DateLastModified,CreatedById,LastModifiedById")
+            ] AppUser appUser, FormCollection collectedValues)
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)

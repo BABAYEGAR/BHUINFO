@@ -243,6 +243,7 @@
     <Content Include="AppTheme\images\p5.jpg" />
     <Content Include="AppTheme\images\print.jpg" />
     <Content Include="AppTheme\images\printing.jpg" />
+    <Content Include="AppTheme\team.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
@@ -250,6 +251,7 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
+    <Content Include="EmailTemplates\ResetPassword.html" />
     <Content Include="fonts\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="fonts\font-awesome-4.6.3\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
@@ -266,11 +268,12 @@
     <Content Include="JqueryPlugins\datatables\extensions\responsive.min.js" />
     <Content Include="JqueryPlugins\datatables\extensions\scroller.min.js" />
     <Content Include="JqueryPlugins\datatables\extensions\tools.min.js" />
+    <Content Include="JqueryPlugins\datatables\jquery.dataTables.js" />
     <Content Include="JqueryPlugins\ui\drilldown.js" />
     <Content Include="JqueryPlugins\ui\moment\moment.min.js" />
     <Content Include="JqueryPlugins\ui\moment\moment_locales.min.js" />
     <Content Include="JqueryPlugins\ui\nicescroll.min.js" />
-    <Content Include="Properties\EmailTemplates\NewUserCreated.html" />
+    <Content Include="EmailTemplates\NewUserCreated.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1218,12 +1221,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Manage\ChangePassword.cshtml" />
+    <Content Include="Manage\Index.cshtml" />
+    <Content Include="Manage\ManageLogins.cshtml" />
+    <Content Include="Manage\SetPassword.cshtml" />
+    <Content Include="Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\NewsCategories\Create.cshtml" />
@@ -1280,6 +1283,9 @@
     <Content Include="Scripts\plugins\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="Scripts\plugins\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Scripts\plugins\ckeditor\skins\moono\readme.md" />
+    <Content Include="Views\Home\General.cshtml" />
+    <Content Include="Views\Shared\_LayoutViewDetails.cshtml" />
+    <Content Include="Views\Home\SrcTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,4 @@
-﻿@using System.Globalization
-@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -15,28 +14,12 @@
 }
 
 @{
-    ViewBag.Title = "ViewNewsDetails";
+    ViewBag.Title = "Activity";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>@Html.DisplayFor(model => model.Topic)</title>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <!-- Custom Theme files -->
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -164,13 +147,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="list-nav">
                 <ul>
                     <li>
-                        <a href="@Url.Action("Index", "Home")">General</a>
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("GeneralNews", "Home")">General</a>
                     </li>|
                     <li>
                         <a href="@Url.Action("SportsNews", "Home")">Sports</a>
                     </li>|
                     <li>
                         <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                     </li>|
                     <li>
                         <a href="materials.html">SRC Team</a>
@@ -199,7 +188,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="print-main">
                 <h3>@Html.DisplayFor(model => model.Topic)</h3>
                 <p class="sub_head">
-                    Posted by @postedBy.DisplayName On @Html.DisplayFor(model => model.DateCreated.Date.Day) @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.DateCreated.Month) @Html.DisplayFor(model => model.DateCreated.Date.Year)
+                    Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
                 </p>
                 <a href="#">
                     <p>
@@ -228,16 +217,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="form-group col-md-12">
                                 @Html.Label("CommentBy", null, new {@class = "control-label"})
                                 @Html.TextBox("CommentBy", null, new {@class = "form-control"})
+                                @Html.ValidationMessage("CommentBy", "", new {@class = "text-danger"})
 
                             </div>
                             <div class="form-group col-md-12">
                                 @Html.Label("Email", null, new {@class = "control-label"})
                                 @Html.TextBox("Email", null, new {@class = "form-control"})
+                                @Html.ValidationMessage("Email", "", new {@class = "text-danger"})
 
                             </div>
                             <div class="form-group col-md-12">
                                 @Html.Label("Comment", null, new {@class = "control-label"})
                                 @Html.TextArea("Comment", null, new {@class = "form-control"})
+                                @Html.ValidationMessage("Comment", "", new {@class = "text-danger"})
 
                             </div>
 
@@ -253,7 +245,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 {
                     <p class="alert alert-info">This Discussion forum has been closed</p>
                 }
-           
+
                 <div class="comments1">
                     <h4>COMMENTS</h4>
                     @foreach (var item in discussionComments)
@@ -274,69 +266,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     }
 
                 </div>
-               
+
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-
-<div class="footer">
-    <div class="footer-top">
-        <div class="container">
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-            </div>
-            <div class="col-md-3 footer-links span_66">
-                <a href="#">Flat product website in Photoshop</a>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website </a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Relevant Articles</h4>
-                <a href="#">Design a creative Blog</a>
-                <a href="#">Design a iPad Website</a>
-                <a href="#">Single Page sales portfolio </a>
-                <a href="#">Flat product website</a>
-                <a href="#">Design a creative Blog</a>
-            </div>
-            <div class="col-md-3 footer-links">
-                <h4>Other pages and things</h4>
-                <a href="#">Blaz Robar</a>
-                <a href="#">Nick Toranto</a>
-                <a href="#">Joisp Kelava</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="copyrights">
-                <p>
-                    Konstructs © 2015 All rights reserved | Template by <a href="http://w3layouts.com"> W3layouts</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>
-<Script>
-    $(document)
-      .ready(function() {
-
-    $('.comments1:gt(1)').hide();
-    $('.show_button').click(function () {
-        $('.comments1:gt(1)').show();
-    });
-      })
-</Script>
