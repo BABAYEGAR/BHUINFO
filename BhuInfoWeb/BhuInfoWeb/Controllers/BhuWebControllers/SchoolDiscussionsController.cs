@@ -12,8 +12,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class SchoolDiscussionsController : Controller
     {
-        private readonly SchoolDiscussionCommentDataContext dbc = new SchoolDiscussionCommentDataContext();
         private readonly SchoolDiscussionDataContext db = new SchoolDiscussionDataContext();
+        private readonly SchoolDiscussionCommentDataContext dbc = new SchoolDiscussionCommentDataContext();
 
         // GET: SchoolDiscussions
         public ActionResult Index()
@@ -48,6 +48,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             db.SaveChanges();
             return View("Activity", discussion);
         }
+
         // GET: SchoolDiscussions/CloseActivity
         public ActionResult CloseActivity(long Id)
         {
@@ -58,7 +59,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             TempData["discussion"] = "This Discussion has been closed!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
 
-            return RedirectToAction("Index","SchoolDiscussions", db.SchoolDiscussions.ToList());
+            return RedirectToAction("Index", "SchoolDiscussions", db.SchoolDiscussions.ToList());
         }
 
         // POST: SchoolDiscussions/Create
@@ -157,19 +158,32 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateDiscussionComment(
             [Bind(Include = "CommentBy,Comment,Email")] SchoolDiscussionComment discussionComment,
-            FormCollection collectedValues) {
+            FormCollection collectedValues)
+        {
             discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
             var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(discussionComment.SchoolDiscussionId);
             if (ModelState.IsValid)
             {
+                string[] words = {"fuck", "Fuck", "4kin"};
+                var comment = collectedValues["Comment"];
+                foreach (var item in words)
+                    if (comment.Contains(item))
+                    {
+                        TempData["activity"] =
+                            "Please check your words again and make sure your arent using any vulgar word!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                        return View("Activity", discussion);
+                    }
                 discussionComment.DateCreated = DateTime.Now;
                 discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
                 dbc.SchoolDiscussionComments.Add(discussionComment);
                 dbc.SaveChanges();
+
+
                 return RedirectToAction("Activity", "SchoolDiscussions", new {Id = discussionComment.SchoolDiscussionId});
             }
 
-            return View("Activity",discussion);
+            return View("Activity", discussion);
         }
 
         protected override void Dispose(bool disposing)
