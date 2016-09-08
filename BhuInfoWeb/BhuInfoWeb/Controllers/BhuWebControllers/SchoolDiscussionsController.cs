@@ -48,6 +48,18 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             db.SaveChanges();
             return View("Activity", discussion);
         }
+        // GET: SchoolDiscussions/CloseActivity
+        public ActionResult CloseActivity(long Id)
+        {
+            var discussionUpdate = db.SchoolDiscussions.Find(Id);
+            discussionUpdate.Status = DiscussionState.Closed.ToString();
+            db.Entry(discussionUpdate).State = EntityState.Modified;
+            db.SaveChanges();
+            TempData["discussion"] = "This Discussion has been closed!";
+            TempData["notificationtype"] = NotificationType.Success.ToString();
+
+            return RedirectToAction("Index","SchoolDiscussions", db.SchoolDiscussions.ToList());
+        }
 
         // POST: SchoolDiscussions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -69,10 +81,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     schoolDiscussion.DiscussionView = 0;
                     db.SchoolDiscussions.Add(schoolDiscussion);
                     db.SaveChanges();
+                    TempData["discussion"] = "A new discussion has been created!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
                 else
                 {
-                    TempData["user"] = "Your session has expired,Login Again!";
+                    TempData["discussion"] = "Your session has expired,Login Again!";
                     TempData["notificationtype"] = NotificationType.Info.ToString();
                     return RedirectToAction("Index");
                 }

@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using BhuInfo.Data.Object.Mapping.ObjectMappings;
 using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Context.DataContext
@@ -23,9 +24,8 @@ namespace BhuInfo.Data.Context.DataContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // other code 
             Database.SetInitializer<EventDataContext>(null);
-            // more code
+            modelBuilder.Configurations.Add(new EventMapping());
         }
     }
 }

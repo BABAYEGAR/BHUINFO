@@ -21,8 +21,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             email = email.Trim();
             var appUser =
                 db.AppUsers.FirstOrDefault(n => (n.Email == email) && (n.Password == password) && (n.Role == role));
-            if (appUser != null) return appUser;
-            return null;
+            return appUser;
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
+@using BhuInfo.Data.Service.TextFormatter
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
     ViewBag.Title = "Home Page";
@@ -20,7 +21,7 @@
     var fashionList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Fashion, 1);
     var fashionNews = fashionList.ToList();
 
-    var recentNews = Model.Take(4);
+    var recentNews = Model.Take(6);
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
@@ -191,8 +192,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                                     <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                                 </a>
-                                <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
-                                <p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
+                                <div>
+                                    <p style="text-align: justify">
+                                        @(new RemoveCharacters().RemoveSpecialCharacters(item.Content)); 
+                                    </p>
+                                </div>
                             }
                         </div>
                     }
@@ -209,8 +213,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                                     <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                                 </a>
-                                <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
-                                <p>The paper products were initially designed by and for the Behance team as a way to stay organized. In 2007, at the insistence of friends who wanted Action Pads of their own...</p>
+                                <div>
+                                    <p style="text-align: justify">
+                                        @(new RemoveCharacters().RemoveSpecialCharacters(item.Content));
+                                    </p>
+                                </div>
                             }
                         </div>
                     }
@@ -231,13 +238,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <div class="editor text-center">
                                 @if (Model != null)
                                 {
-                                    <h3>@item.Title)</h3>
-                                    <p>@item.Content))</p>
+                                    <h3>@item.Title</h3>
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0,50))</p>
                                     <label>
-                                        @if (item.DateCreated != null)
-                                        {
-                                            @(new DateTimeCalculator().TimeAgo(item.DateCreated))
-                                        }</label>
+                                            @(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                     <span></span>
                                 }
                             </div>
@@ -266,10 +270,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
                                     <span></span>
                                     <label>
-                                        @if (item.DateCreated != null)
-                                        {
-                                            @(new DateTimeCalculator().TimeAgo(item.DateCreated))
-                                        }</label>
+                                            @(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -298,7 +299,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                             <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                         </a>
-                        <p>Products were inspired by Behance's research of especially productive teams in the creative industry. Hundreds of individuals and teams were interviewed, and Behance chronicled the work habits and best practices of creative leaders. </p>
+                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content));</p>
                     }
                 </div>
             </div>
@@ -315,12 +316,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                         <div class="editor text-center">
                             <h3>@item.Title</h3>
-                            <p>@item.Content</p>
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0,50))</p>
                             <label>
-                                @if (item.DateCreated != null)
-                                {
-                                    @(new DateTimeCalculator().TimeAgo(item.DateCreated))
-                                }</label>
+                                    @(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                             <span></span>
                         </div>
                     </a>

@@ -153,13 +153,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="list-nav">
                 <ul>
                     <li>
-                        <a href="@Url.Action("Index", "Home")" class="active">General</a>
+                        <a href="@Url.Action("Index", "Home")">General</a>
                     </li>|
                     <li>
                         <a href="@Url.Action("SportsNews", "Home")">Sports</a>
                     </li>|
                     <li>
                         <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
                     </li>|
                     <li>
                         <a href="materials.html">SRC Team</a>
@@ -208,20 +211,45 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 </div>
 <div class="container">
+    @if (TempData["discussion"] != null)
+    {
+        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+        {
+            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["discussion"]</p>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+        {
+            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["discussion"]</p>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+        {
+            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["discussion"]</p>
+        }
+    }
     <div class="content">
 
         <div class="col-md-12 content-right content-right-top">
 
             <div class="editors-pic-grids">
 
-                <h5 class="head">Discussion Topics</h5>
+                <h5 class="head" style="color: #1ac7c3">Discussion Topics</h5>
                 @foreach (var item in Model)
                 {
                     <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">
                         <div class="editor text-center">
 
-                            <h2>@item.Topic</h2>
-                            <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                            <h2 style="color: #1ac7c3">@item.Topic</h2>
+                            <label style="color: black;">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label><br/>
+                            <label style="color: black">@item.DiscussionView views   @item.SchoolDiscussionComments.Count Comments</label><br/>
+                            @if (item.Status == DiscussionState.Closed.ToString())
+                            {
+                                <label style="color: black">This Forum is now <span style="color: red">@item.Status</span></label>
+                            }
+                            else
+                            {
+                                <label style="color: black">This Forum is still <span style="color: green">@item.Status</span></label>
+                            }
+                          
                             <span></span>
 
                         </div>

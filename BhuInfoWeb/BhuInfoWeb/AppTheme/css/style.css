@@ -15,7 +15,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     padding-bottom: 0;
     padding-top: 0;
 }
-
+.detailsLabel{
+    color: black;
+    font-weight: bold;
+       
+}
+.btn-login {
+    background-color: #1B4F72;
+    border-color: #357ebd;
+    color: #fff;
+}
 .detailsDiv {
     color: black;
     font-weight: bolder;        
@@ -275,7 +284,7 @@ a.title {
     color: #cbcbcb;
     font-size: 1.1em;
     font-style: italic;
-    font-weight: 400;
+    font-weight: bold;
 }
 
 .editor span {
@@ -925,7 +934,7 @@ p.span a {
 
 .comments-main {
     border: 1px solid #D5D4D4;
-    margin: 15px 0px 40px 0;
+    margin: 5px 0px 10px 0;
     padding: 17px 0px;
 }
 

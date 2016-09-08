@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BhuInfo.Data.Service.TextFormatter
 {
@@ -11,12 +13,8 @@ namespace BhuInfo.Data.Service.TextFormatter
         /// <returns></returns>
         public string RemoveSpecialCharacters(string text)
         {
-            var sb = new StringBuilder();
-            foreach (var c in text)
-                if (((c >= '0') && (c <= '9')) || ((c >= 'A') && (c <= 'Z')) || ((c >= 'a') && (c <= 'z')) || (c == '.') ||
-                    (c == '_') || (c == '-'))
-                    sb.Append(c);
-            return sb.ToString();
+            var pattern = @"<(.|\n)*?>";
+            return Regex.Replace(text, pattern, String.Empty);
         }
     }
 }

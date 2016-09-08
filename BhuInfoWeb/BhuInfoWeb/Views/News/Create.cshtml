@@ -13,7 +13,7 @@
     <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
     <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
+    <link href="~/Scripts/plugins/ckeditor/contents.css" rel="stylesheet" />
     <!-- Custom Theme files -->
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -147,7 +147,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Content, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.TextAreaFor(model => model.Content, new {@class = "form-control", placeholder = "Enter a news content"})
+                                        @Html.TextAreaFor(model => model.Content, new {@class = "form-control", placeholder = "Enter a news content",id = "content"})
                                         @Html.ValidationMessageFor(model => model.Content, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
@@ -184,12 +184,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 
 <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+    <script src="~/Scripts/plugins/ckeditor/ckeditor.js"></script>
 <script>
     $(document)
         .ready(function() {
 
             // Init select2 for dropdown select
             $('.select-dropdown').select2();
+
+            CKEDITOR.replace("content");
         })
 </script>
 

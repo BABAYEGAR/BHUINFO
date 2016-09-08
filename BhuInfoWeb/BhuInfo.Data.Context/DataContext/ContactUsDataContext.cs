@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using BhuInfo.Data.Object.Mapping.ObjectMappings;
 using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Context.DataContext
@@ -20,5 +21,10 @@ namespace BhuInfo.Data.Context.DataContext
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<ContactUs> Contact { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<ContactUsDataContext>(null);
+            modelBuilder.Configurations.Add(new ContactUsMapping());
+        }
     }
 }

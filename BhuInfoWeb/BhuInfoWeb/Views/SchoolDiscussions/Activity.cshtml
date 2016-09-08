@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
 @using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.SchoolDiscussion
 @{
@@ -124,24 +125,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="clearfix"></div>
     </div>
 </div>
-    <header class="@ViewBag.HeaderClass">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                @if ((loggedinuser != null) && (loggedinuser.Role.Equals(UserType.Administrator.ToString()) || loggedinuser.Role.Equals(UserType.Manager.ToString())))
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            @if ((loggedinuser != null) && (loggedinuser.Role.Equals(UserType.Administrator.ToString()) || loggedinuser.Role.Equals(UserType.Manager.ToString())))
+            {
+                if (Model.Status == DiscussionState.Open.ToString())
                 {
-                    if (Model.Status == DiscussionState.Open.ToString())
-                    {
-                        <div class="col-lg-12">
-                            <a href="@Url.Action("Create")" class="btn btn-success">Close</a>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-lg-12">
-                          
-                        </div>
-                    }
+                    <div class="col-lg-12">
+                        <a href="@Url.Action("CloseActivity", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})" class="btn btn-danger">Close Discussion</a>
+                    </div>
                 }
                 else
                 {
@@ -149,35 +143,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     </div>
                 }
-            </div>
+            }
+            else
+            {
+                <div class="col-lg-12">
+
+                </div>
+            }
         </div>
-    </header>
+    </div>
+</header>
 <div class="container">
     <div class="header-bottom">
         <div class="type">
             <h5>Article Types</h5>
         </div>
         <span class="menu"></span>
-@if (loggedinuser == null)
-{
-
-    <div class="list-nav">
-        <ul>
-            <li>
-                <a href="@Url.Action("Index", "Home")">General</a>
-            </li>|
-            <li>
-                <a href="@Url.Action("SportsNews", "Home")">Sports</a>
-            </li>|
-            <li>
-                <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
-            </li>|
-            <li>
-                <a href="materials.html">SRC Team</a>
-            </li>
-        </ul>
-    </div>
-}
+        @if (loggedinuser == null)
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">General</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>|
+                    <li>
+                        <a href="materials.html">SRC Team</a>
+                    </li>
+                </ul>
+            </div>
+        }
         <!-- script for menu -->
         <script>
             $("span.menu")
@@ -211,65 +211,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="col-md-7 single-content-center">
             <div class="col-md-12">
-                
+
+
+                @if (Model.Status == DiscussionState.Open.ToString())
+                {
                     <div class="leave">
                         <h4>Leave a comment</h4>
                     </div>
-                    @using (Html.BeginForm("CreateDiscussionComment", "SchoolDiscussions", FormMethod.Post, new { @class = "col-md-12" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.Hidden("DiscussionId", Model.SchoolDiscussionId)
+                    <div>
+                        @using (Html.BeginForm("CreateDiscussionComment", "SchoolDiscussions", FormMethod.Post, new {@class = "col-md-12"}))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                            @Html.Hidden("DiscussionId", Model.SchoolDiscussionId)
 
                             <div class="form-group col-md-12">
-                                @Html.Label("CommentBy", null, new { @class = "control-label" })
-                                @Html.TextBox("CommentBy", null, new { @class = "form-control" })
-
-                            </div>
-                            <div class="form-group col-md-12">
-                                @Html.Label("Email", null, new { @class = "control-label" })
-                                @Html.TextBox("Email", null, new { @class = "form-control" })
+                                @Html.Label("CommentBy", null, new {@class = "control-label"})
+                                @Html.TextBox("CommentBy", null, new {@class = "form-control"})
 
                             </div>
                             <div class="form-group col-md-12">
-                                @Html.Label("Comment", null, new { @class = "control-label" })
-                                @Html.TextArea("Comment", null, new { @class = "form-control" })
+                                @Html.Label("Email", null, new {@class = "control-label"})
+                                @Html.TextBox("Email", null, new {@class = "form-control"})
+
+                            </div>
+                            <div class="form-group col-md-12">
+                                @Html.Label("Comment", null, new {@class = "control-label"})
+                                @Html.TextArea("Comment", null, new {@class = "form-control"})
 
                             </div>
 
                             <div class="col-md-12">
                                 <a href="@Url.Action("Index", "SchoolDiscussions")" class="btn btn-default pull-left">Back</a>
-                                <input type="submit" value="submit" class="btn btn-primary pull-right" />
+                                <input type="submit" value="submit" class="btn btn-primary pull-right"/>
 
                             </div>
-                            }
-                            <div class="panel panel-flat">
-                                <div class="comments1">
-                                    <h4>COMMENTS</h4>
-                                    @foreach (var item in discussionComments)
-                                    {
-                                        <div class="comments-main">
-                                            <div class="col-md-3 cmts-main-left">
-                                                <img src="~/AppTheme/images/avatar.jpg" alt="">
-                                            </div>
-                                            <div class="col-md-9 cmts-main-right">
-                                                <h5>@item.CommentBy</h5>
-                                                <p>@item.Comment.</p>
-                                                <div class="cmts">
-                                                    <div class="col-md-6 cmnts-left">
-                                                        <p>On @item.DateCreated</p>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="alert alert-info">This Discussion forum has been closed</p>
+                }
+           
+                <div class="comments1">
+                    <h4>COMMENTS</h4>
+                    @foreach (var item in discussionComments)
+                    {
+                        <div class="comments-main">
+                            <div class="col-md-12">
+                                <h5 class="detailsDiv" style="font-family: sans-serif">@item.CommentBy</h5>
+                                <p>@item.Comment.</p>
+                                <div class="cmts">
 
-                                    }
+                                    <p style="color: #3498DB">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</p>
 
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
+                            <div class="clearfix"></div>
                         </div>
+                    }
+
+                </div>
+               
+            </div>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -324,3 +330,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </body>
 </html>
+<Script>
+    $(document)
+      .ready(function() {
+
+    $('.comments1:gt(1)').hide();
+    $('.show_button').click(function () {
+        $('.comments1:gt(1)').show();
+    });
+      })
+</Script>

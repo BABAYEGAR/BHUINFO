@@ -53,6 +53,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "NewsId,Title,Content")] News news, FormCollection collectedValues)
         {
             var user = Session["bhuinfologgedinuser"] as AppUser;

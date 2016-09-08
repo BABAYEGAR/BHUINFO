@@ -25,12 +25,12 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
                 .IsRequired(); 
 
             //mapping the object entities to their respective columns
-            ToTable("AppUser");
+            ToTable("AppUsers");
             Property(n => n.AppUserId).HasColumnName("AppUserId");
             Property(n => n.Firstname).HasColumnName("Firstname");
             Property(n => n.Lastname).HasColumnName("Lastname");
             Property(n => n.Email).HasColumnName("Email");
-            Property(n => n.Email).HasColumnName("Mobile");
+            Property(n => n.Mobile).HasColumnName("Mobile");
             Property(n => n.Password).HasColumnName("Password");
             Property(n => n.Role).HasColumnName("Role");
             Property(n => n.CreatedById).HasColumnName("CreatedById");

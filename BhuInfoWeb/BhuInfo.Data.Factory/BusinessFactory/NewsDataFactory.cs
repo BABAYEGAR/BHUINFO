@@ -43,7 +43,13 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var latestNews = newList.Take(number);
             return latestNews;
         }
-
+        //This method retrives the latest news by its category
+        public News GetMostRecentSingleNewsByCategory(NewsCategoryEnum categoryType)
+        {
+            var newsList = db.News.Where(n => n.NewsCategory.Name == categoryType.ToString());
+            var latestNews = newsList.OrderByDescending(n => n.DateCreated).FirstOrDefault();
+            return latestNews;
+        }
         /// <summary>
         ///     This method returns a news by its ID
         /// </summary>

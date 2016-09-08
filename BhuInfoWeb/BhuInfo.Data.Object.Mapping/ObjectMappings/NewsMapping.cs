@@ -13,7 +13,9 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
 
             //this are the remaining properties
             Property(n => n.Title)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(100);
+
             Property(n => n.Content)
                 .IsRequired();
 

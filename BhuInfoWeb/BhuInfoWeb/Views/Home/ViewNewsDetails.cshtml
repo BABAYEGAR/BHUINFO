@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
 @using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.News
 @{
@@ -18,6 +19,11 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
     var postedBy = new AppUserFactory().GetAppUserById((int) Model.CreatedById);
+
+    var discussions = new SchoolDiscussionDataFactory().GetAllDiscussions();
+    var orderDiscussions = discussions.OrderByDescending(n => n.DiscussionView);
+    var countedDiscussions = orderDiscussions.Take(5);
+
 }
 
 @{
@@ -139,13 +145,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="list-nav">
             <ul>
                 <li>
-                    <a href="@Url.Action("Index", "Home")" class="active">General</a>
+                    <a href="@Url.Action("Index", "Home")">General</a>
                 </li>|
                 <li>
                     <a href="@Url.Action("SportsNews", "Home")">Sports</a>
                 </li>|
                 <li>
                     <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
                     <a href="materials.html">SRC Team</a>
@@ -174,7 +183,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <h3>@Html.DisplayFor(model => model.NewsCategory.Name)</h3>
                 <a href="#">@Html.DisplayFor(model => model.Title)</a>
                 <p class="sub_head">
-                    Posted by @postedBy.DisplayName On @Html.DisplayFor(model => model.DateCreated.Date.Day) @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.DateCreated.Month) @Html.DisplayFor(model => model.DateCreated.Date.Year)
+                    Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
                 </p>
                 <a href="#">
                     <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" class="img-responsive" alt=""/>
@@ -187,32 +196,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         <div class="col-md-7 single-content-left">
             <div class="features-list">
-                <h3>Features</h3>
+                <h3>Trending Discussion Forums</h3>
                 <ul>
-                    <li>
-                        <a href="#">Fused Filament Fabrication (FFF) using 1.75 mm filament</a>
-                    </li>
-                    <li>
-                        <a href="#">100 micron layer resolution capability</a>
-                    </li>
-                    <li>
-                        <a href="#">9″ diameter x 11″ tall build envelope (approximate)</a>
-                    </li>
-                    <li>
-                        <a href="#">Heated build platform (optional)</a>
-                    </li>
-                    <li>
-                        <a href="#">Efficient footprint to build envelope ratio</a>
-                    </li>
-                    <li>
-                        <a href="#">Printed object viewable from 360 degrees</a>
-                    </li>
-                    <li>
-                        <a href="#">Rigid aluminum extrusion construction</a>
-                    </li>
-                    <li>
-                        <a href="#">Utilizes open source software tool chain</a>
-                    </li>
+                    @foreach (var item in countedDiscussions)
+                    {
+                        <li>
+                            <a href="@Url.Action("Activity","SchoolDiscussions",new {Id = item.SchoolDiscussionId})">@item.Topic</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <div class="single">
@@ -252,16 +243,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     @foreach (var item in newsComments)
                     {
                         <div class="comments-main">
-                            <div class="col-md-3 cmts-main-left">
-                                <img src="~/AppTheme/images/avatar.jpg" alt="">
-                            </div>
-                            <div class="col-md-9 cmts-main-right">
-                                <h5>@item.CommentBy</h5>
-                                <p>@item.Comment.</p>
+                            <div class="col-md-12">
+                                <h5 class="detailsDiv">@item.CommentBy</h5>
+                                <p>@item.Comment</p>
                                 <div class="cmts">
-                                    <div class="col-md-6 cmnts-left">
-                                        <p>On @item.DateCreated</p>
-                                    </div>
+
+                                    <p style="color: #3498DB">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</p>
+
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
@@ -281,15 +269,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                         <h3>@item.Title</h3>
                         <p>@item.Content</p>
-                        @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                        {
-                            <label>@item.DateCreated.ToShortTimeString() </label>
-                        }
-                        else
-                        {
-                            <label>@item.DateCreated.Date.Day.CompareTo(DateTime.Now.Day) Days Ago</label>
-                        }
-
+                    <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                         <span></span>
         
                     </div>
@@ -311,14 +291,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="e-pic-info">
                             <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title)</a>
                             <span></span>
-                            @if (item.DateCreated.ToShortDateString() == DateTime.Now.ToShortDateString())
-                            {
-                                <label>@item.DateCreated.ToShortTimeString()</label>
-                            }
-                            else
-                            {
-                                <label>@item.DateCreated.Day.CompareTo(DateTime.Now.Day) Day(s) Ago</label>
-                            }
+                          <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                         </div>
                         <div class="clearfix"></div>
                     </div>

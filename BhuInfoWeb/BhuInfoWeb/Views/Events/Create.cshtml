@@ -224,6 +224,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             // init datepicker for start date
             $('.endDate').datepicker();
 
+             // init datepicker for date
+            $('.startDate').datepicker({ 'endDate': new Date() });
+
             // set start date of end date based on selected start date
             $('.startDate')
                 .datepicker()
