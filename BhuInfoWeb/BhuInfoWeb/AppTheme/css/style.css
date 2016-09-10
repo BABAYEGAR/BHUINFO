@@ -1232,9 +1232,11 @@ p.span a {
 
     .logo a h1 { font-size: 2em; }
 
-    .navigation ul li a { font-size: 1em; }
+    .navigation ul li a { font-size: 1.0em;display: block;
+    padding: 10px 5px;
+ }
 
-    .navigation ul li { margin: 0 0 0 1em; }
+    .navigation ul li { margin: 0 0 0 0; }
 
     .navigation { margin-top: 0.5em; }
 

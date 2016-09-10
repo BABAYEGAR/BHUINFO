@@ -67,13 +67,15 @@
                                                             <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
-                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    else if (loggedinuser.Role == UserType.Manager.ToString())
                                                     {
                                                         <p class="text-left">
                                                             <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
-
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -228,46 +230,20 @@
                 <div class="col-md-6 ab-top">
                     <ul class="span_2">
                         <li class="span_2-left">
-                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                            <img src="~/Content/SrcImages/asssecgen.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
                         </li>
                         <li class="span_2-right">
-                            <h2>Assistant Secretary General</h2>
+                            <h2>David Daniel Otobo</h2>
                             <h3>Assistant Secretary General</h3>
+                            <h4>Medicine and Surgery</h4>
+                            <h4>200 level</h4>
 
-                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                            <p>
+                                Quote: CREDO UT INTELLEGAM....
 
-                        </li>
-                        <div class="clearfix"> </div>
-                    </ul>
-                </div>
-                <div class="col-md-6 ab-top">
-                    <ul class="span_2">
-                        <li class="span_2-left">
-                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
-                        </li>
-                        <li class="span_2-right">
-                            <h2>P.R.0 1</h2>
-                            <h3>P.R.O 1</h3>
-
-                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
-
-                        </li>
-                        <div class="clearfix"> </div>
-                    </ul>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-            <div class="span_3">
-                <div class="col-md-6 ab-top">
-                    <ul class="span_2">
-                        <li class="span_2-left">
-                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
-                        </li>
-                        <li class="span_2-right">
-                            <h2>P.R.0 1</h2>
-                            <h3>P.R.O 1</h3>
-
-                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                Being the Assistant secretary-General of the students Representative Council,
+                                 its not actually a laxative fare. In proper reminiscence, it is a sensitive position to the students and the council.
+                            </p>
 
                         </li>
                         <div class="clearfix"> </div>
@@ -276,13 +252,18 @@
                 <div class="col-md-6 ab-top">
                     <ul class="span_2">
                         <li class="span_2-left">
-                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                            <img src="~/Content/SrcImages/tresurer.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
                         </li>
                         <li class="span_2-right">
-                            <h2>Director Of Sport</h2>
-                            <h3>Director Of Sport</h3>
+                            <h2> Tenebe Mary-Clara</h2>
+                            <h3>Treasurer</h3>
+                            <h4>Medicine and Surgery</h4>
+                            <h4>200 level</h4>
 
-                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                            <p>
+                                As the treasurer, I am charged with the responsibility of 
+                                ensuring that the monies of the council are properly taken care of, kept safe and invested wisely. 
+                            </p>
 
                         </li>
                         <div class="clearfix"> </div>
@@ -309,11 +290,92 @@
                 <div class="col-md-6 ab-top">
                     <ul class="span_2">
                         <li class="span_2-left">
+                            <img src="~/Content/SrcImages/sports.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Bitrus Zephaniah Tada</h2>
+                            <h3>Director Of Sports</h3>
+                            <h4>Computer Science</h4>
+                            <h4>300 level</h4>
+
+                            <p>
+                                Quote:“It does not matter how slowly you go as long as you do not stop,
+                                Don’t regret the past, just learn from it.” »“Don’t wait. The time will never be just right.”
+                                We become what we think about, the obstacle is the path. If there is anything lemme know pls thanks
+
+                            </p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="span_3">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/Content/SrcImages/welfaremale.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2> Ijuptil James Ijai</h2>
+                            <h3>Welfare Officer Male</h3>
+                            <h4>Economics</h4>
+                            <h4>300 level</h4>
+
+                            <p>Be the change you want to see in the world</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
                             <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
                         </li>
                         <li class="span_2-right">
-                            <h2>Director Of Sport</h2>
-                            <h3>Director Of Sport</h3>
+                            <h2>Welfare Officer Male</h2>
+                            <h3>Welfare Officer Male</h3>
+
+                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="span_3">
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/Content/SrcImages/welfaremale.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Ayemakpe Benefi</h2>
+                            <h3>Public Relations Officer Male</h3>
+                            <h4>Accounting</h4>
+                            <h4>300 level</h4>
+
+                            <p>
+                                my goal is to ensure that every student is duly and properly informed on school happenings as it may concern them,
+                                 promote favourable interactions amongst students and can express their requisite opinions... in building a favourable image for our bingham community...
+                                I look forward to working with you.
+                            </p>
+
+                        </li>
+                        <div class="clearfix"> </div>
+                    </ul>
+                </div>
+                <div class="col-md-6 ab-top">
+                    <ul class="span_2">
+                        <li class="span_2-left">
+                            <img src="~/AppTheme/images/a1.jpg" style="height: 130px; width: 120px" class="img-responsive" alt="">
+                        </li>
+                        <li class="span_2-right">
+                            <h2>Welfare Officer Male</h2>
+                            <h3>Welfare Officer Male</h3>
 
                             <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
 

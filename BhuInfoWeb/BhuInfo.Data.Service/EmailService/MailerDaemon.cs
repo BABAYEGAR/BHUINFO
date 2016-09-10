@@ -20,7 +20,7 @@ namespace BhuInfo.Data.Service.EmailService
         {
             var message = new MailMessage
             {
-                From = new MailAddress(Config.DevEmailAddress, Config.DevEmailAddress),
+                From = new MailAddress(Config.SupportEmailAddress),
                 Subject = "New User Details",
                 Priority = MailPriority.High,
                 SubjectEncoding = Encoding.UTF8,
@@ -51,7 +51,8 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("USERNAME", user.Email)
                     .Replace("PASSWORD", user.Password)
                     .Replace("URL", "http://localhost:51301/Account/Login")
-                    .Replace("Role", user.Role);
+                    .Replace("Role", user.Role)
+                    .Replace("FROM", Config.SupportEmailAddress);
         }
         /// <summary>
         /// This method is used to send password reset link emails
@@ -62,7 +63,7 @@ namespace BhuInfo.Data.Service.EmailService
         {
             var message = new MailMessage();
 
-            message.From = new MailAddress("support@bhuinfo.com");
+            message.From = new MailAddress(Config.SupportEmailAddress);
             message.To.Add(user.Email);
             message.Subject = "New Password";
             message.Priority = MailPriority.High;
@@ -100,7 +101,7 @@ namespace BhuInfo.Data.Service.EmailService
         public void ContactUs(string senderName,string senderMessage,string email)
         {
             var message = new MailMessage();
-            message.From = new MailAddress("support@bhuinfo.com");
+            message.From = new MailAddress(Config.SupportEmailAddress);
             message.To.Add(email);
             message.Subject = "New Contact";
             message.Priority = MailPriority.High;
@@ -126,6 +127,7 @@ namespace BhuInfo.Data.Service.EmailService
             return
                 new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ContactUs.html"))
                     .ReadToEnd()
+                    .Replace("DISPLAYNAME", senderName)
                     .Replace("DISPLAYNAME", senderName)
                     .Replace("MESSAGE", senderMessage);
         }

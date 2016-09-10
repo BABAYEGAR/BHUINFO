@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
@@ -54,6 +55,45 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             db.Entry(user).State = EntityState.Modified;
             user.Password = hashPasword;
             db.SaveChanges();
+        }
+
+        /// <summary>
+        ///     This method generates a password hash from a clear password using MD5
+        /// </summary>
+        /// <param name="clearPassword">The clear password to be hashed</param>
+        /// <returns>The hashed password</returns>
+        public string GetPasswordHash(string clearPassword)
+        {
+            return new Md5Ecryption().ConvertStringToMd5Hash(clearPassword);
+        }
+
+        /// <summary>
+        ///     This ,ethod enables a user to change their password
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="oldPassword"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public bool ChangeUserPassword(long userId, string oldPassword, string newPassword)
+        {
+            var encryptedOldPassword = GetPasswordHash(oldPassword);
+            if (encryptedOldPassword == null) throw new ArgumentNullException(nameof(encryptedOldPassword));
+            var encryptedNewPassword = GetPasswordHash(newPassword);
+            if (encryptedNewPassword == null) throw new ArgumentNullException(nameof(encryptedNewPassword));
+            var isPasswordChanged = false;
+            var user = db.AppUsers.Find(userId);
+            if (user.Password == encryptedOldPassword)
+            {
+                user.Password = encryptedNewPassword;
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                isPasswordChanged = true;
+            }
+            else
+            {
+                isPasswordChanged = false;
+            }
+            return isPasswordChanged;
         }
     }
 }

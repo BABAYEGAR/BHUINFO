@@ -60,13 +60,15 @@
                                                             <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
-                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    else if (loggedinuser.Role == UserType.Manager.ToString())
                                                     {
                                                         <p class="text-left">
                                                             <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
-
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
                                                 </div>
 
                                             </div>

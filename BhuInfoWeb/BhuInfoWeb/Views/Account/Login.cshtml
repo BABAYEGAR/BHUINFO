@@ -5,7 +5,7 @@
     ViewBag.Title = "Sign-In";
 }
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
 <!-- header-section-starts -->
 <div class="header">
@@ -41,6 +41,7 @@
 
             <div class="panel-body">
                 <div class="col-md-12">
+
                     <div class="row">
                         <div class="col-md-8">
                             <section id="loginForm">
@@ -50,6 +51,21 @@
                                     if (TempData["login"] != null)
                                     {
                                         <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["login"]</p>
+                                    }
+                                    if (TempData["password"] != null)
+                                    {
+                                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                                        {
+                                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["password"]</p>
+                                        }
+                                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                                        {
+                                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["password"]</p>
+                                        }
+                                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                                        {
+                                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["password"]</p>
+                                        }
                                     }
                                     <h4 style="font-weight: bolder">Bhu-Info Account Sign-In.</h4>
                                     <hr/>

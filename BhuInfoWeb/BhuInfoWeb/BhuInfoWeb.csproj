@@ -250,6 +250,11 @@
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\SrcImages\asssecgen.jpg" />
+    <Content Include="Content\SrcImages\promale.jpg" />
+    <Content Include="Content\SrcImages\sports.jpg" />
+    <Content Include="Content\SrcImages\tresurer.jpg" />
+    <Content Include="Content\SrcImages\welfaremale.jpg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
     <Content Include="EmailTemplates\ContactUs.html" />
@@ -1289,6 +1294,7 @@
     <Content Include="Views\Shared\_LayoutViewDetails.cshtml" />
     <Content Include="Views\Home\SrcTeam.cshtml" />
     <Content Include="Views\Home\UpcomingEvent.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

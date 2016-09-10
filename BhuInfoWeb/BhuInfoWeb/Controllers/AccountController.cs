@@ -2,6 +2,8 @@
 using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Factory.BusinessFactory;
+using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -78,6 +80,62 @@ namespace BhuInfoWeb.Controllers
             }
             return View();
         }
+        //
+        // GET: /Account/ChangePassword
+        [AllowAnonymous]
+        public ActionResult ChangePassword()
+        {
+            return View("ChangePassword");
+        }
+        /// <summary>
+        /// This controller method changes the user password
+        /// </summary>
+        /// <param name="collectedValues"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(FormCollection collectedValues)
+        {
+            var oldPassword = collectedValues["OldPassword"];
+            var newPassword = collectedValues["NewPassword"];
+            var confirmPassword = collectedValues["ConfirmNewPassword"];
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+            if (ModelState.IsValid)
+            {
+                if (newPassword == confirmPassword)
+                {
+                    var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(oldPassword.Trim());
+                    if (loggedinuser != null && hashPassword == loggedinuser.Password)
+                    {
+                       
+                        if (new AuthenticationFactory().ChangeUserPassword(Convert.ToInt64(loggedinuser.AppUserId), oldPassword,
+                            newPassword))
+                        {
+
+                            TempData["password"] = "Your Pasword has been changed successfully,Please Login Again!";
+                            TempData["notificationtype"] = NotificationType.Success.ToString();
+                            Session["bhuinfologgedinuser"] = null;
+                            return RedirectToAction("Login", "Account");
+                        }
+                    }
+                    else
+                    {
+                        TempData["password"] = "Wrong password,Try Again!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                        return View("ChangePassword");
+                    }
+                }
+                else
+                {
+
+                    TempData["password"] = "Make sure your the password and confirm password are the same!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                    return View("ChangePassword");
+                }
+            }
+            return View();
+        }
 
         //
         // GET: /Account/ResetPassword
@@ -103,6 +161,7 @@ namespace BhuInfoWeb.Controllers
             else
             {
                 TempData["password"] = "Make sure your the password and confirm password are the same!";
+                //TempData["notificationtype"] = NotificationType.Info.ToString();
                 return RedirectToAction("ResetPassword", "Account",new {Id = userId });
             }
             return View("Login");

@@ -40,7 +40,7 @@ body a{
 .head-nav {
 	float: right;
 	padding: 1em 1em;
-	background:#f53f1a;
+	background:#1ac7c3;
 }
 
 /*--*/
@@ -388,7 +388,7 @@ ul.callbacks_tabs.callbacks1_tabs {
   font-family: 'Libre Baskerville', serif;
 }
 .blog-grid-right h4 a:hover{
-  color: #f53f1a;
+  color: #1ac7c3;
 }
 .blog-grid-right h4{
   margin: 0;
@@ -550,7 +550,7 @@ ul.callbacks_tabs.callbacks1_tabs {
   text-decoration: none;
 }
 .footer li a:hover{
-	color: #f53f1a;
+	color: #1ac7c3;
 }
 .footer ul {
   padding: 0;
@@ -603,7 +603,7 @@ ul.span_2 li.span_2-right h2 {
   font-family: 'Libre Baskerville', serif;
 }
 ul.span_2 li.span_2-right h4 {
-  color: #f53f1a;
+  color: #1ac7c3;
   font-size: 1em;
   font-weight: 400;
   border-bottom: 2px solid #26313B;
@@ -825,7 +825,7 @@ h3.m_3 {
 	font-family: 'Libre Baskerville', serif;
 }
 .blog-artical-info-head h2 a:hover{
-		color:#f53f1a;
+		color:#1ac7c3;
 }
 .b-tag-weight ul{
 	margin:0;
@@ -971,7 +971,7 @@ i.adm1{
 	margin-right: 0.5em;
 }
 .twitter-weight-grid h4{
-	color:#f53f1a;
+	color:#1ac7c3;
 	font-size:1.2em;
 	margin: 0;
 }
@@ -1431,7 +1431,7 @@ i.inter {
   text-transform: uppercase;
 }
 .error-404 p{
-	color:#f53f1a;
+	color:#1ac7c3;
 	margin: 0;
 	font-size: 1.2em;
 	text-transform: uppercase;
@@ -1445,7 +1445,7 @@ a.b-home{
 	margin-top:1em;
 }
 a.b-home:hover{
-	background:#f53f1a;
+	background:#1ac7c3;
 	color:#fff;
 }
 .artical-links {
@@ -1687,7 +1687,7 @@ a.b-home:hover{
   outline: none;
 }
 .register-but input[type="submit"]:hover {
-	background:#f53f1a;
+	background:#1ac7c3;
 }
 div.register-bottom-grid {
 	margin-top:3em;

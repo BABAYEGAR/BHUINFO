@@ -76,19 +76,23 @@
                                                         <strong>@loggedinuser.DisplayName</strong>
                                                     </p>
                                                     <p class="text-left small">@loggedinuser.Email</p>
+
                                                     @if (loggedinuser.Role == UserType.Administrator.ToString())
                                                     {
                                                         <p class="text-left">
                                                             <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
-                                                    else if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    else if (loggedinuser.Role == UserType.Manager.ToString())
                                                     {
                                                         <p class="text-left">
                                                             <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
 
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -100,7 +104,7 @@
                                 <li class="navbar-login-session-bg">
                                     <div class="navbar-login navbar-login-session">
                                         <div class="row">
-                                            <div class="col-lg-12">
+                                            <div class="col-md-12">
                                                 <p>
                                                     <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
                                                 </p>
@@ -121,8 +125,9 @@
                 }
             </ul>
         </div>
+        <div class="clearfix"></div>
     </div>
-    <div class="clearfix"></div>
+
 </div>
 <div class="container">
     <div class="header-bottom">
@@ -148,7 +153,7 @@
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
-                    <a href="@Url.Action("UpcomingEvent","Home")">Events</a>
+                    <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
                 </li>|
                 <li>
                     <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
@@ -157,8 +162,10 @@
         </div>
         <!-- script for menu -->
         <script>
-            $(".menu").click(function() {
-                    $(".list-nav").slideToggle("slow",
+            $(".menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
                             function() {
                                 // Animation complete.
                             });
@@ -191,7 +198,7 @@
                                     <p style="text-align: justify">
                                         @if (item.Content.Length > 50)
                                         {
-                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                                         }
                                         else
                                         {
@@ -219,7 +226,7 @@
                                     <p style="text-align: justify">
                                         @if (item.Content.Length > 50)
                                         {
-                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80)+"...")</p>
+                                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                                         }
                                         else
                                         {
@@ -250,7 +257,7 @@
                                     <h3>@item.Title</h3>
                                     if (item.Content.Length > 50)
                                     {
-                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80)+"...")</p>
+                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                                     }
                                     else
                                     {
@@ -319,7 +326,7 @@
                         </a>
                         if (item.Content.Length > 50)
                         {
-                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80)+"...")</p>
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                         }
                         else
                         {
