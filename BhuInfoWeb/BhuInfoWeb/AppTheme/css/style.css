@@ -158,7 +158,7 @@ label { margin: 0; }
 .logo { float: left; }
 
 .logo a h1 {
-    color: #fff;
+    color: #1ac7c3; 
     font-family: 'Antonio-Regular';
     font-size: 3em;
     font-weight: 400;
@@ -519,6 +519,7 @@ p.comment-form-author { margin-bottom: 2em; }
     color: #000;
     display: block;
     font-family: 'Georgia';
+    font-weight: bold;
     font-size: 1em;
     text-transform: uppercase;
 }

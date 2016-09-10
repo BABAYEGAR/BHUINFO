@@ -129,7 +129,7 @@
 <div class="container">
     <div class="header-bottom">
         <div class="type">
-            <h5>Article Types</h5>
+            <h5>Discussions</h5>
         </div>
         <span class="menu"></span>
         @if (loggedinuser == null)
@@ -152,7 +152,10 @@
                         <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
                     </li>|
                     <li>
-                        <a href="materials.html">SRC Team</a>
+                        <a href="@Url.Action("UpcomingEvent","Home")">Events</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SrcTeam","Home")">SRC Team</a>
                     </li>
                 </ul>
             </div>
@@ -175,9 +178,6 @@
                     </li>|
                     <li>
                         <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
-                    </li>|
-                    <li>
-                        <a href="materials.html">SRC Team</a>
                     </li>
                 </ul>
             </div>

@@ -1,5 +1,6 @@
 ﻿@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.Enums
+@using BhuInfo.Data.Service.TextFormatter
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 
 @{
@@ -127,9 +128,6 @@
                 </li>|
                 <li>
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
-                </li>|
-                <li>
-                    <a href="materials.html">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -212,7 +210,7 @@
                                 @if (item.Content.Length > 10)
                                 {
                                     <td>
-                                        @item.Content.Substring(0, 7)...
+                                       @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7)+"..."))
                                     </td>
                                 }
                                 else

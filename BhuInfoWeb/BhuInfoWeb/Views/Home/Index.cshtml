@@ -28,6 +28,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -44,7 +45,7 @@
             </ul>
         </div>
         <div class="navigation">
-            <ul class="nav navbar-nav">
+            <ul>
                 <li>
                     <a href="@Url.Action("About", "Home")">About Us</a>
                 </li>
@@ -147,16 +148,17 @@
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
+                    <a href="@Url.Action("UpcomingEvent","Home")">Events</a>
+                </li>|
+                <li>
                     <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
             </ul>
         </div>
         <!-- script for menu -->
         <script>
-            $("span.menu")
-                .click(function() {
-                    $(".list-nav")
-                        .slideToggle("slow",
+            $(".menu").click(function() {
+                    $(".list-nav").slideToggle("slow",
                             function() {
                                 // Animation complete.
                             });
@@ -187,7 +189,14 @@
                                 </a>
                                 <div>
                                     <p style="text-align: justify">
-                                        @(new RemoveCharacters().RemoveSpecialCharacters(item.Content));
+                                        @if (item.Content.Length > 50)
+                                        {
+                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                                        }
                                     </p>
                                 </div>
                             }
@@ -208,7 +217,14 @@
                                 </a>
                                 <div>
                                     <p style="text-align: justify">
-                                        @(new RemoveCharacters().RemoveSpecialCharacters(item.Content));
+                                        @if (item.Content.Length > 50)
+                                        {
+                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80)+"...")</p>
+                                        }
+                                        else
+                                        {
+                                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                                        }
                                     </p>
                                 </div>
                             }
@@ -232,7 +248,14 @@
                                 @if (Model != null)
                                 {
                                     <h3>@item.Title</h3>
-                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 50))</p>
+                                    if (item.Content.Length > 50)
+                                    {
+                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80)+"...")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                                    }
                                     <label>
                                         @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                     </label>
@@ -294,7 +317,14 @@
                         <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                             <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                         </a>
-                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content));</p>
+                        if (item.Content.Length > 50)
+                        {
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80)+"...")</p>
+                        }
+                        else
+                        {
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                        }
                     }
                 </div>
             </div>
@@ -311,7 +341,14 @@
                     <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                         <div class="editor text-center">
                             <h3>@item.Title</h3>
-                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 50))</p>
+                            @if (item.Content.Length > 40)
+                            {
+                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                            }
+                            else
+                            {
+                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                            }
                             <label>
                                 @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                             </label>

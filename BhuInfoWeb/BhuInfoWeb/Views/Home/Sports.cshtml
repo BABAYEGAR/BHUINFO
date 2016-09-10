@@ -39,7 +39,7 @@
             </ul>
         </div>
         <div class="navigation">
-            <ul class="nav navbar-nav">
+            <ul>
                 <li>
                     <a href="@Url.Action("About", "Home")">About Us</a>
                 </li>
@@ -143,6 +143,9 @@
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
+                    <a href="@Url.Action("UpcomingEvent","Home")">Events</a>
+                </li>|
+                <li>
                     <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
             </ul>
@@ -177,11 +180,11 @@
                 </a>
                 @if (mostRecentSingleNews.Content.Length > 40)
                 {
-                    <p class="ptext">@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content).Substring(0, 80))</p>
+                    <p class="ptext">@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content).Substring(0, 80) + "...")</p>
                 }
                 else
                 {
-                    <p>@mostRecentSingleNews.Content</p>
+                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content))</p>
                 }
             </div>
             <div class="print-grids">
@@ -202,11 +205,11 @@
                                 </p>
                                 @if (item.Content.Length > 40)
                                 {
-                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80))</p>
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                                 }
                                 else
                                 {
-                                    <p>@item.Content</p>
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
                                 }
                                 <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">...Read More</a>
                             </div>
@@ -231,11 +234,11 @@
                                 <h3>@item.Title</h3>
                                 @if (item.Content.Length > 40)
                                 {
-                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80))</p>
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                                 }
                                 else
                                 {
-                                    <p>@item.Content</p>
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
                                 }
                                 <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                 <span></span>

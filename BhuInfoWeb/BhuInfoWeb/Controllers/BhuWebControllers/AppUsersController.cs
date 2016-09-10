@@ -71,7 +71,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     }
                     db.AppUsers.Add(appUser);
                     db.SaveChanges();
-
+                    new MailerDaemon().NewUser(appUser);
                     TempData["user"] = "A new user has been created!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     appUser.Password = password;

@@ -131,9 +131,6 @@
                 </li>|
                 <li>
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussion</a>
-                </li>|
-                <li>
-                    <a href="materials.html">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -188,11 +185,6 @@
                     <p>
                         @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
                     </p>
-                    @if (TempData["event"] != null)
-                    {
-                        <p class="alert-success alert-dismissable" style="height: 30px">@TempData["event"]</p>
-                    }
-
                     <table class="table table-condensed table-hover event">
                         <tr>
                             <th>

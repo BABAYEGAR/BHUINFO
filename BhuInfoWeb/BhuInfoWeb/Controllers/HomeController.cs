@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.EmailService;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -12,6 +14,7 @@ namespace BhuInfoWeb.Controllers
     {
         private readonly NewsDataContext db = new NewsDataContext();
         private readonly ContactUsDataContext dbc = new ContactUsDataContext();
+        private readonly EventDataContext dbd = new EventDataContext();
 
         public ActionResult Index()
         {
@@ -21,7 +24,6 @@ namespace BhuInfoWeb.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
             var generalNews =
                 new NewsDataFactory().GetTopFiveMostRecentNewsByCategory(NewsCategoryEnum.General.ToString());
             return View(generalNews);
@@ -29,20 +31,22 @@ namespace BhuInfoWeb.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ContactUs([Bind(Include = "SenderName,Message,Email")] ContactUs contact)
+        public ActionResult ContactUs([Bind(Include = "SenderName,Message,Email")] ContactUs contact,FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
+                var sendername = collectedValues["SenderName"];
+                var message = collectedValues["message"];
+                var email = collectedValues["Email"];
                 contact.DateCreated = DateTime.Now;
                 dbc.Contact.Add(contact);
                 dbc.SaveChanges();
+                new MailerDaemon().ContactUs(sendername,message,email);
                 return RedirectToAction("Contact", "Home");
             }
             return RedirectToAction("Contact", "Home");
@@ -50,12 +54,17 @@ namespace BhuInfoWeb.Controllers
 
         public ActionResult ViewNewsDetails(long Id)
         {
-            var news = new NewsDataFactory().GetNewsById(Id);
-            var newsUpdate = db.News.Find(Id);
-            newsUpdate.NewsView = newsUpdate.NewsView + 1;
-            db.Entry(newsUpdate).State = EntityState.Modified;
-            db.SaveChanges();
-            return View("ViewNewsDetails", news);
+            if (ModelState.IsValid)
+            {
+                var news = new NewsDataFactory().GetNewsById(Id);
+                var newsUpdate = db.News.Find(Id);
+                newsUpdate.NewsView = newsUpdate.NewsView + 1;
+                db.Entry(newsUpdate).State = EntityState.Modified;
+                db.SaveChanges();
+                return View("ViewNewsDetails", news);
+            }
+            var newsToRedirect = db.News.Find(Id);
+            return View(newsToRedirect);
         }
 
         public ActionResult SportsNews()
@@ -73,6 +82,11 @@ namespace BhuInfoWeb.Controllers
         {
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
             return View("General", news);
+        }
+        public ActionResult UpcomingEvent()
+        {
+            var events = dbd.Events.ToList();
+            return View("UpcomingEvent",events);
         }
         public ActionResult SrcTeam()
         {

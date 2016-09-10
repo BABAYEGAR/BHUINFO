@@ -7,11 +7,11 @@ namespace BhuInfo.Data.Objects.Entities
     public class NewsComment
     {
         public long NewsCommentId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "This field is compulsory")]
         public string CommentBy { get; set; }
-        [Required]
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Comment { get; set; }
         public long NewsId { get; set; }
 

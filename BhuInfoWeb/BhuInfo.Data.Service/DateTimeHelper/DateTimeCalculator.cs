@@ -4,36 +4,31 @@ namespace BhuInfo.Data.Service.DateTimeHelper
 {
     public class DateTimeCalculator
     {
-        public string TimeAgo(DateTime dt)
+        public string TimeAgo(DateTime dateTimeValue)
         {
-            var span = DateTime.Now - dt;
+            var span = DateTime.Now - dateTimeValue;
             if (span.Days > 365)
             {
                 var years = span.Days/365;
                 if (span.Days%365 != 0)
                     years += 1;
-                return string.Format("about {0} {1} ago",
-                    years, years == 1 ? "year" : "years");
+                return $"about {years} {(years == 1 ? "year" : "years")} ago";
             }
             if (span.Days > 30)
             {
                 var months = span.Days/30;
                 if (span.Days%31 != 0)
                     months += 1;
-                return string.Format("about {0} {1} ago",
-                    months, months == 1 ? "month" : "months");
+                return $"about {months} {(months == 1 ? "month" : "months")} ago";
             }
             if (span.Days > 0)
-                return string.Format("about {0} {1} ago",
-                    span.Days, span.Days == 1 ? "day" : "days");
+                return $"about {span.Days} {(span.Days == 1 ? "day" : "days")} ago";
             if (span.Hours > 0)
-                return string.Format("about {0} {1} ago",
-                    span.Hours, span.Hours == 1 ? "hour" : "hours");
+                return $"about {span.Hours} {(span.Hours == 1 ? "hour" : "hours")} ago";
             if (span.Minutes > 0)
-                return string.Format("about {0} {1} ago",
-                    span.Minutes, span.Minutes == 1 ? "minute" : "minutes");
+                return $"about {span.Minutes} {(span.Minutes == 1 ? "minute" : "minutes")} ago";
             if (span.Seconds > 5)
-                return string.Format("about {0} seconds ago", span.Seconds);
+                return $"about {span.Seconds} seconds ago";
             if (span.Seconds <= 5)
                 return "just now";
             return string.Empty;

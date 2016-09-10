@@ -230,6 +230,7 @@
     <Content Include="AppTheme\images\a2.jpg" />
     <Content Include="AppTheme\images\abt_pic.jpg" />
     <Content Include="AppTheme\images\avatar.jpg" />
+    <Content Include="AppTheme\images\bhulogo.jpg" />
     <Content Include="AppTheme\images\ep1.jpg" />
     <Content Include="AppTheme\images\ep2.jpg" />
     <Content Include="AppTheme\images\ep3.jpg" />
@@ -251,6 +252,7 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
+    <Content Include="EmailTemplates\ContactUs.html" />
     <Content Include="EmailTemplates\ResetPassword.html" />
     <Content Include="fonts\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="fonts\font-awesome-4.6.3\css\font-awesome.min.css" />
@@ -1286,6 +1288,7 @@
     <Content Include="Views\Home\General.cshtml" />
     <Content Include="Views\Shared\_LayoutViewDetails.cshtml" />
     <Content Include="Views\Home\SrcTeam.cshtml" />
+    <Content Include="Views\Home\UpcomingEvent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

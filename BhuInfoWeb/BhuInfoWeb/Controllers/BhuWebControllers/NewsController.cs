@@ -108,6 +108,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "NewsId,Title,Content,Image,CreatedById")] News news,
             FormCollection collectedValues)
         {
@@ -182,8 +183,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 dbc.SaveChanges();
                 return RedirectToAction("ViewNewsDetails", "Home", new {Id = newsComments.NewsId});
             }
-
-            return View(newsComments.News);
+            var newsId = long.Parse(collectedValues["NewsId"]);
+            TempData["news"] = "All fields are compulsory!";
+            TempData["notificationtype"] = NotificationType.Danger.ToString();
+            return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
         }
     }
 }

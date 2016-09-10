@@ -120,6 +120,9 @@
         <div class="list-nav">
             <ul>
                 <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
                     <a href="@Url.Action("Index", "Home")">General</a>
                 </li>|
                 <li>
@@ -132,7 +135,7 @@
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
-                    <a href="materials.html">SRC Team</a>
+                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -162,7 +165,7 @@
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                            <div class=" row">
+                            <div>
                                 <div class="form-group col-md-12">
                                     @Html.Label("Name", null, new {@class = "control-label"})
                                     @Html.TextBox("SenderName", null, new {@class = "form-control", placeholder = "Enter your Name"})
@@ -179,12 +182,10 @@
 
                                 </div>
                             </div>
-                            <div class="row">
                                 <div class="col-md-12">
-                                    <input type="submit" value="submit" class="btn btn-primary pull-right"/>
+                                    <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
 
                                 </div>
-                            </div>
                         }
                     </div>
                 </div>

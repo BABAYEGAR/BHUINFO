@@ -42,7 +42,7 @@
             </ul>
         </div>
         <div class="navigation">
-            <ul class="nav navbar-nav navbar-right">
+            <ul>
                 @if (loggedinuser != null)
                 {
                     <ul class="nav navbar-nav navbar-right">
@@ -130,6 +130,9 @@
         <div class="list-nav">
             <ul>
                 <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
                     <a href="@Url.Action("Index", "Home")">General</a>
                 </li>|
                 <li>
@@ -142,7 +145,7 @@
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
-                    <a href="materials.html">SRC Team</a>
+                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
             </ul>
         </div>
@@ -188,9 +191,9 @@
                 Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
                 saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
             </p>
-            <div class="more">
+            @*<div class="more">
                 <a href="single.html">Learn More</a>
-            </div>
+            </div>*@
         </div>
         <!-- //about -->
         <div class="col-md-7 content-left">
@@ -201,9 +204,16 @@
                     <h6>@item.NewsCategory.Name </h6>
                     <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
                     <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
-                        <img src="~/AppTheme/images/a1.jpg" alt=""/>
+                        <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                     </a>
-                    <p>@item.Content</p>
+                    if (item.Content.Length > 50)
+                    {
+                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                    }
+                    else
+                    {
+                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                    }
                 }
             </div>
         </div>
@@ -216,13 +226,13 @@
                     <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
                         <div class="editor text-center">
                             <h3>@item.Title</h3>
-                            @if (item.Content.Length > 40)
+                            @if (item.Content.Length > 50)
                             {
-                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80))</p>
+                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
                             }
                             else
                             {
-                                <p>@item.Content</p>
+                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
                             }
                             <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                             <span></span>

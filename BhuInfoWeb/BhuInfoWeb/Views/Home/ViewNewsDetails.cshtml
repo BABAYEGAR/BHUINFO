@@ -2,6 +2,7 @@
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
+@using BhuInfo.Data.Service.TextFormatter
 @model BhuInfo.Data.Objects.Entities.News
 @{
     var newsList = new NewsDataFactory().GetAllNews();
@@ -47,7 +48,7 @@
             </ul>
         </div>
         <div class="navigation">
-            <ul class="nav navbar-nav">
+            <ul>
                 <li>
                     <a href="@Url.Action("About", "Home")">About Us</a>
                 </li>
@@ -127,6 +128,9 @@
         <div class="list-nav">
             <ul>
                 <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
                     <a href="@Url.Action("Index", "Home")">General</a>
                 </li>|
                 <li>
@@ -139,8 +143,12 @@
                     <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
                 </li>|
                 <li>
+                    <a href="@Url.Action("UpcomingEvent","Home")">Events</a>
+                </li>|
+                <li>
                     <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                 </li>
+
             </ul>
         </div>
         <!-- script for menu -->
@@ -178,7 +186,7 @@
         </div>
         <div class="col-md-7 single-content-left">
             <div class="features-list">
-                <h3>Trending Discussion Forums</h3>
+                <h3>Trending Discussion Topics</h3>
                 <ul>
                     @foreach (var item in countedDiscussions)
                     {
@@ -192,30 +200,45 @@
                 <div class="leave">
                     <h4>Leave a comment</h4>
                 </div>
-                @using (Html.BeginForm("CreateNewsComment", "News", FormMethod.Post))
+                @if (TempData["news"] != null)
+                {
+                    if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                    {
+                        <p class="alert-success alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                    }
+                    else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                    {
+                        <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                    }
+                    else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                    {
+                        <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                    }
+                }
+                @using (Html.BeginForm("CreateNewsComment", "News", FormMethod.Post, new {@class = "col-md-12"}))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                     @Html.Hidden("newsId", Model.NewsId)
 
-                    <p class="comment-form-author-name">
+                    <div class="form-group col-md-12">
                         @Html.Label("CommentBy", null, new {@class = "control-label"})
                         @Html.TextBox("CommentBy", null, new {@class = "form-control"})
 
-                    </p>
-                    <p class="comment-form-author-name">
+                    </div>
+                    <div class="form-group col-md-12">
                         @Html.Label("Email", null, new {@class = "control-label"})
                         @Html.TextBox("Email", null, new {@class = "form-control"})
 
-                    </p>
-                    <p class="comment-form-author-comment">
+                    </div>
+                    <div class="form-group col-md-12">
                         @Html.Label("Comment", null, new {@class = "control-label"})
                         @Html.TextArea("Comment", null, new {@class = "form-control"})
 
-                    </p>
+                    </div>
 
                     <div class="col-md-12">
-                        <input type="submit" value="submit" class="btn btn-primary"/>
+                        <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
 
                     </div>
                 }
@@ -250,7 +273,14 @@
                     <div class="editor text-center">
 
                         <h3>@item.Title</h3>
-                        <p>@item.Content</p>
+                        @if (item.Content.Length > 40)
+                        {
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                        }
+                        else
+                        {
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                        }
                         <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                         <span></span>
         
@@ -271,7 +301,7 @@
                             </a>
                         </div>
                         <div class="e-pic-info">
-                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title)</a>
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
                             <span></span>
                             <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                         </div>

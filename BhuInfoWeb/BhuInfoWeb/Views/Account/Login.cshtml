@@ -2,26 +2,11 @@
 @using BhuInfoWeb.Models
 @model BhuInfo.Data.Objects.Entities.AppUser
 @{
-    ViewBag.HeaderClass = "page-header";
+    ViewBag.Title = "Sign-In";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Bhu-Info | Home</title>
-    <!-- Custom Theme files -->
-    <link href="~/AppTheme/css/style.css" rel="stylesheet"/>
-    <link href="~/AppTheme/css/bootstrap.css" rel="stylesheet"/>
-    <link href="~/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <!-- Custom Theme files -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -47,19 +32,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
             </ul>
         </div>
-        <div class="clearfix"></div>
-    </div>
+       
+    </div><div class="clearfix"></div>
 </div>
-<header class="@ViewBag.HeaderClass">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="tagline">@ViewBag.Title</h2>
-            </div>
-        </div>
-    </div>
-</header>
 <div class="container">
     <div class="row">
         <div class="panel panel-flat">
@@ -120,6 +95,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
-
-</body>
-</html>

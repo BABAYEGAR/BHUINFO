@@ -73,7 +73,7 @@ namespace BhuInfoWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AuthenticationFactory().ForgotPasswordRequest(collectedValues["Email"].Trim());
+            new AuthenticationFactory().ForgotPasswordRequest(collectedValues["Email"].Trim());
                 return RedirectToAction("Login");
             }
             return View();

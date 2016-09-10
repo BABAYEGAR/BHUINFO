@@ -2,6 +2,7 @@
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.EmailService;
 using BhuInfo.Data.Service.Encryption;
 
 namespace BhuInfo.Data.Factory.BusinessFactory
@@ -35,6 +36,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var newPassword = Membership.GeneratePassword(8, 1);
             user.Password = newPassword;
             db.Entry(user).State = EntityState.Modified;
+            new MailerDaemon().ResetUserPassword(user);
             db.SaveChanges();
             return user;
         }
