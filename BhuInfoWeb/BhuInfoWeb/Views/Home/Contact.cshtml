@@ -17,22 +17,19 @@
         </div>
         <div class="pages">
             <ul>
-                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                {
-                    <li>
-                        <a class="active" href="@Url.Action("Contact", "Home")">News/Contact</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a class="active" href="@Url.Action("Contact", "Home")">News/Contact</a>
-                    </li>
-                }
+                <li>
+                    <a class="active" href="@Url.Action("Contact", "Home")">News/Contact</a>
+                </li>
             </ul>
         </div>
         <div class="navigation">
             <ul>
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")" class="active">Contact Us</a>
+                </li>
                 @if (loggedinuser != null)
                 {
                     <ul class="nav navbar-nav navbar-right">
@@ -100,12 +97,7 @@
                         <a href="@Url.Action("Login", "Account")">Log In</a>
                     </li>
                 }
-                <li>
-                    <a href="@Url.Action("About", "Home")">About Us</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Contact", "Home")" class="active">Contact Us</a>
-                </li>
+
             </ul>
         </div>
         <div class="clearfix"></div>
@@ -182,10 +174,10 @@
 
                                 </div>
                             </div>
-                                <div class="col-md-12">
-                                    <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
+                            <div class="col-md-12">
+                                <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
 
-                                </div>
+                            </div>
                         }
                     </div>
                 </div>

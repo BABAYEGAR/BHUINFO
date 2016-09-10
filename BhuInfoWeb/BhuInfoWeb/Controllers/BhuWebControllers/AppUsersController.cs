@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -98,6 +99,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var appUser = db.AppUsers.Find(id);
             if (appUser == null)
                 return HttpNotFound();
+            var roles = new SelectList(typeof(UserType).GetEnumNames());
+            ViewBag.roles = roles;
             return View(appUser);
         }
 
@@ -122,7 +125,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     appUser.CreatedById = long.Parse(collectedValues["createdby"]);
                     appUser.Password = collectedValues["password"];
                     appUser.LastModifiedById = loggedinuser.AppUserId;
-                    appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                    appUser.Role = collectedValues["Role"];
                     db.Entry(appUser).State = EntityState.Modified;
                     db.SaveChanges();
                     TempData["user"] = "The user details has been modified successfully!";

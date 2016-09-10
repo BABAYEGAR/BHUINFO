@@ -120,7 +120,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.LastModifiedById = user.AppUserId;
                     news.DateLastModified = DateTime.Now;
                     news.DateCreated = Convert.ToDateTime(collectedValues["date"]);
-                    news.NewsCategoryId = long.Parse(collectedValues["Category"]);
+                    news.NewsCategoryId = long.Parse(collectedValues["NewsCategory.NewsCategoryId"]);
                     news.CreatedById = long.Parse(collectedValues["createdby"]);
                     news.NewsView = int.Parse(collectedValues["newsview"]);
                     news.LastModifiedById = user.AppUserId;

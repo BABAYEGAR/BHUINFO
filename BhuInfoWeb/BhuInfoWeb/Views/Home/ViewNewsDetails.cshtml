@@ -29,6 +29,9 @@
     ViewBag.Title = "NewsDetails";
 }
 @{
+    var enumerable = newsComments as IList<NewsComment> ?? newsComments.ToList();
+}
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- header-section-starts -->
@@ -190,7 +193,7 @@
                 <ul>
                     @foreach (var item in countedDiscussions)
                     {
-                        <li>
+                        <li style="font-weight: bold">
                             <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">@item.Topic</a>
                         </li>
                     }
@@ -198,7 +201,14 @@
             </div>
             <div class="single">
                 <div class="leave">
-                    <h4>Leave a comment</h4>
+                    @if (enumerable.Count > 0)
+                    {
+                        <h4>Leave a Comment</h4>
+                    }
+                    else
+                    {
+                        <h4 class="alert alert-info">Be the first to comment</h4>
+                    }
                 </div>
                 @if (TempData["news"] != null)
                 {
@@ -222,7 +232,7 @@
                     @Html.Hidden("newsId", Model.NewsId)
 
                     <div class="form-group col-md-12">
-                        @Html.Label("CommentBy", null, new {@class = "control-label"})
+                        @Html.Label("Comment By", null, new {@class = "control-label"})
                         @Html.TextBox("CommentBy", null, new {@class = "form-control"})
 
                     </div>
@@ -244,8 +254,17 @@
                 }
 
                 <div class="comments1">
-                    <h4>COMMENTS</h4>
-                    @foreach (var item in newsComments)
+
+
+                    @if (enumerable.Count > 0)
+                    {
+                        <h4>COMMENTS</h4>
+                    }
+                    else
+                    {
+                       
+                    }
+                    @foreach (var item in enumerable)
                     {
                         <div class="comments-main">
                             <div class="col-md-12">
