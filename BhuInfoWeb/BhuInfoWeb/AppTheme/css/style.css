@@ -135,7 +135,7 @@ label { margin: 0; }
     padding: 22px;
 }
 
-.navigation { margin-top: 0.8em; }
+.navigation { margin-top: 0.3em; }
 
 .navigation ul li {
     display: inline-block;
@@ -1382,7 +1382,7 @@ p.span a {
 
     .pages { display: none; }
 
-    .navigation { margin-top: 0.3em; }
+    .navigation { margin-top: 0.1em; }
 
     .header { padding: 1.2em 0; }
 

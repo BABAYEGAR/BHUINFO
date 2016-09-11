@@ -24,12 +24,18 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
                 .IsRequired();
             Property(n => n.EndDate)
                 .IsRequired();
+            Property(n => n.StartTime)
+                .IsRequired();
+            Property(n => n.EndTime)
+                .IsRequired();
 
             //mapping the object entities to their respective columns
             ToTable("Events");
             Property(n => n.EventId).HasColumnName("EventId");
             Property(n => n.EndDate).HasColumnName("EndDate");
             Property(n => n.StartDate).HasColumnName("StartDate");
+            Property(n => n.StartTime).HasColumnName("StartTime");
+            Property(n => n.EndTime).HasColumnName("EndTime");
             Property(n => n.EventName).HasColumnName("EventName");
             Property(n => n.Venue).HasColumnName("Venue");
             Property(n => n.CreatedById).HasColumnName("CreatedById");

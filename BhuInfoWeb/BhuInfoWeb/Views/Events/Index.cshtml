@@ -133,32 +133,10 @@
                 </li>
             </ul>
         </div>
-        @*<!-- script for menu -->
-        <script>
-            $("span.menu")
-                .click(function() {
-                    $(".list-nav")
-                        .slideToggle("slow",
-                            function() {
-                                // Animation complete.
-                            });
-                });
-        </script>
-        <!-- script for menu -->*@
 
         <div class="clearfix"></div>
     </div>
 </div>
-<header class="@ViewBag.HeaderClass">
-    <div class="overlay"></div>
-    @*<div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="tagline">@ViewBag.Title</h2>
-            </div>
-        </div>
-    </div>*@
-</header>
 <div class="container">
     <div class="row">
         <div class="panel panel-flat">
@@ -199,6 +177,12 @@
                                 @Html.DisplayNameFor(model => model.EndDate)
                             </th>
                             <th>
+                                @Html.DisplayNameFor(model => model.StartTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EndTime)
+                            </th>
+                            <th>
                                 @Html.DisplayNameFor(model => model.Organizer)
                             </th>
                             <th>
@@ -217,10 +201,16 @@
                                     @Html.DisplayFor(modelItem => item.Venue)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.StartDate)
+                                    @Html.DisplayFor(modelItem => item.StartDate.ToShortDateString())
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.EndDate)
+                                    @Html.DisplayFor(modelItem => item.EndDate.ToShortDateString())
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartTime)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EndTime)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Organizer)

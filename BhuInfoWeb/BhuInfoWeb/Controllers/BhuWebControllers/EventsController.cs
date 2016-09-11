@@ -52,6 +52,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     @event.DateLastModified  = DateTime.Now;
                     @event.CreatedById = loggedinuser.AppUserId;
                     @event.LastModifiedById = loggedinuser.AppUserId;
+                    @event.StartTime = collectedValues["StartTime"];
+                    @event.EndTime = collectedValues["EndTime"];
                     if (@event.EndDate < @event.StartDate)
                     {
                         TempData["event"] = "The End date cannot be less than the start date!";
@@ -104,6 +106,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     @event.DateCreated = Convert.ToDateTime(collectedValues["date"]);
                     @event.CreatedById = long.Parse(collectedValues["createdby"]);
                     @event.DateLastModified = DateTime.Now;
+                    @event.StartTime = collectedValues["StartTime"];
+                    @event.EndTime = collectedValues["EndTime"];
                     @event.LastModifiedById = loggedinuser.AppUserId;
                     db.Entry(@event).State = EntityState.Modified;
                     db.SaveChanges();

@@ -24,6 +24,9 @@ namespace BhuInfo.Data.Objects.Entities
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
         public string Organizer { get; set; }
 
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+
         public DateTime DateCreated { get; set; }
         public long CreatedById { get; set; }
         public long LastModifiedById { get; set; }
