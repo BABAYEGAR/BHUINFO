@@ -51,7 +51,7 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("USERNAME", user.Email)
                     .Replace("PASSWORD", user.Password)
                     .Replace("URL", "http://localhost:51301/Account/Login")
-                    .Replace("Role", user.Role)
+                    .Replace("ROLE", user.Role)
                     .Replace("FROM", Config.SupportEmailAddress);
         }
         /// <summary>
@@ -128,7 +128,7 @@ namespace BhuInfo.Data.Service.EmailService
                 new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ContactUs.html"))
                     .ReadToEnd()
                     .Replace("DISPLAYNAME", senderName)
-                    .Replace("DISPLAYNAME", senderName)
+                    .Replace("URL", "http://localhost:51301/")
                     .Replace("MESSAGE", senderMessage);
         }
     }

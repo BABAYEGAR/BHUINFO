@@ -8,7 +8,10 @@ namespace BhuInfo.Data.Factory.BusinessFactory
     public class NewsCategoryDataFactory
     {
         private readonly NewsCategoryDataContext db = new NewsCategoryDataContext();
-
+        /// <summary>
+        /// This e=mt=ethod retrives all the news categories 
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<NewsCategory> GetAllNewsCategories()
         {
             var newsCategories = db.NewsCategories.ToList();

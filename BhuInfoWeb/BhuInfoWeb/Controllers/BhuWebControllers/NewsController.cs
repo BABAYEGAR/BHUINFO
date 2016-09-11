@@ -59,19 +59,27 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var user = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
+                HttpPostedFileBase file = Request.Files["uploadedFile"];
                 if (user != null)
                 {
-                    news.DateCreated = DateTime.Now;
-                    news.DateLastModified = DateTime.Now;
-                    news.NewsCategoryId = long.Parse(collectedValues["NewsCategory"]);
-                    news.CreatedById = user.AppUserId;
-                    news.LastModifiedById = user.AppUserId;
-                    HttpPostedFileBase file = Request.Files["uploadedFile"];
-                    news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
-                    db.News.Add(news);
-                    db.SaveChanges();
-                    TempData["news"] = "The article has been created Succesfully!";
-                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                    if (file != null)
+                    {
+                        news.DateCreated = DateTime.Now;
+                        news.DateLastModified = DateTime.Now;
+                        news.NewsCategoryId = long.Parse(collectedValues["NewsCategory"]);
+                        news.CreatedById = user.AppUserId;
+                        news.LastModifiedById = user.AppUserId;
+                        news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
+                        db.News.Add(news);
+                        db.SaveChanges();
+                        TempData["news"] = "The article has been created Succesfully!";
+                        TempData["notificationtype"] = NotificationType.Success.ToString();
+                    }
+                    else
+                    {
+                        TempData["news"] = "Please Upload an image and try again!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                    }
                 }
                 else
                 {
