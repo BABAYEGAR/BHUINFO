@@ -20,4 +20,3 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\Syste
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.WebPages.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.csprojResolveAssemblyReference.cache

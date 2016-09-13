@@ -19,5 +19,7 @@ namespace BhuInfo.Data.Objects.Entities
         public virtual News News { get; set; }
 
         public DateTime DateCreated { get; set; }
+        public int Likes { get; set; }
+        public int Dislikes { get; set; }
     }
 }

@@ -45,10 +45,12 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="DateTimeHelper\DateTimeCalculator.cs" />
     <Compile Include="Encryption\Md5Ecryption.cs" />
+    <Compile Include="Encryption\QueryStingEncoder.cs" />
     <Compile Include="Enums\NewsCategoryEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />
     <Compile Include="Enums\NotificationType.cs" />
     <Compile Include="Enums\DiscussionState.cs" />
+    <Compile Include="Enums\NewsActionType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="FileUploader\FileUploader.cs" />
     <Compile Include="EmailService\MailerDaemon.cs" />

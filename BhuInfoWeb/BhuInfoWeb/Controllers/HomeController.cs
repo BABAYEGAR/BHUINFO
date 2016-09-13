@@ -6,6 +6,7 @@ using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.EmailService;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -36,7 +37,8 @@ namespace BhuInfoWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ContactUs([Bind(Include = "SenderName,Message,Email")] ContactUs contact,FormCollection collectedValues)
+        public ActionResult ContactUs([Bind(Include = "SenderName,Message,Email")] ContactUs contact,
+            FormCollection collectedValues)
         {
             if (ModelState.IsValid)
             {
@@ -46,7 +48,7 @@ namespace BhuInfoWeb.Controllers
                 contact.DateCreated = DateTime.Now;
                 dbc.Contact.Add(contact);
                 dbc.SaveChanges();
-                new MailerDaemon().ContactUs(sendername,message,email);
+                new MailerDaemon().ContactUs(sendername, message, email);
                 return RedirectToAction("Contact", "Home");
             }
             return RedirectToAction("Contact", "Home");
@@ -67,7 +69,31 @@ namespace BhuInfoWeb.Controllers
             return View(newsToRedirect);
         }
 
-        public ActionResult SportsNews()
+        public ActionResult LikeOrDislikeANews(long Id, string actionType)
+        {
+            if (ModelState.IsValid)
+            {
+                var newsModel = new NewsDataFactory().GetNewsById(Id);
+                var news = db.News.Find(Id);
+                if (actionType == NewsActionType.Like.ToString())
+                {
+                    news.Likes = news.Likes + 1;
+                }
+                else
+                {
+                    news.Dislikes = news.Dislikes + 1;
+                }
+                db.Entry(news).State = EntityState.Modified;
+                db.SaveChanges();
+                return View("ViewNewsDetails", newsModel);
+
+            }
+            var newsToRedirect = db.News.Find(Id);
+            return View("ViewNewsDetails",newsToRedirect);
+        }
+    
+
+    public ActionResult SportsNews()
         {
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
             return View("Sports", news);

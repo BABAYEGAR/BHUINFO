@@ -196,5 +196,27 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
         }
+        public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
+        {
+            if (ModelState.IsValid)
+            {
+                var newsModel = new NewsDataFactory().GetNewsById(Id);
+                var newsComments = dbc.NewsComments.Find(Id);
+                if (actionType == NewsActionType.Like.ToString())
+                {
+                    newsComments.Likes = newsComments.Likes + 1;
+                }
+                else
+                {
+                    newsComments.Dislikes = newsComments.Dislikes + 1;
+                }
+                dbc.Entry(newsComments).State = EntityState.Modified;
+                dbc.SaveChanges();
+                return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsComments.NewsId });
+
+            }
+            var newsToRedirect = dbc.News.Find(Id);
+            return RedirectToAction("ViewNewsDetails", "Home",newsToRedirect);
+        }
     }
 }

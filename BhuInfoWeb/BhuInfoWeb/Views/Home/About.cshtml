@@ -20,7 +20,7 @@
 <div class="container">
     <div class="header-bottom">
         <div class="type">
-            <h5>Article Category</h5>
+            <h5 style="font-weight: bold">Article Category</h5>
         </div>
         <span class="menu"></span>
         <div class="list-nav">
@@ -130,7 +130,10 @@
                             {
                                 <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
                             }
-                            <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                            <label style="font-weight: bold">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                            <br />
+                            <label style="color: black">@item.NewsView views @item.NewComments.Count Comments</label><br />
+                            <label><label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label></label><br />
                             <span></span>
                         </div>
                     </a>

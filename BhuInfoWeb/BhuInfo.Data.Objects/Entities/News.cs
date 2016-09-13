@@ -9,9 +9,11 @@ namespace BhuInfo.Data.Objects.Entities
     public class News
     {
         public long NewsId { get; set; }
-        [AllowHtmlAttribute]
+        [AllowHtml]
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Title { get; set; }
-        [AllowHtmlAttribute]
+        [AllowHtml]
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Content { get; set; }
         public string Image { get; set; }
         public long CreatedById { get; set; }
@@ -24,6 +26,8 @@ namespace BhuInfo.Data.Objects.Entities
         public DateTime DateCreated { get; set; }
         public DateTime DateLastModified { get; set; }
         public int NewsView { get; set; }
+        public int Likes { get; set; }
+        public int Dislikes { get; set; }
 
         public virtual ICollection<NewsComment> NewComments { get; set; }
     }
