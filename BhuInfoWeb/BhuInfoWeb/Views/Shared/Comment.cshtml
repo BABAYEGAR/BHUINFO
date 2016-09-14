@@ -1,0 +1,43 @@
+﻿@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Enums
+@model News
+@{
+    var newsId = Model.NewsId;
+    var newsComments = new NewsCommentFactory().GetNewsComments((int)newsId);
+    var enumerable = newsComments as IList<NewsComment> ?? newsComments.ToList();
+}
+@if (enumerable.Count > 0)
+
+{
+    <h4>COMMENTS</h4>
+}
+@foreach (var item in enumerable)
+{
+    <div class="comments-main">
+        <div class="col-md-12">
+            <h5 class="detailsDiv">@item.CommentBy</h5>
+            <p>@item.Comment</p>
+            <div class="cmts">
+
+                <p style="color: #3498DB">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</p>
+
+                <div class="clearfix"></div>
+                <label style="color: green">
+                    <i class="fa fa-thumbs-up">
+                        <a id="linkLike" href="@Url.Action("LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()})">Like</a>
+                    </i>
+                </label>
+                <label> </label>
+                <label style="color: red">
+                    <i class="fa fa-thumbs-down"></i><a href="@Url.Action("LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()})">Dislike</a>
+                </label><br />
+                <label>
+                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                </label><br />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}

@@ -1297,6 +1297,7 @@
     <Content Include="Views\Home\SrcTeam.cshtml" />
     <Content Include="Views\Home\UpcomingEvent.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Shared\Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

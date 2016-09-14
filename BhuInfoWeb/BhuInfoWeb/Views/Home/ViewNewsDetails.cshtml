@@ -89,7 +89,7 @@
                     Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
                 </p>
                 <a href="#">
-                    <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" class="img-responsive" alt=""/>
+                    <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" height="40" width="40" class="img-responsive" alt=""/>
                 </a>
                 <p class="ptext">
                     @(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))
@@ -144,7 +144,7 @@
                         <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
                     }
                 }
-                @using (Html.BeginForm("CreateNewsComment", "News", FormMethod.Post, new {@class = "col-md-12"}))
+                @using (Ajax.BeginForm("CreateNewsComment", "News", new AjaxOptions {UpdateTargetId = "commentDiv"}))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -167,47 +167,14 @@
                     </div>
 
                     <div class="col-md-12">
-                        <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
+                        <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right"/>
 
                     </div>
                 }
-
-                <div class="comments1">
-
-
-                    @if (enumerable.Count > 0)
-                    {
-                        <h4>COMMENTS</h4>
+                <div class="comments1" id="commentDiv">
+                    @{
+                        Html.RenderPartial("Comment",Model);
                     }
-                    @foreach (var item in enumerable)
-                    {
-                        <div class="comments-main">
-                            <div class="col-md-12">
-                                <h5 class="detailsDiv">@item.CommentBy</h5>
-                                <p>@item.Comment</p>
-                                <div class="cmts">
-
-                                    <p style="color: #3498DB">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</p>
-
-                                    <div class="clearfix"></div>
-                                    <label style="color: green">
-                                        <i class="fa fa-thumbs-up">
-                                            <a id="linkLike" href="@Url.Action("LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()})">Like</a>
-                                        </i>
-                                    </label>
-                                    <label> </label>
-                                    <label style="color: red">
-                                        <i class="fa fa-thumbs-down"></i><a href="@Url.Action("LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()})">Dislike</a>
-                                    </label><br/>
-                                    <label>
-                                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                                    </label><br/>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    }
-
                 </div>
             </div>
         </div>
@@ -269,3 +236,17 @@
         <div class="clearfix"></div>
     </div>
 </div>
+@section scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            $('#submitComment')
+                .click(function(e) {
+                    e.preventdefault();
+                    var url = $(this).data(@Url.Action("GetNewsComments", "News", new {Id = Model.NewsId}));
+                    $('#commentDiv').load(url);
+                });
+        });
+    </script>
+
+}

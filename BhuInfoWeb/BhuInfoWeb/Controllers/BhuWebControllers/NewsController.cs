@@ -69,6 +69,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         news.NewsCategoryId = long.Parse(collectedValues["NewsCategory"]);
                         news.CreatedById = user.AppUserId;
                         news.LastModifiedById = user.AppUserId;
+                        news.Likes = 0;
+                        news.Dislikes = 0;
+                        news.NewsView = 0;
+                        news.LastModifiedById = user.AppUserId;
                         news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
                         db.News.Add(news);
                         db.SaveChanges();
@@ -131,6 +135,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.NewsCategoryId = long.Parse(collectedValues["NewsCategory.NewsCategoryId"]);
                     news.CreatedById = long.Parse(collectedValues["createdby"]);
                     news.NewsView = int.Parse(collectedValues["newsview"]);
+                    news.Likes = int.Parse(collectedValues["likes"]);
+                    news.Dislikes = int.Parse(collectedValues["dislikes"]);
                     news.LastModifiedById = user.AppUserId;
                     news.Image = collectedValues["image"];
                     db.Entry(news).State = EntityState.Modified;
@@ -187,14 +193,24 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 newsComments.DateCreated = DateTime.Now;
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
+                newsComments.Likes = 0;
+                newsComments.Dislikes = 0;
                 dbc.NewsComments.Add(newsComments);
                 dbc.SaveChanges();
                 return RedirectToAction("ViewNewsDetails", "Home", new {Id = newsComments.NewsId});
+                //var news = db.News.Find(newsComments.NewsId);
+                //return PartialView("Comment",news);
             }
             var newsId = long.Parse(collectedValues["NewsId"]);
             TempData["news"] = "All fields are compulsory!";
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
+        }
+
+        public ActionResult GetNewsComments(long Id)
+        {
+            var comments = new NewsCommentFactory().GetNewsComments((int) Id);
+            return PartialView("Comment", comments);
         }
         public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {
