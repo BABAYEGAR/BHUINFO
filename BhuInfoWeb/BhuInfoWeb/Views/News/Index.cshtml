@@ -209,7 +209,7 @@
                                 @if (item.Content.Length > 10)
                                 {
                                     <td>
-                                       @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7)+"..."))
+                                        @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7) + "..."))
                                     </td>
                                 }
                                 else

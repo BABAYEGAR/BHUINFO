@@ -160,7 +160,7 @@
                                     @Html.LabelFor(model => model.NewsCategory, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
                                         @Html.DropDownListFor(model => model.NewsCategory, (SelectList) ViewBag.Categories, "Select a Category", new {@class = "form-control select-dropdown"})
-                                        @Html.ValidationMessageFor(model => model.NewsCategory, "", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => model.NewsCategory, "", new {@class = "text-danger"})
                                     </div>
 
                                 </div>
@@ -168,7 +168,7 @@
                                     @Html.LabelFor(model => model.Image, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
                                         <input type="file" name="uploadedFile" id="uploadedFile" style="width: 100%;"/>
-                                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => model.Image, "", new {@class = "text-danger"})
                                     </div>
 
                                 </div>

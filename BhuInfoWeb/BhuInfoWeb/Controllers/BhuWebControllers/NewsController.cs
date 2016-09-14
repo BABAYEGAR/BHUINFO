@@ -197,7 +197,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 newsComments.Dislikes = 0;
                 dbc.NewsComments.Add(newsComments);
                 dbc.SaveChanges();
-                return RedirectToAction("ViewNewsDetails", "Home", new {Id = newsComments.NewsId});
+                return Json(newsComments, JsonRequestBehavior.AllowGet);
                 //var news = db.News.Find(newsComments.NewsId);
                 //return PartialView("Comment",news);
             }
@@ -209,8 +209,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
 
         public ActionResult GetNewsComments(long Id)
         {
-            var comments = new NewsCommentFactory().GetNewsComments((int) Id);
-            return PartialView("Comment", comments);
+            var news = new NewsDataFactory().GetNewsById((int) Id);
+            return PartialView("Comment", news);
         }
         public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {

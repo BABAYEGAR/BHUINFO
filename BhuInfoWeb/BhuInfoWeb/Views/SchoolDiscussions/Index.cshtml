@@ -1,5 +1,4 @@
-﻿@using BhuInfo.Data.Factory.BusinessFactory
-@using BhuInfo.Data.Objects.Entities
+﻿@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.SchoolDiscussion>
@@ -57,10 +56,10 @@
                         <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
                     </li>|
                     <li>
-                        <a href="@Url.Action("UpcomingEvent","Home")">Events</a>
+                        <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
                     </li>|
                     <li>
-                        <a href="@Url.Action("SrcTeam","Home")">SRC Team</a>
+                        <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                     </li>
                 </ul>
             </div>

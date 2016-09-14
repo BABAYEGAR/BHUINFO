@@ -78,7 +78,7 @@
                         <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
                     </li>|
                     <li>
-                        <a href="@Url.Action("SrcTeam","Home")">SRC Team</a>
+                        <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
                     </li>
                 </ul>
             </div>
@@ -108,7 +108,7 @@
                 </p>
                 <a href="#">
                     <p>
-                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))</p>
+                        <p>@(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))</p>
                     </p>
                 </a>
             </div>
@@ -181,7 +181,6 @@
 
                     @foreach (var item in schoolDiscussionComments)
                     {
-
                         <div class="comments-main">
                             <div class="col-md-12">
                                 <h5 class="detailsDiv" style="font-family: sans-serif">@item.CommentBy</h5>
@@ -196,7 +195,7 @@
                             <div class="clearfix"></div>
                         </div>
                     }
-                    
+
 
                 </div>
 

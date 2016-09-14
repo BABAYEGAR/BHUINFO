@@ -182,7 +182,7 @@
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.StartTime, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
-                                    @Html.TextBoxFor(model => model.StartTime, new {@class = "form-control timepicker" })
+                                    @Html.TextBoxFor(model => model.StartTime, new {@class = "form-control timepicker"})
                                     @Html.ValidationMessageFor(model => model.StartTime, "", new {@class = "text-danger"})
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                             <div class="form-group col-md-12">
                                 @Html.LabelFor(model => model.EndTime, new {@class = "control-label col-md-3"})
                                 <div class="col-sm-6 col-md-9">
-                                    @Html.TextBoxFor(model => model.EndTime, new {@class = "form-control timepicker" })
+                                    @Html.TextBoxFor(model => model.EndTime, new {@class = "form-control timepicker"})
                                     @Html.ValidationMessageFor(model => model.EndTime, "", new {@class = "text-danger"})
                                 </div>
                             </div>
@@ -238,18 +238,19 @@
                             // apply selected date as start date for expiry
                             $('.endDate').datepicker('setStartDate', e.date);
                         });
-                $('.timepicker').timepicker({
-                    timeFormat: 'h:mm p',
-                    interval: 30,
-                    minTime: '00:00am',
-                    maxTime: '11:59pm',
-                    defaultTime: '10',
-                    defaultDate:"2016-09-05",
-                    startTime: '10:00',
-                    dynamic: false,
-                    dropdown: true,
-                    scrollbar: true
-                });
+                $('.timepicker')
+                    .timepicker({
+                        timeFormat: 'h:mm p',
+                        interval: 30,
+                        minTime: '00:00am',
+                        maxTime: '11:59pm',
+                        defaultTime: '10',
+                        defaultDate: "2016-09-05",
+                        startTime: '10:00',
+                        dynamic: false,
+                        dropdown: true,
+                        scrollbar: true
+                    });
             })
 
     </script>

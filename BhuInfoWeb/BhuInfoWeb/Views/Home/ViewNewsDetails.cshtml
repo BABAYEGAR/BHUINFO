@@ -144,7 +144,11 @@
                         <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
                     }
                 }
-                @using (Ajax.BeginForm("CreateNewsComment", "News", new AjaxOptions {UpdateTargetId = "commentDiv"}))
+                @using (Ajax.BeginForm("CreateNewsComment", "News",new AjaxOptions()
+                {
+                    UpdateTargetId = "commentDiv",
+                    InsertionMode = InsertionMode.Replace
+                }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -173,7 +177,7 @@
                 }
                 <div class="comments1" id="commentDiv">
                     @{
-                        Html.RenderPartial("Comment",Model);
+                        Html.RenderPartial("Comment", Model);
                     }
                 </div>
             </div>
@@ -182,7 +186,7 @@
             <h5 class="head">Recent News</h5>
             @foreach (var item in news)
             {
-                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                <a href="@Url.Action("ViewNewsDetails", "Home")">
                     <div class="editor text-center">
 
                         <h3>@item.Title</h3>
@@ -236,17 +240,39 @@
         <div class="clearfix"></div>
     </div>
 </div>
-@section scripts
+@*@section scripts
 {
     <script type="text/javascript">
         $(function() {
             $('#submitComment')
                 .click(function(e) {
-                    e.preventdefault();
-                    var url = $(this).data(@Url.Action("GetNewsComments", "News", new {Id = Model.NewsId}));
-                    $('#commentDiv').load(url);
+                    e.preventDefault();
+                
+                    var $form = $('#submitComment').parents('form');
+            var element = this;
+            $.ajax({
+                url: "@Url.Action("CreateNewsComment","News")",
+                type: "POST",
+                data: $form.serialize(),
+                dataType: "json",
+                traditional: true,
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.status == "Success") {
+                        $(element).closest("form").submit();
+                        var url = $(this).data("@Url.Action("GetNewsComments", "News", new {Id = Model.NewsId})");
+                        $('#commentDiv').load(url);
+                    } else {
+                        alert("Error occurs on the Database level!");
+                    }
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            });
                 });
+
         });
     </script>
 
-}
+}*@
