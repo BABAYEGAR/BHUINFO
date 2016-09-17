@@ -189,19 +189,21 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult CreateNewsComment([Bind(Include = "CommentBy,Comment,Email")] NewsComment newsComments,
             FormCollection collectedValues)
         {
+            var newsId = long.Parse(collectedValues["NewsId"]);
             if (ModelState.IsValid)
             {
+               
                 newsComments.DateCreated = DateTime.Now;
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
                 newsComments.Likes = 0;
                 newsComments.Dislikes = 0;
                 dbc.NewsComments.Add(newsComments);
                 dbc.SaveChanges();
-                return Json(newsComments, JsonRequestBehavior.AllowGet);
-                //var news = db.News.Find(newsComments.NewsId);
-                //return PartialView("Comment",news);
+                //return Json(newsComments, JsonRequestBehavior.AllowGet);
+                var news = db.News.Find(newsComments.NewsId);
+                return RedirectToAction("ViewNewsDetails","Home", new { Id = newsId });
             }
-            var newsId = long.Parse(collectedValues["NewsId"]);
+           
             TempData["news"] = "All fields are compulsory!";
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
@@ -214,24 +216,24 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
         public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {
+            var newsToRedirect = dbc.News.Find(Id);
             if (ModelState.IsValid)
             {
-                var newsModel = new NewsDataFactory().GetNewsById(Id);
                 var newsComments = dbc.NewsComments.Find(Id);
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     newsComments.Likes = newsComments.Likes + 1;
                 }
-                else
+                else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     newsComments.Dislikes = newsComments.Dislikes + 1;
                 }
                 dbc.Entry(newsComments).State = EntityState.Modified;
                 dbc.SaveChanges();
-                return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsComments.NewsId });
+                return RedirectToAction("ViewNewsDetails", "Home", newsToRedirect);
 
             }
-            var newsToRedirect = dbc.News.Find(Id);
+            
             return RedirectToAction("ViewNewsDetails", "Home",newsToRedirect);
         }
     }

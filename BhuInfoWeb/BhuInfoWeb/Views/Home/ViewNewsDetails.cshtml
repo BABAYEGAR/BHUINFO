@@ -152,7 +152,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                    @Html.Hidden("newsId", Model.NewsId)
+                    @Html.Hidden("NewsId", Model.NewsId)
 
                     <div class="form-group col-md-12">
                         @Html.Label("Comment By", null, new {@class = "control-label"})

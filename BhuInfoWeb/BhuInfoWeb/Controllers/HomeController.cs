@@ -79,7 +79,7 @@ namespace BhuInfoWeb.Controllers
                 {
                     news.Likes = news.Likes + 1;
                 }
-                else
+                else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     news.Dislikes = news.Dislikes + 1;
                 }
