@@ -5,6 +5,7 @@
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
 @model BhuInfo.Data.Objects.Entities.News
+
 @{
     var newsList = new NewsDataFactory().GetAllNews();
     var orderNews = newsList.OrderByDescending(n => n.DateCreated);
@@ -150,6 +151,7 @@
                 }
                 @using (Html.BeginForm("CreateNewsComment", "News",FormMethod.Post))
                 {
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                     @Html.Hidden("NewsId", Model.NewsId)

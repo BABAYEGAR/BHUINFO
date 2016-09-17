@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@model BhuInfo.Data.Objects.Entities.ContactUs
 @{
     ViewBag.Title = "Contact";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
@@ -64,16 +65,19 @@
                                 <div class="form-group col-md-12">
                                     @Html.Label("Name", null, new {@class = "control-label"})
                                     @Html.TextBox("SenderName", null, new {@class = "form-control", placeholder = "Enter your Name"})
+                                    @Html.ValidationMessageFor(model => model.SenderName, "", new { @class = "text-danger" })
 
                                 </div>
                                 <div class="form-group col-md-12">
                                     @Html.Label("Email", null, new {@class = "control-label"})
                                     @Html.TextBox("Email", null, new {@class = "form-control", placeholder = "Enter your Email"})
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
                                 </div>
                                 <div class="form-group col-md-12">
                                     @Html.Label("Message", null, new {@class = "control-label"})
                                     @Html.TextArea("Message", null, new {@class = "form-control", placeholder = "Enter a message"})
+                                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
 
                                 </div>
                             </div>

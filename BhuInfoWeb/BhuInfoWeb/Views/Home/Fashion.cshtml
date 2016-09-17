@@ -18,6 +18,11 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.Fashion);
+    if (mostRecentSingleNews == null)
+    {
+        new HttpNotFoundResult();
+        return;
+    }
     var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);
 }
 @{

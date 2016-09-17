@@ -230,7 +230,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 }
                 dbc.Entry(newsComments).State = EntityState.Modified;
                 dbc.SaveChanges();
-                return RedirectToAction("ViewNewsDetails", "Home", newsToRedirect);
+                return RedirectToAction("ViewNewsDetails", "Home", new {Id = newsComments.NewsId});
 
             }
             

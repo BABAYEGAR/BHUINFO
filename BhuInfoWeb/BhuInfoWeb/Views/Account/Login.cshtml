@@ -7,6 +7,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
+@section css{
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet" />
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -112,3 +115,15 @@
         </div>
     </div>
 </div>
+@section scripts{
+    <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+
+                // Init select2 for dropdown select
+                $('.select-dropdown').select2();
+
+            })
+    </script>
+}

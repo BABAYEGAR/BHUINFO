@@ -1,4 +1,5 @@
-﻿@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using System.Diagnostics
+@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -16,9 +17,14 @@
     var recentNews = Model.Take(4);
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
-
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.General);
+    if (mostRecentSingleNews == null)
+    {
+        new HttpNotFoundResult();
+        return;
+    }
     var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);
+
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
