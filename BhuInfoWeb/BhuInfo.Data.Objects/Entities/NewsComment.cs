@@ -12,6 +12,7 @@ namespace BhuInfo.Data.Objects.Entities
         [Required(ErrorMessage = "This field is compulsory")]
         public string Email { get; set; }
         [Required(ErrorMessage = "This field is compulsory")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*",ErrorMessage = "This Email is invalid!")]
         public string Comment { get; set; }
         public long NewsId { get; set; }
 

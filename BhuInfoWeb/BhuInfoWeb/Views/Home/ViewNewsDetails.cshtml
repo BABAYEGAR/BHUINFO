@@ -1,4 +1,5 @@
-﻿@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using System.Security.Policy
+@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -32,7 +33,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container">
+@*<div class="container">
     <div class="header-bottom">
         <div class="type">
             <h5 style="font-weight: bold">Article Types</h5>
@@ -78,7 +79,7 @@
         <!-- script for menu -->
         <div class="clearfix"></div>
     </div>
-</div>
+</div>*@
 <div class="container">
     <div class="content">
         <div class="single-page">
@@ -94,6 +95,9 @@
                 <p class="ptext">
                     @(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))
                 </p>
+                <label>
+                    <label style="color: green">@Model.Likes Likes</label> <label style="color: red">@Model.Dislikes Dislikes</label>
+                </label><br />
                 <label style="color: green">
                     <i class="fa fa-thumbs-up">
                         <a id="linkLike" href="@Url.Action("LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Like.ToString()})">Like</a>
@@ -144,11 +148,7 @@
                         <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
                     }
                 }
-                @using (Ajax.BeginForm("CreateNewsComment", "News",new AjaxOptions()
-                {
-                    UpdateTargetId = "commentDiv",
-                    InsertionMode = InsertionMode.Replace
-                }))
+                @using (Html.BeginForm("CreateNewsComment", "News",FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -157,16 +157,19 @@
                     <div class="form-group col-md-12">
                         @Html.Label("Comment By", null, new {@class = "control-label"})
                         @Html.TextBox("CommentBy", null, new {@class = "form-control"})
+                        @Html.ValidationMessage("CommentBy", "", new { @class = "text-danger" })
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Email", null, new {@class = "control-label"})
                         @Html.TextBox("Email", null, new {@class = "form-control"})
+                        @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Comment", null, new {@class = "control-label"})
                         @Html.TextArea("Comment", null, new {@class = "form-control"})
+                        @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
 
                     </div>
 

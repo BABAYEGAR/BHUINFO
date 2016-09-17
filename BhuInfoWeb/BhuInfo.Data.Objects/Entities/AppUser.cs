@@ -16,7 +16,7 @@ namespace BhuInfo.Data.Objects.Entities
         public string Lastname { get; set; }
         [Required(ErrorMessage = "This field is compulsory")]
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
-        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*")]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "This Email is invalid!")]
         public string Email { get; set; }
         [Required(ErrorMessage = "This field is compulsory")]
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
