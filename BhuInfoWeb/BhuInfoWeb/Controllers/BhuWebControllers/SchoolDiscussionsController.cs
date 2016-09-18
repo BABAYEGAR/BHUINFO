@@ -164,8 +164,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(discussionComment.SchoolDiscussionId);
             if (ModelState.IsValid)
             {
-                string[] words = {"fuck", "Fuck", "4kin"};
-                var comment = collectedValues["Comment"];
+                string[] words = { "fuck", "Fuck", "4kin", "idiot", "pussy", "dick", "blowjob", "bastard", "stupid" };
+                var comment = collectedValues["Comment"].ToLower();
                 foreach (var item in words)
                     if (comment.Contains(item))
                     {

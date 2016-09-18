@@ -85,7 +85,7 @@ namespace BhuInfoWeb.Controllers
                 }
                 db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
-                return View("ViewNewsDetails", newsModel);
+                return RedirectToAction("ViewNewsDetails", "Home", new { Id = news.NewsId });
 
             }
             var newsToRedirect = db.News.Find(Id);

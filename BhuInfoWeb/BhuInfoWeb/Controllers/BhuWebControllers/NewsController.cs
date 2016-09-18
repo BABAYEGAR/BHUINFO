@@ -192,15 +192,22 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var newsId = long.Parse(collectedValues["NewsId"]);
             if (ModelState.IsValid)
             {
-               
+                string[] words = { "fuck", "Fuck", "4kin","idiot","pussy","dick","blowjob","bastard","stupid" };
+                var comment = collectedValues["Comment"].ToLower();
+                foreach (var item in words)
+                    if (comment.Contains(item))
+                    {
+                        TempData["news"] =
+                            "Please check your words again and make sure your arent using any vulgar word!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                        return RedirectToAction("ViewNewsDetails","Home", new {Id = newsId});
+                    }
                 newsComments.DateCreated = DateTime.Now;
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
                 newsComments.Likes = 0;
                 newsComments.Dislikes = 0;
                 dbc.NewsComments.Add(newsComments);
                 dbc.SaveChanges();
-                //return Json(newsComments, JsonRequestBehavior.AllowGet);
-                var news = db.News.Find(newsComments.NewsId);
                 return RedirectToAction("ViewNewsDetails","Home", new { Id = newsId });
             }
            

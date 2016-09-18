@@ -159,19 +159,22 @@
                     <div class="form-group col-md-12">
                         @Html.Label("Comment By", null, new {@class = "control-label"})
                         @Html.TextBox("CommentBy", null, new {@class = "form-control"})
-                        @Html.ValidationMessage("CommentBy", "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().CommentBy, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Email", null, new {@class = "control-label"})
                         @Html.TextBox("Email", null, new {@class = "form-control"})
-                        @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().Email, "", new { @class = "text-danger" })
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Comment", null, new {@class = "control-label"})
                         @Html.TextArea("Comment", null, new {@class = "form-control"})
-                        @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().Comment, "", new { @class = "text-danger" })
+
+
+
 
                     </div>
 

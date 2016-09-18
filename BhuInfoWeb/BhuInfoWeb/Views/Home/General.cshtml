@@ -4,7 +4,7 @@
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
-@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
+@model IEnumerable<News>
 @{
     ViewBag.Title = "General";
 
@@ -15,8 +15,6 @@
     var recentCategoryNews = newsCategoryList.ToList();
 
     var recentNews = Model.Take(4);
-
-    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.General);
     if (mostRecentSingleNews == null)
     {
@@ -126,7 +124,7 @@
                         </div>
                     }
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentOutOfRangeException)
                 {
                 }
             </div>
@@ -160,7 +158,7 @@
                         </a>
                     }
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentOutOfRangeException)
                 {
                 }
             </div>
@@ -190,7 +188,7 @@
                         </div>
                     }
                 }
-                catch (ArgumentOutOfRangeException ex)
+                catch (ArgumentOutOfRangeException)
                 {
                 }
             </div>
