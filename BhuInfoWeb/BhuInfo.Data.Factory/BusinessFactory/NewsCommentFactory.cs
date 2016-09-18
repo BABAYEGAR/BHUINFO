@@ -17,5 +17,11 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var orderComments = newsComments.OrderBy(n => n.DateCreated);
             return orderComments;
         }
+
+        public NewsComment GetSingleNewsComments(int commentId)
+        {
+            var comment = db.NewsComments.Find(commentId);
+            return comment;
+        }
     }
 }

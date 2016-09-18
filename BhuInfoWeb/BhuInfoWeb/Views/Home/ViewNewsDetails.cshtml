@@ -1,5 +1,4 @@
-﻿@using System.Security.Policy
-@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -34,53 +33,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<div class="container">
-    <div class="header-bottom">
-        <div class="type">
-            <h5 style="font-weight: bold">Article Types</h5>
-        </div>
-        <span class="menu"></span>
-        <div class="list-nav">
-            <ul>
-                <li>
-                    <a href="@Url.Action("Index", "Home")">Home</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("Index", "Home")">General</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("SportsNews", "Home")">Sports</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
-                </li>
 
-            </ul>
-        </div>
-        <!-- script for menu -->
-        <script>
-            $("span.menu")
-                .click(function() {
-                    $(".list-nav")
-                        .slideToggle("slow",
-                            function() {
-                                // Animation complete.
-                            });
-                });
-        </script>
-        <!-- script for menu -->
-        <div class="clearfix"></div>
-    </div>
-</div>*@
 <div class="container">
     <div class="content">
         <div class="single-page">
@@ -90,23 +43,34 @@
                 <p class="sub_head">
                     Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
                 </p>
-                <a href="#">
-                    <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" height="40" width="40" class="img-responsive" alt=""/>
-                </a>
+                <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" height="40" width="40" class="img-responsive" alt=""/>
                 <p class="ptext">
                     @(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))
                 </p>
-                <label>
-                    <label style="color: green">@Model.Likes Likes</label> <label style="color: red">@Model.Dislikes Dislikes</label>
-                </label><br />
+                <label id="likeOrDislikeDiv">
+                    @{
+                        Html.RenderPartial("_LikeOrDislikePartial", Model);
+                    }
+                </label><br/>
                 <label style="color: green">
                     <i class="fa fa-thumbs-up">
-                        <a id="linkLike" href="@Url.Action("LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Like.ToString()})">Like</a>
+                        @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
                     </i>
                 </label>
                 <label> </label>
                 <label style="color: red">
-                    <i class="fa fa-thumbs-down"></i><a href="@Url.Action("LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString()})">Dislike</a>
+                    <i class="fa fa-thumbs-down">
+                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
+                    </i>
+
                 </label>
             </div>
 
@@ -149,9 +113,13 @@
                         <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
                     }
                 }
-                @using (Html.BeginForm("CreateNewsComment", "News",FormMethod.Post))
+                @using (Ajax.BeginForm("CreateNewsComment", "News",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "commentDiv"
+                    }))
                 {
-
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                     @Html.Hidden("NewsId", Model.NewsId)
@@ -159,19 +127,19 @@
                     <div class="form-group col-md-12">
                         @Html.Label("Comment By", null, new {@class = "control-label"})
                         @Html.TextBox("CommentBy", null, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.NewComments.Single().CommentBy, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().CommentBy, "", new {@class = "text-danger"})
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Email", null, new {@class = "control-label"})
                         @Html.TextBox("Email", null, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.NewComments.Single().Email, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().Email, "", new {@class = "text-danger"})
 
                     </div>
                     <div class="form-group col-md-12">
                         @Html.Label("Comment", null, new {@class = "control-label"})
                         @Html.TextArea("Comment", null, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.NewComments.Single().Comment, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().Comment, "", new {@class = "text-danger"})
 
 
 
@@ -248,39 +216,15 @@
         <div class="clearfix"></div>
     </div>
 </div>
-@*@section scripts
+@section Scripts
 {
     <script type="text/javascript">
-        $(function() {
-            $('#submitComment')
-                .click(function(e) {
-                    e.preventDefault();
-                
-                    var $form = $('#submitComment').parents('form');
-            var element = this;
-            $.ajax({
-                url: "@Url.Action("CreateNewsComment","News")",
-                type: "POST",
-                data: $form.serialize(),
-                dataType: "json",
-                traditional: true,
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    if (data.status == "Success") {
-                        $(element).closest("form").submit();
-                        var url = $(this).data("@Url.Action("GetNewsComments", "News", new {Id = Model.NewsId})");
-                        $('#commentDiv').load(url);
-                    } else {
-                        alert("Error occurs on the Database level!");
-                    }
+            $(function() {
+                setInterval(function () {
+
+                    $('#commentDiv').hide().load('@Url.Action("ReloadPartialView","Home", new { Id = Model.NewsId, actionType = NewsActionType.Like.ToString() })').fadeIn('slow');
                 },
-                error: function () {
-                    alert("An error has occured!!!");
-                }
+                3000);
             });
-                });
-
-        });
     </script>
-
-}*@
+}

@@ -208,25 +208,22 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 newsComments.Dislikes = 0;
                 dbc.NewsComments.Add(newsComments);
                 dbc.SaveChanges();
-                return RedirectToAction("ViewNewsDetails","Home", new { Id = newsId });
+                var news = db.News.Find(long.Parse(collectedValues["NewsId"]));
+                return PartialView("Comment",news);
             }
            
             TempData["news"] = "All fields are compulsory!";
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
         }
-
-        public ActionResult GetNewsComments(long Id)
-        {
-            var news = new NewsDataFactory().GetNewsById((int) Id);
-            return PartialView("Comment", news);
-        }
         public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {
-            var newsToRedirect = dbc.News.Find(Id);
+          
+            var newsComments = dbc.NewsComments.Find(Id);
+            var newsToRedirect = dbc.News.Find(newsComments.NewsId);
             if (ModelState.IsValid)
             {
-                var newsComments = dbc.NewsComments.Find(Id);
+              
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     newsComments.Likes = newsComments.Likes + 1;
@@ -237,7 +234,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 }
                 dbc.Entry(newsComments).State = EntityState.Modified;
                 dbc.SaveChanges();
-                return RedirectToAction("ViewNewsDetails", "Home", new {Id = newsComments.NewsId});
+                return PartialView("_LikeOrDislikeCommentPartial",newsComments);
 
             }
             

@@ -68,7 +68,7 @@ namespace BhuInfoWeb.Controllers
             var newsToRedirect = db.News.Find(Id);
             return View(newsToRedirect);
         }
-
+        [HttpPost]
         public ActionResult LikeOrDislikeANews(long Id, string actionType)
         {
             if (ModelState.IsValid)
@@ -85,15 +85,19 @@ namespace BhuInfoWeb.Controllers
                 }
                 db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ViewNewsDetails", "Home", new { Id = news.NewsId });
+                return PartialView("_LikeOrDislikePartial",newsModel);
 
             }
             var newsToRedirect = db.News.Find(Id);
             return View("ViewNewsDetails",newsToRedirect);
         }
-    
-
-    public ActionResult SportsNews()
+        [HttpGet]
+        public ActionResult ReloadPartialView(long Id)
+        {
+            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            return PartialView("Comment",newsModel);
+        }
+        public ActionResult SportsNews()
         {
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
             return View("Sports", news);

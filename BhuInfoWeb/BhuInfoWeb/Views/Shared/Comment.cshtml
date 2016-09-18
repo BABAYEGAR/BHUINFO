@@ -1,4 +1,5 @@
-﻿@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using BhuInfo.Data.Context.DataContext
+@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
@@ -26,15 +27,32 @@
                 <div class="clearfix"></div>
                 <label style="color: green">
                     <i class="fa fa-thumbs-up">
-                        <a id="linkLike" href="@Url.Action("LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()})">Like</a>
+                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
                     </i>
                 </label>
+
                 <label> </label>
                 <label style="color: red">
-                    <i class="fa fa-thumbs-down"></i><a href="@Url.Action("LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()})">Dislike</a>
+                    <i class="fa fa-thumbs-down">
+                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
+                    </i>
+
                 </label><br/>
-                <label>
-                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                <label id="likeOrDislikeDiv">
+                    @{
+                        // var comment = new NewsCommentFactory().GetSingleNewsComments((int) item.NewsCommentId);
+                        var dbc = new NewsComentDataContext();
+                        var comment = dbc.NewsComments.Find(item.NewsCommentId);
+                        Html.RenderPartial("_LikeOrDislikeCommentPartial", comment);
+                    }
                 </label><br/>
             </div>
         </div>
