@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
@@ -225,14 +226,23 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var newsToRedirect = _dbc.News.Find(newsComments.NewsId);
             if (ModelState.IsValid)
             {
-              
+                var visitor = Session["visitor"] as VisitorUser;
+                if (visitor == null)
+                {
+                    var newVisitor = new VisitorUser();
+                    newVisitor.IsValid = true;
+                    newVisitor.Key = Membership.GeneratePassword(7, 6);
+                    visitor = newVisitor;
+                }
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     newsComments.Likes = newsComments.Likes + 1;
+                    visitor.CommentLikeStatus = NewsActionType.Like.ToString();
                 }
                 else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     newsComments.Dislikes = newsComments.Dislikes + 1;
+                    visitor.CommentDisikeStatus = NewsActionType.Dislike.ToString();
                 }
                 _dbc.Entry(newsComments).State = EntityState.Modified;
                 _dbc.SaveChanges();

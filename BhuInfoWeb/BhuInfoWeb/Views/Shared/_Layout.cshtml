@@ -15,9 +15,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <title>@ViewBag.Title</title>
     <link rel="icon" href="~/AppTheme/images/bhulogo.jpg" type="image/x-icon">
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/fonts/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Styles.Render("~/fonts/css")
     @RenderSection("css", false)
     @{
         var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;

@@ -1,0 +1,58 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@{
+    var visitor = Session["visitor"] as VisitorUser;
+}
+    @if (visitor != null && visitor.LikeStatus == NewsActionType.Like.ToString())
+    {
+        <label style="color: green">
+            <i class="fa fa-thumbs-up">
+                @*@Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new { Id = Model.NewsId, actionType = NewsActionType.Like.ToString() }, new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "likeOrDislikeDiv"
+                    })*@
+            </i>
+        </label>
+    }
+    else
+    {
+        <label style="color: green">
+            <i class="fa fa-thumbs-up">
+                @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new { Id = Model.NewsId, actionType = NewsActionType.Like.ToString() }, new AjaxOptions
+               {
+                   HttpMethod = "Post",
+                   UpdateTargetId = "likeOrDislikeDiv"
+               })
+            </i>
+        </label>
+    }
+    <label> </label>
+    @if (visitor != null && visitor.DisikeStatus ==  NewsActionType.Dislike.ToString())
+    {
+        <label style="color: red">
+            <i class="fa fa-thumbs-down">
+                @*@Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "likeOrDislikeDiv"
+                    })*@
+            </i>
+
+        </label>
+    }
+    else
+    {
+        <label style="color: red">
+            <i class="fa fa-thumbs-down">
+                @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new { Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString() }, new AjaxOptions
+               {
+                   HttpMethod = "Post",
+                   UpdateTargetId = "likeOrDislikeDiv"
+               })
+            </i>
+
+        </label>
+    }
+
+

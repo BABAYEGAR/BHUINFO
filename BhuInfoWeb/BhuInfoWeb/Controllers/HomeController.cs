@@ -2,11 +2,11 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.EmailService;
-using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -68,35 +68,60 @@ namespace BhuInfoWeb.Controllers
             var newsToRedirect = db.News.Find(Id);
             return View(newsToRedirect);
         }
+
         [HttpPost]
         public ActionResult LikeOrDislikeANews(long Id, string actionType)
         {
             if (ModelState.IsValid)
             {
+                var visitor = Session["visitor"] as VisitorUser;
+                if (visitor == null)
+                {
+                    var newVisitor = new VisitorUser();
+                    newVisitor.IsValid = true;
+                    newVisitor.Key = Membership.GeneratePassword(7, 6);
+                    visitor = newVisitor;
+                }
                 var newsModel = new NewsDataFactory().GetNewsById(Id);
                 var news = db.News.Find(Id);
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     news.Likes = news.Likes + 1;
+                    visitor.LikeStatus = NewsActionType.Like.ToString();
                 }
                 else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     news.Dislikes = news.Dislikes + 1;
+                    visitor.DisikeStatus = NewsActionType.Dislike.ToString();
                 }
                 db.Entry(news).State = EntityState.Modified;
                 db.SaveChanges();
-                return PartialView("_LikeOrDislikePartial",newsModel);
-
+                Session["visitor"] = visitor;
+                return PartialView("_LikeOrDislikePartial", newsModel);
             }
             var newsToRedirect = db.News.Find(Id);
-            return View("ViewNewsDetails",newsToRedirect);
+            return View("ViewNewsDetails", newsToRedirect);
         }
+
         [HttpGet]
         public ActionResult ReloadPartialView(long Id)
         {
             var newsModel = new NewsDataFactory().GetNewsById(Id);
-            return PartialView("Comment",newsModel);
+            return PartialView("Comment", newsModel);
         }
+        [HttpGet]
+        public ActionResult ReloadLikeDislikeInfo(long Id)
+        {
+            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            return PartialView("_LikeDislikeInfo", newsModel);
+        }
+        [HttpGet]
+        public ActionResult ReloadLikeDislikePartial(long Id)
+        {
+            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            return PartialView("_LikeOrDislikePartial", newsModel);
+        }
+
         public ActionResult SportsNews()
         {
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
@@ -108,16 +133,19 @@ namespace BhuInfoWeb.Controllers
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
             return View("Fashion", news);
         }
+
         public ActionResult GeneralNews()
         {
             var news = new NewsDataFactory().GetTopNthMostRecentNews(5);
             return View("General", news);
         }
+
         public ActionResult UpcomingEvent()
         {
             var events = dbd.Events.ToList();
-            return View("UpcomingEvent",events);
+            return View("UpcomingEvent", events);
         }
+
         public ActionResult SrcTeam()
         {
             return View("SrcTeam");

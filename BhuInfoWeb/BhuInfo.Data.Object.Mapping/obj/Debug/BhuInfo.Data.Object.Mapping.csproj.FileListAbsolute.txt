@@ -27,3 +27,6 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debu
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.dll.config
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.SqlServer.xml
