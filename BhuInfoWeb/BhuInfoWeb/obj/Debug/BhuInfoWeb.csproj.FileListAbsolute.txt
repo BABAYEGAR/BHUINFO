@@ -192,3 +192,17 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Object.Mapping.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Object.Mapping.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\csc.exe.config
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\csc.rsp
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\csi.exe
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\csi.rsp
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\System.AppContext.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\vbc.exe.config
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\vbc.rsp

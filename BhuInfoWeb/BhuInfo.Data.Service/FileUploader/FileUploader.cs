@@ -3,55 +3,59 @@ using System.IO;
 using System.Web;
 using BhuInfo.Data.Service.Enums;
 
-/// <summary>
-///     Summary description for FileUploader
-/// </summary>
-public class FileUploader
+namespace BhuInfo.Data.Service.FileUploader
 {
     /// <summary>
-    ///     Uploads documents to the upload folder
+    ///     Summary description for FileUploader
     /// </summary>
-    /// <param name="fileUpload">The FileUpload object that contains the file to be uploaded</param>
-    /// <param name="uploadType">The uoload file type</param>
-    /// <returns>The saved file name and extension</returns>
-    public string UploadFile(HttpPostedFileBase fileUpload, UploadType uploadType)
+    public class FileUploader
     {
-        var filename = DateTime.Now.ToFileTime().ToString();
-
-        if (fileUpload != null)
+        /// <summary>
+        ///     Uploads documents to the upload folder
+        /// </summary>
+        /// <param name="fileUpload">The FileUpload object that contains the file to be uploaded</param>
+        /// <param name="uploadType">The uoload file type</param>
+        /// <returns>The saved file name and extension</returns>
+        public string UploadFile(HttpPostedFileBase fileUpload, UploadType uploadType)
         {
-            var fileInfo = new FileInfo(fileUpload.FileName);
-            if ((fileInfo.Extension.ToLower() == ".jpg") || (fileInfo.Extension.ToLower() == ".jpeg")
-                || (fileInfo.Extension.ToLower() == ".png"))
-                try
-                {
-                    var fileExtension = fileInfo.Extension;
+            var filename = DateTime.Now.ToFileTime().ToString();
 
-                    filename = DateTime.Now.ToFileTime() + fileExtension;
+            if (fileUpload != null)
+            {
+                var fileInfo = new FileInfo(fileUpload.FileName);
+                if ((fileInfo.Extension.ToLower() == ".jpg") || (fileInfo.Extension.ToLower() == ".jpeg")
+                    || (fileInfo.Extension.ToLower() == ".png"))
+                    try
+                    {
+                        var fileExtension = fileInfo.Extension;
 
-                    //check if upload folder is available. Else create it
-                    var uploadFolderPath =
-                        HttpContext.Current.Server.MapPath("~/UploadedFiles/" + uploadType);
+                        filename = DateTime.Now.ToFileTime() + fileExtension;
 
-                    //check to see if the directory exists else, create directory
-                    if (!Directory.Exists(uploadFolderPath))
-                        Directory.CreateDirectory(uploadFolderPath);
+                        //check if upload folder is available. Else create it
+                        var uploadFolderPath =
+                            HttpContext.Current.Server.MapPath("~/UploadedFiles/" + uploadType);
 
-                    //save image
-                    var imagePath = uploadFolderPath + "/" + filename;
-                    fileUpload.SaveAs(imagePath);
-                }
-                catch (Exception ex)
-                {
-                }
+                        //check to see if the directory exists else, create directory
+                        if (!Directory.Exists(uploadFolderPath))
+                            Directory.CreateDirectory(uploadFolderPath);
+
+                        //save image
+                        var imagePath = uploadFolderPath + "/" + filename;
+                        fileUpload.SaveAs(imagePath);
+                    }
+                    catch (Exception)
+                    {
+                        // ignored
+                    }
+            }
+
+            return filename;
         }
 
-        return filename;
-    }
 
-
-    public bool ThumbnailCallback()
-    {
-        return false;
+        public bool ThumbnailCallback()
+        {
+            return false;
+        }
     }
 }

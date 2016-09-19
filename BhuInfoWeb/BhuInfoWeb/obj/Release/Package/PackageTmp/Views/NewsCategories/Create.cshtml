@@ -1,0 +1,144 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@model BhuInfo.Data.Objects.Entities.NewsCategory
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@{
+    ViewBag.HeaderClass = "page-header";
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                ">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Home")">">News/Articles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @*<h2 class="tagline">@ViewBag.Title</h2>*@
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            <hr/>
+                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.Name, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextAreaFor(model => model.Name, new {@class = "form-control"})
+                                    @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="col-md-12">
+                                <a href="@Url.Action("Index", "NewsCategories")" class="btn btn-default pull-left">Cancel</a>
+                                <input type="submit" value="Create" class="btn btn-primary pull-right"/>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

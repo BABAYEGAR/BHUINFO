@@ -1,0 +1,87 @@
+/*!
+ * Datetimepicker for Bootstrap 3
+ * version : 4.17.37
+ * https://github.com/Eonasdan/bootstrap-datetimepicker/
+ */
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.glyphicon {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    position: relative;
+    top: 1px;
+}
+
+.glyphicon-time:before { content: "\e023"; }
+
+.glyphicon-chevron-left:before { content: "\e079"; }
+
+.glyphicon-chevron-right:before { content: "\e080"; }
+
+.glyphicon-chevron-up:before { content: "\e113"; }
+
+.glyphicon-chevron-down:before { content: "\e114"; }
+
+.glyphicon-calendar:before { content: "\e109"; }
+
+.btn {
+    -moz-user-select: none;
+    -ms-touch-action: manipulation;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.collapse { display: none; }
+
+.collapse.in { display: block; }
+
+.dropdown-menu {
+    -webkit-background-clip: padding-box;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    display: none;
+    float: left;
+    font-size: 14px;
+    left: 0;
+    list-style: none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    text-align: left;
+    z-index: 1000;
+}
+
+.list-unstyled {
+    list-style: none;
+    padding-left: 0;
+}

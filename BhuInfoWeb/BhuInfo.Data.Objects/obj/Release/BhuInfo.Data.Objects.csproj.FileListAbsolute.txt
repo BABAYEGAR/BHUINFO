@@ -1,0 +1,17 @@
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\BhuInfo.Data.Objects.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\BhuInfo.Data.Objects.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.Helpers.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.Mvc.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.Razor.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.WebPages.Deployment.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.WebPages.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.WebPages.Razor.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.Helpers.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.Mvc.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.Razor.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.WebPages.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.WebPages.Deployment.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Release\System.Web.WebPages.Razor.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Release\BhuInfo.Data.Objects.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Release\BhuInfo.Data.Objects.pdb

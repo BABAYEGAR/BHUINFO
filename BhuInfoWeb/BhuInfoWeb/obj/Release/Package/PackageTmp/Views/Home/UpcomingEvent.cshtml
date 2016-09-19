@@ -1,0 +1,136 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model List<BhuInfo.Data.Objects.Entities.Event>
+
+@{
+    ViewBag.Title = "Events";
+    var eventRestriction = Model.Where(n => n.EndDate >= DateTime.Now);
+    var restriction = eventRestriction as IList<Event> ?? eventRestriction.ToList();
+    var oderedEvent = restriction.OrderByDescending(n => n.StartDate);
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            @if ((loggedinuser != null) && (loggedinuser.Role.Equals(UserType.Administrator.ToString()) || loggedinuser.Role.Equals(UserType.Manager.ToString())))
+            {
+                <div class="col-lg-12">
+                    <a href="@Url.Action("Create", "Events")" class="btn btn-success">Create</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-12">
+
+                </div>
+            }
+        </div>
+    </div>
+</header>
+@*<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5 style="font-weight: bold">Upcoming Events</h5>
+        </div>
+        <span class="menu"></span>
+        @if (loggedinuser == null)
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("UpcomingEvent", "Home")" class="active">Events</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "AppUsers")">Users</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "News")">News</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "Events")">Events</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>*@
+<div class="container">
+    <div class="content">
+
+        <div class="col-md-12 content-right content-right-top">
+            <div class="editors-pic-grids">
+
+                <h5 class="head" style="color: #1ac7c3">Upcoming Events</h5>
+                @foreach (var item in oderedEvent)
+                {
+                    <div class="editor text-center">
+
+                        <h2 style="color: #1ac7c3; font-family: -apple-system; font-weight: bolder;">@item.EventName</h2>
+                        <label style="color: black">Venue: @item.Venue </label><br/>
+                        <label style="color: black">Organizer: @item.Organizer </label><br/>
+                        <label style="color: black">Start Date: @item.StartDate.ToShortDateString()</label><br/>
+                        <label style="color: black">End Date: @item.EndDate.ToShortDateString() </label><br/>
+                        <label style="color: green">Starts: @item.StartTime</label><br/>
+                        <label style="color: red">Ends: @item.EndTime</label><br/>
+
+
+                        <span></span>
+
+                    </div>
+                }
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

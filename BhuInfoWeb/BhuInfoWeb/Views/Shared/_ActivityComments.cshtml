@@ -1,0 +1,27 @@
+﻿@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@model SchoolDiscussion
+@{
+    var discussionId = Model.SchoolDiscussionId;
+
+    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId);
+    var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
+}
+<h4>COMMENTS</h4>
+@foreach (var item in schoolDiscussionComments)
+{
+    <div class="comments-main">
+        <div class="col-md-12">
+            <h5 class="detailsDiv" style="font-family: sans-serif">@item.CommentBy</h5>
+            <p>@item.Comment.</p>
+            <div class="cmts">
+
+                <p style="color: #3498DB">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</p>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}

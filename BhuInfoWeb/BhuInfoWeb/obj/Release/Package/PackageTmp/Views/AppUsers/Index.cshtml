@@ -1,0 +1,263 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.AppUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    ViewBag.HeaderClass = "page-header";
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index", "AppUsers")">Admin/Users</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
+
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>User Management</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "AppUsers")" class="active">Users</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "News")">News</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "Events")">Events</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="col-md-12">
+                    @if (TempData["login"] != null)
+                    {
+                        <p class="alert-success alert-dismissable" style="height: 30px">@TempData["login"]</p>
+                    }
+                    @if (TempData["user"] != null)
+                    {
+                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                        {
+                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                        {
+                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                        }
+                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                        {
+                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                        }
+                    }
+                    @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                    {
+                        <p>
+                            @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
+                        </p>
+                    }
+
+                    <table class="table table-condensed table-hover appuser">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Firstname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Lastname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Mobile)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Role).ToString()
+                            </th>
+                            @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                            {
+                                <th>Action</th>
+                            }
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Firstname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Lastname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Mobile)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Role)
+                                </td>
+                                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                                {
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-default"}) |
+                                        @Html.ActionLink("Delete", "Delete", new {id = item.AppUserId}, new {@class = "btn btn-danger"})
+                                    </td>
+                                }
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/JqueryPlugins/ui/drilldown.js"></script>
+    <script src="~/JqueryPlugins/ui/nicescroll.min.js"></script>
+    <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
+    <script src="~/JqueryPlugins/datatables/datatables.min.js"></script>
+
+    <script>
+        $(document)
+            .ready(function() {
+                $('.appuser').dataTable();
+            });
+    </script>
+}

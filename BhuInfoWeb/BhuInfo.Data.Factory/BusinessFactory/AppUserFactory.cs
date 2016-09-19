@@ -7,7 +7,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
 {
     public class AppUserFactory
     {
-        private readonly AppUserDataContext db = new AppUserDataContext();
+        private readonly AppUserDataContext _db = new AppUserDataContext();
 
         /// <summary>
         ///     This method finds a yuser with the provided password and email
@@ -20,7 +20,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         {
             email = email.Trim();
             var appUser =
-                db.AppUsers.FirstOrDefault(n => (n.Email == email) && (n.Password == password) && (n.Role == role));
+                _db.AppUsers.FirstOrDefault(n => (n.Email == email) && (n.Password == password) && (n.Role == role));
             return appUser;
         }
 
@@ -34,12 +34,13 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var userExist = false;
             try
             {
-                var allUsers = db.AppUsers;
+                var allUsers = _db.AppUsers;
                 if (allUsers.Any(n => n.Email == email))
                     userExist = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
+                // ignored
             }
             return userExist;
         }
@@ -52,7 +53,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         public AppUser GetAppUserByEmail(string email)
         {
             email = email.Trim();
-            var appUser = db.AppUsers.Single(n => n.Email == email);
+            var appUser = _db.AppUsers.Single(n => n.Email == email);
             return appUser;
         }
 
@@ -63,7 +64,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// <returns></returns>
         public AppUser GetAppUserById(int id)
         {
-            var appUser = db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(id);
             return appUser;
         }
     }

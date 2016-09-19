@@ -1,0 +1,61 @@
+﻿@using BhuInfo.Data.Context.DataContext
+@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Enums
+@model BhuInfo.Data.Objects.Entities.News
+@{
+    var newsId = Model.NewsId;
+    var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
+    var enumerable = newsComments as IList<NewsComment> ?? newsComments.ToList();
+}
+@if (enumerable.Count > 0)
+
+{
+    <h4>COMMENTS</h4>
+}
+@foreach (var item in enumerable)
+{
+    <div class="comments-main">
+        <div class="col-md-12">
+            <h5 class="detailsDiv">@item.CommentBy</h5>
+            <p>@item.Comment</p>
+            <div class="cmts">
+
+                <p style="color: #3498DB">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</p>
+
+                <div class="clearfix"></div>
+                <label style="color: green">
+                    <i class="fa fa-thumbs-up">
+                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
+                    </i>
+                </label>
+
+                <label> </label>
+                <label style="color: red">
+                    <i class="fa fa-thumbs-down">
+                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
+                    </i>
+
+                </label><br/>
+                <label id="likeOrDislikeDiv">
+                    @{
+                        // var comment = new NewsCommentFactory().GetSingleNewsComments((int) item.NewsCommentId);
+                        var dbc = new NewsComentDataContext();
+                        var comment = dbc.NewsComments.Find(item.NewsCommentId);
+                        Html.RenderPartial("_LikeOrDislikeCommentPartial", comment);
+                    }
+                </label><br/>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+}

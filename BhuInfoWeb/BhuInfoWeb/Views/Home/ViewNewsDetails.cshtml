@@ -18,6 +18,11 @@
     var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
 
     var postedBy = new AppUserFactory().GetAppUserById((int) Model.CreatedById);
+    if (postedBy == null)
+    {
+        new HttpNotFoundResult();
+        return;
+    }
 
     var discussions = new SchoolDiscussionDataFactory().GetAllDiscussions();
     var orderDiscussions = discussions.OrderByDescending(n => n.DiscussionView);

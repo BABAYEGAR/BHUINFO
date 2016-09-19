@@ -10,9 +10,10 @@ namespace BhuInfo.Data.Objects.Entities
         [Required(ErrorMessage = "This field is compulsory")]
         public string CommentBy { get; set; }
         [Required(ErrorMessage = "This field is compulsory")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
 
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "This field is compulsory")]
         public string Comment { get; set; }
         public long SchoolDiscussionId { get; set; }
 

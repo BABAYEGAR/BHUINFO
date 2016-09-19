@@ -1,0 +1,230 @@
+﻿@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Enums
+@using BhuInfo.Data.Service.TextFormatter
+@model BhuInfo.Data.Objects.Entities.News
+
+@{
+    var newsList = new NewsDataFactory().GetAllNews();
+    var orderNews = newsList.OrderByDescending(n => n.DateCreated);
+    var countedNews = orderNews.Take(4);
+    var news = countedNews.ToList();
+
+    var allNewsList = new NewsDataFactory().GetTopNthPopularNews(4);
+    var popularNews = allNewsList.ToList();
+    var newsId = Model.NewsId;
+
+    var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
+
+    var postedBy = new AppUserFactory().GetAppUserById((int) Model.CreatedById);
+
+    var discussions = new SchoolDiscussionDataFactory().GetAllDiscussions();
+    var orderDiscussions = discussions.OrderByDescending(n => n.DiscussionView);
+    var countedDiscussions = orderDiscussions.Take(5);
+}
+
+@{
+    ViewBag.Title = "NewsDetails";
+}
+@{
+    var enumerable = newsComments as IList<NewsComment> ?? newsComments.ToList();
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="content">
+        <div class="single-page">
+            <div class="print-main">
+                <h3>@Html.DisplayFor(model => model.NewsCategory.Name)</h3>
+                <a href="#">@Html.DisplayFor(model => model.Title)</a>
+                <p class="sub_head">
+                    Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
+                </p>
+                <img src="~/UploadedFiles/@UploadType.NewsImage/@Model.Image" height="40" width="40" class="img-responsive" alt=""/>
+                <p class="ptext">
+                    @(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))
+                </p>
+                <label id="likeOrDislikeDiv">
+                    @{
+                        Html.RenderPartial("_LikeOrDislikePartial", Model);
+                    }
+                </label><br/>
+                <label style="color: green">
+                    <i class="fa fa-thumbs-up">
+                        @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
+                    </i>
+                </label>
+                <label> </label>
+                <label style="color: red">
+                    <i class="fa fa-thumbs-down">
+                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                        {
+                            HttpMethod = "Post",
+                            UpdateTargetId = "likeOrDislikeDiv"
+                        })
+                    </i>
+
+                </label>
+            </div>
+
+        </div>
+        <div class="col-md-7 single-content-left">
+            <div class="features-list">
+                <h3>Trending Discussion Topics</h3>
+                <ul>
+                    @foreach (var item in countedDiscussions)
+                    {
+                        <li style="font-weight: bold">
+                            <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">@item.Topic</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="single">
+                <div class="leave">
+                    @if (enumerable.Count > 0)
+                    {
+                        <h4>Leave a Comment</h4>
+                    }
+                    else
+                    {
+                        <h4 class="alert alert-info">Be the first to comment</h4>
+                    }
+                </div>
+                @if (TempData["news"] != null)
+                {
+                    if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                    {
+                        <p class="alert-success alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                    }
+                    else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                    {
+                        <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                    }
+                    else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                    {
+                        <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
+                    }
+                }
+                @using (Ajax.BeginForm("CreateNewsComment", "News",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "commentDiv"
+                    }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    @Html.Hidden("NewsId", Model.NewsId)
+
+                    <div class="form-group col-md-12">
+                        @Html.Label("Comment By", null, new {@class = "control-label"})
+                        @Html.TextBox("CommentBy", null, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().CommentBy, "", new {@class = "text-danger"})
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("Email", null, new {@class = "control-label"})
+                        @Html.TextBox("Email", null, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().Email, "", new {@class = "text-danger"})
+
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("Comment", null, new {@class = "control-label"})
+                        @Html.TextArea("Comment", null, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.NewComments.Single().Comment, "", new {@class = "text-danger"})
+
+
+
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right"/>
+
+                    </div>
+                }
+                <div class="comments1" id="commentDiv">
+                    @{
+                        Html.RenderPartial("Comment", Model);
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 content-right content-right-top">
+            <h5 class="head">Recent News</h5>
+            @foreach (var item in news)
+            {
+                <a href="@Url.Action("ViewNewsDetails", "Home")">
+                    <div class="editor text-center">
+
+                        <h3>@item.Title</h3>
+                        @if (item.Content.Length > 40)
+                        {
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                        }
+                        else
+                        {
+                            <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                        }
+                        <label style="font-weight: bold">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                        <br/>
+                        <label style="color: black">@item.NewsView views @item.NewComments.Count Comments</label><br/>
+                        <label>
+                            <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                        </label><br/>
+                        <span></span>
+        
+                    </div>
+                </a>
+            }
+
+
+            <div class="editors-pic-grids">
+
+                <h5>Popular News</h5>
+                @foreach (var item in popularNews)
+                {
+                    <div class="editors-pic">
+                        <div class="e-pic">
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                                <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
+                            </a>
+                        </div>
+                        <div class="e-pic-info">
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                            <span></span>
+                            <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label><br/>
+                            <label>
+                                <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                            </label><br/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+            $(function() {
+                setInterval(function () {
+
+                    $('#commentDiv').hide().load('@Url.Action("ReloadPartialView","Home", new { Id = Model.NewsId, actionType = NewsActionType.Like.ToString() })').fadeIn('slow');
+                },
+                3000);
+            });
+    </script>
+}

@@ -8,13 +8,14 @@ using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.Enums;
+using BhuInfo.Data.Service.FileUploader;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class NewsController : Controller
     {
-        private readonly NewsDataContext db = new NewsDataContext();
-        private readonly NewsComentDataContext dbc = new NewsComentDataContext();
+        private readonly NewsDataContext _db = new NewsDataContext();
+        private readonly NewsComentDataContext _dbc = new NewsComentDataContext();
 
 
         // GET: News
@@ -30,7 +31,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var news = db.News.Find(id);
+            var news = _db.News.Find(id);
             if (news == null)
                 return HttpNotFound();
             return View(news);
@@ -39,7 +40,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // GET: News/Create
         public ActionResult Create()
         {
-            var newsCategories = db.NewsCategories.Select(c => new
+            var newsCategories = _db.NewsCategories.Select(c => new
             {
                 c.NewsCategoryId,
                 c.Name
@@ -74,8 +75,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         news.NewsView = 0;
                         news.LastModifiedById = user.AppUserId;
                         news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
-                        db.News.Add(news);
-                        db.SaveChanges();
+                        _db.News.Add(news);
+                        _db.SaveChanges();
                         TempData["news"] = "The article has been created Succesfully!";
                         TempData["notificationtype"] = NotificationType.Success.ToString();
                     }
@@ -103,13 +104,13 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var newsCategories = db.NewsCategories.Select(c => new
+            var newsCategories = _db.NewsCategories.Select(c => new
             {
                 c.NewsCategoryId,
                 c.Name
             }).ToList();
             ViewBag.Categories = new SelectList(newsCategories, "NewsCategoryId", "Name");
-            var news = db.News.Find(id);
+            var news = _db.News.Find(id);
             if (news == null)
                 return HttpNotFound();
             return View(news);
@@ -139,8 +140,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.Dislikes = int.Parse(collectedValues["dislikes"]);
                     news.LastModifiedById = user.AppUserId;
                     news.Image = collectedValues["image"];
-                    db.Entry(news).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(news).State = EntityState.Modified;
+                    _db.SaveChanges();
                     TempData["news"] = "This article has been modified Succesfully!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
@@ -160,7 +161,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var news = db.News.Find(id);
+            var news = _db.News.Find(id);
             if (news == null)
                 return HttpNotFound();
             return View(news);
@@ -172,9 +173,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var news = db.News.Find(id);
-            db.News.Remove(news);
-            db.SaveChanges();
+            var news = _db.News.Find(id);
+            _db.News.Remove(news);
+            _db.SaveChanges();
             TempData["news"] = "This article has been deleted Succesfully!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
@@ -206,9 +207,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
                 newsComments.Likes = 0;
                 newsComments.Dislikes = 0;
-                dbc.NewsComments.Add(newsComments);
-                dbc.SaveChanges();
-                var news = db.News.Find(long.Parse(collectedValues["NewsId"]));
+                _dbc.NewsComments.Add(newsComments);
+                _dbc.SaveChanges();
+                ModelState.Clear();
+                var news = _db.News.Find(long.Parse(collectedValues["NewsId"]));
                 return PartialView("Comment",news);
             }
            
@@ -219,8 +221,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {
           
-            var newsComments = dbc.NewsComments.Find(Id);
-            var newsToRedirect = dbc.News.Find(newsComments.NewsId);
+            var newsComments = _dbc.NewsComments.Find(Id);
+            var newsToRedirect = _dbc.News.Find(newsComments.NewsId);
             if (ModelState.IsValid)
             {
               
@@ -232,8 +234,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 {
                     newsComments.Dislikes = newsComments.Dislikes + 1;
                 }
-                dbc.Entry(newsComments).State = EntityState.Modified;
-                dbc.SaveChanges();
+                _dbc.Entry(newsComments).State = EntityState.Modified;
+                _dbc.SaveChanges();
                 return PartialView("_LikeOrDislikeCommentPartial",newsComments);
 
             }

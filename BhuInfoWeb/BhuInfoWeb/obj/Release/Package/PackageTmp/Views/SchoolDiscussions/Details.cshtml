@@ -1,0 +1,82 @@
+﻿@model BhuInfo.Data.Objects.Entities.SchoolDiscussion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SchoolDiscussion</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Topic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Topic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastModifiedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastModifiedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateLastModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateLastModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscussionView)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscussionView)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.SchoolDiscussionId}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

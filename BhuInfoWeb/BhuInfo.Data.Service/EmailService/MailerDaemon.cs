@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Net;
 using System.Net.Mail;
-using System.Security.Policy;
 using System.Text;
 using System.Web;
 using BhuInfo.Data.Objects.Entities;
@@ -33,8 +31,9 @@ namespace BhuInfo.Data.Service.EmailService
             {
                 new SmtpClient().Send(message);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
+                // ignored
             }
         }
 
@@ -74,8 +73,9 @@ namespace BhuInfo.Data.Service.EmailService
             {
                 new SmtpClient().Send(message);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
+                // ignored
             }
         }
         /// <summary>
@@ -112,8 +112,9 @@ namespace BhuInfo.Data.Service.EmailService
             {
                 new SmtpClient().Send(message);
             }
-            catch (Exception exception)
+            catch (Exception)
             {
+                // ignored
             }
         }
         /// <summary>

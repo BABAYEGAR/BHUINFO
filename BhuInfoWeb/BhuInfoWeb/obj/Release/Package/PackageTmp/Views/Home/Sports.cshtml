@@ -1,0 +1,202 @@
+﻿@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Enums
+@using BhuInfo.Data.Service.TextFormatter
+@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
+@{
+    ViewBag.Title = "Sports";
+
+    var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.Sports, 4);
+    var news = newsList.ToList();
+
+    var newsCategoryList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Sports, 2);
+    var recentCategoryNews = newsCategoryList.ToList();
+
+    var recentNews = Model.Take(4);
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+
+    var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.Sports);
+    if (mostRecentSingleNews == null)
+    {
+        new HttpNotFoundResult();
+        return;
+    }
+    var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5 style="font-weight: bold">Sports</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SportsNews", "Home")" class="active">Sports</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>*@
+<div class="container">
+    <div class="content">
+        <div class="col-md-7 printing-content">
+            <div class="print-main">
+                <h3>@mostRecentSingleNews.NewsCategory.Name</h3>
+                <a href="#">@mostRecentSingleNews.Title</a>
+                <p class="sub_head">
+                    Posted by <a href="#">
+                        <span style="font-weight: bold">@mostRecentNewsPostedBy.DisplayName</span></a> @(new DateTimeCalculator().TimeAgo(mostRecentSingleNews.DateCreated))
+                </p>
+                <a href="#">
+                    <img src="~/UploadedFiles/@UploadType.NewsImage/@mostRecentSingleNews.Image" class="img-responsive" alt=""/>
+                </a>
+                @if (mostRecentSingleNews.Content.Length > 40)
+                {
+                    <p class="ptext">@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content).Substring(0, 80) + "...")</p>
+                }
+                else
+                {
+                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(mostRecentSingleNews.Content))</p>
+                }
+            </div>
+            <div class="print-grids">
+                @try
+                {
+                    foreach (var item in recentCategoryNews)
+                    {
+                        <div class="print-grid">
+                            <div class="print-img">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                                    <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" class="img-responsive" alt=""/>
+                                </a>
+                            </div>
+                            <div class="print-text">
+                                <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                                <p>
+                                    Posted by <a href="#">@(new AppUserFactory().GetAppUserById((int) item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
+                                </p>
+                                @if (item.Content.Length > 40)
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                                }
+                                else
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                                }
+                                <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">...Read More</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                }
+            </div>
+        </div>
+        <div class="col-md-5 content-right">
+            <div class="content-right-top">
+                <h5 class="head">Popular</h5>
+                @try
+                {
+                    foreach (var item in news)
+                    {
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                            <div class="editor text-center">
+                                <h3>@item.Title</h3>
+                                @if (item.Content.Length > 40)
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                                }
+                                else
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                                }
+                                <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                                <br/>
+                                <label style="color: black">@item.NewsView views @item.NewComments.Count Comments</label><br/>
+                                <label>
+                                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                </label><br/>
+                                <span></span>
+                            </div>
+                        </a>
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                }
+            </div>
+            <div class="editors-pic-grids">
+                @try
+                {
+                    <h5>Recent News</h5>
+                    foreach (var item in recentNews)
+                    {
+                        <div class="editors-pic">
+                            <div class="e-pic">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                                    <img src="~/AppTheme/images/ep1.jpg" alt=""/>
+                                </a>
+                            </div>
+                            <div class="e-pic-info">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                                <span></span>
+                                <label style="font-weight: bold">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
+                                <br/>
+                                <label style="color: black">@item.NewsView views @item.NewComments.Count Comments</label><br/>
+                                <label>
+                                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                </label><br/>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                }
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="clearfix"></div>
+    </div>
+</div>

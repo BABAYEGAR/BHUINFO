@@ -1,0 +1,363 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Konstructs Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript"> 
+    addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+     </script>
+
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/AppTheme/images/bhulogo.jpg" type="image/x-icon">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("css", false)
+    @{
+        var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+    }
+</head>
+<body>
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                <li>
+                    <a class="active" href="@Url.Action("Index", "Home")">News/Articles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul>
+                @if (ViewBag.Title == "About")
+                {
+                    <li>
+                        <a href="@Url.Action("About", "Home")" class="active">About Us</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                    </li>
+                }
+                else if (ViewBag.Title == "Contact")
+                {
+                    <li>
+                        <a href="@Url.Action("About", "Home")">About Us</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home")" class="active">Contact Us</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("About", "Home")">About Us</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                    </li>
+                }
+
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
+
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+
+                                                    @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+                                                    else if (loggedinuser.Role == UserType.Manager.ToString())
+                                                    {
+                                                        <p class="text-left">
+                                                            <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
+                                                        </p>
+                                                    }
+
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            @if (ViewBag.Title == "Home")
+            {
+                <h5 style="font-weight: bold">Article Category</h5>
+            }
+            @if (ViewBag.Title == "General")
+            {
+                <h5 style="font-weight: bold">General</h5>
+            }
+            @if (ViewBag.Title == "Sports")
+            {
+                <h5 style="font-weight: bold">Sports</h5>
+            } @if (ViewBag.Title == "Fashion")
+              {
+                  <h5 style="font-weight: bold">Fashion</h5>
+              }
+            @if (ViewBag.Title == "Discussions")
+            {
+                <h5 style="font-weight: bold">Discussions</h5>
+            }
+            @if (ViewBag.Title == "Events")
+            {
+                <h5 style="font-weight: bold">Events</h5>
+            }
+            @if (ViewBag.Title == "SRC-Team")
+            {
+                <h5 style="font-weight: bold">SRC Team</h5>
+            }
+            @if (ViewBag.Title == "Activity")
+            {
+                <h5 style="font-weight: bold">Activity</h5>
+            }
+            @if (ViewBag.Title == "NewsDetails")
+            {
+                <h5 style="font-weight: bold">Article Category</h5>
+            }
+            @if (ViewBag.Title == "About")
+            {
+                <h5 style="font-weight: bold">Article Category</h5>
+            }
+            @if (ViewBag.Title == "Contact")
+            {
+                <h5 style="font-weight: bold">Article Category</h5>
+            }
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                @if (ViewBag.Title == "Home")
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Home")" class="active">Home</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                }
+                |
+                @if (ViewBag.Title == "General")
+                {
+                    <li>
+                        <a href="@Url.Action("GeneralNews", "Home")" class="active">General</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                    </li>
+                }
+                |
+                @if (ViewBag.Title == "Sports")
+                {
+                    <li>
+                        <a href="@Url.Action("SportsNews", "Home")" class="active">Sports</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                    </li>
+                }
+                |
+                @if (ViewBag.Title == "Fashion")
+                {
+                    <li>
+                        <a href="@Url.Action("FashionNews", "Home")" class="active">Fashion</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>
+                }
+                |
+                @if (ViewBag.Title == "Discussions")
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                    </li>
+                }
+                |
+                @if (ViewBag.Title == "Events")
+                {
+                    <li>
+                        <a href="@Url.Action("UpcomingEvent", "Home")" class="active">Events</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
+                    </li>
+                }
+                |
+                @if (ViewBag.Title == "SRC-Team")
+                {
+                    <li>
+                        <a href="@Url.Action("SrcTeam", "Home")" class="active">SRC Team</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+                    </li>
+                }
+
+
+
+
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $(".menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+@RenderBody()
+<div class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="col-md-4 footer-links">
+                <h4>Pages</h4>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+                <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                <a href="@Url.Action("SportsNews", "Home")">Sports </a>
+                <a href="@Url.Action("Index", "SchoolDiscussions")">Discussion</a>
+                <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
+                <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+            </div>
+            <div class="col-md-4 footer-links">
+                <h4>Bingham University</h4>
+                <a href="http:\\www.binghamuni.edu.ng">Bingham University</a>
+                <a href="#">Course Registration</a>
+                <a href="#">Result</a>
+
+            </div>
+            <div class="col-md-4 footer-links">
+                <h4>Follow Us</h4>
+                <a href="#">
+                    <i class="fa fa-facebook" style="color: blue"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-twitter" style="color: #00ced1"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-instagram" style="color: brown"></i>
+                </a>
+                <a href="#">
+                    <i class="fa fa-skype" style="color: #00ced1"></i>
+                </a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="copyrights">
+                <p>
+                    BhuInfo © 2016 All rights reserved | site by Babayegar.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/scripts")
+@RenderSection("scripts", false)
+</body>
+</html>

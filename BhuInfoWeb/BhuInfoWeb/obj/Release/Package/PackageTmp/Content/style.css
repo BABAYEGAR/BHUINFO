@@ -1,0 +1,283 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Poppins:400,700,300);
+
+body { font-family: 'Poppins', sans-serif; }
+
+h1, h2, h3 { color: #785130; }
+
+h1:after, h2:after, h3:after {
+    border-top: 2px solid #999999;
+    content: "";
+    display: block;
+    height: 0;
+    margin: 10px 0;
+    width: 160px;
+}
+
+.tagline {
+    color: white;
+    font-size: 48px;
+    font-weight: 700;
+    margin-top: 80px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.75);
+}
+
+.tagline:after { border-color: #785130; }
+
+.user-welcome {
+    color: #000;
+    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+.nav .username-field {
+    color: #fff;
+    padding: 15px 12px;
+}
+
+.page-header .tagline {
+    font-size: 28px;
+    margin-top: 40px;
+}
+
+body {
+    background: #fefefe;
+    padding-top: 50px;
+}
+
+body header { position: relative; }
+
+body header .overlay {
+    background: rgba(255, 255, 255, 0.5);
+    background: -webkit-linear-gradient(rgba(245, 236, 229, 0.5), rgba(120, 81, 48, 0.35));
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(245, 236, 229, 0.5), rgba(120, 81, 48, 0.35));
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(245, 236, 229, 0.5), rgba(120, 81, 48, 0.35));
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(245, 236, 229, 0.5), rgba(120, 81, 48, 0.35));
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    /* Standard syntax */
+}
+
+body header.home-header {
+    background: transparent url("img/hajj-banner.jpg") no-repeat scroll center center/cover;
+    height: 600px;
+}
+
+body header.page-header {
+    background: transparent url("img/hajj-banner-blurred.jpg") no-repeat scroll center center/cover;
+    height: 120px;
+    margin-top: 0;
+}
+
+.progressbar {
+    counter-reset: step;
+    margin: 16px 0;
+}
+
+.progressbar li {
+    color: #868686;
+    float: left;
+    font-size: 12px;
+    list-style-type: none;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 14.28571%;
+}
+
+.progressbar li:before {
+    background-color: white;
+    border: 2px solid #868686;
+    border-radius: 50%;
+    content: counter(step);
+    counter-increment: step;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto 10px auto;
+    text-align: center;
+    width: 30px;
+}
+
+.progressbar li:after {
+    background-color: #868686;
+    content: '';
+    height: 2px;
+    left: -50%;
+    position: absolute;
+    top: 15px;
+    width: 100%;
+    z-index: -1;
+}
+
+.progressbar li:first-child:after { content: none; }
+
+.progressbar li.active { color: #785130; }
+
+.progressbar li.active:before {
+    background: #785130;
+    border-color: #785130;
+    color: #fff;
+}
+
+.progressbar li.active + li:after { background-color: #785130; }
+
+.progressbar li.active a {
+    color: #785130;
+    transition: all 0.3s ease-in;
+}
+
+.progressbar li.active a:hover { color: #785130; }
+
+.progressbar li a { color: #868686; }
+
+.progressbar li a:hover { color: #000; }
+
+a {
+    -moz-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    -webkit-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+}
+
+.btn {
+    border: none;
+    border-radius: 0;
+}
+
+.btn-success { background: #43a047; }
+
+.btn-warning { background: #ffa000; }
+
+.btn-danger { background: #e53935; }
+
+.btn-primary { background: #1976d2; }
+
+.btn-default { background: #e0e0e0; }
+
+.btn-brown {
+    background: #785130;
+    color: #fff;
+}
+
+.btn-brown:hover {
+    background: #9c6a3f;
+    color: #fff;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus,
+.select-dropdown:focus {
+    -moz-box-shadow: inset 0 1px 1px rgba(70, 70, 70, 0.075), 0 0 8px rgba(120, 81, 48, 0.6);
+    /* IE6-9 */
+    -webkit-box-shadow: inset 0 1px 1px rgba(70, 70, 70, 0.075), 0 0 8px rgba(120, 81, 48, 0.6);
+    border-color: rgba(120, 81, 48, 0.8) !important;
+    box-shadow: inset 0 1px 1px rgba(70, 70, 70, 0.075), 0 0 8px rgba(120, 81, 48, 0.6);
+    outline: 0;
+    outline: thin dotted \9;
+}
+
+.form-control, .select2-selection {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-color: #ccc !important;
+    border-radius: 0 !important;
+    box-shadow: none;
+    min-height: 40px !important;
+}
+
+.form-control.input-validation-error, .form-control.input-validation-error:focus, .select2-selection.input-validation-error, .select2-selection.input-validation-error:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    border-color: #ff0808 !important;
+    box-shadow: none !important;
+}
+
+.select2-selection { padding: 5px; }
+
+.select2-selection__arrow { margin-top: 5px; }
+
+span.req { color: #ff0808; }
+
+.form-group { margin-bottom: 24px; }
+
+.control-label { color: #785130; }
+
+fieldset {
+    border: 1px solid #785130;
+    margin-bottom: 32px;
+    padding: 10px;
+}
+
+fieldset legend {
+    border-bottom: none;
+    padding: 0 8px;
+    width: auto;
+}
+
+.datepicker { background: rgba(255, 255, 255, 0.95) !important; }
+
+.datepicker .datepicker-switch, .datepicker .prev, .datepicker .next {
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.datepicker .datepicker-switch:hover, .datepicker .prev:hover, .datepicker .next:hover {
+    background-color: #fff !important;
+    color: #785130 !important;
+}
+
+.datepicker table thead {
+    background: #785130;
+    color: #fff;
+}
+
+.datepicker table th {
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+    font-weight: 400 !important;
+    padding: 8px;
+}
+
+.datepicker table tr td {
+    -moz-border-radius: 0 !important;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-border-radius: 0 !important;
+    -webkit-transition: all 0.3s;
+    border-radius: 0 !important;
+    padding: 8px;
+    transition: all 0.3s;
+}
+
+.datepicker table tr td.active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active {
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    background-color: #785130 !important;
+    background-image: none;
+    transition: all 0.3s;
+}
+
+body { color: #464646; }

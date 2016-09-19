@@ -49,6 +49,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             return View("Activity", discussion);
         }
 
+        public ActionResult GetDiscussionComments(long Id)
+        {
+            var discussion = db.SchoolDiscussions.Find(Id);
+            return PartialView("_ActivityComments", discussion);
+        }
         // GET: SchoolDiscussions/CloseActivity
         public ActionResult CloseActivity(long Id)
         {
@@ -67,6 +72,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create(
             [Bind(Include = "SchoolDiscussionId,Topic,Content")] SchoolDiscussion schoolDiscussion)
         {
@@ -178,9 +184,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
                 dbc.SchoolDiscussionComments.Add(discussionComment);
                 dbc.SaveChanges();
-
-
-                return RedirectToAction("Activity", "SchoolDiscussions", new {Id = discussionComment.SchoolDiscussionId});
+                ModelState.Clear();
+                return PartialView("_ActivityComments",discussion);
             }
 
             return View("Activity", discussion);

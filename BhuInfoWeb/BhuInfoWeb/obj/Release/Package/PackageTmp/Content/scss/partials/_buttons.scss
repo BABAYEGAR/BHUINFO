@@ -1,0 +1,34 @@
+﻿.btn {
+    border-radius: 0;
+    border: none;
+}
+
+.btn-success {
+    background: $success;
+}
+
+.btn-warning {
+    background: $warning;
+}
+
+.btn-danger {
+    background: $danger;
+}
+
+.btn-primary {
+    background: $primary;
+}
+
+.btn-default {
+    background: $default;
+}
+
+.btn-brown {
+    background: $brown;
+    color: #fff;
+
+    &:hover {
+        background: lighten($brown, 10%);
+        color: #fff;
+    }
+}

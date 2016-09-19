@@ -1,0 +1,136 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@model BhuInfo.Data.Objects.Entities.ContactUs
+@{
+    ViewBag.Title = "Contact";
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5 style="font-weight: bold">Article Category</h5>
+        </div>
+        <span class="menu"></span>
+        <div class="list-nav">
+            <ul>
+                <li>
+                    <a href="@Url.Action("Index", "Home")">Home</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "Home")">General</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                </li>|
+                <li>
+                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+                </li>
+            </ul>
+        </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>*@
+<div class="container">
+    <div class="content">
+        <div class="contact-section">
+            <h3 class="c-head" style="font-family: -apple-system; font-weight: bolder">contact-us</h3>
+            <div class="singel_right">
+                <div class="lcontact span_1_of_contact">
+                    <div class="contact-form">
+                        @using (Html.BeginForm("ContactUs", "Home", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                            <div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Name", null, new {@class = "control-label"})
+                                    @Html.TextBox("SenderName", null, new {@class = "form-control", placeholder = "Enter your Name"})
+                                    @Html.ValidationMessageFor(model => model.SenderName, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Email", null, new {@class = "control-label"})
+                                    @Html.TextBox("Email", null, new {@class = "form-control", placeholder = "Enter your Email"})
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Message", null, new {@class = "control-label"})
+                                    @Html.TextArea("Message", null, new {@class = "form-control", placeholder = "Enter a message"})
+                                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="contact_grid span_2_of_contact_right">
+                    <h3 class="detailsDiv">Address</h3>
+                    <div class="address">
+                        <i class="pin_icon"></i>
+                        <div class="contact_address">
+                            The Vice Chancellor,
+                            Bingham University,
+                            P.M.B 005,
+                            KM 26 Abuja-Keffi Expressway Kodope,
+                            Karu, Nasarawa State.
+                            E-mail: vc@binghamuni.edu.ng
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="address">
+                        <i class="fa-phone"></i>
+                        <div class="contact_address">
+                            The Registrar,
+                            Bingham University,
+                            P.M.B 005,
+                            KM 26 Abuja-Keffi Expressway Kodope,
+                            Karu, Nasarawa State.
+                            E-mail: registrar@binghamuni.edu.ng
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="address">
+                        <i class="mail"></i>
+                        <div class="contact_email">
+                            <a href="mailto:example@gmail.com">info(at)company.com</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="map">
+                <iframe width="600"
+                        height="450" style="border:0"
+                        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDHKlXgQ41VZIpgwj5hY2c2HdnzeuomJyo
+    &q=Bingham+University" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>

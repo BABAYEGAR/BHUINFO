@@ -364,7 +364,7 @@ a.title {
     -moz-background-size: cover;
     -o-background-size: cover;
     -webkit-background-size: cover;
-    background: url('../images/features-bg.jpg') no-repeat 0px 0px;
+    background: url('../AppTheme/images/features-bg.jpg') no-repeat 0px 0px;
     background-size: cover;
     min-height: 595px;
     padding: 4em 0 0 4em;
@@ -1238,7 +1238,7 @@ p.span a {
     .header { padding: 1.4em 0 0.9em 0; }
 
     span.menu {
-        background: url(../images/nav.png) no-repeat;
+        background: url(../AppTheme/images/nav.png) no-repeat;
         cursor: pointer;
         display: inline-block;
         float: right;

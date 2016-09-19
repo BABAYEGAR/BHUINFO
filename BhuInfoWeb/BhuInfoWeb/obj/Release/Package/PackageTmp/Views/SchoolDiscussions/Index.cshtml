@@ -1,0 +1,155 @@
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Enums
+@model IEnumerable<BhuInfo.Data.Objects.Entities.SchoolDiscussion>
+
+@{
+    ViewBag.Title = "Discussions";
+
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            @if ((loggedinuser != null) && (loggedinuser.Role.Equals(UserType.Administrator.ToString()) || loggedinuser.Role.Equals(UserType.Manager.ToString())))
+            {
+                <div class="col-lg-12">
+                    <a href="@Url.Action("Create")"class="btn btn-success">Create</a>
+                </div>
+            }
+            else
+            {
+                <div class="col-lg-12">
+
+                </div>
+            }
+        </div>
+    </div>
+</header>
+@*<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5 style="font-weight: bold">Discussions</h5>
+        </div>
+        <span class="menu"></span>
+        @if (loggedinuser == null)
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="list-nav">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "AppUsers")">Users</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "News")">News</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "Events")">Events</a>
+                    </li>|
+                    <li>
+                        <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
+                    </li>
+                </ul>
+            </div>
+        }
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+        <div class="clearfix"></div>
+    </div>
+</div>*@
+<div class="container">
+    @if (TempData["discussion"] != null)
+    {
+        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+        {
+            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["discussion"]</p>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+        {
+            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["discussion"]</p>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+        {
+            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["discussion"]</p>
+        }
+    }
+    <div class="content">
+
+        <div class="col-md-12 content-right content-right-top">
+
+            <div class="editors-pic-grids">
+
+                <h5 class="head" style="color: #1ac7c3">Discussion Topics</h5>
+                @foreach (var item in Model)
+                {
+                    <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">
+                        <div class="editor text-center">
+
+                            <h2 style="color: #1ac7c3">@item.Topic</h2>
+                            <label style="color: black;">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label><br/>
+                            <label style="color: black">@item.DiscussionView views @item.SchoolDiscussionComments.Count Comments</label><br/>
+                            @if (item.Status == DiscussionState.Closed.ToString())
+                            {
+                                <label style="color: black">This Forum is now <span style="color: red">@item.Status</span></label>
+                            }
+                            else
+                            {
+                                <label style="color: black">This Forum is still <span style="color: green">@item.Status</span></label>
+                            }
+
+                            <span></span>
+
+                        </div>
+                    </a>
+                }
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

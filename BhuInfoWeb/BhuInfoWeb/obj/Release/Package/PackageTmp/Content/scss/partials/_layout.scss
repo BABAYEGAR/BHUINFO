@@ -1,0 +1,105 @@
+﻿body {
+    padding-top: 50px;
+    background: #fefefe;
+
+    header {
+        position: relative;
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.5);
+            background: -webkit-linear-gradient(rgba(lighten($brown, 60%), 0.5), rgba($brown,0.35)); /* For Safari 5.1 to 6.0 */
+            background: -o-linear-gradient(rgba(lighten($brown, 60%), 0.5), rgba($brown,0.35)); /* For Opera 11.1 to 12.0 */
+            background: -moz-linear-gradient(rgba(lighten($brown, 60%), 0.5), rgba($brown,0.35)); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(rgba(lighten($brown, 60%), 0.5), rgba($brown,0.35)); /* Standard syntax */
+        }
+        &.home-header {
+            background: rgba(0, 0, 0, 0) url("../img/hajj-banner.jpg") no-repeat scroll center center / cover ;
+            height: 600px;
+        }
+
+        &.page-header {
+            background: rgba(0, 0, 0, 0) url("../img/hajj-banner-blurred.jpg") no-repeat scroll center center / cover ;
+            height: 120px;
+            margin-top: 0;
+        }
+    }
+}
+
+.progressbar {
+    counter-reset: step;
+    margin: 16px 0;
+
+    li {
+        list-style-type: none;
+        width: (100% / $registration-steps);
+        float: left;
+        font-size: 12px;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        color: lighten($dark-grey, 25%);
+
+        &:before {
+            width: 30px;
+            height: 30px;
+            content: counter(step);
+            counter-increment: step;
+            line-height: 30px;
+            border: 2px solid lighten($dark-grey, 25%);
+            display: block;
+            text-align: center;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        &:after {
+            width: 100%;
+            height: 2px;
+            content: '';
+            position: absolute;
+            background-color: lighten($dark-grey, 25%);
+            top: 15px;
+            left: -50%;
+            z-index: -1;
+        }
+
+        &:first-child:after {
+            content: none;
+        }
+
+        &.active {
+            color: $brown;
+
+            &:before {
+                border-color: $brown;
+                background: $brown;
+                color: #fff;
+            }
+            & + li:after {
+                background-color: $brown;
+            }
+
+            a {
+                color: $brown;
+                transition: all 0.3s ease-in;
+
+                &:hover {
+                    color: $brown;
+                }
+            }
+        }
+
+        a {
+            color: lighten($dark-grey, 25%);
+            &:hover {
+                color: #000;
+            }
+        }
+    }
+}

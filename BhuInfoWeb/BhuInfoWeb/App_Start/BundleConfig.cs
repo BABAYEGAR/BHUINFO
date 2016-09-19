@@ -8,7 +8,7 @@ namespace BhuInfoWeb
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                           "~/Scripts/jquery-1.10.2.js",
+                           "~/Scripts/jquery-3.1.0.js",
                            "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -29,8 +29,11 @@ namespace BhuInfoWeb
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/font-awesome/css/font-awesome.min.css",
                       "~/AppTheme/css/style.css"));
+
+            bundles.Add(new StyleBundle("~/fonts/css").Include(
+                      "~/Content/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
+
         }
     }
 }
