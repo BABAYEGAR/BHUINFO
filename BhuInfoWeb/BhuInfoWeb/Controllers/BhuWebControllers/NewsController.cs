@@ -246,6 +246,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 }
                 _dbc.Entry(newsComments).State = EntityState.Modified;
                 _dbc.SaveChanges();
+                Session["visitor"] = visitor;
                 return PartialView("_LikeOrDislikeCommentPartial",newsComments);
 
             }

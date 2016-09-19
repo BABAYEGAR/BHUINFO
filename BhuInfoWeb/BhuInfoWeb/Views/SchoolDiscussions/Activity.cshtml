@@ -153,9 +153,9 @@
                 $('#commentDiv')
                     .hide()
                     .load('@Url.Action("GetDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
-                    .fadeIn(1500);
+                    .fadeIn(1);
             },
-            2000);
+            5000);
     });
 </script>
 }

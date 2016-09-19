@@ -114,10 +114,10 @@
                         @Html.Hidden("NewsId", Model.NewsId)
 
                         <div class="form-group col-md-12">
-                            @Html.Label("Comment By", null, new {@class = "control-label"})
-                            @Html.TextBox("CommentBy", null, new {@class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.NewComments.Single().CommentBy, "", new {@class = "text-danger"})
-
+                            @Html.Label("Comment By", null, new { @class = "control-label" })
+                            @Html.TextBox("CommentBy", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NewComments.Single().CommentBy, "", new { @class = "text-danger" })
+                      
                         </div>
                         <div class="form-group col-md-12">
                             @Html.Label("Email", null, new {@class = "control-label"})
@@ -176,7 +176,7 @@
                 }
 
 
-                <div class="editors-pic-grids">
+                <div class="editors-pic-grids" id="popular">
 
                     <h5>Popular News</h5>
                     @foreach (var item in popularNews)
@@ -214,26 +214,22 @@
                         $('#commentDiv')
                             .hide()
                             .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
-                            .fadeIn(1500);
+                            .fadeIn(1);
                         $('#likeOrDislikeDiv')
                             .hide()
                             .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
-                            .fadeIn(1500);
+                            .fadeIn(1);
                         $('#likedislikeinfo')
                             .hide()
                             .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
-                            .fadeIn(1500);
+                            .fadeIn(1);
+
                     },
                     2000);
             });
-            //function validateForm() {
-            //    var x = document.forms["CommentBy"]["Comment"]["Email"].value;
-            //    if (x == null || x == "") {
-            //        alert("Name must be filled out");
-            //        return false;
-            //    }
-            //    return true;
-            //}
+            function done() {
+                $('form').clearForm();
+            }
         </script>
     }
 </div>
