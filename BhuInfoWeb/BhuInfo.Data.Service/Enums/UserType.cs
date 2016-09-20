@@ -3,6 +3,7 @@
     public enum UserType
     {
         Administrator,
-        Manager
+        Manager,
+        Student
     }
 }

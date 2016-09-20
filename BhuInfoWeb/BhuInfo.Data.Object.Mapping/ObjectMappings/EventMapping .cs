@@ -12,13 +12,10 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
 
             //this are the remaining properties
             Property(n => n.EventName)
-                .IsRequired()
-                .HasMaxLength(100);
+                .IsRequired();
             Property(n => n.Organizer)
-                .IsRequired()
-                .HasMaxLength(100);
+                .IsRequired();
             Property(n => n.Venue)
-                .HasMaxLength(100)
                 .IsRequired();
             Property(n => n.StartDate)
                 .IsRequired();

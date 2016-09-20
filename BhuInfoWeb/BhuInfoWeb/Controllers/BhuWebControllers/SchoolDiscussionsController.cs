@@ -163,15 +163,18 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateDiscussionComment(
-            [Bind(Include = "CommentBy,Comment,Email")] SchoolDiscussionComment discussionComment,
+            [Bind(Include = "Comment")] SchoolDiscussionComment discussionComment,
             FormCollection collectedValues)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
             var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(discussionComment.SchoolDiscussionId);
             if (ModelState.IsValid)
             {
                 string[] words = { "fuck", "Fuck", "4kin", "idiot", "pussy", "dick", "blowjob", "bastard", "stupid" };
                 var comment = collectedValues["Comment"].ToLower();
+                discussionComment.CommentBy = collectedValues["CommentBy"];
+                discussionComment.Email = collectedValues["Email"];
                 foreach (var item in words)
                     if (comment.Contains(item))
                     {
@@ -180,6 +183,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
                         return View("Activity", discussion);
                     }
+                if (loggedinuser != null)
+                {
+                    discussionComment.CommentBy = loggedinuser.DisplayName;
+                    discussionComment.Email = loggedinuser.Email;
+                }
                 discussionComment.DateCreated = DateTime.Now;
                 discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
                 dbc.SchoolDiscussionComments.Add(discussionComment);

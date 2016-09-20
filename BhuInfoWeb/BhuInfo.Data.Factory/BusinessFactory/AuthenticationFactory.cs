@@ -17,11 +17,18 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
+        /// <param name="role"></param>
         /// <returns></returns>
         public AppUser AuthenticateAppUserLogin(string email, string password, string role)
         {
             var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
             var user = new AppUserFactory().GetAppUserByLogin(email, hashPassword, role);
+            return user;
+        }
+        public Student AuthenticateStudentLogin(string email, string password, string matric)
+        {
+            var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+            var user = new StudentFactory().GetStudentByLogin(email, hashPassword, matric);
             return user;
         }
 

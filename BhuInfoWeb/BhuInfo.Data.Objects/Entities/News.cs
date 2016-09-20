@@ -17,6 +17,8 @@ namespace BhuInfo.Data.Objects.Entities
         [Required(ErrorMessage = "This field is compulsory")]
         public string Content { get; set; }
         public string Image { get; set; }
+        public string SecondImage { get; set; }
+        public string ThirdImage { get; set; }
         public long CreatedById { get; set; }
         public long NewsCategoryId { get; set; }
 

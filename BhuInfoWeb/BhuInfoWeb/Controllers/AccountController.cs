@@ -27,22 +27,33 @@ namespace BhuInfoWeb.Controllers
         public ActionResult AppLogin(FormCollection collectedValues)
         {
             var role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+            Student student = null;
+            if (role == UserType.Student.ToString())
+            {
+                student = new AuthenticationFactory().AuthenticateStudentLogin(collectedValues["Email"].Trim(),
+              collectedValues["Password"].Trim(), role);
+                Session["bhuinfostudentloggedinuser"] = student;
+            }
             var appUser = new AuthenticationFactory().AuthenticateAppUserLogin(collectedValues["Email"].Trim(),
                 collectedValues["Password"].Trim(), role);
-            if (appUser != null)
+            if (appUser != null || student != null )
             {
                 Session["bhuinfologgedinuser"] = appUser;
                 if (role == UserType.Administrator.ToString())
                 {
-                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                    if (appUser != null) TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "AppUsers");
                 }
-                if (role == UserType.Manager.ToString())
+                 if (role == UserType.Manager.ToString())
+                 {
+                     if (appUser != null) TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                     return RedirectToAction("Index", "News");
+                 }
+                 if(role == UserType.Student.ToString())
                 {
-                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
-                    return RedirectToAction("Index", "News");
+                    return RedirectToAction("Index", "Home");
                 }
-                TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                if (appUser != null) TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                 return RedirectToAction("Index", "Home");
             }
             TempData["login"] = "Check your login details and make sure you selected the correct user type!";

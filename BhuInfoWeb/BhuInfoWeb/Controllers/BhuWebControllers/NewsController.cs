@@ -61,10 +61,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var user = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                HttpPostedFileBase file = Request.Files["uploadedFile"];
+                HttpPostedFileBase firstImage = Request.Files["firstimage"];
+                HttpPostedFileBase secondImage = Request.Files["secondimage"];
+                HttpPostedFileBase thirdImage = Request.Files["thirdimage"];
                 if (user != null)
                 {
-                    if (file != null)
+                    if (firstImage != null || secondImage != null || thirdImage != null)
                     {
                         news.DateCreated = DateTime.Now;
                         news.DateLastModified = DateTime.Now;
@@ -75,7 +77,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         news.Dislikes = 0;
                         news.NewsView = 0;
                         news.LastModifiedById = user.AppUserId;
-                        news.Image = new FileUploader().UploadFile(file, UploadType.NewsImage);
+                        news.Image = new FileUploader().UploadFile(firstImage, UploadType.NewsImage);
+                        news.SecondImage = new FileUploader().UploadFile(secondImage, UploadType.NewsImage);
+                        news.ThirdImage = new FileUploader().UploadFile(thirdImage, UploadType.NewsImage);
                         _db.News.Add(news);
                         _db.SaveChanges();
                         TempData["news"] = "The article has been created Succesfully!";
@@ -83,7 +87,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     }
                     else
                     {
-                        TempData["news"] = "Please Upload an image and try again!";
+                        TempData["news"] = "Please Upload at least one image and try again!";
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
                     }
                 }
@@ -141,6 +145,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     news.Dislikes = int.Parse(collectedValues["dislikes"]);
                     news.LastModifiedById = user.AppUserId;
                     news.Image = collectedValues["image"];
+                    news.SecondImage = collectedValues["secondimage"];
+                    news.ThirdImage = collectedValues["thirdimage"];
                     _db.Entry(news).State = EntityState.Modified;
                     _db.SaveChanges();
                     TempData["news"] = "This article has been modified Succesfully!";

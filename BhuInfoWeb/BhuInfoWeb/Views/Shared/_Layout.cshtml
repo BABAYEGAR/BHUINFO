@@ -146,166 +146,176 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </div>
 <div class="container">
-    <div class="header-bottom">
-        <div class="type">
-            @if (ViewBag.Title == "Home")
-            {
-                <h5 style="font-weight: bold">Article Category</h5>
-            }
-            @if (ViewBag.Title == "General")
-            {
-                <h5 style="font-weight: bold">General</h5>
-            }
-            @if (ViewBag.Title == "Sports")
-            {
-                <h5 style="font-weight: bold">Sports</h5>
-            } @if (ViewBag.Title == "Fashion")
-              {
-                  <h5 style="font-weight: bold">Fashion</h5>
-              }
-            @if (ViewBag.Title == "Discussions")
-            {
-                <h5 style="font-weight: bold">Discussions</h5>
-            }
-            @if (ViewBag.Title == "Events")
-            {
-                <h5 style="font-weight: bold">Events</h5>
-            }
-            @if (ViewBag.Title == "SRC-Team")
-            {
-                <h5 style="font-weight: bold">SRC Team</h5>
-            }
-            @if (ViewBag.Title == "Activity")
-            {
-                <h5 style="font-weight: bold">Activity</h5>
-            }
-            @if (ViewBag.Title == "NewsDetails")
-            {
-                <h5 style="font-weight: bold">Article Category</h5>
-            }
-            @if (ViewBag.Title == "About")
-            {
-                <h5 style="font-weight: bold">Article Category</h5>
-            }
-            @if (ViewBag.Title == "Contact")
-            {
-                <h5 style="font-weight: bold">Article Category</h5>
-            }
-        </div>
-        <span class="menu"></span>
-        <div class="list-nav">
-            <ul>
+    @if (ViewBag.Title != "Register")
+    {
+        <div class="header-bottom">
+            <div class="type">
                 @if (ViewBag.Title == "Home")
                 {
-                    <li>
-                        <a href="@Url.Action("Index", "Home")" class="active">Home</a>
-                    </li>
+                    <h5 style="font-weight: bold">Article Category</h5>
                 }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "Home")">Home</a>
-                    </li>
-                }
-                |
                 @if (ViewBag.Title == "General")
                 {
-                    <li>
-                        <a href="@Url.Action("GeneralNews", "Home")" class="active">General</a>
-                    </li>
+                    <h5 style="font-weight: bold">General</h5>
                 }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("GeneralNews", "Home")">General</a>
-                    </li>
-                }
-                |
                 @if (ViewBag.Title == "Sports")
                 {
-                    <li>
-                        <a href="@Url.Action("SportsNews", "Home")" class="active">Sports</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("SportsNews", "Home")">Sports</a>
-                    </li>
-                }
-                |
-                @if (ViewBag.Title == "Fashion")
-                {
-                    <li>
-                        <a href="@Url.Action("FashionNews", "Home")" class="active">Fashion</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
-                    </li>
-                }
-                |
+                    <h5 style="font-weight: bold">Sports</h5>
+                } @if (ViewBag.Title == "Fashion")
+                  {
+                      <h5 style="font-weight: bold">Fashion</h5>
+                  }
                 @if (ViewBag.Title == "Discussions")
                 {
-                    <li>
-                        <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
-                    </li>
+                    <h5 style="font-weight: bold">Discussions</h5>
                 }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
-                    </li>
-                }
-                |
                 @if (ViewBag.Title == "Events")
                 {
-                    <li>
-                        <a href="@Url.Action("UpcomingEvent", "Home")" class="active">Events</a>
-                    </li>
+                    <h5 style="font-weight: bold">Events</h5>
                 }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
-                    </li>
-                }
-                |
                 @if (ViewBag.Title == "SRC-Team")
                 {
-                    <li>
-                        <a href="@Url.Action("SrcTeam", "Home")" class="active">SRC Team</a>
-                    </li>
+                    <h5 style="font-weight: bold">SRC Team</h5>
                 }
-                else
+                @if (ViewBag.Title == "Activity")
                 {
-                    <li>
-                        <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
-                    </li>
+                    <h5 style="font-weight: bold">Activity</h5>
                 }
+                @if (ViewBag.Title == "NewsDetails")
+                {
+                    <h5 style="font-weight: bold">Article Category</h5>
+                }
+                @if (ViewBag.Title == "About")
+                {
+                    <h5 style="font-weight: bold">Article Category</h5>
+                }
+                @if (ViewBag.Title == "Contact")
+                {
+                    <h5 style="font-weight: bold">Article Category</h5>
+                }
+            </div>
+            <span class="menu"></span>
+            @if (ViewBag.Title != "Register")
+            {
+                <div class="list-nav">
+                    <ul>
+                        @if (ViewBag.Title == "Home")
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Home")" class="active">Home</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "Home")">Home</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.Title == "General")
+                        {
+                            <li>
+                                <a href="@Url.Action("GeneralNews", "Home")" class="active">General</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("GeneralNews", "Home")">General</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.Title == "Sports")
+                        {
+                            <li>
+                                <a href="@Url.Action("SportsNews", "Home")" class="active">Sports</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("SportsNews", "Home")">Sports</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.Title == "Fashion")
+                        {
+                            <li>
+                                <a href="@Url.Action("FashionNews", "Home")" class="active">Fashion</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.Title == "Discussions")
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "SchoolDiscussions")" class="active">Discussions</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.Title == "Events")
+                        {
+                            <li>
+                                <a href="@Url.Action("UpcomingEvent", "Home")" class="active">Events</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
+                            </li>
+                        }
+
+                        @if (ViewBag.Title == "SRC-Team")
+                        {
+                            <li>
+                                <a href="@Url.Action("SrcTeam", "Home")" class="active">SRC Team</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
+                            </li>
+                        }
 
 
 
 
-            </ul>
+                    </ul>
+                </div>
+            }
+            else
+            {
+
+            }
+            <!-- script for menu -->
+            <script>
+                $(".menu")
+                    .click(function() {
+                        $(".list-nav")
+                            .slideToggle("slow",
+                                function() {
+                                    // Animation complete.
+                                });
+                    });
+            </script>
+            <!-- script for menu -->
+
+            <div class="clearfix"></div>
         </div>
-        <!-- script for menu -->
-        <script>
-            $(".menu")
-                .click(function() {
-                    $(".list-nav")
-                        .slideToggle("slow",
-                            function() {
-                                // Animation complete.
-                            });
-                });
-        </script>
-        <!-- script for menu -->
-
-        <div class="clearfix"></div>
-    </div>
+    }
 </div>
 @RenderBody()
 <div class="footer">

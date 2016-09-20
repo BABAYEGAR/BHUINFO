@@ -24,6 +24,8 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.Title).HasColumnName("Title");
             Property(n => n.Content).HasColumnName("Content");
             Property(n => n.Image).HasColumnName("Image");
+            Property(n => n.SecondImage).HasColumnName("SecondImage");
+            Property(n => n.ThirdImage).HasColumnName("ThirdImage");
             Property(n => n.CreatedById).HasColumnName("CreatedById");
             Property(n => n.NewsCategoryId).HasColumnName("NewsCategoryId");
             Property(n => n.LastModifiedById).HasColumnName("LastModifiedById");

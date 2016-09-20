@@ -83,54 +83,87 @@
                         <p class="alert-info alert-dismissable" style="height: 30px">@TempData["activity"]</p>
                     }
                 }
+                @if (loggedinuser == null)
+                {
+                    if (Model.Status == DiscussionState.Open.ToString())
+                    {
+                        <div class="leave">
+                            <h4>Leave a comment</h4>
+                        </div>
+                        <div>
+                            @using (Ajax.BeginForm("CreateDiscussionComment", "SchoolDiscussions",
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "Post",
+                                    UpdateTargetId = "commentDiv"
+                                }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                                @Html.Hidden("DiscussionId", Model.SchoolDiscussionId)
 
-                @if (Model.Status == DiscussionState.Open.ToString())
+                                <div class="form-group col-md-12">
+                                    @Html.Label("CommentBy", null, new {@class = "control-label"})
+                                    @Html.TextBox("CommentBy", null, new {@class = "form-control"})
+                                    @Html.ValidationMessage("CommentBy", "", new {@class = "text-danger"})
+
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Email", null, new {@class = "control-label"})
+                                    @Html.TextBox("Email", null, new {@class = "form-control"})
+                                    @Html.ValidationMessage("Email", "", new {@class = "text-danger"})
+
+                                </div>
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Comment", null, new {@class = "control-label"})
+                                    @Html.TextArea("Comment", null, new {@class = "form-control"})
+                                    @Html.ValidationMessage("Comment", "", new {@class = "text-danger"})
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <a href="@Url.Action("Index", "SchoolDiscussions")" class="btn btn-default btn-sm pull-left">Back</a>
+                                    <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
+
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="alert alert-info">This Discussion forum has been closed</p>
+                    }
+                }
+                else
                 {
                     <div class="leave">
                         <h4>Leave a comment</h4>
                     </div>
-                    <div>
-                        @using (Ajax.BeginForm("CreateDiscussionComment", "SchoolDiscussions",
-                            new AjaxOptions
+                        <div>
+                            @using (Ajax.BeginForm("CreateDiscussionComment", "SchoolDiscussions",
+                    new AjaxOptions
+                    {
+                        HttpMethod = "Post",
+                        UpdateTargetId = "commentDiv"
+                    }))
                             {
-                                HttpMethod = "Post",
-                                UpdateTargetId = "commentDiv"
-                            }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                            @Html.Hidden("DiscussionId", Model.SchoolDiscussionId)
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.Hidden("DiscussionId", Model.SchoolDiscussionId)
+                                <div class="form-group col-md-12">
+                                    @Html.Label("Comment", null, new { @class = "control-label" })
+                                    @Html.TextArea("Comment", null, new { @class = "form-control" })
+                                    @Html.ValidationMessage("Comment", "", new { @class = "text-danger" })
 
-                            <div class="form-group col-md-12">
-                                @Html.Label("CommentBy", null, new {@class = "control-label"})
-                                @Html.TextBox("CommentBy", null, new {@class = "form-control"})
-                                @Html.ValidationMessage("CommentBy", "", new {@class = "text-danger"})
+                                </div>
 
-                            </div>
-                            <div class="form-group col-md-12">
-                                @Html.Label("Email", null, new {@class = "control-label"})
-                                @Html.TextBox("Email", null, new {@class = "form-control"})
-                                @Html.ValidationMessage("Email", "", new {@class = "text-danger"})
+                                <div class="col-md-12">
+                                    <a href="@Url.Action("Index", "SchoolDiscussions")" class="btn btn-default btn-sm pull-left">Back</a>
+                                    <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right" />
 
-                            </div>
-                            <div class="form-group col-md-12">
-                                @Html.Label("Comment", null, new {@class = "control-label"})
-                                @Html.TextArea("Comment", null, new {@class = "form-control"})
-                                @Html.ValidationMessage("Comment", "", new {@class = "text-danger"})
-
-                            </div>
-
-                            <div class="col-md-12">
-                                <a href="@Url.Action("Index", "SchoolDiscussions")" class="btn btn-default btn-sm pull-left">Back</a>
-                                <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
-
-                            </div>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <p class="alert alert-info">This Discussion forum has been closed</p>
+                                </div>
+                            }
+                        </div>
                 }
 
                 <div class="comments1" id="commentDiv">

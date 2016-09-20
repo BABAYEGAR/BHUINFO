@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjectMappings\StudentMapping.cs" />
     <Compile Include="ObjectMappings\EventMapping .cs" />
     <Compile Include="ObjectMappings\AppUserMapping.cs" />
     <Compile Include="ObjectMappings\NewsCategoryMapping.cs" />

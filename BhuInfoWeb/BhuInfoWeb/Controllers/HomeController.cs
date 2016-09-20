@@ -13,9 +13,9 @@ namespace BhuInfoWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly NewsDataContext db = new NewsDataContext();
-        private readonly ContactUsDataContext dbc = new ContactUsDataContext();
-        private readonly EventDataContext dbd = new EventDataContext();
+        private readonly NewsDataContext _db = new NewsDataContext();
+        private readonly ContactUsDataContext _dbc = new ContactUsDataContext();
+        private readonly EventDataContext _dbd = new EventDataContext();
 
         public ActionResult Index()
         {
@@ -46,8 +46,8 @@ namespace BhuInfoWeb.Controllers
                 var message = collectedValues["message"];
                 var email = collectedValues["Email"];
                 contact.DateCreated = DateTime.Now;
-                dbc.Contact.Add(contact);
-                dbc.SaveChanges();
+                _dbc.Contact.Add(contact);
+                _dbc.SaveChanges();
                 new MailerDaemon().ContactUs(sendername, message, email);
                 return RedirectToAction("Contact", "Home");
             }
@@ -59,13 +59,13 @@ namespace BhuInfoWeb.Controllers
             if (ModelState.IsValid)
             {
                 var news = new NewsDataFactory().GetNewsById(Id);
-                var newsUpdate = db.News.Find(Id);
+                var newsUpdate = _db.News.Find(Id);
                 newsUpdate.NewsView = newsUpdate.NewsView + 1;
-                db.Entry(newsUpdate).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(newsUpdate).State = EntityState.Modified;
+                _db.SaveChanges();
                 return View("ViewNewsDetails", news);
             }
-            var newsToRedirect = db.News.Find(Id);
+            var newsToRedirect = _db.News.Find(Id);
             return View(newsToRedirect);
         }
 
@@ -83,7 +83,7 @@ namespace BhuInfoWeb.Controllers
                     visitor = newVisitor;
                 }
                 var newsModel = new NewsDataFactory().GetNewsById(Id);
-                var news = db.News.Find(Id);
+                var news = _db.News.Find(Id);
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     news.Likes = news.Likes + 1;
@@ -94,12 +94,12 @@ namespace BhuInfoWeb.Controllers
                     news.Dislikes = news.Dislikes + 1;
                     visitor.DisikeStatus = NewsActionType.Dislike.ToString();
                 }
-                db.Entry(news).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(news).State = EntityState.Modified;
+                _db.SaveChanges();
                 Session["visitor"] = visitor;
                 return PartialView("_LikeOrDislikePartial", newsModel);
             }
-            var newsToRedirect = db.News.Find(Id);
+            var newsToRedirect = _db.News.Find(Id);
             return View("ViewNewsDetails", newsToRedirect);
         }
 
@@ -142,7 +142,7 @@ namespace BhuInfoWeb.Controllers
 
         public ActionResult UpcomingEvent()
         {
-            var events = dbd.Events.ToList();
+            var events = _dbd.Events.ToList();
             return View("UpcomingEvent", events);
         }
 

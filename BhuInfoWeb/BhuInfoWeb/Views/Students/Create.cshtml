@@ -1,0 +1,104 @@
+﻿@using BhuInfo.Data.Service.Enums
+@model BhuInfo.Data.Objects.Entities.Student
+
+@{
+    ViewBag.Title = "Register";
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <header class="@ViewBag.HeaderClass">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="tagline" style="font-family: fantasy">@ViewBag.Title</h2>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-flat">
+
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        @if (TempData["student"] != null)
+                        {
+                            if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                            {
+                                <p class="alert-success alert-dismissable" style="height: 30px">@TempData["student"]</p>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                            {
+                                <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["student"]</p>
+                            }
+                            else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                            {
+                                <p class="alert-info alert-dismissable" style="height: 30px">@TempData["student"]</p>
+                            }
+                        }
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <div class="row">
+                                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                                    <div class="form-group col-md-12">
+                                        @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
+                                        <div class="col-sm-6 col-md-9">
+                                            @Html.EditorFor(model => model.Firstname, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
+                                        <div class="col-sm-6 col-md-9">
+                                            @Html.EditorFor(model => model.Lastname, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
+                                        <div class="col-sm-6 col-md-9">
+                                            @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
+                                        <div class="col-sm-6 col-md-9">
+                                            @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        @Html.LabelFor(model => model.MatricNo, new { @class = "control-label col-md-3" })
+                                        <div class="col-sm-6 col-md-9">
+                                            @Html.EditorFor(model => model.MatricNo, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.MatricNo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Create" class="btn btn-primary pull-right"/>
+                                        <a href="@Url.Action("Index", "Students")" class="btn btn-default">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

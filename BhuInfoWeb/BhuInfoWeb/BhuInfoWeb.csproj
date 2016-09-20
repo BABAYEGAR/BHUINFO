@@ -213,6 +213,7 @@
     <Compile Include="Controllers\BhuWebControllers\NewsCategoriesController.cs" />
     <Compile Include="Controllers\BhuWebControllers\NewsController.cs" />
     <Compile Include="Controllers\BhuWebControllers\SchoolDiscussionsController.cs" />
+    <Compile Include="Controllers\BhuWebControllers\StudentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SocialMediaApiController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1322,6 +1323,11 @@
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\Shared\_ActivityComments.cshtml" />
     <Content Include="Views\Shared\_LikeDislikeInfo.cshtml" />
+    <Content Include="Views\Students\Create.cshtml" />
+    <Content Include="Views\Students\Delete.cshtml" />
+    <Content Include="Views\Students\Details.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
