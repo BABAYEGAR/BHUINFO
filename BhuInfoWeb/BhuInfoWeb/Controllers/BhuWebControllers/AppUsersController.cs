@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -41,29 +40,69 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             return View();
         }
-
+        public ActionResult Register()
+        {
+            return View();
+        }
         // POST: AppUsers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Firstname,Lastname,Email,Mobile,Password")] AppUser appUser,
+        public ActionResult Register([Bind(Include = "Firstname,Lastname,Email,Mobile,Password")] AppUser appUser,
             FormCollection collectedValues)
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                if (loggedinuser != null)
+                if (collectedValues["student"] == null)
+                {
+                    if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                    {
+                        appUser.DateCreated = DateTime.Now;
+                        appUser.DateLastModified = DateTime.Now;
+                        appUser.CreatedById = loggedinuser.AppUserId;
+                        appUser.LastModifiedById = loggedinuser.AppUserId;
+                        appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                        var password = Membership.GeneratePassword(8, 1);
+                        var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                        appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+                        var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
+                            appUser.MatricNumber.Trim());
+                        if (userExist)
+                        {
+                            TempData["user"] = "This user email already exist,try a different email!";
+                            TempData["notificationtype"] = NotificationType.Danger.ToString();
+                            return View(appUser);
+                        }
+                        db.AppUsers.Add(appUser);
+                        db.SaveChanges();
+                        TempData["user"] = "A new user has been created!";
+                        TempData["notificationtype"] = NotificationType.Success.ToString();
+                        appUser.Password = password;
+                        new MailerDaemon().NewUser(appUser);
+                    }
+
+                    else
+                    {
+                        TempData["user"] = "Your session has expired,Login Again!";
+                        TempData["notificationtype"] = NotificationType.Info.ToString();
+                        return RedirectToAction("Index");
+                    }
+                }
+                else
                 {
                     appUser.DateCreated = DateTime.Now;
                     appUser.DateLastModified = DateTime.Now;
-                    appUser.CreatedById = loggedinuser.AppUserId;
-                    appUser.LastModifiedById = loggedinuser.AppUserId;
-                    appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                    appUser.CreatedById = 0;
+                    appUser.MatricNumber = collectedValues["MatricNumber"].Trim();
+                    appUser.LastModifiedById = 0;
+                    appUser.Role = UserType.Student.ToString();
                     var password = Membership.GeneratePassword(8, 1);
                     var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
                     appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-                    var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim());
+                    var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
+                        appUser.MatricNumber.Trim());
                     if (userExist)
                     {
                         TempData["user"] = "This user email already exist,try a different email!";
@@ -77,12 +116,83 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     appUser.Password = password;
                     new MailerDaemon().NewUser(appUser);
                 }
+                return RedirectToAction("Index");
+            }
 
+            return View(appUser);
+        }
+
+        // POST: AppUsers/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Firstname,Lastname,Email,Mobile,Password")] AppUser appUser,
+            FormCollection collectedValues)
+        {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+            if (ModelState.IsValid)
+            {
+                if (collectedValues["student"] == null)
+                {
+                    if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                    {
+                        appUser.DateCreated = DateTime.Now;
+                        appUser.DateLastModified = DateTime.Now;
+                        appUser.CreatedById = loggedinuser.AppUserId;
+                        appUser.LastModifiedById = loggedinuser.AppUserId;
+                        appUser.Role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
+                        var password = Membership.GeneratePassword(8, 1);
+                        var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                        appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+                        var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
+                            appUser.MatricNumber.Trim());
+                        if (userExist)
+                        {
+                            TempData["user"] = "This user email already exist,try a different email!";
+                            TempData["notificationtype"] = NotificationType.Danger.ToString();
+                            return View(appUser);
+                        }
+                        db.AppUsers.Add(appUser);
+                        db.SaveChanges();
+                        TempData["user"] = "A new user has been created!";
+                        TempData["notificationtype"] = NotificationType.Success.ToString();
+                        appUser.Password = password;
+                        new MailerDaemon().NewUser(appUser);
+                    }
+
+                    else
+                    {
+                        TempData["user"] = "Your session has expired,Login Again!";
+                        TempData["notificationtype"] = NotificationType.Info.ToString();
+                        return RedirectToAction("Index");
+                    }
+                }
                 else
                 {
-                    TempData["user"] = "Your session has expired,Login Again!";
-                    TempData["notificationtype"] = NotificationType.Info.ToString();
-                    return RedirectToAction("Index");
+                    appUser.DateCreated = DateTime.Now;
+                    appUser.DateLastModified = DateTime.Now;
+                    appUser.CreatedById = 0;
+                    appUser.MatricNumber = collectedValues["MatricNumber"].Trim();
+                    appUser.LastModifiedById = 0;
+                    appUser.Role = UserType.Student.ToString();
+                    var password = Membership.GeneratePassword(8, 1);
+                    var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                    appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
+                    var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
+                        appUser.MatricNumber.Trim());
+                    if (userExist)
+                    {
+                        TempData["user"] = "This user email already exist,try a different email!";
+                        TempData["notificationtype"] = NotificationType.Danger.ToString();
+                        return View(appUser);
+                    }
+                    db.AppUsers.Add(appUser);
+                    db.SaveChanges();
+                    TempData["user"] = "A new user has been created!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                    appUser.Password = password;
+                    new MailerDaemon().NewUser(appUser);
                 }
                 return RedirectToAction("Index");
             }

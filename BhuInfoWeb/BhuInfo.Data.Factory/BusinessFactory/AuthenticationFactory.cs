@@ -10,7 +10,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
 {
     public class AuthenticationFactory
     {
-        private readonly AppUserDataContext db = new AppUserDataContext();
+        private readonly AppUserDataContext _db = new AppUserDataContext();
 
         /// <summary>
         ///     This ,ethod is used to authenticate a users login
@@ -25,13 +25,6 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var user = new AppUserFactory().GetAppUserByLogin(email, hashPassword, role);
             return user;
         }
-        public Student AuthenticateStudentLogin(string email, string password, string matric)
-        {
-            var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
-            var user = new StudentFactory().GetStudentByLogin(email, hashPassword, matric);
-            return user;
-        }
-
         /// <summary>
         ///     This method is used to send a forgot password request to fetch the user
         /// </summary>
@@ -43,9 +36,9 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var user = new AppUserFactory().GetAppUserByEmail(email);
             var newPassword = Membership.GeneratePassword(8, 1);
             user.Password = newPassword;
-            db.Entry(user).State = EntityState.Modified;
+            _db.Entry(user).State = EntityState.Modified;
             new MailerDaemon().ResetUserPassword(user);
-            db.SaveChanges();
+            _db.SaveChanges();
             return user;
         }
 
@@ -59,9 +52,9 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var user = new AppUserFactory().GetAppUserById(userId);
             user.Password = newPassword;
             var hashPasword = new Md5Ecryption().ConvertStringToMd5Hash(newPassword);
-            db.Entry(user).State = EntityState.Modified;
+            _db.Entry(user).State = EntityState.Modified;
             user.Password = hashPasword;
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
         /// <summary>
@@ -88,12 +81,12 @@ namespace BhuInfo.Data.Factory.BusinessFactory
             var encryptedNewPassword = GetPasswordHash(newPassword);
             if (encryptedNewPassword == null) throw new ArgumentNullException(nameof(encryptedNewPassword));
             var isPasswordChanged = false;
-            var user = db.AppUsers.Find(userId);
+            var user = _db.AppUsers.Find(userId);
             if (user.Password == encryptedOldPassword)
             {
                 user.Password = encryptedNewPassword;
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
                 isPasswordChanged = true;
             }
             else

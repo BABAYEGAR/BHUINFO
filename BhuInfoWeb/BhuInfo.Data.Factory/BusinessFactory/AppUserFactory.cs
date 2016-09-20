@@ -20,7 +20,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         {
             email = email.Trim();
             var appUser =
-                _db.AppUsers.FirstOrDefault(n => (n.Email == email) && (n.Password == password) && (n.Role == role));
+                _db.AppUsers.FirstOrDefault(n => (n.Email == email || n.MatricNumber == email) && (n.Password == password) && (n.Role == role));
             return appUser;
         }
 
@@ -28,14 +28,15 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         ///     This method checks if a user exist
         /// </summary>
         /// <param name="email"></param>
+        /// <param name="matricNumber"></param>
         /// <returns></returns>
-        public bool CheckIfUserExist(string email)
+        public bool CheckIfUserExist(string email, string matricNumber)
         {
             var userExist = false;
             try
             {
                 var allUsers = _db.AppUsers;
-                if (allUsers.Any(n => n.Email == email))
+                if (allUsers.Any(n => n.Email == email || n.MatricNumber == matricNumber))
                     userExist = true;
             }
             catch (Exception)

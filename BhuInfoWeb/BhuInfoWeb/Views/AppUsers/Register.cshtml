@@ -1,5 +1,5 @@
 ﻿@using BhuInfo.Data.Service.Enums
-@model BhuInfo.Data.Objects.Entities.Student
+@model BhuInfo.Data.Objects.Entities.AppUser
 
 @{
     ViewBag.Title = "Register";
@@ -9,7 +9,6 @@
 }
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
     <header class="@ViewBag.HeaderClass">
         <div class="overlay"></div>
         <div class="container">
@@ -41,9 +40,10 @@
                                 <p class="alert-info alert-dismissable" style="height: 30px">@TempData["student"]</p>
                             }
                         }
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("Create","AppUsers",FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
+                            @Html.Hidden("student",UserType.Student.ToString())
 
                             <div class="form-horizontal">
                                 <div class="row">
@@ -80,18 +80,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.MatricNo, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.MatricNumber, new { @class = "control-label col-md-3" })
                                         <div class="col-sm-6 col-md-9">
-                                            @Html.EditorFor(model => model.MatricNo, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.MatricNo, "", new { @class = "text-danger" })
+                                            @Html.EditorFor(model => model.MatricNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.MatricNumber, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="submit" value="Create" class="btn btn-primary pull-right"/>
-                                        <a href="@Url.Action("Index", "Students")" class="btn btn-default">Cancel</a>
+                                        <input type="submit" value="Register" class="btn btn-primary pull-right"/>
+                                        <a href="@Url.Action("Login", "Account")" class="btn btn-default">Cancel</a>
                                     </div>
                                 </div>
                             </div>

@@ -8,7 +8,7 @@
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
 @section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
 }
 <!-- header-section-starts -->
 <div class="header">
@@ -28,7 +28,7 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="@Url.Action("Create", "Students")">Student Registration</a>
+                    <a href="@Url.Action("Register", "AppUsers")">Student Registration</a>
                 </li>
                 <li>
                     <a href="@Url.Action("About", "Home")">About Us</a>
@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <section id="loginForm">
-                                @using (Html.BeginForm("AppLogin", "Account", new {ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                                @using (Html.BeginForm("AppLogin", "Account", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
                                 {
                                     @Html.AntiForgeryToken()
                                     if (TempData["login"] != null)

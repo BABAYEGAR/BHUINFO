@@ -22,6 +22,7 @@ namespace BhuInfo.Data.Objects.Entities
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
         [RegularExpression("^[0-9]*$")]
         public string Mobile { get; set; }
+        public string MatricNumber { get; set; }
 
         public string Password { get; set; }
         public string Role { get; set; }

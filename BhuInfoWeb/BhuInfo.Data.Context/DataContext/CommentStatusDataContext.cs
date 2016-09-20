@@ -4,7 +4,7 @@ using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Context.DataContext
 {
-    public class StudentDataContext : DbContext
+    public class CommentStatusDataContext : DbContext
     {
         // Your context has been configured to use a 'NewsCategoryDataContext' connection string from your application's 
         // configuration file (App.config or Web.config). By default, this connection string targets the 
@@ -12,7 +12,7 @@ namespace BhuInfo.Data.Context.DataContext
         // 
         // If you wish to target a different database and/or database provider, modify the 'NewsCategoryDataContext' 
         // connection string in the application configuration file.
-        public StudentDataContext()
+        public CommentStatusDataContext()
             : base("name=BhuInfo")
         {
         }
@@ -20,11 +20,11 @@ namespace BhuInfo.Data.Context.DataContext
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<CommentStatus> CommentStatuses { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<StudentDataContext>(null);
-            //modelBuilder.Configurations.Add(new StudentMapping());
+            Database.SetInitializer<CommentStatusDataContext>(null);
+            modelBuilder.Configurations.Add(new CommentStatusMapping());
         }
     }
 }

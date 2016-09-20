@@ -1,9 +1,20 @@
-﻿@using BhuInfo.Data.Objects.Entities
+﻿@using BhuInfo.Data.Context.DataContext
+@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.Enums
 @{
-    var visitor = Session["visitor"] as VisitorUser;
+    var newsId = Model.NewsId;
+    NewsStatusDataContext dbd = new NewsStatusDataContext();
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+    NewsStatus statusCheckForLike = null;
+    NewsStatus statusCheckForDislike = null;
+    if (loggedinuser != null)
+    {
+
+       statusCheckForLike = dbd.NewsStatuses.ToList().FirstOrDefault(n => n.NewsId == newsId && n.LoggedInUserId == loggedinuser.AppUserId && n.Status == NewsActionType.Like.ToString());
+       statusCheckForDislike = dbd.NewsStatuses.ToList().FirstOrDefault(n => n.NewsId == newsId && n.LoggedInUserId == loggedinuser.AppUserId && n.Status == NewsActionType.Dislike.ToString());
+    }
 }
-    @if (visitor != null && visitor.LikeStatus == NewsActionType.Like.ToString())
+    @if (statusCheckForLike != null)
     {
         <label style="color: green">
             <i class="fa fa-thumbs-up">
@@ -28,7 +39,7 @@
         </label>
     }
     <label> </label>
-    @if (visitor != null && visitor.DisikeStatus ==  NewsActionType.Dislike.ToString())
+    @if (statusCheckForDislike != null)
     {
         <label style="color: red">
             <i class="fa fa-thumbs-down">

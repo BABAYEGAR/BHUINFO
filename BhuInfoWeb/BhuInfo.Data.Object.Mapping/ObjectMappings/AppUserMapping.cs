@@ -31,6 +31,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.Lastname).HasColumnName("Lastname");
             Property(n => n.Email).HasColumnName("Email");
             Property(n => n.Mobile).HasColumnName("Mobile");
+            Property(n => n.MatricNumber).HasColumnName("MatricNumber");
             Property(n => n.Password).HasColumnName("Password");
             Property(n => n.Role).HasColumnName("Role");
             Property(n => n.CreatedById).HasColumnName("CreatedById");

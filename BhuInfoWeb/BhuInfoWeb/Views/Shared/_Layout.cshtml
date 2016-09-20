@@ -105,6 +105,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                             <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
                                                         </p>
                                                     }
+                                                    else if(loggedinuser.Role == UserType.Student.ToString())
+                                                    {
+                                                        
+                                                    }
 
                                                     <p class="text-left">
                                                         <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
@@ -132,13 +136,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </li>
                     </ul>
                 }
-
                 else
                 {
                     <li>
                         <a href="@Url.Action("Login", "Account")">Log In</a>
                     </li>
                 }
+
             </ul>
         </div>
         <div class="clearfix"></div>
@@ -295,10 +299,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     </ul>
                 </div>
-            }
-            else
-            {
-
             }
             <!-- script for menu -->
             <script>

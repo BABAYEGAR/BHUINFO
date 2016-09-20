@@ -17,6 +17,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
     {
         private readonly NewsDataContext _db = new NewsDataContext();
         private readonly NewsComentDataContext _dbc = new NewsComentDataContext();
+        private readonly CommentStatusDataContext _dbd = new CommentStatusDataContext();
 
 
         // GET: News
@@ -194,10 +195,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateNewsComment([Bind(Include = "CommentBy,Comment,Email")] NewsComment newsComments,
+        public ActionResult CreateNewsComment([Bind(Include = "Comment")] NewsComment newsComments,
             FormCollection collectedValues)
         {
             var newsId = long.Parse(collectedValues["NewsId"]);
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
                 string[] words = { "fuck", "Fuck", "4kin","idiot","pussy","dick","blowjob","bastard","stupid" };
@@ -214,6 +216,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
                 newsComments.Likes = 0;
                 newsComments.Dislikes = 0;
+                if (loggedinuser != null)
+                {
+                    newsComments.CommentBy = loggedinuser.DisplayName;
+                    newsComments.Email = loggedinuser.Email;
+                }
                 _dbc.NewsComments.Add(newsComments);
                 _dbc.SaveChanges();
                 ModelState.Clear();
@@ -229,35 +236,34 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
           
             var newsComments = _dbc.NewsComments.Find(Id);
-            var newsToRedirect = _dbc.News.Find(newsComments.NewsId);
+            CommentStatus status = new CommentStatus();
             if (ModelState.IsValid)
             {
-                var visitor = Session["visitor"] as VisitorUser;
-                if (visitor == null)
-                {
-                    var newVisitor = new VisitorUser();
-                    newVisitor.IsValid = true;
-                    newVisitor.Key = Membership.GeneratePassword(7, 6);
-                    visitor = newVisitor;
-                }
+                var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     newsComments.Likes = newsComments.Likes + 1;
-                    visitor.CommentLikeStatus = NewsActionType.Like.ToString();
+                    status.CommentId = newsComments.NewsCommentId;
+                    if (loggedinuser != null) status.LoggedInUserId = loggedinuser.AppUserId;
+                    status.Status = NewsActionType.Like.ToString();
                 }
                 else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     newsComments.Dislikes = newsComments.Dislikes + 1;
-                    visitor.CommentDisikeStatus = NewsActionType.Dislike.ToString();
+                    newsComments.Likes = newsComments.Likes + 1;
+                    status.CommentId = newsComments.NewsCommentId;
+                    if (loggedinuser != null) status.LoggedInUserId = loggedinuser.AppUserId;
+                    status.Status = NewsActionType.Dislike.ToString();
                 }
                 _dbc.Entry(newsComments).State = EntityState.Modified;
                 _dbc.SaveChanges();
-                Session["visitor"] = visitor;
+                _dbd.CommentStatuses.Add(status);
+                _dbd.SaveChanges();
                 return PartialView("_LikeOrDislikeCommentPartial",newsComments);
 
             }
             
-            return RedirectToAction("ViewNewsDetails", "Home",newsToRedirect);
+            return PartialView("_LikeOrDislikeCommentPartial", newsComments);
         }
     }
 }

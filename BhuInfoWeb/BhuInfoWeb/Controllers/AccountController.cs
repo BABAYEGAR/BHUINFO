@@ -17,7 +17,6 @@ namespace BhuInfoWeb.Controllers
         public ActionResult Login(string returnUrl)
         {
             Session["bhuinfologgedinuser"] = null;
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -27,33 +26,33 @@ namespace BhuInfoWeb.Controllers
         public ActionResult AppLogin(FormCollection collectedValues)
         {
             var role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
-            Student student = null;
-            if (role == UserType.Student.ToString())
-            {
-                student = new AuthenticationFactory().AuthenticateStudentLogin(collectedValues["Email"].Trim(),
-              collectedValues["Password"].Trim(), role);
-                Session["bhuinfostudentloggedinuser"] = student;
-            }
             var appUser = new AuthenticationFactory().AuthenticateAppUserLogin(collectedValues["Email"].Trim(),
                 collectedValues["Password"].Trim(), role);
-            if (appUser != null || student != null )
+            var model = Session["newsmodel"] as News;
+            if (appUser != null)
             {
                 Session["bhuinfologgedinuser"] = appUser;
                 if (role == UserType.Administrator.ToString())
                 {
-                    if (appUser != null) TempData["login"] = "Welcome " + appUser.DisplayName + "!";
-                    return RedirectToAction("Index", "AppUsers");
+                    if (model == null)
+                    {
+                        Session["bhuinfologgedinuser"] = appUser;
+                        TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                        return RedirectToAction("Index", "AppUsers");
+                    }
+                    Session["bhuinfologgedinuser"] = appUser;
+                    return RedirectToAction("ViewNewsDetails", "Home", new {Id = model.NewsId});
                 }
-                 if (role == UserType.Manager.ToString())
-                 {
-                     if (appUser != null) TempData["login"] = "Welcome " + appUser.DisplayName + "!";
-                     return RedirectToAction("Index", "News");
-                 }
-                 if(role == UserType.Student.ToString())
+                if (role == UserType.Manager.ToString())
                 {
-                    return RedirectToAction("Index", "Home");
+                    Session["bhuinfologgedinuser"] = appUser;
+                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                    return RedirectToAction("Index", "News");
                 }
-                if (appUser != null) TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                Session["bhuinfologgedinuser"] = appUser;
+                if (role == UserType.Student.ToString())
+                    return RedirectToAction("Index", "Home");
+                TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                 return RedirectToAction("Index", "Home");
             }
             TempData["login"] = "Check your login details and make sure you selected the correct user type!";
@@ -86,11 +85,12 @@ namespace BhuInfoWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-            new AuthenticationFactory().ForgotPasswordRequest(collectedValues["Email"].Trim());
+                new AuthenticationFactory().ForgotPasswordRequest(collectedValues["Email"].Trim());
                 return RedirectToAction("Login");
             }
             return View();
         }
+
         //
         // GET: /Account/ChangePassword
         [AllowAnonymous]
@@ -98,8 +98,9 @@ namespace BhuInfoWeb.Controllers
         {
             return View("ChangePassword");
         }
+
         /// <summary>
-        /// This controller method changes the user password
+        ///     This controller method changes the user password
         /// </summary>
         /// <param name="collectedValues"></param>
         /// <returns></returns>
@@ -113,17 +114,15 @@ namespace BhuInfoWeb.Controllers
             var confirmPassword = collectedValues["ConfirmNewPassword"];
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
-            {
                 if (newPassword == confirmPassword)
                 {
                     var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(oldPassword.Trim());
-                    if (loggedinuser != null && hashPassword == loggedinuser.Password)
+                    if ((loggedinuser != null) && (hashPassword == loggedinuser.Password))
                     {
-                       
-                        if (new AuthenticationFactory().ChangeUserPassword(Convert.ToInt64(loggedinuser.AppUserId), oldPassword,
+                        if (new AuthenticationFactory().ChangeUserPassword(Convert.ToInt64(loggedinuser.AppUserId),
+                            oldPassword,
                             newPassword))
                         {
-
                             TempData["password"] = "Your Pasword has been changed successfully,Please Login Again!";
                             TempData["notificationtype"] = NotificationType.Success.ToString();
                             Session["bhuinfologgedinuser"] = null;
@@ -139,12 +138,10 @@ namespace BhuInfoWeb.Controllers
                 }
                 else
                 {
-
                     TempData["password"] = "Make sure your the password and confirm password are the same!";
                     TempData["notificationtype"] = NotificationType.Info.ToString();
                     return View("ChangePassword");
                 }
-            }
             return View();
         }
 
@@ -173,7 +170,7 @@ namespace BhuInfoWeb.Controllers
             {
                 TempData["password"] = "Make sure your the password and confirm password are the same!";
                 //TempData["notificationtype"] = NotificationType.Info.ToString();
-                return RedirectToAction("ResetPassword", "Account",new {Id = userId });
+                return RedirectToAction("ResetPassword", "Account", new {Id = userId});
             }
             return View("Login");
         }
