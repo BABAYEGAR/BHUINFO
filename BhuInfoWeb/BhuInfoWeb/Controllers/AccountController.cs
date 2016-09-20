@@ -29,19 +29,25 @@ namespace BhuInfoWeb.Controllers
             var appUser = new AuthenticationFactory().AuthenticateAppUserLogin(collectedValues["Email"].Trim(),
                 collectedValues["Password"].Trim(), role);
             var model = Session["newsmodel"] as News;
+            var activityModel = Session["activitymodel"] as SchoolDiscussion;
             if (appUser != null)
             {
                 Session["bhuinfologgedinuser"] = appUser;
                 if (role == UserType.Administrator.ToString())
                 {
-                    if (model == null)
+                    if (model != null)
                     {
                         Session["bhuinfologgedinuser"] = appUser;
-                        TempData["login"] = "Welcome " + appUser.DisplayName + "!";
-                        return RedirectToAction("Index", "AppUsers");
+                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = model.NewsId });
+                    }
+                    if (activityModel != null)
+                    {
+                        Session["bhuinfologgedinuser"] = appUser;
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = activityModel.SchoolDiscussionId });
                     }
                     Session["bhuinfologgedinuser"] = appUser;
-                    return RedirectToAction("ViewNewsDetails", "Home", new {Id = model.NewsId});
+                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
+                    return RedirectToAction("Index", "AppUsers");
                 }
                 if (role == UserType.Manager.ToString())
                 {

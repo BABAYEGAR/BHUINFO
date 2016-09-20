@@ -250,7 +250,6 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     newsComments.Dislikes = newsComments.Dislikes + 1;
-                    newsComments.Likes = newsComments.Likes + 1;
                     status.CommentId = newsComments.NewsCommentId;
                     if (loggedinuser != null) status.LoggedInUserId = loggedinuser.AppUserId;
                     status.Status = NewsActionType.Dislike.ToString();

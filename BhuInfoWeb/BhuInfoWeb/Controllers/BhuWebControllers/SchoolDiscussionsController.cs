@@ -12,13 +12,13 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class SchoolDiscussionsController : Controller
     {
-        private readonly SchoolDiscussionDataContext db = new SchoolDiscussionDataContext();
-        private readonly SchoolDiscussionCommentDataContext dbc = new SchoolDiscussionCommentDataContext();
+        private readonly SchoolDiscussionDataContext _db = new SchoolDiscussionDataContext();
+        private readonly SchoolDiscussionCommentDataContext _dbc = new SchoolDiscussionCommentDataContext();
 
         // GET: SchoolDiscussions
         public ActionResult Index()
         {
-            return View(db.SchoolDiscussions.ToList());
+            return View(_db.SchoolDiscussions.ToList());
         }
 
         // GET: SchoolDiscussions/Details/5
@@ -26,7 +26,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var schoolDiscussion = db.SchoolDiscussions.Find(id);
+            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
             if (schoolDiscussion == null)
                 return HttpNotFound();
             return View(schoolDiscussion);
@@ -42,29 +42,29 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult Activity(long Id)
         {
             var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(Id);
-            var discussionUpdate = db.SchoolDiscussions.Find(Id);
+            var discussionUpdate = _db.SchoolDiscussions.Find(Id);
             discussionUpdate.DiscussionView = discussionUpdate.DiscussionView + 1;
-            db.Entry(discussionUpdate).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(discussionUpdate).State = EntityState.Modified;
+            _db.SaveChanges();
             return View("Activity", discussion);
         }
 
         public ActionResult GetDiscussionComments(long Id)
         {
-            var discussion = db.SchoolDiscussions.Find(Id);
+            var discussion = _db.SchoolDiscussions.Find(Id);
             return PartialView("_ActivityComments", discussion);
         }
         // GET: SchoolDiscussions/CloseActivity
         public ActionResult CloseActivity(long Id)
         {
-            var discussionUpdate = db.SchoolDiscussions.Find(Id);
+            var discussionUpdate = _db.SchoolDiscussions.Find(Id);
             discussionUpdate.Status = DiscussionState.Closed.ToString();
-            db.Entry(discussionUpdate).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(discussionUpdate).State = EntityState.Modified;
+            _db.SaveChanges();
             TempData["discussion"] = "This Discussion has been closed!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
 
-            return RedirectToAction("Index", "SchoolDiscussions", db.SchoolDiscussions.ToList());
+            return RedirectToAction("Index", "SchoolDiscussions", _db.SchoolDiscussions.ToList());
         }
 
         // POST: SchoolDiscussions/Create
@@ -86,8 +86,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     schoolDiscussion.LastModifiedById = loggedinuser.AppUserId;
                     schoolDiscussion.Status = DiscussionState.Open.ToString();
                     schoolDiscussion.DiscussionView = 0;
-                    db.SchoolDiscussions.Add(schoolDiscussion);
-                    db.SaveChanges();
+                    _db.SchoolDiscussions.Add(schoolDiscussion);
+                    _db.SaveChanges();
                     TempData["discussion"] = "A new discussion has been created!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
@@ -108,7 +108,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var schoolDiscussion = db.SchoolDiscussions.Find(id);
+            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
             if (schoolDiscussion == null)
                 return HttpNotFound();
             return View(schoolDiscussion);
@@ -127,8 +127,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(schoolDiscussion).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(schoolDiscussion).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(schoolDiscussion);
@@ -139,7 +139,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var schoolDiscussion = db.SchoolDiscussions.Find(id);
+            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
             if (schoolDiscussion == null)
                 return HttpNotFound();
             return View(schoolDiscussion);
@@ -151,9 +151,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var schoolDiscussion = db.SchoolDiscussions.Find(id);
-            db.SchoolDiscussions.Remove(schoolDiscussion);
-            db.SaveChanges();
+            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
+            _db.SchoolDiscussions.Remove(schoolDiscussion);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -190,8 +190,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 }
                 discussionComment.DateCreated = DateTime.Now;
                 discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
-                dbc.SchoolDiscussionComments.Add(discussionComment);
-                dbc.SaveChanges();
+                _dbc.SchoolDiscussionComments.Add(discussionComment);
+                _dbc.SaveChanges();
                 ModelState.Clear();
                 return PartialView("_ActivityComments",discussion);
             }
@@ -202,7 +202,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
             base.Dispose(disposing);
         }
     }

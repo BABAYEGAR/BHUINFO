@@ -16,6 +16,7 @@ namespace BhuInfoWeb.Controllers
         private readonly NewsDataContext _db = new NewsDataContext();
         private readonly ContactUsDataContext _dbc = new ContactUsDataContext();
         private readonly EventDataContext _dbd = new EventDataContext();
+        private readonly NewsStatusDataContext _dbe = new NewsStatusDataContext();
 
         public ActionResult Index()
         {
@@ -72,31 +73,30 @@ namespace BhuInfoWeb.Controllers
         [HttpPost]
         public ActionResult LikeOrDislikeANews(long Id, string actionType)
         {
+            NewsStatus status = new NewsStatus();
             if (ModelState.IsValid)
             {
-                var visitor = Session["visitor"] as VisitorUser;
-                if (visitor == null)
-                {
-                    var newVisitor = new VisitorUser();
-                    newVisitor.IsValid = true;
-                    newVisitor.Key = Membership.GeneratePassword(7, 6);
-                    visitor = newVisitor;
-                }
+                var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
                 var newsModel = new NewsDataFactory().GetNewsById(Id);
                 var news = _db.News.Find(Id);
                 if (actionType == NewsActionType.Like.ToString())
                 {
                     news.Likes = news.Likes + 1;
-                    visitor.LikeStatus = NewsActionType.Like.ToString();
+                    status.NewsId = news.NewsId;
+                    if (loggedinuser != null) status.LoggedInUserId = loggedinuser.AppUserId;
+                    status.Status = NewsActionType.Like.ToString();
                 }
                 else if (actionType == NewsActionType.Dislike.ToString())
                 {
                     news.Dislikes = news.Dislikes + 1;
-                    visitor.DisikeStatus = NewsActionType.Dislike.ToString();
+                    status.NewsId = news.NewsId;
+                    if (loggedinuser != null) status.LoggedInUserId = loggedinuser.AppUserId;
+                    status.Status = NewsActionType.Dislike.ToString();
                 }
                 _db.Entry(news).State = EntityState.Modified;
                 _db.SaveChanges();
-                Session["visitor"] = visitor;
+                _dbe.NewsStatuses.Add(status);
+                _dbe.SaveChanges();
                 return PartialView("_LikeOrDislikePartial", newsModel);
             }
             var newsToRedirect = _db.News.Find(Id);

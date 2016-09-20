@@ -8,8 +8,6 @@ namespace BhuInfo.Data.Objects.Entities
     {
         public long SchoolDiscussionCommentId { get; set; }
         public string CommentBy { get; set; }
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-
         public string Email { get; set; }
         [Required(ErrorMessage = "This field is compulsory")]
         public string Comment { get; set; }

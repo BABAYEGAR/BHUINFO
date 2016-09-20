@@ -8,7 +8,14 @@
     var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId);
     var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
 }
-<h4>COMMENTS</h4>
+@if (schoolDiscussionComments.Count > 0)
+{
+    <h4>COMMENTS</h4>
+}
+else
+{
+  <h4></h4>
+}
 @foreach (var item in schoolDiscussionComments)
 {
     <div class="comments-main">
