@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ObjectMappings\AdvertMapping.cs" />
     <Compile Include="ObjectMappings\NewsStatusMapping.cs" />
     <Compile Include="ObjectMappings\CommentStatusMapping.cs" />
     <Compile Include="ObjectMappings\EventMapping .cs" />

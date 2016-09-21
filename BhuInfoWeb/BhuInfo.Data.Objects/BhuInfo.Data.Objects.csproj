@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Advertisement.cs" />
     <Compile Include="Entities\NewsStatus.cs" />
     <Compile Include="Entities\CommentStatus.cs" />
     <Compile Include="Entities\VisitorUser.cs" />
