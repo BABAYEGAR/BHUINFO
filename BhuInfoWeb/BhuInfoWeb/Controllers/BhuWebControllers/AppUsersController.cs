@@ -116,7 +116,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     appUser.Password = password;
                     new MailerDaemon().NewUser(appUser);
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Login","Account");
             }
 
             return View(appUser);

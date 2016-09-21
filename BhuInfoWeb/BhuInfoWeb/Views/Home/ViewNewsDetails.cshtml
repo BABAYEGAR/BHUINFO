@@ -150,7 +150,7 @@
                 <h5 class="head">Recent News</h5>
                 @foreach (var item in news)
                 {
-                    <a href="@Url.Action("ViewNewsDetails", "Home")">
+                    <a href="@Url.Action("ViewNewsDetails", "Home",new {Id = item.NewsId})">
                         <div class="editor text-center">
 
                             <h3>@item.Title</h3>
