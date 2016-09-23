@@ -23,8 +23,8 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<Advertisement> Advertisements { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<CommentStatusDataContext>(null);
-            modelBuilder.Configurations.Add(new AdvertMapping());
+            Database.SetInitializer<AdvertisementDataContext>(null);
+            //modelBuilder.Configurations.Add(new AdvertMapping());
         }
     }
 }

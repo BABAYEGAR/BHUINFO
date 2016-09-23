@@ -1,2 +1,25 @@
 ﻿@model BhuInfo.Data.Objects.Entities.News
-<label style="color: green">@Model.Likes Likes</label> <label style="color: red">@Model.Dislikes Dislikes</label>
+@if (Model.Likes > 1 && Model.Dislikes > 1)
+{
+    <label>
+        <label style="color: green">@Model.Likes Likes</label> <label style="color: red">@Model.Dislikes Dislikes</label>
+    </label>
+}
+@if (Model.Likes <= 1 && Model.Dislikes <= 1)
+{
+    <label>
+        <label style="color: green">@Model.Likes Like</label> <label style="color: red">@Model.Dislikes Dislike</label>
+    </label>
+}
+@if (Model.Likes <= 1 && Model.Dislikes > 1)
+{
+    <label>
+        <label style="color: green">@Model.Likes Like</label> <label style="color: red">@Model.Dislikes Dislikes</label>
+    </label>
+}
+@if (Model.Likes > 1 && Model.Dislikes <= 1)
+{
+    <label>
+        <label style="color: green">@Model.Likes Likes</label> <label style="color: red">@Model.Dislikes Dislike</label>
+    </label>
+}

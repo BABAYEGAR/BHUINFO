@@ -37,13 +37,17 @@ namespace BhuInfoWeb.Controllers
                 {
                     if (model != null)
                     {
+                        var newsId = model.NewsId;
+                        Session["newsmodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = model.NewsId });
+                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId});
                     }
                     if (activityModel != null)
                     {
+                        var schoolDiscussionId = activityModel.SchoolDiscussionId;
+                        Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = activityModel.SchoolDiscussionId });
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = schoolDiscussionId });
                     }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
@@ -51,15 +55,45 @@ namespace BhuInfoWeb.Controllers
                 }
                 if (role == UserType.Manager.ToString())
                 {
+                    if (model != null)
+                    {
+                        var newsId = model.NewsId;
+                        Session["newsmodel"] = null;
+                        Session["bhuinfologgedinuser"] = appUser;
+                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
+                    }
+                    if (activityModel != null)
+                    {
+                        var schoolDiscussionId = activityModel.SchoolDiscussionId;
+                        Session["activitymodel"] = null;
+                        Session["bhuinfologgedinuser"] = appUser;
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = schoolDiscussionId });
+                    }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "News");
                 }
-                Session["bhuinfologgedinuser"] = appUser;
+                
                 if (role == UserType.Student.ToString())
+                {
+                    if (model != null)
+                    {
+                        var newsId = model.NewsId;
+                        Session["newsmodel"] = null;
+                        Session["bhuinfologgedinuser"] = appUser;
+                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
+                    }
+                    if (activityModel != null)
+                    {
+                        var schoolDiscussionId = activityModel.SchoolDiscussionId;
+                        Session["activitymodel"] = null;
+                        Session["bhuinfologgedinuser"] = appUser;
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = schoolDiscussionId });
+                    }
+                    Session["bhuinfologgedinuser"] = appUser;
+                    TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "Home");
-                TempData["login"] = "Welcome " + appUser.DisplayName + "!";
-                return RedirectToAction("Index", "Home");
+                }
             }
             TempData["login"] = "Check your login details and make sure you selected the correct user type!";
             return RedirectToAction("Login", "Account");

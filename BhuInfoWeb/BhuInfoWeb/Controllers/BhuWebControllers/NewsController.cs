@@ -198,7 +198,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult CreateNewsComment([Bind(Include = "Comment")] NewsComment newsComments,
             FormCollection collectedValues)
         {
+
             var newsId = long.Parse(collectedValues["NewsId"]);
+            var news = _db.News.Find(newsId);
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
@@ -210,7 +212,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         TempData["news"] =
                             "Please check your words again and make sure your arent using any vulgar word!";
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
-                        return RedirectToAction("ViewNewsDetails","Home", new {Id = newsId});
+                        return PartialView("Comment",news);
                     }
                 newsComments.DateCreated = DateTime.Now;
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
@@ -224,7 +226,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 _dbc.NewsComments.Add(newsComments);
                 _dbc.SaveChanges();
                 ModelState.Clear();
-                var news = _db.News.Find(long.Parse(collectedValues["NewsId"]));
+               
                 return PartialView("Comment",news);
             }
            

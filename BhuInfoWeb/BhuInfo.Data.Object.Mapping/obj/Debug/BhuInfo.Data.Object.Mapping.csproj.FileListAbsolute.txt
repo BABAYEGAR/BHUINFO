@@ -7,26 +7,26 @@ C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.csprojResolveAssemblyReference.cache
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.dll
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.dll.config
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Objects.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Objects.pdb
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.csprojResolveAssemblyReference.cache
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.dll
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.Mvc.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.Razor.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.Razor.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Objects.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.Mvc.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.Razor.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.Razor.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\System.Web.WebPages.Deployment.xml
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\BhuInfo.Data.Object.Mapping.dll.config
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.xml
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.csprojResolveAssemblyReference.cache
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Object.Mapping\obj\Debug\BhuInfo.Data.Object.Mapping.pdb

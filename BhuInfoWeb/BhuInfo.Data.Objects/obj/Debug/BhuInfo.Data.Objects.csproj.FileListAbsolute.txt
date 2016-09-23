@@ -5,8 +5,6 @@ C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Object
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.csprojResolveAssemblyReference.cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\BhuInfo.Data.Objects.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\BhuInfo.Data.Objects.pdb
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.dll
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\Microsoft.Web.Infrastructure.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.Helpers.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.Mvc.dll
@@ -20,3 +18,5 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\Syste
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.WebPages.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.dll
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Objects\obj\Debug\BhuInfo.Data.Objects.pdb

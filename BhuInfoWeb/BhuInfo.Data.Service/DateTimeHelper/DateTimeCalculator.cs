@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Web.UI.WebControls;
+using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Service.DateTimeHelper
 {
     public class DateTimeCalculator
     {
+        /// <summary>
+        /// This mehod calculates the time a news was posted form the present time
+        /// </summary>
+        /// <param name="dateTimeValue"></param>
+        /// <returns></returns>
         public string TimeAgo(DateTime dateTimeValue)
         {
             var span = DateTime.Now - dateTimeValue;
@@ -31,6 +38,31 @@ namespace BhuInfo.Data.Service.DateTimeHelper
                 return $"about {span.Seconds} seconds ago";
             if (span.Seconds <= 5)
                 return "just now";
+            return string.Empty;
+        }
+        /// <summary>
+        /// This ,ethod returns the appropriate plural or singular term for a view or comment
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public string CommentAndViews(News item)
+        {
+            if (item.NewsView > 1 && item.NewComments.Count <= 1)
+            {
+                return item.NewsView + "Views" + "      " + "      "+item.NewComments.Count + "Comment";
+            }
+            if (item.NewsView > 1 && item.NewComments.Count > 1)
+            {
+                return item.NewsView + "Views" + "      " + "      " + item.NewComments.Count + "Comments";
+            }
+            if (item.NewsView <= 1 && item.NewComments.Count > 1)
+            {
+                return item.NewsView + "View" + "      " + "      " + item.NewComments.Count + "Comments";
+            }
+            if (item.NewsView <= 1 && item.NewComments.Count <= 1)
+            {
+                return item.NewsView + "View" + "      " + "      " + item.NewComments.Count + "Comment";
+            }
             return string.Empty;
         }
     }

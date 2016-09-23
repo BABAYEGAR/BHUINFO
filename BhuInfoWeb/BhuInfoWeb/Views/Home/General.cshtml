@@ -1,10 +1,8 @@
-﻿@using System.Diagnostics
-@using BhuInfo.Data.Factory.BusinessFactory
-@using BhuInfo.Data.Objects.Entities
+﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
-@model IEnumerable<News>
+@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
     ViewBag.Title = "General";
 
@@ -22,57 +20,11 @@
         return;
     }
     var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);
-
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<div class="container">
-    <div class="header-bottom">
-        <div class="type">
-            <h5 style="font-weight: bold">General</h5>
-        </div>
-        <span class="menu"></span>
-        <div class="list-nav">
-            <ul>
-                <li>
-                    <a href="@Url.Action("Index", "Home")">Home</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("GeneralNews", "Home")" class="active">General</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("SportsNews", "Home")">Sports</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("UpcomingEvent", "Home")">Events</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
-                </li>
-            </ul>
-        </div>
-        <!-- script for menu -->
-        <script>
-            $("span.menu")
-                .click(function() {
-                    $(".list-nav")
-                        .slideToggle("slow",
-                            function() {
-                                // Animation complete.
-                            });
-                });
-        </script>
-        <!-- script for menu -->
-        <div class="clearfix"></div>
-    </div>
-</div>*@
+
 <div class="container">
     <div class="content">
         <div class="col-md-7 printing-content">
@@ -132,6 +84,7 @@
         <div class="col-md-5 content-right">
             <div class="content-right-top">
                 <h5 class="head">Popular</h5>
+
                 @try
                 {
                     foreach (var item in news)
@@ -149,10 +102,33 @@
                                 }
                                 <label style="font-weight: bold">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                 <br/>
-                                <label style="color: black">@item.NewsView views @item.NewComments.Count Comments</label><br/>
-                                <label>
-                                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                                </label><br/>
+                                <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
+                                <br/>
+                                @if ((item.Likes > 1) && (item.Dislikes > 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                    </label>
+                                }
+                                @if ((item.Likes <= 1) && (item.Dislikes <= 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
+                                    </label>
+                                }
+                                @if ((item.Likes <= 1) && (item.Dislikes > 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                    </label>
+                                }
+                                @if ((item.Likes > 1) && (item.Dislikes <= 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
+                                    </label>
+                                }
+                                <br/>
                                 <span></span>
                             </div>
                         </a>
@@ -179,10 +155,33 @@
                                 <span></span>
                                 <label style="font-weight: bold">@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label>
                                 <br/>
-                                <label style="color: black">@item.NewsView views @item.NewComments.Count Comments</label><br/>
-                                <label>
-                                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                                </label><br/>
+                                <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
+                                <br/>
+                                @if ((item.Likes > 1) && (item.Dislikes > 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                    </label>
+                                }
+                                @if ((item.Likes <= 1) && (item.Dislikes <= 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
+                                    </label>
+                                }
+                                @if ((item.Likes <= 1) && (item.Dislikes > 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                    </label>
+                                }
+                                @if ((item.Likes > 1) && (item.Dislikes <= 1))
+                                {
+                                    <label>
+                                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
+                                    </label>
+                                }
+                                <br/>
                             </div>
                             <div class="clearfix"></div>
                         </div>
