@@ -5,8 +5,9 @@
 @{
     var discussionId = Model.SchoolDiscussionId;
 
-    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId).OrderByDescending(n=>n.DateCreated);
+    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int)discussionId).OrderByDescending(n => n.DateCreated);
     var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
+    var countedDiscussionComments = schoolDiscussionComments.Take(7);
 }
 @if (schoolDiscussionComments.Count > 0)
 {
@@ -16,7 +17,7 @@ else
 {
   <h4></h4>
 }
-@foreach (var item in schoolDiscussionComments)
+@foreach (var item in countedDiscussionComments)
 {
     <div class="comments-main">
         <div class="col-md-12">

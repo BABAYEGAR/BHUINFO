@@ -225,6 +225,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppTheme\css\AccountSnippet.css" />
     <Content Include="AppTheme\css\bootstrap.css" />
     <Content Include="AppTheme\css\style.css" />
     <Content Include="AppTheme\fonts\SIL Open Font License.txt" />
@@ -1328,6 +1329,7 @@
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Shared\SubComment.cshtml" />
+    <Content Include="Views\Shared\_ActivitySubComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

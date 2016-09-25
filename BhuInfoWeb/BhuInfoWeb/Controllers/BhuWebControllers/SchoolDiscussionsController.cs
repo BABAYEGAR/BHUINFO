@@ -52,6 +52,11 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         public ActionResult GetDiscussionComments(long Id)
         {
             var discussion = _db.SchoolDiscussions.Find(Id);
+            return PartialView("_ActivitySubComments", discussion);
+        }
+        public ActionResult GetCompleteDiscussionComments(long Id)
+        {
+            var discussion = _db.SchoolDiscussions.Find(Id);
             return PartialView("_ActivityComments", discussion);
         }
         // GET: SchoolDiscussions/CloseActivity

@@ -7,13 +7,13 @@
 @{
     var dbd = new CommentStatusDataContext();
     var newsId = Model.NewsId;
-    var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId);
+    var newsComments = new NewsCommentFactory().GetNewsComments((int) newsId).OrderByDescending(n => n.DateCreated);
     var enumerable = newsComments as IList<NewsComment> ?? newsComments.ToList();
-    var countedNews = enumerable.Take(7);
+    var countedNewsComments = enumerable.Take(7);
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     CommentStatus statusCheckForLike = null;
     CommentStatus statusCheckForDislike = null;
-   
+
 }
     @if (TempData["news"] != null)
     {
@@ -35,7 +35,7 @@
 {
     <h4>COMMENTS</h4>
 }
-@foreach (var item in countedNews)
+@foreach (var item in countedNewsComments)
 {
     if (loggedinuser != null)
     {

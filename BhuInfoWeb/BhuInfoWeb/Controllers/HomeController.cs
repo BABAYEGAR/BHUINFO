@@ -110,6 +110,12 @@ namespace BhuInfoWeb.Controllers
             return PartialView("SubComment", newsModel);
         }
         [HttpGet]
+        public ActionResult ReloadCompleteView(long Id)
+        {
+            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            return PartialView("Comment", newsModel);
+        }
+        [HttpGet]
         public ActionResult ReloadLikeDislikeInfo(long Id)
         {
             var newsModel = new NewsDataFactory().GetNewsById(Id);

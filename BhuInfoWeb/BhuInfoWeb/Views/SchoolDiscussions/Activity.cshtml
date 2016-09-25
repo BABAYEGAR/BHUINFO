@@ -8,6 +8,8 @@
     var discussionId = Model.SchoolDiscussionId;
 
     var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId);
+    var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
+    var enumerable = schoolDiscussionComments.ToList();
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
@@ -83,7 +85,7 @@
                         <p class="alert-info alert-dismissable" style="height: 30px">@TempData["activity"]</p>
                     }
                 }
-                
+
                 @if (Model.Status == DiscussionState.Open.ToString())
                 {
                     if (loggedinuser != null)
@@ -120,22 +122,32 @@
                     else
                     {
                         Session["activitymodel"] = Model;
-                        <label>Please <a href="@Url.Action("Login","Account",new {Id = Model.SchoolDiscussionId})" style="color: blue"> Sign In</a> to post your comment on this article</label>
-
+                        <label>Please <a href="@Url.Action("Login", "Account", new {Id = Model.SchoolDiscussionId})" style="color: blue"> Sign In</a> to post your comment on this article</label>
                     }
                 }
                 else
                 {
-                        <p class="alert alert-info">This Discussion forum has been closed</p>
-                    }
-                
+                    <p class="alert alert-info">This Discussion forum has been closed</p>
+                }
+
 
                 <div class="comments1" id="commentDiv">
-                   
+
                     @{
-                        Html.RenderPartial("_ActivityComments",Model);
+                        Html.RenderPartial("_ActivitySubComments", Model);
                     }
-                    
+                </div>
+                @if (enumerable.Count > 7)
+                {
+                    var number = enumerable.Count - 7;
+                    <a style="font-weight: bold" id="btnLoadMore">Load @number more comments</a>
+                }
+                <div class="comments1" id="commentMoreDiv">
+
+                    @{
+                        Html.RenderPartial("_ActivityComments", Model);
+                    }
+
                 </div>
 
             </div>
@@ -143,16 +155,26 @@
         <div class="clearfix"></div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function() {
-        setInterval(function() {
-
-                $('#commentDiv')
-                    .hide()
-                    .load('@Url.Action("GetDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
-                    .fadeIn(1);
-            },
-            2000);
-    });
-</script>
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function() {
+            setInterval(function() {
+            });
+            $('#commentMoreDiv').hide();
+            $('#commentDiv')
+                .hide()
+                .load('@Url.Action("GetDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
+                .fadeIn(0.5);
+            $('#btnLoadMore')
+                .click(function() {
+                    $('#commentDiv').hide();
+                    $('#commentMoreDiv')
+                                .hide()
+                                .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
+                                .fadeIn(1);
+                    $('#btnLoadMore').hide();
+                });
+        });
+    </script>
 }
