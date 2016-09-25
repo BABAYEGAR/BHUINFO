@@ -40,6 +40,7 @@
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var number = enumerable.Count - 7;
 }
 
 <div class="container">
@@ -140,8 +141,17 @@
         }
         <div class="comments1" id="commentDiv">
             @{
+                Html.RenderPartial("SubComment", Model);
+            }
+
+        </div>
+        <a style="font-weight: bold" id="btnLoadMore">Load @number more comments</a>
+        <div class="comments1" id="commentMoreDiv">
+            @{
                 Html.RenderPartial("Comment", Model);
             }
+
+
         </div>
     </div>
 </div>
@@ -213,7 +223,7 @@
                     <span></span>
                     <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label><br/>
                     <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
-                    <br />
+                    <br/>
 
                     @if ((item.Likes > 1) && (item.Dislikes > 1))
                     {
@@ -256,7 +266,6 @@
     <script type="text/javascript">
         $(function() {
             setInterval(function() {
-
                     $('#commentDiv')
                         .hide()
                         .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
@@ -269,9 +278,25 @@
                         .hide()
                         .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
                         .fadeIn(1);
-
                 },
                 2000);
+            $('#commentMoreDiv')
+                .hide()
+                .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})');
+            $('#btnLoadMore')
+                .click(function() {
+                    $('#commentDiv')
+                        .hide()
+                        .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
+                        .fadeOut(1);
+                    $('#commentMoreDiv')
+                            .hide()
+                            .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
+                            .fadeIn(1),
+                        $('#btnLoadMore').hide();
+                });
+
+
         });
         var firstImage = '../../UploadedFiles/@UploadType.NewsImage/@Model.Image';
         var secondImage = '../../UploadedFiles/@UploadType.NewsImage/@Model.SecondImage';
