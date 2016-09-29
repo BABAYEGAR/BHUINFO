@@ -79,8 +79,14 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         news.NewsView = 0;
                         news.LastModifiedById = user.AppUserId;
                         news.Image = new FileUploader().UploadFile(firstImage, UploadType.NewsImage);
-                        news.SecondImage = new FileUploader().UploadFile(secondImage, UploadType.NewsImage);
-                        news.ThirdImage = new FileUploader().UploadFile(thirdImage, UploadType.NewsImage);
+                        if (secondImage != null && secondImage.FileName != "")
+                        {
+                            news.SecondImage = new FileUploader().UploadFile(secondImage, UploadType.NewsImage);
+                        }
+                        if (thirdImage != null && thirdImage.FileName != "")
+                        {
+                            news.ThirdImage = new FileUploader().UploadFile(thirdImage, UploadType.NewsImage);
+                        }
                         _db.News.Add(news);
                         _db.SaveChanges();
                         TempData["news"] = "The article has been created Succesfully!";
@@ -102,7 +108,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             }
             TempData["news"] = "Make sure you fill all the fields!";
             TempData["notificationtype"] = NotificationType.Danger.ToString();
-            return RedirectToAction("Create","News",news);
+            return RedirectToAction("Create", "News", news);
         }
 
         // GET: News/Edit/5
@@ -204,7 +210,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (ModelState.IsValid)
             {
-                string[] words = { "fuck", "Fuck", "4kin","idiot","pussy","dick","blowjob","bastard","stupid" };
+                string[] words = { "fuck", "Fuck", "4kin", "idiot", "pussy", "dick", "blowjob", "bastard", "stupid" };
                 var comment = collectedValues["Comment"].ToLower();
                 foreach (var item in words)
                     if (comment.Contains(item))
@@ -212,7 +218,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         TempData["news"] =
                             "Please check your words again and make sure your arent using any vulgar word!";
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
-                        return PartialView("Comment",news);
+                        return PartialView("Comment", news);
                     }
                 newsComments.DateCreated = DateTime.Now;
                 newsComments.NewsId = long.Parse(collectedValues["NewsId"]);
@@ -226,17 +232,17 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 _dbc.NewsComments.Add(newsComments);
                 _dbc.SaveChanges();
                 ModelState.Clear();
-               
-                return PartialView("Comment",news);
+
+                return PartialView("Comment", news);
             }
-           
+
             TempData["news"] = "All fields are compulsory!";
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
         }
         public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {
-          
+
             var newsComments = _dbc.NewsComments.Find(Id);
             CommentStatus status = new CommentStatus();
             if (ModelState.IsValid)
@@ -260,11 +266,17 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 _dbc.SaveChanges();
                 _dbd.CommentStatuses.Add(status);
                 _dbd.SaveChanges();
-                return PartialView("_LikeOrDislikeCommentPartial",newsComments);
+                return PartialView("_LikeOrDislikeCommentPartial", newsComments);
 
             }
-            
+
             return PartialView("_LikeOrDislikeCommentPartial", newsComments);
+        }
+        [HttpGet]
+        public ActionResult ReloadLikeDislikeCommentPartial(long Id)
+        {
+            var newsModel = new NewsCommentFactory().GetSingleNewsComments((int) Id);
+            return PartialView("_LikeOrDislikeCommentPartial", newsModel);
         }
     }
 }

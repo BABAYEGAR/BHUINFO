@@ -2,6 +2,7 @@
 {
     public enum UploadType
     {
-        NewsImage
+        NewsImage,
+        Advert
     }
 }

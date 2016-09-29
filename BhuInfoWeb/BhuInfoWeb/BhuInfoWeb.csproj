@@ -208,6 +208,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BhuWebControllers\AdminController.cs" />
+    <Compile Include="Controllers\BhuWebControllers\AdvertisementsController.cs" />
     <Compile Include="Controllers\BhuWebControllers\AppUsersController.cs" />
     <Compile Include="Controllers\BhuWebControllers\EventsController.cs" />
     <Compile Include="Controllers\BhuWebControllers\NewsCategoriesController.cs" />
@@ -1330,6 +1331,13 @@
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Shared\SubComment.cshtml" />
     <Content Include="Views\Shared\_ActivitySubComments.cshtml" />
+    <Content Include="Views\Advertisements\Create.cshtml" />
+    <Content Include="Views\Advertisements\Delete.cshtml" />
+    <Content Include="Views\Advertisements\Details.cshtml" />
+    <Content Include="Views\Advertisements\Edit.cshtml" />
+    <Content Include="Views\Advertisements\Index.cshtml" />
+    <Content Include="Views\Advertisements\CreateAdvert.cshtml" />
+    <Content Include="Views\Advertisements\VerifyAccessCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

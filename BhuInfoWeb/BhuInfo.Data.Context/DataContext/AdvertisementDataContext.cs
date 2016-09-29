@@ -1,4 +1,4 @@
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using BhuInfo.Data.Object.Mapping.ObjectMappings;
 using BhuInfo.Data.Objects.Entities;
 
@@ -23,8 +23,8 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<Advertisement> Advertisements { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<AdvertisementDataContext>(null);
-            //modelBuilder.Configurations.Add(new AdvertMapping());
+             Database.SetInitializer<AdvertisementDataContext>(null);
+           // modelBuilder.Configurations.Add(new AdvertisementtMapping());
         }
     }
 }

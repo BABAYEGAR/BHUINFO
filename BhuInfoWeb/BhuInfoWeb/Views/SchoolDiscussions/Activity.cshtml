@@ -158,23 +158,28 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(function() {
-            setInterval(function() {
-            });
-            $('#commentMoreDiv').hide();
-            $('#commentDiv')
-                .hide()
-                .load('@Url.Action("GetDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
-                .fadeIn(0.5);
-            $('#btnLoadMore')
-                .click(function() {
-                    $('#commentDiv').hide();
-                    $('#commentMoreDiv')
+        $('#commentMoreDiv').hide();
+        $('#commentDiv')
+            .hide()
+            .load('@Url.Action("GetDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
+            .fadeIn(0.5);
+        $('#btnLoadMore')
+            .click(function() {
+                $('#commentDiv').hide();
+                $('#commentMoreDiv')
+                    .hide()
+                    .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
+                    .fadeIn(1);
+                $('#btnLoadMore').hide();
+                $(function() {
+                    setInterval(function() {
+                            $('#commentMoreDiv')
                                 .hide()
                                 .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
-                                .fadeIn(1);
-                    $('#btnLoadMore').hide();
+                                .fadeIn(0.5);
+                        },
+                        2000);
                 });
-        });
-    </script>
-}
+            });
+        </script>
+    }

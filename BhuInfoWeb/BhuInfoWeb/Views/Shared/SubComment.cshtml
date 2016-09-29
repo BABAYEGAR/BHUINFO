@@ -117,6 +117,7 @@
                         var dbc = new NewsComentDataContext();
                         var comment = dbc.NewsComments.Find(item.NewsCommentId);
                         Html.RenderPartial("_LikeOrDislikeCommentPartial", comment);
+
                     }
                 </label><br/>
 
