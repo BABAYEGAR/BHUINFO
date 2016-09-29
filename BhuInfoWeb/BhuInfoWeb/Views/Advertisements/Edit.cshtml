@@ -1,69 +1,172 @@
-﻿@model BhuInfo.Data.Objects.Entities.Advertisement
-
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model BhuInfo.Data.Objects.Entities.Advertisement
 @{
     ViewBag.Title = "Edit";
 }
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+@section css{
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
+}
+@{
+    ViewBag.HeaderClass = "page-header";
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+}
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index", "AppUsers")">Admin/Users</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
 
-<h2>Edit</h2>
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
 
-@using (Html.BeginForm())
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @*<h2 class="tagline">@ViewBag.Title</h2>*@
+            </div>
+        </div>
+    </div>
+</header>
+
+@using (Html.BeginForm("Edit", "Advertisements", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form"}))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Advertisement</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.AdvertisementId)
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @Html.Hidden("Id", Model.AdvertisementId)
+    <div class="container">
+        <div class="row">
+            <div class="panel panel-flat">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdvertImage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdvertImage, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AdvertImage, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-horizontal">
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.AdvertCompanyName, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.TextBoxFor(model => model.AdvertCompanyName, new {@class = "form-control", placeholder = "Enter your company name"})
+                                    @Html.ValidationMessageFor(model => model.AdvertCompanyName, "", new {@class = "text-danger"})
+                                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdvertText, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdvertText, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AdvertText, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            </div>
+                     
+                            <div class="clearfix"></div>
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.AdvertType, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    @Html.DropDownListFor(model => model.AdvertType, (SelectList) ViewBag.advertType, new {@class = "form-control select-dropdown"})
+                                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdvertCompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdvertCompanyName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AdvertCompanyName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group col-md-12">
+                                @Html.LabelFor(model => model.AdvertImage, new {@class = "control-label col-md-3"})
+                                <div class="col-sm-6 col-md-9">
+                                    <input type="file" name="Image" id="Image" style="width: 100%;"/>
+                                    @Html.ValidationMessageFor(model => model.AdvertImage, "", new {@class = "text-danger"})
+                                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.AccessCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AccessCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AccessCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.ActionLink("Back to list", "Index", null, new {@class = "pull-left btn btn-default", style = "fa fa-pencil"})
+                            <input type="submit" value="Save" class="btn btn-primary pull-right "/>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

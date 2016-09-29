@@ -1,58 +1,248 @@
-﻿@model BhuInfo.Data.Objects.Entities.Advertisement
+﻿@using BhuInfo.Data.Context.DataContext
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
+@model BhuInfo.Data.Objects.Entities.Advertisement
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@{
+    ViewBag.HeaderClass = "page-header";
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
-<div>
-    <h4>Advertisement</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AdvertImage)
-        </dt>
+    var db = new AppUserDataContext();
+}
+@{
+    Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
+}
+<!-- header-section-starts -->
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="@Url.Action("Index", "Home")">
+                <h1>Bhu-Info</h1>
+            </a>
+        </div>
+        <div class="pages">
+            <ul>
+                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index", "AppUsers")">Admin/Users</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                </li>
 
-        <dd>
-            @Html.DisplayFor(model => model.AdvertImage)
-        </dd>
+                @if (loggedinuser != null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                <strong>@loggedinuser.Firstname</strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AdvertText)
-        </dt>
+                                                <div class="col-lg-8">
+                                                    <p class="text-left">
+                                                        <strong>@loggedinuser.DisplayName</strong>
+                                                    </p>
+                                                    <p class="text-left small">@loggedinuser.Email</p>
+                                                    <p class="text-left">
+                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
+                                                    </p>
+                                                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.AdvertText)
-        </dd>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AdvertCompanyName)
-        </dt>
+                                <li class="divider navbar-login-session-bg"></li>
+                                <li class="navbar-login-session-bg">
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
 
-        <dd>
-            @Html.DisplayFor(model => model.AdvertCompanyName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-    </dl>
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("Login", "Account")">Log In</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clearfix"></div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AdvertisementId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                @*<h2 class="tagline">@ViewBag.Title</h2>*@
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-flat">
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.AdvertCompanyName)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.AdvertCompanyName)
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.Title)
+                            </div>
+
+                            <div class="col-md-9 ">
+                                @Html.DisplayFor(model => model.Title)
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.Email)
+                            </div>
+
+                            <div class="col-md-9 ">
+
+                                @Html.DisplayFor(model => model.Email)
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.AdvertText)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.AdvertText)
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.AdvertType)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.AdvertType)
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.Status)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.Status)
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.AccessCode)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.AccessCode)
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.DateCreated)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.DateCreated)
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayNameFor(model => model.DateLastModified)
+                            </div>
+
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.DateLastModified)
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayName("Created By")
+                            </div>
+
+                            <div class="col-md-9">
+                                @db.AppUsers.Find(Model.CreatedById).DisplayName
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <div class="col-md-3 detailsDiv">
+                                @Html.DisplayName("Last ModifiedBy")
+                            </div>
+
+                            <div class="col-md-9">
+                                @db.AppUsers.Find(Model.LastModifiedById).DisplayName
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.AdvertisementId }, new { @class = "btn btn-primary pull-right" })
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default pull-left" })
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

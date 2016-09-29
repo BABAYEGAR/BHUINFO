@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
@@ -207,6 +208,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             var advertisement = _db.Advertisements.Find(id);
             if (advertisement == null)
                 return HttpNotFound();
+            var advertType = new SelectList(typeof(AdvertType).GetEnumNames());
+            ViewBag.advertType = advertType;
             return View(advertisement);
         }
 
@@ -215,16 +218,42 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(
-            [Bind(Include = "AdvertisementId,AdvertImage,AdvertText,AdvertCompanyName,AccessCode,Status")] Advertisement
-                advertisement)
+        public ActionResult Edit(FormCollection collectedValues)
         {
-            if (ModelState.IsValid)
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+
+            HttpPostedFileBase advertImage = null;
+            if (Request.Files["Image"] != null)
             {
-                _db.Entry(advertisement).State = EntityState.Modified;
-                _db.SaveChanges();
-                return RedirectToAction("Index");
+                advertImage = Request.Files["Image"];
             }
+            var advertId = long.Parse(collectedValues["Id"]);
+            var companyName = collectedValues["AdvertCompanyName"];
+            var advertisement = new AdvertsiementFactory().GetAdvertById((int)advertId);
+            if (ModelState.IsValid)
+                if (loggedinuser != null)
+                {
+                    if (advertImage != null && advertImage.FileName != "")
+                    {
+                        advertisement.AdvertImage = new FileUploader().UploadFile(advertImage, UploadType.Advert);
+                    }
+                    advertisement.AdvertCompanyName = companyName;
+                    advertisement.DateLastModified = DateTime.Now;
+                    advertisement.LastModifiedById = loggedinuser.AppUserId;
+                    advertisement.AdvertType = collectedValues["AdvertType"];
+                    _db.Entry(advertisement).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    TempData["advert"] = "This advert has been modified successfully!";
+                    TempData["notificationtype"] = NotificationType.Success.ToString();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    
+                    TempData["advert"] = "Your session has expired,Login Again!";
+                    TempData["notificationtype"] = NotificationType.Info.ToString();
+                    return RedirectToAction("Login", "Account");
+                }
             return View(advertisement);
         }
 
