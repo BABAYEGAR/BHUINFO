@@ -277,43 +277,35 @@
                         .hide()
                         .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
                         .fadeIn(0.5);
+                    $('#commentDiv')
+                        .hide()
+                        .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
+                        .fadeIn(0.5);
                 },
                 2000);
-            $('#commentMoreDiv').hide();
-            $('#commentDiv')
-                .hide()
-                .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
-                .fadeIn(0.5);
-            $('#btnLoadMore')
-                .click(function() {
-                    $('#commentDiv').hide();
-                    $('#commentMoreDiv')
-                            .hide()
-                            .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')''
-                            .fadeIn(1),
-                        $('#btnLoadMore').hide();
-                    $(function() {
-                        setInterval(function() {
-                                $('#likeOrDislikeDiv')
-                                    .hide()
-                                    .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
-                                    .fadeIn(0.5);
-                                $('#likedislikeinfo')
-                                    .hide()
-                                    .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
-                                    .fadeIn(0.5);
-                                $('#commentMoreDiv')
-                                    .hide()
-                                    .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
-                                    .fadeIn(1);
-                            },
-                            2000);
-
-                    });
-
-
-                });
         });
+        $('#commentMoreDiv').hide();
+        $('#commentDiv')
+            .hide()
+            .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
+            .fadeIn(0.5);
+        $('#btnLoadMore')
+            .click(function() {
+                $('#commentDiv').hide();
+                $(function() {
+                    setInterval(function() {
+                            $('#commentMoreDiv')
+                                .hide()
+                                .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
+                                .fadeIn(1);
+                        },
+                        2000);
+                });
+                $('#btnLoadMore').hide();
+
+            });
+
+
         var firstImage = '../../UploadedFiles/@UploadType.NewsImage/@Model.Image';
         var secondImage = '../../UploadedFiles/@UploadType.NewsImage/@Model.SecondImage';
         var thirdImage = '../../UploadedFiles/@UploadType.NewsImage/@Model.ThirdImage';
@@ -328,23 +320,14 @@
         $(function() {
             setInterval(Slider, 7000);
         });
-        if (count > 1) {
-            function Slider() {
-                $('#imageSlider')
-                    .fadeOut("slow",
-                        function() {
-                            $(this).attr('src', imgs[(imgs.length++) % count]).fadeIn("slow");
-                        });
 
-            }
-        } else {
-            function Slider() {
-                $('#imageSlider')
-                    .fadeOut("slow",
-                        function () {
-                            $(this).attr('src', imgs[(imgs.firstImage) % count]).fadeIn("slow");
-                        });
-            }
+        function Slider() {
+            $('#imageSlider')
+                .fadeOut("slow",
+                    function() {
+                        $(this).attr('src', imgs[(imgs.length++) % count]).fadeIn("slow");
+                    });
+
         }
     </script>
 }
