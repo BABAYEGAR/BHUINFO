@@ -64,7 +64,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     TempData["advert"] =
                         "This advert has been" + actionType + "successfully";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
-                    return View("Index");
+                    return View("Index", _db.Advertisements.ToList());
                 }
             }
             else
@@ -73,7 +73,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 TempData["notificationtype"] = NotificationType.Info.ToString();
                 return RedirectToAction("Index", "Advertisements");
             }
-            return View("Index");
+            return View("Index", _db.Advertisements.ToList());
         }
 
         // POST: Advertisements/Create
