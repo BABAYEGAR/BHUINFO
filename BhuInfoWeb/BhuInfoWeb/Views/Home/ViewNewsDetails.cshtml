@@ -361,10 +361,8 @@
 {
 
     <script type="text/javascript">
-        $(document)
-            .ready(function() {
-                $("#btnLoadMore")
-                    .click(function() {
+        $(document).ready(function() {
+                $("#btnLoadMore").click(function() {
                         $(this).data('clicked', true);
                     });
                 if ($('#btnLoadMore').data('clicked')) {

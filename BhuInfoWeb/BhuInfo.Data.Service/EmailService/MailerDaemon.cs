@@ -54,6 +54,48 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("FROM", Config.SupportEmailAddress);
         }
         /// <summary>
+        ///     This method sends an email containing a username and access code to a newly subscribed advert
+        /// </summary>
+        /// <param name="advertisement"></param>
+        public void SuscribeAdvert(Advertisement advertisement)
+        {
+            var message = new MailMessage
+            {
+                From = new MailAddress(Config.SupportEmailAddress),
+                Subject = "New Adevert Subscribed",
+                Priority = MailPriority.High,
+                SubjectEncoding = Encoding.UTF8,
+                Body = GetEmailBody_NewAdvertSubscribed(advertisement),
+                IsBodyHtml = true
+            };
+            //message.To.Add(Config.DevEmailAddress);
+            message.To.Add(advertisement.Email);
+            try
+            {
+                new SmtpClient().Send(message);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        /// <summary>
+        ///     Html page content for the subscribed email
+        /// </summary>
+        /// <param name="advertisement"></param>
+        /// <returns></returns>
+        private static string GetEmailBody_NewAdvertSubscribed(Advertisement advertisement)
+        {
+            return
+                new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/SubscribedAdvert.html")).ReadToEnd()
+                    .Replace("DISPLAYNAME", advertisement.AdvertCompanyName)
+                    .Replace("EMAIL", advertisement.Email)
+                    .Replace("PASSWORD", advertisement.AccessCode)
+                    .Replace("URL", "http://localhost:51301/Account/Login")
+                    .Replace("FROM", Config.SupportEmailAddress);
+        }
+        /// <summary>
         /// This method is used to send password reset link emails
         /// </summary>
         /// <param name="user"></param>

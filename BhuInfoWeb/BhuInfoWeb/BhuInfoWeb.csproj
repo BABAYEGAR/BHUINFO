@@ -265,6 +265,7 @@
     <Content Include="Content\style.css" />
     <Content Include="Content\style.min.css" />
     <Content Include="EmailTemplates\ContactUs.html" />
+    <Content Include="EmailTemplates\SubscribedAdvert.html" />
     <Content Include="EmailTemplates\ResetPassword.html" />
     <Content Include="fonts\font-awesome-4.6.3\css\font-awesome.css" />
     <Content Include="fonts\font-awesome-4.6.3\css\font-awesome.min.css" />
