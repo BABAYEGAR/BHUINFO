@@ -38,8 +38,7 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\Syste
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\System.Web.WebPages.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csprojResolveAssemblyReference.cache
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.InitialCreate.resources
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.NewsCategoryDataContext.resources
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csproj.GenerateResource.Cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.Migrations.firstmigration.resources
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csproj.GenerateResource.Cache

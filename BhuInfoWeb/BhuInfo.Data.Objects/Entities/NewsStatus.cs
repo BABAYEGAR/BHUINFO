@@ -5,7 +5,7 @@ namespace BhuInfo.Data.Objects.Entities
 {
     public class NewsStatus
     {
-        public long StatusId { get; set; }
+        public long NewsStatusId { get; set; }
         public string Status { get; set; }
         public long LoggedInUserId { get; set; }
         public long NewsId { get; set; }

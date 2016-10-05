@@ -24,7 +24,7 @@ namespace BhuInfo.Data.Context.DataContext
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
              Database.SetInitializer<AdvertisementDataContext>(null);
-           // modelBuilder.Configurations.Add(new AdvertisementtMapping());
+                modelBuilder.Configurations.Add(new AdvertisementtMapping());
         }
     }
 }

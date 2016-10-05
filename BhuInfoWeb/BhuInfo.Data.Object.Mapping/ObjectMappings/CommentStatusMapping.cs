@@ -8,7 +8,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
         public CommentStatusMapping()
         {
             //this property is a primary key
-            HasKey(n => n.StatusId);
+            HasKey(n => n.CommentStatusId);
 
             //this are the remaining properties
             Property(n => n.LoggedInUserId)
@@ -19,7 +19,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
                 .IsRequired();
             //mapping the object entities to their respective columns
             ToTable("CommentStatus");
-            Property(n => n.StatusId).HasColumnName("StatusId");
+            Property(n => n.CommentStatusId).HasColumnName("CommentStatusId");
             Property(n => n.LoggedInUserId).HasColumnName("LoggedInUserId");
             Property(n => n.Status).HasColumnName("Status");
             Property(n => n.CommentId).HasColumnName("CommentId");

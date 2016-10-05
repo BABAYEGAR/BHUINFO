@@ -23,7 +23,7 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<ContactUs> Contact { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<ContactUsDataContext>(null);
+            //Database.SetInitializer<ContactUsDataContext>(null);
             modelBuilder.Configurations.Add(new ContactUsMapping());
         }
     }

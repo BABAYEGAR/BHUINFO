@@ -8,6 +8,7 @@ using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.EmailService;
 using BhuInfo.Data.Service.Enums;
 using BhuInfo.Data.Service.FileUploader;
 
@@ -103,6 +104,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         advertisement.LastModifiedById = loggedinuser.AppUserId;
                         _db.Advertisements.Add(advertisement);
                         _db.SaveChanges();
+                        new MailerDaemon().SuscribeAdvert(advertisement);
                         TempData["advert"] =
                             "This advert has been created successfully";
                         TempData["notificationtype"] = NotificationType.Success.ToString();

@@ -63,13 +63,9 @@
     <Compile Include="DataContext\NewsDataContext.cs" />
     <Compile Include="DataContext\NewsCategoryDataContext.cs" />
     <Compile Include="DataManager\DataManager.cs" />
-    <Compile Include="Migrations\201608260105109_InitialCreate.cs" />
-    <Compile Include="Migrations\201608260105109_InitialCreate.Designer.cs">
-      <DependentUpon>201608260105109_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609022203332_NewsCategoryDataContext.cs" />
-    <Compile Include="Migrations\201609022203332_NewsCategoryDataContext.Designer.cs">
-      <DependentUpon>201609022203332_NewsCategoryDataContext.cs</DependentUpon>
+    <Compile Include="Migrations\201610050951513_firstmigration.cs" />
+    <Compile Include="Migrations\201610050951513_firstmigration.Designer.cs">
+      <DependentUpon>201610050951513_firstmigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,11 +85,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608260105109_InitialCreate.resx">
-      <DependentUpon>201608260105109_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609022203332_NewsCategoryDataContext.resx">
-      <DependentUpon>201609022203332_NewsCategoryDataContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610050951513_firstmigration.resx">
+      <DependentUpon>201610050951513_firstmigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

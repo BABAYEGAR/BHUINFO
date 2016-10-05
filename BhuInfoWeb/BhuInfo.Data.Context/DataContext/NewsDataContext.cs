@@ -24,8 +24,8 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<NewsCategory> NewsCategories { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<NewsDataContext>(null);
-            modelBuilder.Configurations.Add(new NewsMapping());
+           // Database.SetInitializer<NewsDataContext>(null);
+           modelBuilder.Configurations.Add(new NewsMapping());
         }
     }
 }

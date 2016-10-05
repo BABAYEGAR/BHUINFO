@@ -23,7 +23,7 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<CommentStatus> CommentStatuses { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<CommentStatusDataContext>(null);
+            //Database.SetInitializer<CommentStatusDataContext>(null);
             modelBuilder.Configurations.Add(new CommentStatusMapping());
         }
     }

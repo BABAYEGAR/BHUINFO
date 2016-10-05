@@ -24,7 +24,7 @@ namespace BhuInfo.Data.Context.DataContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<EventDataContext>(null);
+            //Database.SetInitializer<EventDataContext>(null);
             modelBuilder.Configurations.Add(new EventMapping());
         }
     }

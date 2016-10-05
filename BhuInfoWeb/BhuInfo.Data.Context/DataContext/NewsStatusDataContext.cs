@@ -23,7 +23,7 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<NewsStatus> NewsStatuses { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<NewsStatusDataContext>(null);
+            //Database.SetInitializer<NewsStatusDataContext>(null);
             modelBuilder.Configurations.Add(new NewsStatusMapping());
         }
     }

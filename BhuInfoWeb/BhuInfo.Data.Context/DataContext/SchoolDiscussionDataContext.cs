@@ -23,7 +23,7 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<SchoolDiscussion> SchoolDiscussions { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<SchoolDiscussionDataContext>(null);
+           // Database.SetInitializer<SchoolDiscussionDataContext>(null);
             modelBuilder.Configurations.Add(new SchoolDiscussionMapping());
         }
     }

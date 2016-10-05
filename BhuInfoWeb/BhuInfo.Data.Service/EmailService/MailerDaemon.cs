@@ -92,7 +92,8 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("DISPLAYNAME", advertisement.AdvertCompanyName)
                     .Replace("EMAIL", advertisement.Email)
                     .Replace("PASSWORD", advertisement.AccessCode)
-                    .Replace("URL", "http://localhost:51301/Account/Login")
+                    .Replace("URL", "http://localhost:51301")
+                    .Replace("CODE", advertisement.AccessCode)
                     .Replace("FROM", Config.SupportEmailAddress);
         }
         /// <summary>

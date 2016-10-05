@@ -12,6 +12,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
+@section css{
+    <link href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet"/>
+}
 <!-- header-section-starts -->
 <div class="header">
     <div class="container">
@@ -193,7 +196,7 @@
                         </p>
                     }
 
-                    <table class="table table-condensed table-hover appuser">
+                    <table class="table table-condensed table-hover" id="appusers">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.Firstname)
@@ -252,15 +255,13 @@
     </div>
 </div>
 @section scripts {
-    <script src="~/JqueryPlugins/ui/drilldown.js"></script>
-    <script src="~/JqueryPlugins/ui/nicescroll.min.js"></script>
-    <script src="~/JqueryPlugins/ui/moment/moment.min.js"></script>
-    <script src="~/JqueryPlugins/datatables/datatables.min.js"></script>
-
+    
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script>
         $(document)
             .ready(function() {
-                $('.appuser').dataTable();
+                $('#appusers').DataTable();
             });
+
     </script>
 }

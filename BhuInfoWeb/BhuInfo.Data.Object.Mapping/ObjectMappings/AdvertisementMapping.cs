@@ -21,7 +21,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
              .IsRequired();
             //mapping the object entities to their respective columns
             ToTable("Advertisements");
-            Property(n => n.AdvertisementId).HasColumnName("AdvertId");
+            Property(n => n.AdvertisementId).HasColumnName("AdvertisementId");
             Property(n => n.AdvertImage).HasColumnName("AdvertImage");
             Property(n => n.AdvertCompanyName).HasColumnName("AdvertCompanyName");
             Property(n => n.AdvertText).HasColumnName("AdvertText");

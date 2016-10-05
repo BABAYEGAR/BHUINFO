@@ -359,52 +359,57 @@
 </div>
 @section Scripts
 {
-
     <script type="text/javascript">
-        $(document).ready(function() {
-                $("#btnLoadMore").click(function() {
-                        $(this).data('clicked', true);
-                    });
-                if ($('#btnLoadMore').data('clicked')) {
-                    $('#btnLoadMore').hide();
-                    $('#commentDiv').hide();
-                            $(function() {
-                                setInterval(function() {
-                                        $('#likeOrDislikeDiv')
-                                            .hide()
-                                            .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
-                                            .fadeIn(0.5);
-                                        $('#likedislikeinfo')
-                                            .hide()
-                                            .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
-                                            .fadeIn(0.5);
-                                        $('#commentMoreDiv')
-                                            .hide()
-                                            .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
-                                            .fadeIn(1);
-                                    },
-                                    2000);
-                            });
-                } else {
-                    $(function() {
-                        setInterval(function() {
-                                $('#likeOrDislikeDiv')
-                                    .hide()
-                                    .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
-                                    .fadeIn(0.5);
-                                $('#likedislikeinfo')
-                                    .hide()
-                                    .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
-                                    .fadeIn(0.5);
-                                $('#commentDiv')
-                                    .hide()
-                                    .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
-                                    .fadeIn(0.5);
-                            },
-                            2000);
-                    });
-                    $('#commentMoreDiv').hide();
-                }
+        $(document)
+            .ready(function() {
+                var that = $('#btnLoadMore');
+                that.click(function() {
+                    that.data('clicked', true);
+
+
+                    if (that.data('clicked')) {
+
+                        console.log(that.data('clicked'));
+                        $('#btnLoadMore').hide();
+                        $('#commentDiv').hide();
+                        $(function() {
+                            setInterval(function() {
+                                    $('#likeOrDislikeDiv')
+                                        .hide()
+                                        .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
+                                        .fadeIn(0.5);
+                                    $('#likedislikeinfo')
+                                        .hide()
+                                        .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
+                                        .fadeIn(0.5);
+                                    $('#commentMoreDiv')
+                                        .hide()
+                                        .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
+                                        .fadeIn(1);
+                                },
+                                2000);
+                        });
+                    }else if(that.data('clicked') !== true) {
+                        $(function() {
+                            setInterval(function() {
+                                    $('#likeOrDislikeDiv')
+                                        .hide()
+                                        .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
+                                        .fadeIn(0.5);
+                                    $('#likedislikeinfo')
+                                        .hide()
+                                        .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
+                                        .fadeIn(0.5);
+                                    $('#commentDiv')
+                                        .hide()
+                                        .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
+                                        .fadeIn(0.5);
+                                },
+                                2000);
+                        });
+                        $('#commentMoreDiv').hide();
+                    }
+                });
 
             });
 
