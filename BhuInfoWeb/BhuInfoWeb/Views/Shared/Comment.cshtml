@@ -40,7 +40,7 @@
         statusCheckForLike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Like.ToString()));
         statusCheckForDislike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Dislike.ToString()));
     }
-    <div class="comments-main">
+    <div class="comments-main lazy">
         <div class="col-md-12">
             <h5 class="detailsDiv">@item.CommentBy</h5>
             <p>@item.Comment</p>
@@ -107,7 +107,6 @@
 
                         </label>
                     }
-                    <br/>
                 }
                 <label id="likeOrDislikeDiv">
                     @{

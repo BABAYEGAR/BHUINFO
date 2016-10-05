@@ -932,7 +932,8 @@ p.span a {
 }
 
 .comments-main {
-    border: 1px solid #D5D4D4;
+    border: solid #88887b;
+    border-width: 0.05px;
     margin: 5px 0px 10px 0;
     padding: 10px 0px;
 }
