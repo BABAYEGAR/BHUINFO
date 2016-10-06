@@ -21,6 +21,8 @@
     var fashionList = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Fashion, 1);
     var fashionNews = fashionList.ToList();
 
+    var fullFrameAdvert = new AdvertsiementFactory().GetAdvertByType(AdvertType.FullFrameAdvert.ToString());
+
     var recentNews = Model.Take(6);
 }
 @{
@@ -218,10 +220,30 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<div class="features">
-    <h5>BHU</h5>
-    <h2>Welcome To Bingham University...</h2>
-</div>
+@if (fullFrameAdvert != null)
+{
+    if (fullFrameAdvert.AdvertImage != null)
+    {
+        <div class="features img-responsive" style="background: url('../../UploadedFiles/Advert/@fullFrameAdvert.AdvertImage') no-repeat 0px 0px;">
+            <h5>@fullFrameAdvert.AdvertCompanyName</h5>
+            <h2>@fullFrameAdvert.Title</h2>
+        </div>
+    }
+    else
+    {
+        <div class="features img-responsive" style="background: url('../../UploadedFiles/NewsImage/131176526274722376.jpg') no-repeat 0px 0px;">
+            <h5>@fullFrameAdvert.AdvertCompanyName</h5>
+            <h2>@fullFrameAdvert.Title</h2>
+        </div>
+    }
+}
+else
+{
+    <div class="features" style="background: url('../../UploadedFiles/NewsImage/131176526274722376.jpg') no-repeat 0px 0px;">
+        <h5>BHU</h5>
+        <h2>Welcome To Bingham University...</h2>
+    </div>
+}
 @try
 {
     <div class="col-md-7 content-left">

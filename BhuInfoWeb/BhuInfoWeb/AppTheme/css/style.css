@@ -364,7 +364,6 @@ a.title {
     -moz-background-size: cover;
     -o-background-size: cover;
     -webkit-background-size: cover;
-    background: url('../images/features-bg.jpg') no-repeat 0px 0px;
     background-size: cover;
     min-height: 595px;
     padding: 4em 0 0 4em;

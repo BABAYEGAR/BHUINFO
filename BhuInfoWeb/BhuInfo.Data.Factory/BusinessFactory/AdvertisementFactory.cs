@@ -2,6 +2,7 @@
 using System.Linq;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfo.Data.Factory.BusinessFactory
 {
@@ -58,6 +59,16 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         public Advertisement GetAdvertById(int id)
         {
             var advert = _db.Advertisements.Find(id);
+            return advert;
+        }
+        /// <summary>
+        ///     This method retrives an advert by its type
+        /// </summary>
+        /// <param name="advertType"></param>
+        /// <returns></returns>
+        public Advertisement GetAdvertByType(string advertType)
+        {
+            var advert = _db.Advertisements.FirstOrDefault(n => n.AdvertType == advertType);
             return advert;
         }
     }
