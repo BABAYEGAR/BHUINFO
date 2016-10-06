@@ -171,15 +171,15 @@
                     {
                         if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
                         {
-                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["advert"]</p>
+                            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["advert"]</div>
                         }
                         else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
                         {
-                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["advert"]</p>
+                            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["advert"]</div>
                         }
                         else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
                         {
-                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["advert"]</p>
+                            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["advert"]</div>
                         }
                     }
                     @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
@@ -188,72 +188,73 @@
                             @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
                         </p>
                     }
-
-                    <table class="table table-condensed table-hover advert">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.AdvertCompanyName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Title)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.AdvertType)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.AccessCode)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Status)
-                            </th>
-                            <th>Action</th>
-                            @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                            {
-                                <th>Enable/Disable</th>
-                            }
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover advert">
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AdvertCompanyName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Title)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AdvertType)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.AccessCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Status)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.AdvertisementId }, new { @class = "btn btn-primary" }) |
-                                    @Html.ActionLink("Details", "Details", new { id = item.AdvertisementId }, new { @class = "btn btn-default" })
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AdvertCompanyName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AdvertType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AccessCode)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>Action</th>
                                 @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                                {
-                                    <td>
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.AdvertisementId }, new { @class = "btn btn-danger" })
-                                        @Html.ActionLink("Enable", "EnableOrDisableAdvert", new {id = item.AdvertisementId,actionType = AdvertStatus.Enable.ToString()}, new {@class = "btn btn-success"}) |
-                                        @Html.ActionLink("Disable", "EnableOrDisableAdvert", new {id = item.AdvertisementId, actionType = AdvertStatus.Disable.ToString()}, new {@class = "btn btn-danger"})|
-
-                                    </td>
-                                }
+                            {
+                            <th>Enable/Disable</th>
+                            }
                             </tr>
+
+                            @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AdvertCompanyName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AdvertType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AccessCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.AdvertisementId }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.AdvertisementId }, new { @class = "btn btn-default" })
+                            </td>
+                            @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                                {
+                                <td>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.AdvertisementId }, new { @class = "btn btn-danger" })
+                                    @Html.ActionLink("Enable", "EnableOrDisableAdvert", new {id = item.AdvertisementId,actionType = AdvertStatus.Enable.ToString()}, new {@class = "btn btn-success"}) |
+                                    @Html.ActionLink("Disable", "EnableOrDisableAdvert", new {id = item.AdvertisementId, actionType = AdvertStatus.Disable.ToString()}, new {@class = "btn btn-danger"})|
+
+                                </td>
+                                }
+                        </tr>
                         }
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -183,59 +183,61 @@
                     <p>
                         @Html.ActionLink("Create New", "Create", new {}, new {@class = "btn btn-success"})
                     </p>
-                    <table class="table table-condensed table-hover">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Title)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Content)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NewsCategory.Name)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DateCreated)
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Title)
-                                </td>
-                                @if (item.Content.Length > 10)
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Title)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Content)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NewsCategory.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateCreated)
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            @if (item.Content.Length > 10)
                                 {
-                                    <td>
-                                        @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7) + "..."))
-                                    </td>
+                                <td>
+                                    @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7) + "..."))
+                                </td>
                                 }
                                 else
                                 {
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Content)
-                                    </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </td>
                                 }
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NewsCategory.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateCreated)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new {id = item.NewsId}, new {@class = "btn btn-primary"}) |
-                                    @Html.ActionLink("Details", "Details", new {id = item.NewsId}, new {@class = "btn btn-default"}) |
-                                    @Html.ActionLink("Delete", "Delete", new {id = item.NewsId}, new {@class = "btn btn-danger"})
-                                </td>
-                            </tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NewsCategory.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateCreated)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new {id = item.NewsId}, new {@class = "btn btn-primary"}) |
+                                @Html.ActionLink("Details", "Details", new {id = item.NewsId}, new {@class = "btn btn-default"}) |
+                                @Html.ActionLink("Delete", "Delete", new {id = item.NewsId}, new {@class = "btn btn-danger"})
+                            </td>
+                        </tr>
                         }
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

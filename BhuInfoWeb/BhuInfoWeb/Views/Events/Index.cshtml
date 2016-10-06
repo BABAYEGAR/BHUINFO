@@ -165,71 +165,73 @@
                     <p>
                         @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
                     </p>
-                    <table class="table table-condensed table-hover event">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.EventName)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Venue)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.StartDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.EndDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.StartTime)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.EndTime)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Organizer)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DateCreated)
-                            </th>
-                            <th>Action</th>
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover event">
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EventName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Venue)
-                                </td>
-                                <td>
-                                    @item.StartDate.ToShortDateString()
-                                </td>
-                                <td>
-                                    @item.EndDate.ToShortDateString()
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StartTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.EndTime)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Organizer)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DateCreated)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new {id = item.EventId}, new {@class = "btn btn-primary"}) |
-                                    @Html.ActionLink("Details", "Details", new {id = item.EventId}, new {@class = "btn btn-default"}) |
-                                    @Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "btn btn-danger"})
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EventName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Venue)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StartTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Organizer)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateCreated)
+                                </th>
+                                <th>Action</th>
                             </tr>
-                        }
 
-                    </table>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EventName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Venue)
+                                    </td>
+                                    <td>
+                                        @item.StartDate.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @item.EndDate.ToShortDateString()
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Organizer)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateCreated)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new {id = item.EventId}, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = item.EventId}, new {@class = "btn btn-default"}) |
+                                        @Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "btn btn-danger"})
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

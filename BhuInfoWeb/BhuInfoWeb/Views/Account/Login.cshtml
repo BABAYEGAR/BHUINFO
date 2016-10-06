@@ -57,21 +57,36 @@
                                     @Html.AntiForgeryToken()
                                     if (TempData["login"] != null)
                                     {
-                                        <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["login"]</p>
+                                        <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["login"]</div>
                                     }
                                     if (TempData["password"] != null)
                                     {
                                         if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
                                         {
-                                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["password"]</p>
+                                            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["password"]</div>
                                         }
                                         else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
                                         {
-                                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["password"]</p>
+                                            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["password"]</div>
                                         }
                                         else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
                                         {
-                                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["password"]</p>
+                                            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["password"]</div>
+                                        }
+                                    }
+                                    if (TempData["student"] != null)
+                                    {
+                                        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+                                        {
+                                            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["student"]</div>
+                                        }
+                                        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+                                        {
+                                            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["student"]</div>
+                                        }
+                                        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+                                        {
+                                            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["student"]</div>
                                         }
                                     }
                                     <h4 style="font-weight: bolder">Bhu-Info Account Sign-In.</h4>

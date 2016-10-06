@@ -105,13 +105,13 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         appUser.MatricNumber.Trim());
                     if (userExist)
                     {
-                        TempData["user"] = "This user email already exist,try a different email!";
+                        TempData["student"] = "This user email already exist,try a different email!";
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
                         return View(appUser);
                     }
                     db.AppUsers.Add(appUser);
                     db.SaveChanges();
-                    TempData["user"] = "A new user has been created!";
+                    TempData["student"] = "You have been created on bhuinfo!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     appUser.Password = password;
                     new MailerDaemon().NewUser(appUser);

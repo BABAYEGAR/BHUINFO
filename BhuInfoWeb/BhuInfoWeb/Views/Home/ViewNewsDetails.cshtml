@@ -50,10 +50,10 @@
 <div class="content">
 <div class="single-page">
 <div class="print-main">
-    <h3>@Html.DisplayFor(model => model.NewsCategory.Name)</h3>
+    <h3 tyle="font-weight: bolder">@Html.DisplayFor(model => model.NewsCategory.Name)</h3>
     <a href="#" style="font-weight: bolder">@Html.DisplayFor(model => model.Title)</a>
     <p class="sub_head">
-        Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
+        Posted by <a class="detailsDiv">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
     </p>
     <div id="share"></div>
     @if ((Model.Image != null) && (Model.SecondImage != null) && (Model.ThirdImage != null))
@@ -371,8 +371,8 @@
     <script type="text/javascript">
         $("#share").jsSocials({
             showLabel: false,
-            showCount: false,
-            shares: ["email", "twitter", "facebook", "googleplus", "linkedin","whatsapp"]
+            showCount: true,
+            shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
         });
     </script>
 

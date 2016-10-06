@@ -37,10 +37,9 @@ namespace BhuInfoWeb.Controllers
                 {
                     if (model != null)
                     {
-                        var newsId = model.NewsId;
                         Session["newsmodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId});
+                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(model.NewsId.ToString(), true) });
                     }
                     if (activityModel != null)
                     {

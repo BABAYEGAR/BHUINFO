@@ -172,21 +172,21 @@
                 <div class="col-md-12">
                     @if (TempData["login"] != null)
                     {
-                        <p class="alert-success alert-dismissable" style="height: 30px">@TempData["login"]</p>
+                        <p class="alert-success fade in" style="height: 30px">@TempData["login"]</p>
                     }
                     @if (TempData["user"] != null)
                     {
                         if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
                         {
-                            <p class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</div>
                         }
                         else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
                         {
-                            <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</div>
                         }
                         else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
                         {
-                            <p class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</p>
+                            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</div>
                         }
                     }
                     @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
@@ -195,60 +195,62 @@
                             @Html.ActionLink("Create New", "Create", null, new {@class = "btn btn-success"})
                         </p>
                     }
-
-                    <table class="table table-condensed table-hover" id="appusers">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Firstname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Lastname)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Email)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Mobile)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Role).ToString()
-                            </th>
-                            @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                            {
-                                <th>Action</th>
-                            }
-                        </tr>
-
-                        @foreach (var item in Model)
-                        {
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover" id="appusers">
                             <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Firstname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Lastname)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Mobile)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Role)
-                                </td>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Firstname)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Lastname)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Mobile)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Role).ToString()
+                                </th>
                                 @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
                                 {
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new {id = item.AppUserId}, new {@class = "btn btn-primary"}) |
-                                        @Html.ActionLink("Details", "Details", new {id = item.AppUserId}, new {@class = "btn btn-default"}) |
-                                        @Html.ActionLink("Delete", "Delete", new {id = item.AppUserId}, new {@class = "btn btn-danger"})
-                                    </td>
+                                    <th>Action</th>
                                 }
                             </tr>
-                        }
 
-                    </table>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Firstname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Mobile)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Role)
+                                    </td>
+                                    @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.AppUserId }, new { @class = "btn btn-primary" }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.AppUserId }, new { @class = "btn btn-default" }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.AppUserId }, new { @class = "btn btn-danger" })
+                                        </td>
+                                    }
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -18,6 +18,12 @@ namespace BhuInfo.Data.Service.Encryption
             return string.Join("",
                 MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(originalPassword)).Select(s => s.ToString("x2")));
         }
+        /// <summary>
+        /// This method converts a querystring value to MD5 Hash
+        /// </summary>
+        /// <param name="toEncrypt"></param>
+        /// <param name="useHashing"></param>
+        /// <returns></returns>
         public string EncryptPrimaryKey(string toEncrypt, bool useHashing)
         {
             byte[] keyArray;
@@ -63,6 +69,12 @@ namespace BhuInfo.Data.Service.Encryption
             //Return the encrypted data into unreadable string format
             return Convert.ToBase64String(resultArray, 0, resultArray.Length);
         }
+        /// <summary>
+        /// This method converts a query string in MD5 Hash back to its string representation
+        /// </summary>
+        /// <param name="cipherString"></param>
+        /// <param name="useHashing"></param>
+        /// <returns></returns>
         public string DecryptPrimaryKey(string cipherString, bool useHashing)
         {
             byte[] keyArray;
