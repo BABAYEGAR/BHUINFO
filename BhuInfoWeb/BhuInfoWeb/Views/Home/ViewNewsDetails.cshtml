@@ -41,7 +41,10 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section css{
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.css" />
+<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials-theme-flat.css" />
+}
 <div class="container">
 <div class="content">
 <div class="single-page">
@@ -51,6 +54,7 @@
     <p class="sub_head">
         Posted by <a href="#">@postedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(Model.DateCreated))
     </p>
+    <div id="share"></div>
     @if ((Model.Image != null) && (Model.SecondImage != null) && (Model.ThirdImage != null))
     {
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -362,11 +366,19 @@
     <!-- cdnjs -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.min.js"></script>
+    <script type="text/javascript">
+        $("#share").jsSocials({
+            showLabel: false,
+            showCount: false,
+            shares: ["email", "twitter", "facebook", "googleplus", "linkedin","whatsapp"]
+        });
+    </script>
 
-<script type="text/javascript">
-    $(document)
-        .ready(function() {
-            @*var that = $('#btnLoadMore');
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                @*var that = $('#btnLoadMore');
                 that.click(function() {
                     that.data('clicked', true);
 
@@ -419,6 +431,8 @@
 
                 $('.lazy').lazy();
             });
-            </script>
+
+    </script>
+
 }
 </div>

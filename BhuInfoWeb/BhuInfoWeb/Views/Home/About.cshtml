@@ -1,6 +1,7 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
 @{
@@ -8,8 +9,6 @@
     var newsList = new NewsDataFactory().GetAllNews().Where(n => n.NewsCategory.Name == NewsCategoryEnum.General.ToString());
     var sortedNews = newsList.Take(1);
     var recentNews = sortedNews.ToList();
-
-    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
     var newsLists = new NewsDataFactory().GetTopNthPopularNews(4);
     var popularNews = newsLists.ToList();
@@ -23,7 +22,7 @@
         <div class="about-content">
             <!-- about -->
             <h3>About Us</h3>
-            <img src="~/AppTheme/images/abt_pic.jpg" alt=" "/>
+            <img src="~/AppTheme/images/abt_pic.jpg" alt=""/>
             <p>
                 Having hands on experience in creating innovative designs, I do offer design
                 solutions which harness the new possibilities of web based communication,
@@ -56,8 +55,8 @@
                 @foreach (var item in recentNews)
                 {
                     <h6>@item.NewsCategory.Name </h6>
-                    <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                    <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title</a>
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                         <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                     </a>
                     if (item.Content.Length > 50)
@@ -77,7 +76,7 @@
             {
                 foreach (var item in popularNews)
                 {
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                         <div class="editor text-center">
                             <h3>@item.Title</h3>
                             @if (item.Content.Length > 50)
@@ -122,7 +121,7 @@
                     </a>
                 }
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException)
             {
             }
         </div>

@@ -8,16 +8,15 @@ namespace BhuInfo.Data.Service.Encryption
 {
     public class QueryStingEncoder
     {
-        public string Encode(string encodeMe)
+        public double Encode(string encodeMe)
         {
-            byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
-            return Convert.ToBase64String(encoded);
+            return Convert.ToDouble(Convert.ToBase64String(Encoding.UTF8.GetBytes(encodeMe)));
         }
 
-        public static string Decode(string decodeMe)
+        public int Decode(string decodeMe)
         {
             byte[] encoded = Convert.FromBase64String(decodeMe);
-            return System.Text.Encoding.UTF8.GetString(encoded);
+            return (int) double.Parse(Encoding.UTF8.GetString(encoded));
         }
     }
 }

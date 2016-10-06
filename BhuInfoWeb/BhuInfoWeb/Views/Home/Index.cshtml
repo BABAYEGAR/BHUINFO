@@ -1,5 +1,6 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
@@ -41,8 +42,8 @@
                     @foreach (var item in generalNews)
                     {
                         <h6>@item.NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title </a>
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title </a>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                             <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                         </a>
                         <div>
@@ -70,8 +71,8 @@
                     @foreach (var item in fashionNews)
                     {
                         <h6>@item.NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title </a>
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title </a>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                             <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                         </a>
                         <div>
@@ -104,7 +105,7 @@
             <h5 class="head">Anouncements</h5>
             foreach (var item in annoucements)
             {
-                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                     <div class="editor text-center">
                         @if (Model != null)
                         {
@@ -168,12 +169,12 @@
                 {
                     <div class="editors-pic">
                         <div class="e-pic">
-                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                                 <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                             </a>
                         </div>
                         <div class="e-pic-info">
-                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title</a>
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title</a>
                             <span></span>
                             <label style="font-weight: bold">
                                 @(new DateTimeCalculator().TimeAgo(item.DateCreated))
@@ -229,8 +230,8 @@
             @foreach (var item in sportNews)
             {
                 <h6>@item.NewsCategory.Name </h6>
-                <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">@item.Title </a>
-                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+                <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title </a>
+                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                     <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                 </a>
                 if (item.Content.Length > 50)
@@ -254,7 +255,7 @@ catch (ArgumentOutOfRangeException)
         <h5 class="head">Popular</h5>
         foreach (var item in news)
         {
-            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = item.NewsId})">
+            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
                 <div class="editor text-center">
                     <h3>@item.Title</h3>
                     @if (item.Content.Length > 40)

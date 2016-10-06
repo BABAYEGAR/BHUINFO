@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.EmailService;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers
@@ -55,18 +57,19 @@ namespace BhuInfoWeb.Controllers
             return RedirectToAction("Contact", "Home");
         }
 
-        public ActionResult ViewNewsDetails(long Id)
+        public ActionResult ViewNewsDetails(string Id)
         {
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id,true));
             if (ModelState.IsValid)
             {
-                var news = new NewsDataFactory().GetNewsById(Id);
-                var newsUpdate = _db.News.Find(Id);
+                var news = new NewsDataFactory().GetNewsById(Convert.ToInt64(newsId));
+                var newsUpdate = _db.News.Find(newsId);
                 newsUpdate.NewsView = newsUpdate.NewsView + 1;
                 _db.Entry(newsUpdate).State = EntityState.Modified;
                 _db.SaveChanges();
                 return View("ViewNewsDetails", news);
             }
-            var newsToRedirect = _db.News.Find(Id);
+            var newsToRedirect = _db.News.Find(newsId);
             return View(newsToRedirect);
         }
 
