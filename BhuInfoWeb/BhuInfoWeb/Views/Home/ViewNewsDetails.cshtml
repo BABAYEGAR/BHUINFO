@@ -156,7 +156,7 @@
     <label id="likeOrDislikeDiv">
         @{
             @Html.Partial("_LikeOrDislikePartial", Model)
-            ;
+            
         }
     </label><br/>
     @if (loggedinuser != null)
@@ -236,13 +236,17 @@
             Session["newsmodel"] = Model;
             <label>Please <a href="@Url.Action("Login", "Account", new {Id = Model.NewsId})" style="color: blue"> Sign In</a> to comment on this article</label>
         }
-        <div class="comments1 lazy" id="commentDiv">
-            @{
-                Html.RenderPartial("Comment", Model);
-            }
+        <div id="lazy-container" >
 
+            <div class="comments1 lazy" id="commentDiv">
+                @{
+                    Html.RenderPartial("Comment", Model);
+                }
+
+            </div>
         </div>
-        @*@if (enumerable.Count > 7)
+
+            @*@if (enumerable.Count > 7)
         {
             var number = enumerable.Count - 7;
             <a style="font-weight: bold" id="btnLoadMore">Load @number more comments</a>
@@ -254,7 +258,7 @@
 
 
         </div>*@
-    </div>
+        </div>
 </div>
 <div class="col-md-5 content-right content-right-top">
     <h5 class="head">Recent News</h5>
@@ -364,21 +368,39 @@
 </div>
 @section Scripts
 {
-    <!-- cdnjs -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
+    <!-- jsDeliver -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.min.js"></script>
     <script type="text/javascript">
-        $("#share").jsSocials({
-            showLabel: false,
-            showCount: true,
-            shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
-        });
+        $("#share")
+            .jsSocials({
+                showLabel: false,
+                showCount: true,
+                shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
+            });
     </script>
 
     <script type="text/javascript">
         $(document)
             .ready(function() {
+                $(function() {
+                    setInterval(function() {
+                            $('#likeOrDislikeDiv')
+                                .hide()
+                                .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
+                                .fadeIn(0.5);
+                            $('#likedislikeinfo')
+                                .hide()
+                                .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
+                                .fadeIn(0.5);
+                            $('#commentDiv')
+                                .hide()
+                                .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
+                                .fadeIn(1);
+                        },
+                        2000);
+                });
                 @*var that = $('#btnLoadMore');
                 that.click(function() {
                     that.data('clicked', true);
@@ -430,7 +452,11 @@
 
             });*@
 
-                $('.lazy').lazy();
+                $(function () {
+                    $('#lazy-container .lazy').lazy({
+                        appendScroll: $('#lazy-container')
+                    });
+                });
             });
 
     </script>
