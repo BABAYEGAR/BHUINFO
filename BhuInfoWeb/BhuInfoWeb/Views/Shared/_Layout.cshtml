@@ -40,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </ul>
         </div>
         <div class="navigation">
-            <ul>
+            <ul class="nav navbar-nav">
                 @if (ViewBag.Title == "About")
                 {
                     <li>
@@ -86,47 +86,56 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 <p class="text-center">
                                                     <span class="glyphicon glyphicon-user icon-size"></span>
                                                 </p>
-
-                                                <div class="col-lg-8">
-                                                    <p class="text-left">
-                                                        <strong>@loggedinuser.DisplayName</strong>
-                                                    </p>
-                                                    <p class="text-left small">@loggedinuser.Email</p>
-
-                                                    @if (loggedinuser.Role == UserType.Administrator.ToString())
-                                                    {
-                                                        <p class="text-left">
-                                                            <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary">Dashboard</a>
-                                                        </p>
-                                                    }
-                                                    else if (loggedinuser.Role == UserType.Manager.ToString())
-                                                    {
-                                                        <p class="text-left">
-                                                            <a href="@Url.Action("Index", "News")" class="btn btn-primary">Dashboard</a>
-                                                        </p>
-                                                    }
-                                                    else if(loggedinuser.Role == UserType.Student.ToString())
-                                                    {
-                                                        
-                                                    }
-
-                                                    <p class="text-left">
-                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
-                                                    </p>
-                                                </div>
-
                                             </div>
+                                                  <div class="col-md-12 col-lg-12">
+                                                      
+                                                     
+                                                          <p class="text-left">
+                                                              <strong>@loggedinuser.DisplayName</strong>
+                                                          </p>
+                                                          <p class="text-left small">@loggedinuser.Email</p>
+                                                      <div class="row">
+                                                          <div class="col-md-12">
+                                                              @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                              {
+                                                                  <p>
+                                                                      <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary btn-block  "><span class="fa fa-home"></span> Dashboard</a>
+                                                                  </p>
+                                                                  <div class="clearfix"></div>
+                                                              }
+                                                              else if (loggedinuser.Role == UserType.Manager.ToString())
+                                                              {
+                                                                  <p>
+                                                                      <a href="@Url.Action("Index", "News")" class="btn btn-primary btn-block "><span class="fa fa-home"></span> Dashboard</a>
+                                                                  </p>
+                                                                  <div class="clearfix"></div>
+                                                              }
+                                                              else if (loggedinuser.Role == UserType.Student.ToString())
+                                                              {
+
+                                                              }
+                                                          </div>
+                                                      </div>
+                                                      <div class="row">
+                                                          <div class="col-md-12">
+                                                              <p >
+                                                                  <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success btn-block "><span class="fa fa-cog"></span> Change Password</a>
+                                                              </p>
+                                                              <div class="clearfix"></div>
+                                                          </div>
+                                                      </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </li>
 
-                                <li class="divider navbar-login-session-bg"></li>
+
                                 <li class="navbar-login-session-bg">
                                     <div class="navbar-login navbar-login-session">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <p>
-                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
+                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block"><span class="fa fa-user"></span> Logout</a>
                                                 </p>
                                             </div>
                                         </div>

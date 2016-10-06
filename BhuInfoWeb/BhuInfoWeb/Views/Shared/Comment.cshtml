@@ -12,6 +12,7 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     CommentStatus statusCheckForLike = null;
     CommentStatus statusCheckForDislike = null;
+    var dbc = new NewsComentDataContext();
 }
 @if (TempData["news"] != null)
 {
@@ -111,8 +112,6 @@
                 }
                 <label id="likeOrDislikeDiv">
                     @{
-                        // var comment = new NewsCommentFactory().GetSingleNewsComments((int) item.NewsCommentId);
-                        var dbc = new NewsComentDataContext();
                         var comment = dbc.NewsComments.Find(item.NewsCommentId);
                         Html.RenderPartial("_LikeOrDislikeCommentPartial", comment);
                     }

@@ -43,8 +43,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section css{
-<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.css" />
-<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials-theme-flat.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.css"/>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials-theme-flat.css"/>
 }
 <div class="container">
 <div class="content">
@@ -156,7 +156,6 @@
     <label id="likeOrDislikeDiv">
         @{
             @Html.Partial("_LikeOrDislikePartial", Model)
-            
         }
     </label><br/>
     @if (loggedinuser != null)
@@ -236,7 +235,7 @@
             Session["newsmodel"] = Model;
             <label>Please <a href="@Url.Action("Login", "Account", new {Id = Model.NewsId})" style="color: blue"> Sign In</a> to comment on this article</label>
         }
-        <div id="lazy-container" >
+        <div id="lazy-container">
 
             <div class="comments1 lazy" id="commentDiv">
                 @{
@@ -246,7 +245,7 @@
             </div>
         </div>
 
-            @*@if (enumerable.Count > 7)
+        @*@if (enumerable.Count > 7)
         {
             var number = enumerable.Count - 7;
             <a style="font-weight: bold" id="btnLoadMore">Load @number more comments</a>
@@ -258,13 +257,13 @@
 
 
         </div>*@
-        </div>
+    </div>
 </div>
 <div class="col-md-5 content-right content-right-top">
     <h5 class="head">Recent News</h5>
     @foreach (var item in news)
     {
-        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
             <div class="editor text-center">
 
                 <h3>@item.Title</h3>
@@ -319,12 +318,12 @@
         {
             <div class="editors-pic">
                 <div class="e-pic">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                         <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                     </a>
                 </div>
                 <div class="e-pic-info">
-                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title</a>
+                    <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title</a>
                     <span></span>
                     <label>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</label><br/>
                     <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
@@ -373,15 +372,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.min.js"></script>
     <script type="text/javascript">
-        $("#share")
-            .jsSocials({
-                showLabel: false,
-                showCount: true,
-                shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
-            });
-    </script>
-
-    <script type="text/javascript">
         $(document)
             .ready(function() {
                 $(function() {
@@ -397,10 +387,16 @@
                             $('#commentDiv')
                                 .hide()
                                 .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
-                                .fadeIn(1);
+                                .fadeIn(0.5);
                         },
-                        2000);
+                        1000);
                 });
+                $("#share")
+                    .jsSocials({
+                        showLabel: false,
+                        showCount: true,
+                        shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
+                    });
                 @*var that = $('#btnLoadMore');
                 that.click(function() {
                     that.data('clicked', true);
@@ -452,10 +448,11 @@
 
             });*@
 
-                $(function () {
-                    $('#lazy-container .lazy').lazy({
-                        appendScroll: $('#lazy-container')
-                    });
+                $(function() {
+                    $('#lazy-container .lazy')
+                        .lazy({
+                            appendScroll: $('#lazy-container')
+                        });
                 });
             });
 

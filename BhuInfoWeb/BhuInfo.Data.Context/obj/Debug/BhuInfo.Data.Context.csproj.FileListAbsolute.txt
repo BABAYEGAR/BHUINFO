@@ -40,3 +40,5 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\bin\Debug\Syste
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csprojResolveAssemblyReference.cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.DataContextMigrations.Initial.resources
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfo.Data.Context\obj\Debug\BhuInfo.Data.Context.csproj.GenerateResource.Cache
