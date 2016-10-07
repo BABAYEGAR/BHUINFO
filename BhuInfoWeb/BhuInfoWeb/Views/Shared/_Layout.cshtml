@@ -84,7 +84,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <p class="text-center">
-                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                    @if (loggedinuser.AppUserImage == null)
+                                                    {
+                                                        <span class="glyphicon glyphicon-user icon-size"></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="icon-size"><img src="../../UploadedFiles/ProfileImage/@loggedinuser.AppUserImage"/></span>
+                                                    }
                                                 </p>
                                             </div>
                                                   <div class="col-md-12 col-lg-12">
@@ -119,7 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                       <div class="row">
                                                           <div class="col-md-12">
                                                               <p >
-                                                                  <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success btn-block "><span class="fa fa-cog"></span> Change Password</a>
+                                                                  <a href="@Url.Action("ProfileDetails", "Account")" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
                                                               </p>
                                                               <div class="clearfix"></div>
                                                           </div>

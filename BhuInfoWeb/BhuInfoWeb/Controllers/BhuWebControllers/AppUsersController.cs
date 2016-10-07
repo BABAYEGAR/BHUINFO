@@ -18,12 +18,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class AppUsersController : Controller
     {
-        private readonly AppUserDataContext db = new AppUserDataContext();
+        private readonly AppUserDataContext _db = new AppUserDataContext();
 
         // GET: AppUsers
         public ActionResult Index()
         {
-            return View(db.AppUsers.ToList());
+            return View(_db.AppUsers.ToList());
         }
 
         // GET: AppUsers/Details/5
@@ -31,7 +31,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(id);
             if (appUser == null)
                 return HttpNotFound();
             return View(appUser);
@@ -79,8 +79,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                             TempData["notificationtype"] = NotificationType.Danger.ToString();
                             return View(appUser);
                         }
-                        db.AppUsers.Add(appUser);
-                        db.SaveChanges();
+                        _db.AppUsers.Add(appUser);
+                        _db.SaveChanges();
                         TempData["user"] = "A new user has been created!";
                         TempData["notificationtype"] = NotificationType.Success.ToString();
                         appUser.Password = password;
@@ -113,8 +113,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
                         return View(appUser);
                     }
-                    db.AppUsers.Add(appUser);
-                    db.SaveChanges();
+                    _db.AppUsers.Add(appUser);
+                    _db.SaveChanges();
                     TempData["student"] = "You have been created on bhuinfo!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     appUser.Password = password;
@@ -159,8 +159,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                             TempData["notificationtype"] = NotificationType.Danger.ToString();
                             return View(appUser);
                         }
-                        db.AppUsers.Add(appUser);
-                        db.SaveChanges();
+                        _db.AppUsers.Add(appUser);
+                        _db.SaveChanges();
                         TempData["user"] = "A new user has been created!";
                         TempData["notificationtype"] = NotificationType.Success.ToString();
                         appUser.Password = password;
@@ -193,8 +193,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
                         return View(appUser);
                     }
-                    db.AppUsers.Add(appUser);
-                    db.SaveChanges();
+                    _db.AppUsers.Add(appUser);
+                    _db.SaveChanges();
                     TempData["user"] = "A new user has been created!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     appUser.Password = password;
@@ -211,7 +211,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(id);
             if (appUser == null)
                 return HttpNotFound();
             var roles = new SelectList(typeof(UserType).GetEnumNames());
@@ -254,8 +254,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     appUser.Password = collectedValues["password"];
                     appUser.LastModifiedById = loggedinuser.AppUserId;
                     appUser.Role = collectedValues["Role"];
-                    db.Entry(appUser).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(appUser).State = EntityState.Modified;
+                    _db.SaveChanges();
                     TempData["user"] = "The user details has been modified successfully!";
                     TempData["notificationtype"] = NotificationType.Info.ToString();
                 }
@@ -275,7 +275,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(id);
             if (appUser == null)
                 return HttpNotFound();
             return View(appUser);
@@ -287,9 +287,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            var appUser = db.AppUsers.Find(id);
-            db.AppUsers.Remove(appUser);
-            db.SaveChanges();
+            var appUser = _db.AppUsers.Find(id);
+            _db.AppUsers.Remove(appUser);
+            _db.SaveChanges();
             TempData["user"] = "This user has deleted succesfully!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
@@ -298,7 +298,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -1,0 +1,119 @@
+﻿@using BhuInfo.Data.Service.Enums
+@model BhuInfo.Data.Objects.Entities.AppUser
+@{
+    ViewBag.Title = "ProfileDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Session["bhuinfologgedinuser"] = Model;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+            <p class=" text-info">@DateTime.Now</p>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Model.DisplayName</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <img alt="User Pic" src="../../UploadedFiles/ProfileImage/@Model.AppUserImage" class="img-circle img-responsive">
+                        </div>
+                        <div class=" col-md-9 col-lg-9 ">
+                            <table class="table table-user-information">
+                                <tbody>
+                                <tr>
+                                    <td>First Nmae:</td>
+                                    <td style="font-weight: bolder">@Model.Firstname</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name:</td>
+                                    <td style="font-weight: bolder">@Model.Lastname</td>
+                                </tr>
+                                <tr>
+                                    <td>Role:</td>
+                                    <td style="font-weight: bolder">@Model.Role</td>
+                                </tr>
+
+                                <tr>
+                                    @if (Model.Role == UserType.Student.ToString())
+                                    {
+                                        <tr>
+                                            <td>Matric Number</td>
+                                            <td style="font-weight: bolder">@Model.MatricNumber</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td>Email</td>
+                                        <td style="font-weight: bolder">@Model.Email</td>
+                                    </tr>
+                                    <td>Phone Number</td>
+                                    <td style="font-weight: bolder">
+                                        @Model.Mobile
+                                    </td>
+
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            <a href="@Url.Action("Index","Home")" data-original-title="Return to home page" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary">
+                                <i class="glyphicon glyphicon-backward"></i>
+                            </a>
+                            <span class="pull-right">
+                                <a href="" data-original-title="Edit" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="@Url.Action("ChangePassword")" data-original-title="Change Password" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-lock"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                  
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document)
+            .ready(function() {
+                var panels = $('.user-infos');
+                var panelsButton = $('.dropdown-user');
+                panels.hide();
+
+                //Click dropdown
+                panelsButton.click(function() {
+                    //get data-for attribute
+                    var dataFor = $(this).attr('data-for');
+                    var idFor = $(dataFor);
+
+                    //current button
+                    var currentButton = $(this);
+                    idFor.slideToggle(400,
+                        function() {
+                            //Completed slidetoggle
+                            if (idFor.is(':visible')) {
+                                currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+                            } else {
+                                currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+                            }
+                        });
+                });
+
+
+                $('[data-toggle="tooltip"]').tooltip();
+
+                $('button')
+                    .click(function(e) {
+                        e.preventDefault();
+                        alert("This is a demo.\n :-)");
+                    });
+            });
+    </script>
+}

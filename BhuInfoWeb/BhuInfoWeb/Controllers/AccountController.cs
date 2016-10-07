@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Security;
+using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.Encryption;
@@ -11,6 +12,7 @@ namespace BhuInfoWeb.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -18,6 +20,12 @@ namespace BhuInfoWeb.Controllers
         {
             Session["bhuinfologgedinuser"] = null;
             return View();
+        }
+        [AllowAnonymous]
+        public ActionResult ProfileDetails()
+        {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+            return View("ProfileDetails",loggedinuser);
         }
 
         [HttpPost]

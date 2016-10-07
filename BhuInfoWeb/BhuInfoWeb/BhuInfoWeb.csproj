@@ -1346,6 +1346,7 @@
     <Content Include="Views\Advertisements\Index.cshtml" />
     <Content Include="Views\Advertisements\CreateAdvert.cshtml" />
     <Content Include="Views\Advertisements\VerifyAccessCode.cshtml" />
+    <Content Include="Views\Account\ProfileDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
