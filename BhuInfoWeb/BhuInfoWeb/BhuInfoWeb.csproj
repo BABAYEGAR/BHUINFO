@@ -229,6 +229,7 @@
     <Content Include="AppTheme\css\AccountSnippet.css" />
     <Content Include="AppTheme\css\bootstrap.css" />
     <Content Include="AppTheme\css\style.css" />
+    <Content Include="AppTheme\fileinput.css" />
     <Content Include="AppTheme\fonts\SIL Open Font License.txt" />
     <Content Include="AppTheme\images\a1.jpg" />
     <Content Include="AppTheme\images\a2.jpg" />
@@ -378,6 +379,7 @@
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />
@@ -1227,6 +1229,9 @@
     <Content Include="UploadedFiles\Advert\131196341118194700.jpg" />
     <Content Include="UploadedFiles\Advert\131202268181553364.jpg" />
     <Content Include="UploadedFiles\NewsImage\131176526274722376.jpg" />
+    <Content Include="UploadedFiles\ProfileImage\131203068967581514.jpg" />
+    <Content Include="UploadedFiles\ProfileImage\131203072124650799.jpg" />
+    <Content Include="UploadedFiles\ProfileImage\131203072711878634.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

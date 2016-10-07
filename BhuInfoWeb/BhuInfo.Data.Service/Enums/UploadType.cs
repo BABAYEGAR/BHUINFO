@@ -3,6 +3,7 @@
     public enum UploadType
     {
         NewsImage,
-        Advert
+        Advert,
+        ProfileImage
     }
 }

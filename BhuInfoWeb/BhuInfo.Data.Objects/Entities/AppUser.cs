@@ -34,6 +34,7 @@ namespace BhuInfo.Data.Objects.Entities
         public long CreatedById { get; set; }
 
         public long LastModifiedById { get; set; }
+        public string AppUserImage { get; set; }
 
         public string DisplayName
             => Firstname + " " + Lastname;

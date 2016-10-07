@@ -15,6 +15,7 @@
 }
 @section css{
     <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
+    <link href="~/AppTheme/fileinput.css" rel="stylesheet" />
 }
 <!-- header-section-starts -->
 <div class="header">
@@ -133,12 +134,12 @@
                             <div class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</div>
                         }
                     }
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm("Create", "AppUsers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
                     {
                         @Html.AntiForgeryToken()
 
                         <div class="form-horizontal">
-                            <div class="row">
+                            <div class="col-md-8">
                                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
@@ -174,11 +175,28 @@
                                 <div class="form-group col-md-12">
                                     @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "select a user role", new {@class = "form-control select-dropdown"})
+                                        @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "select a user role", new {@class = "form-control select-dropdown", id="Role"})
                                     </div>
 
                                 </div>
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.MatricNumber, new { @class = "control-label col-md-3" })
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.EditorFor(model => model.MatricNumber, new { htmlAttributes = new { @class = "form-control", id="MatricNumber" } })
+                                        @Html.ValidationMessageFor(model => model.MatricNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <!-- the avatar markup -->
+                                    <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
+                                        <div class="kv-avatar center-block" style="width:200px">
+                                            <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
+                                        </div>
+                                        <!-- include other inputs if needed and include a form submit (save) button -->
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -195,13 +213,39 @@
 </div>
 @section scripts{
     <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
+    <script src="~/Scripts/fileinput.js"></script>
     <script>
         $(document)
             .ready(function() {
 
                 // Init select2 for dropdown select
                 $('.select-dropdown').select2();
+                var btnCust = '<button type="button" class="btn btn-default" title="Add picture tags" ' +
+            'onclick="alert(\'Call your custom code here.\')">' +
+            '<i class="glyphicon glyphicon-tag"></i>' +
+            '</button>';
+                $("#avatar-2").fileinput({
+                    overwriteInitial: true,
+                    maxFileSize: 1500,
+                    showClose: false,
+                    showCaption: false,
+                    showBrowse: false,
+                    browseOnZoneClick: true,
+                    removeLabel: '',
+                    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                    removeTitle: 'Cancel or reset changes',
+                    elErrorContainer: '#kv-avatar-errors-2',
+                    msgErrorClass: 'alert alert-block alert-danger',
+                    defaultPreviewContent: '<img src="../../AppTheme/images/avatar.jpg" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
+                    layoutTemplates: { main2: '{preview} ' + btnCust + ' {remove} {browse}' },
+                    allowedFileExtensions: ["jpg", "png", "gif"]
+                });
 
+              
+                $("#Role") .change(function() {
+                    console.log("selected");
+
+                });
             })
     </script>
 }

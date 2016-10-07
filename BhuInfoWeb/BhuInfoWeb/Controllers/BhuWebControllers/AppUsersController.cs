@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
@@ -10,6 +11,7 @@ using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.EmailService;
 using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
+using BhuInfo.Data.Service.FileUploader;
 using BhuInfo.Data.Service.TextFormatter;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
@@ -53,6 +55,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             FormCollection collectedValues)
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+            HttpPostedFileBase profileImage = Request.Files["avatar-2"];
             if (ModelState.IsValid)
             {
                 if (collectedValues["student"] == null)
@@ -67,7 +70,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         var password = Membership.GeneratePassword(8, 1);
                         var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
                         appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-                        var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
+                        appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
+                        var userExist = new AppUserFactory().CheckIfStudentUserExist(appUser.Email.Trim(),
                             appUser.MatricNumber.Trim());
                         if (userExist)
                         {
@@ -100,9 +104,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     appUser.Role = UserType.Student.ToString();
                     var password = Membership.GeneratePassword(8, 1);
                     var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
+                    appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
                     appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-                    var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
-                        appUser.MatricNumber.Trim());
+                    var userExist = new AppUserFactory().CheckIfGeneralUserExist(appUser.Email.Trim());
                     if (userExist)
                     {
                         TempData["student"] = "This user email already exist,try a different email!";
@@ -131,6 +135,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             FormCollection collectedValues)
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+            HttpPostedFileBase profileImage = Request.Files["avatar-2"];
             if (ModelState.IsValid)
             {
                 if (collectedValues["student"] == null)
@@ -145,8 +150,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         var password = Membership.GeneratePassword(8, 1);
                         var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
                         appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-                        var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
-                            appUser.MatricNumber.Trim());
+                        appUser.AppUserImage = new FileUploader().UploadFile(profileImage, UploadType.ProfileImage);
+                        var userExist = new AppUserFactory().CheckIfGeneralUserExist(appUser.Email.Trim());
+
                         if (userExist)
                         {
                             TempData["user"] = "This user email already exist,try a different email!";
@@ -179,8 +185,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     var password = Membership.GeneratePassword(8, 1);
                     var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
                     appUser.Password = new RemoveCharacters().RemoveSpecialCharacters(hashPassword);
-                    var userExist = new AppUserFactory().CheckIfUserExist(appUser.Email.Trim(),
-                        appUser.MatricNumber.Trim());
+                    var userExist = new AppUserFactory().CheckIfStudentUserExist(appUser.Email.Trim(),
+                           appUser.MatricNumber.Trim());
                     if (userExist)
                     {
                         TempData["user"] = "This user email already exist,try a different email!";
@@ -225,10 +231,23 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             ] AppUser appUser, FormCollection collectedValues)
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
+            HttpPostedFileBase profileImage = Request.Files["avatar-2"];
             if (ModelState.IsValid)
             {
                 if (loggedinuser != null)
                 {
+                    if (profileImage != null && profileImage.FileName == "")
+                    {
+                        appUser.AppUserImage = collectedValues["image"];
+                    }
+                    else
+                    {
+                        appUser.AppUserImage = new FileUploader().UploadFile(profileImage,UploadType.ProfileImage);
+                    }
+                    if (collectedValues["matric"] != null)
+                    {
+                        appUser.MatricNumber = collectedValues["matric"];
+                    }
                     appUser.DateCreated = Convert.ToDateTime(collectedValues["date"]);
                     appUser.DateLastModified = DateTime.Now;
                     appUser.CreatedById = long.Parse(collectedValues["createdby"]);

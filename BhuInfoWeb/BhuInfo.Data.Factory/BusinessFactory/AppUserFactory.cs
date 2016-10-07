@@ -30,13 +30,33 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// <param name="email"></param>
         /// <param name="matricNumber"></param>
         /// <returns></returns>
-        public bool CheckIfUserExist(string email, string matricNumber)
+        public bool CheckIfStudentUserExist(string email, string matricNumber)
         {
             var userExist = false;
             try
             {
                 var allUsers = _db.AppUsers;
                 if (allUsers.Any(n => n.Email == email || n.MatricNumber == matricNumber))
+                    userExist = true;
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            return userExist;
+        }
+        /// <summary>
+        ///     This method checks if a user exist
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool CheckIfGeneralUserExist(string email)
+        {
+            var userExist = false;
+            try
+            {
+                var allUsers = _db.AppUsers;
+                if (allUsers.Any(n => n.Email == email))
                     userExist = true;
             }
             catch (Exception)
