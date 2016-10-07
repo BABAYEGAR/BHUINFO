@@ -8,6 +8,10 @@ namespace BhuInfo.Data.Objects.Entities
     {
         public long NewsCommentId { get; set; }
         public string CommentBy { get; set; }
+        public long AppUserId { get; set; }
+
+        [ForeignKey("AppUserId")]
+        public virtual AppUser AppUser { get; set; }
         public string Email { get; set; }
         [Required(ErrorMessage = "This field is compulsory")]
         public string Comment { get; set; }

@@ -24,6 +24,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.NewsCommentId).HasColumnName("NewsCommentId");
             Property(n => n.Comment).HasColumnName("Comment");
             Property(n => n.CommentBy).HasColumnName("CommentBy");
+            Property(n => n.AppUserId).HasColumnName("AppUserId");
             Property(n => n.Email).HasColumnName("Email");
             Property(n => n.NewsId).HasColumnName("NewsId");
             Property(n => n.DateCreated).HasColumnName("DateCreated");

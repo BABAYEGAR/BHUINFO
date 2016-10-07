@@ -227,6 +227,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 if (loggedinuser != null)
                 {
                     newsComments.CommentBy = loggedinuser.DisplayName;
+                    newsComments.AppUserId = loggedinuser.AppUserId;
                     newsComments.Email = loggedinuser.Email;
                 }
                 _dbc.NewsComments.Add(newsComments);

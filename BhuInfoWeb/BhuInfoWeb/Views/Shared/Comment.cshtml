@@ -36,14 +36,31 @@
 }
 @foreach (var item in enumerable)
 {
+    var commentBy = new AppUserFactory().GetAppUserById((int) item.AppUserId);
     if (loggedinuser != null)
     {
         statusCheckForLike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Like.ToString()));
         statusCheckForDislike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Dislike.ToString()));
     }
-    <div class="comments-main lazy">
-        <div class="col-md-12">
-            <h5 class="detailsDiv">@item.CommentBy</h5>
+
+    <div class="comments-main">
+        <div class="col-md-3 cmts-main-left">
+            @if (commentBy != null)
+            {
+                <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" alt="">
+            }
+            else
+            {
+                <img src="../../AppTheme/images/avatar.jpg" alt="">
+            }
+        </div>
+
+        <div class="col-md-9 cmts-main-right">
+            <h5 class="detailsDiv">
+                @if (commentBy != null)
+                {
+                    @commentBy.DisplayName
+                }</h5>
             <p>@item.Comment</p>
             <div class="cmts">
 

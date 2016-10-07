@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BhuInfo.Data.Objects.Entities
@@ -38,5 +39,6 @@ namespace BhuInfo.Data.Objects.Entities
 
         public string DisplayName
             => Firstname + " " + Lastname;
+        public virtual ICollection<NewsComment> NewComments { get; set; }
     }
 }

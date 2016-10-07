@@ -397,6 +397,11 @@
                         showCount: true,
                         shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
                     });
+                $('#btnLoadMore')
+                    .click(function() {
+                        $('#commentText').val("");
+
+                    });
                 @*var that = $('#btnLoadMore');
                 that.click(function() {
                     that.data('clicked', true);
