@@ -14,112 +14,50 @@
     ViewBag.HeaderClass = "page-header";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
-<!-- header-section-starts -->
-<div class="header">
-    <div class="container">
-        <div class="logo">
-            <a href="@Url.Action("Index", "Home")">
-                <h1>Bhu-Info</h1>
-            </a>
+<div class="container">
+    <div class="header-bottom">
+        <div class="type">
+            <h5>User Management</h5>
         </div>
-        <div class="pages">
+        <span class="menu"></span>
+        <div class="list-nav">
             <ul>
-                @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                {
-                    <li>
-                        <a class="active" href="@Url.Action("Index", "AppUsers")">Admin/Users</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
-                    </li>
-                }
-            </ul>
-        </div>
-        <div class="navigation">
-            <ul class="nav navbar-nav">
                 <li>
-                    <a href="@Url.Action("About", "Home")">About Us</a>
+                    <a href="@Url.Action("Index", "AppUsers")">Users</a>
                 </li>
                 <li>
-                    <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                    <a href="@Url.Action("Index", "News")">News</a>
                 </li>
-
-                @if (loggedinuser != null)
-                {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span>
-                                <strong>@loggedinuser.Firstname</strong>
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="navbar-login">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p class="text-center">
-                                                    <span class="glyphicon glyphicon-user icon-size"></span>
-                                                </p>
-
-                                                <div class="col-lg-8">
-                                                    <p class="text-left">
-                                                        <strong>@loggedinuser.DisplayName</strong>
-                                                    </p>
-                                                    <p class="text-left small">@loggedinuser.Email</p>
-                                                    <p class="text-left">
-                                                        <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-success">Change Password</a>
-                                                    </p>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                <li class="divider navbar-login-session-bg"></li>
-                                <li class="navbar-login-session-bg">
-                                    <div class="navbar-login navbar-login-session">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p>
-                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block">Logout</a>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                }
-
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Login", "Account")">Log In</a>
-                    </li>
-                }
+                <li>
+                    <a href="@Url.Action("Index", "NewsCategories")">News Category</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Events")">Events</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Advertisements")" class="active">Advertisment</a>
+                </li>
             </ul>
         </div>
+        <!-- script for menu -->
+        <script>
+            $("span.menu")
+                .click(function() {
+                    $(".list-nav")
+                        .slideToggle("slow",
+                            function() {
+                                // Animation complete.
+                            });
+                });
+        </script>
+        <!-- script for menu -->
+
         <div class="clearfix"></div>
     </div>
 </div>
-<header class="@ViewBag.HeaderClass">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                @*<h2 class="tagline">@ViewBag.Title</h2>*@
-            </div>
-        </div>
-    </div>
-</header>
-
 @using (Html.BeginForm("Edit", "Advertisements", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form"}))
 {
     @Html.AntiForgeryToken()
