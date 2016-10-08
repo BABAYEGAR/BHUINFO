@@ -1,20 +1,11 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.AppUser
 @{
-    AppUser user = null;
     ViewBag.Title = "ProfileDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    if (Session["bhuinfologgedinuser"] != null)
-    {
-        Session["bhuinfologgedinuser"] = Model;
-    }
-    if (Session["viewprofilebyotheruser"] != null)
-    {
-        Session["viewprofilebyotheruser"] = Model;
-        user = Session["viewprofilebyotheruser"] as AppUser;
-        Session["viewprofilebyotheruser"] = null;
-    }
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 
 <div class="container">
@@ -87,13 +78,13 @@
 
                                 </tbody>
                             </table>
-                            @if (user == null)
+                            @if (loggedinuser != null && Model.AppUserId == loggedinuser.AppUserId)
                             {
                                 <a href="@Url.Action("Index", "Home")" data-original-title="Return to home page" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary">
                                     <i class="glyphicon glyphicon-backward"></i>
                                 </a>
                                 <span class="pull-right">
-                                <a href="@Url.Action("EditProfile", "AppUsers", new {Id = Model.AppUserId})" data-original-title="Edit" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="@Url.Action("EditProfile", "AppUsers", new {Id =  new Md5Ecryption().EncryptPrimaryKey(Model.AppUserId.ToString(),true)})" data-original-title="Edit" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                                 <a href="@Url.Action("ChangePassword")" data-original-title="Change Password" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-lock"></i></a>
                             </span>
                             }

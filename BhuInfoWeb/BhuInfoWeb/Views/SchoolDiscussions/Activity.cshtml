@@ -1,6 +1,7 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
 @model BhuInfo.Data.Objects.Entities.SchoolDiscussion
@@ -32,7 +33,7 @@
                 if (Model.Status == DiscussionState.Open.ToString())
                 {
                     <div class="col-lg-12">
-                        <a href="@Url.Action("CloseActivity", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})" class="btn btn-danger">Close Discussion</a>
+                        <a href="@Url.Action("CloseActivity", "SchoolDiscussions", new {Id =  new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})" class="btn btn-danger">Close Discussion</a>
                     </div>
                 }
                 else
@@ -134,20 +135,8 @@
                 <div class="comments1" id="commentDiv">
 
                     @{
-                        Html.RenderPartial("_ActivitySubComments", Model);
-                    }
-                </div>
-                @if (enumerable.Count > 7)
-                {
-                    var number = enumerable.Count - 7;
-                    <a style="font-weight: bold" id="btnLoadMore">Load @number more comments</a>
-                }
-                <div class="comments1" id="commentMoreDiv">
-
-                    @{
                         Html.RenderPartial("_ActivityComments", Model);
                     }
-
                 </div>
 
             </div>
@@ -158,28 +147,15 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $('#commentMoreDiv').hide();
-        $('#commentDiv')
-            .hide()
-            .load('@Url.Action("GetDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
-            .fadeIn(0.5);
-        $('#btnLoadMore')
-            .click(function() {
-                $('#commentDiv').hide();
-                $('#commentMoreDiv')
-                    .hide()
-                    .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
-                    .fadeIn(1);
-                $('#btnLoadMore').hide();
                 $(function() {
                     setInterval(function() {
-                            $('#commentMoreDiv')
+                            $('#commentDiv')
                                 .hide()
-                                .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = Model.SchoolDiscussionId})')
+                                .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true) })')
                                 .fadeIn(0.5);
                         },
                         2000);
                 });
-            });
+
         </script>
     }

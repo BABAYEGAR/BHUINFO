@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.AppUser>
 
@@ -135,9 +136,9 @@
                                     @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
                                     {
                                         <td>
-                                            @Html.ActionLink("Edit", "Edit", new { id = item.AppUserId }, new { @class = "btn btn-primary" }) |
-                                            @Html.ActionLink("Details", "Details", new { id = item.AppUserId }, new { @class = "btn btn-default" }) |
-                                            @Html.ActionLink("Delete", "Delete", new { id = item.AppUserId }, new { @class = "btn btn-danger" })
+                                            @Html.ActionLink("Edit", "Edit", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(), true) }, new { @class = "btn btn-primary" }) |
+                                            @Html.ActionLink("Details", "Details", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(), true) }, new { @class = "btn btn-default" }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(), true) }, new { @class = "btn btn-danger" })
                                         </td>
                                     }
                                 </tr>

@@ -22,15 +22,10 @@ namespace BhuInfoWeb.Controllers
             return View();
         }
         [AllowAnonymous]
-        public ActionResult ProfileDetails()
+        public ActionResult ProfileDetails(string Id)
         {
-            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
-            return View("ProfileDetails",loggedinuser);
-        }
-        [AllowAnonymous]
-        public ActionResult ProfileDetailsByOtherUsers(long Id)
-        {
-            var user = new AppUserFactory().GetAppUserById((int) Id);
+            var userId  = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var user = new AppUserFactory().GetAppUserById((int) userId);
             Session["viewprofilebyotheruser"] = user;
             return View("ProfileDetails", user);
         }
@@ -62,7 +57,7 @@ namespace BhuInfoWeb.Controllers
                         var schoolDiscussionId = activityModel.SchoolDiscussionId;
                         Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = schoolDiscussionId });
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true) });
                     }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
@@ -75,14 +70,14 @@ namespace BhuInfoWeb.Controllers
                         var newsId = model.NewsId;
                         Session["newsmodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
+                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(newsId.ToString(), true) });
                     }
                     if (activityModel != null)
                     {
                         var schoolDiscussionId = activityModel.SchoolDiscussionId;
                         Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = schoolDiscussionId });
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true) });
                     }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
@@ -103,7 +98,7 @@ namespace BhuInfoWeb.Controllers
                         var schoolDiscussionId = activityModel.SchoolDiscussionId;
                         Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = schoolDiscussionId });
+                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true) });
                     }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";

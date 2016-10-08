@@ -7,6 +7,8 @@
 @model IEnumerable<News>
 @{
     ViewBag.Title = "Fashion";
+    Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
 
     var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.Fashion, 4);
     var news = newsList.ToList();
@@ -18,7 +20,7 @@
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.Fashion);
     if (mostRecentSingleNews == null)
     {
-        new HttpNotFoundResult();
+        new HttpStatusCodeResult(HttpStatusCode.NotFound);
         return;
     }
     var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);

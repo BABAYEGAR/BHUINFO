@@ -40,5 +40,6 @@ namespace BhuInfo.Data.Objects.Entities
         public string DisplayName
             => Firstname + " " + Lastname;
         public virtual ICollection<NewsComment> NewComments { get; set; }
+        public virtual ICollection<SchoolDiscussionComment> SchoolDiscussionComments { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 @using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.News
 @{
@@ -49,7 +50,7 @@
                 <div class="col-md-3 cmts-main-left">
                     @if (commentBy != null)
                     {
-                        <a href="@Url.Action("ProfileDetailsByOtherUsers","Account",new {Id = commentBy.AppUserId})"><img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt=""></a>
+                        <a href="@Url.Action("ProfileDetails","Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(commentBy.AppUserId.ToString(),true)})"><img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt=""></a>
                     }
                     else
                     {
@@ -88,11 +89,11 @@
                             {
                                 <label style="color: green">
                                     <i class="fa fa-thumbs-up">
-                                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new { Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString() }, new AjaxOptions
-                           {
-                               HttpMethod = "Post",
-                               UpdateTargetId = "likeOrDislikeDiv"
-                           })
+                                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new { Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCommentId.ToString(), true), actionType = NewsActionType.Like.ToString() }, new AjaxOptions
+                                   {
+                                       HttpMethod = "Post",
+                                       UpdateTargetId = "likeOrDislikeDiv"
+                                   })
                                     </i>
                                 </label>
                             }
@@ -119,7 +120,7 @@
                             {
                                 <label style="color: red">
                                     <i class="fa fa-thumbs-down">
-                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new { Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString() }, new AjaxOptions
+                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new { Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCommentId.ToString(), true), actionType = NewsActionType.Dislike.ToString() }, new AjaxOptions
                            {
                                HttpMethod = "Post",
                                UpdateTargetId = "likeOrDislikeDiv"

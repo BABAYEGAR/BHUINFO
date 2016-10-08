@@ -8,6 +8,7 @@
     ViewBag.Title = "Home";
     var newsList = new NewsDataFactory().GetTopNthPopularNews(4);
     var news = newsList.ToList();
+    Session["newsmodel"] = null;
 
     var list = new NewsDataFactory().GetLatestNewsByCategory(NewsCategoryEnum.Announcement, 4);
     var annoucements = list.ToList();

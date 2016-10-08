@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.Advertisement>
 
@@ -133,15 +134,15 @@
                                 @Html.DisplayFor(modelItem => item.Status)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.AdvertisementId }, new { @class = "btn btn-primary" }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.AdvertisementId }, new { @class = "btn btn-default" })
+                                @Html.ActionLink("Edit", "Edit", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true) }, new { @class = "btn btn-primary" }) |
+                                @Html.ActionLink("Details", "Details", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true) }, new { @class = "btn btn-default" })
                             </td>
                             @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
                                 {
                                 <td>
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.AdvertisementId }, new { @class = "btn btn-danger" })
-                                    @Html.ActionLink("Enable", "EnableOrDisableAdvert", new {id = item.AdvertisementId,actionType = AdvertStatus.Enable.ToString()}, new {@class = "btn btn-success"}) |
-                                    @Html.ActionLink("Disable", "EnableOrDisableAdvert", new {id = item.AdvertisementId, actionType = AdvertStatus.Disable.ToString()}, new {@class = "btn btn-danger"})|
+                                    @Html.ActionLink("Delete", "Delete", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true) }, new { @class = "btn btn-danger" })
+                                    @Html.ActionLink("Enable", "EnableOrDisableAdvert", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true), actionType = AdvertStatus.Enable.ToString()}, new {@class = "btn btn-success"}) |
+                                    @Html.ActionLink("Disable", "EnableOrDisableAdvert", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true), actionType = AdvertStatus.Disable.ToString()}, new {@class = "btn btn-danger"})|
 
                                 </td>
                                 }

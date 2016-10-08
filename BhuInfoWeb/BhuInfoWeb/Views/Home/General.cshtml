@@ -6,6 +6,8 @@
 @model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
     ViewBag.Title = "General";
+    Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
 
     var newsList = new NewsDataFactory().GetTopNthPopularNewsForCategory(NewsCategoryEnum.General, 4);
     var news = newsList.ToList();
@@ -17,7 +19,7 @@
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.General);
     if (mostRecentSingleNews == null)
     {
-        new HttpNotFoundResult();
+        new HttpStatusCodeResult(HttpStatusCode.NotFound);
         return;
     }
     var mostRecentNewsPostedBy = new AppUserFactory().GetAppUserById((int) mostRecentSingleNews.CreatedById);

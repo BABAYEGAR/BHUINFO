@@ -74,13 +74,14 @@ namespace BhuInfoWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult LikeOrDislikeANews(long Id, string actionType)
+        public ActionResult LikeOrDislikeANews(string Id, string actionType)
         {
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
             NewsStatus status = new NewsStatus();
             if (ModelState.IsValid)
             {
                 var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
-                var newsModel = new NewsDataFactory().GetNewsById(Id);
+                var newsModel = new NewsDataFactory().GetNewsById(newsId);
                 var news = _db.News.Find(Id);
                 if (actionType == NewsActionType.Like.ToString())
                 {
@@ -102,32 +103,36 @@ namespace BhuInfoWeb.Controllers
                 _dbe.SaveChanges();
                 return PartialView("_LikeOrDislikePartial", newsModel);
             }
-            var newsToRedirect = _db.News.Find(Id);
+            var newsToRedirect = _db.News.Find(newsId);
             return View("ViewNewsDetails", newsToRedirect);
         }
 
         [HttpGet]
-        public ActionResult ReloadPartialView(long Id)
+        public ActionResult ReloadPartialView(string Id)
         {
-            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var newsModel = new NewsDataFactory().GetNewsById(newsId);
             return PartialView("SubComment", newsModel);
         }
         [HttpGet]
-        public ActionResult ReloadCompleteView(long Id)
+        public ActionResult ReloadCompleteView(string Id)
         {
-            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var newsModel = new NewsDataFactory().GetNewsById(newsId);
             return PartialView("Comment", newsModel);
         }
         [HttpGet]
-        public ActionResult ReloadLikeDislikeInfo(long Id)
+        public ActionResult ReloadLikeDislikeInfo(string Id)
         {
-            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var newsModel = new NewsDataFactory().GetNewsById(newsId);
             return PartialView("_LikeDislikeInfo", newsModel);
         }
         [HttpGet]
-        public ActionResult ReloadLikeDislikePartial(long Id)
+        public ActionResult ReloadLikeDislikePartial(string Id)
         {
-            var newsModel = new NewsDataFactory().GetNewsById(Id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var newsModel = new NewsDataFactory().GetNewsById(newsId);
             return PartialView("_LikeOrDislikePartial", newsModel);
         }
 

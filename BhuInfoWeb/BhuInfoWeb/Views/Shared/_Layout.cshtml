@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 <!DOCTYPE html>
 <html>
@@ -126,7 +127,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                       <div class="row">
                                                           <div class="col-md-12">
                                                               <p >
-                                                                  <a href="@Url.Action("ProfileDetails", "Account")" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
+                                                                  <a href="@Url.Action("ProfileDetails", "Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(),true)})" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
                                                               </p>
                                                               <div class="clearfix"></div>
                                                           </div>

@@ -27,6 +27,7 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.Email).HasColumnName("Email");
             Property(n => n.SchoolDiscussionId).HasColumnName("SchoolDiscussionId");
             Property(n => n.DateCreated).HasColumnName("DateCreated");
+            Property(n => n.AppUserId).HasColumnName("AppUserId");
         }
     }
 }

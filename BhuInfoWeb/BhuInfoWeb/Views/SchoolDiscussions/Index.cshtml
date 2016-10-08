@@ -1,5 +1,6 @@
 ﻿@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.SchoolDiscussion>
 
@@ -55,7 +56,7 @@
                 <h5 class="head" style="color: #1ac7c3">Discussion Topics</h5>
                 @foreach (var item in Model)
                 {
-                    <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">
+                    <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.SchoolDiscussionId.ToString(), true)})">
                         <div class="editor text-center">
 
                             <h2 style="color: #1ac7c3">@item.Topic</h2>

@@ -2,54 +2,13 @@
 @model BhuInfo.Data.Objects.Entities.ContactUs
 @{
     ViewBag.Title = "Contact";
-    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
 }
-@*<div class="container">
-    <div class="header-bottom">
-        <div class="type">
-            <h5 style="font-weight: bold">Article Category</h5>
-        </div>
-        <span class="menu"></span>
-        <div class="list-nav">
-            <ul>
-                <li>
-                    <a href="@Url.Action("Index", "Home")">Home</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("Index", "Home")">General</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("SportsNews", "Home")">Sports</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("FashionNews", "Home")">Fashion</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("Index", "SchoolDiscussions")">Discussions</a>
-                </li>|
-                <li>
-                    <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
-                </li>
-            </ul>
-        </div>
-        <!-- script for menu -->
-        <script>
-            $("span.menu")
-                .click(function() {
-                    $(".list-nav")
-                        .slideToggle("slow",
-                            function() {
-                                // Animation complete.
-                            });
-                });
-        </script>
-        <!-- script for menu -->
-        <div class="clearfix"></div>
-    </div>
-</div>*@
+
 <div class="container">
     <div class="content">
         <div class="contact-section">

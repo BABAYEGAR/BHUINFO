@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
@@ -39,30 +40,34 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: SchoolDiscussions/Create
-        public ActionResult Activity(long Id)
+        public ActionResult Activity(string Id)
         {
-            var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(Id);
-            var discussionUpdate = _db.SchoolDiscussions.Find(Id);
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var discussion = new SchoolDiscussionDataFactory().GetDiscussionById(discussionId);
+            var discussionUpdate = _db.SchoolDiscussions.Find(discussionId);
             discussionUpdate.DiscussionView = discussionUpdate.DiscussionView + 1;
             _db.Entry(discussionUpdate).State = EntityState.Modified;
             _db.SaveChanges();
             return View("Activity", discussion);
         }
 
-        public ActionResult GetDiscussionComments(long Id)
+        public ActionResult GetDiscussionComments(string Id)
         {
-            var discussion = _db.SchoolDiscussions.Find(Id);
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var discussion = _db.SchoolDiscussions.Find(discussionId);
             return PartialView("_ActivitySubComments", discussion);
         }
-        public ActionResult GetCompleteDiscussionComments(long Id)
+        public ActionResult GetCompleteDiscussionComments(string Id)
         {
-            var discussion = _db.SchoolDiscussions.Find(Id);
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var discussion = _db.SchoolDiscussions.Find(discussionId);
             return PartialView("_ActivityComments", discussion);
         }
         // GET: SchoolDiscussions/CloseActivity
-        public ActionResult CloseActivity(long Id)
+        public ActionResult CloseActivity(string Id)
         {
-            var discussionUpdate = _db.SchoolDiscussions.Find(Id);
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var discussionUpdate = _db.SchoolDiscussions.Find(discussionId);
             discussionUpdate.Status = DiscussionState.Closed.ToString();
             _db.Entry(discussionUpdate).State = EntityState.Modified;
             _db.SaveChanges();
@@ -109,11 +114,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: SchoolDiscussions/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(string id)
         {
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
+            var schoolDiscussion = _db.SchoolDiscussions.Find(discussionId);
             if (schoolDiscussion == null)
                 return HttpNotFound();
             return View(schoolDiscussion);
@@ -140,11 +146,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: SchoolDiscussions/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(string id)
         {
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
+            var schoolDiscussion = _db.SchoolDiscussions.Find(discussionId);
             if (schoolDiscussion == null)
                 return HttpNotFound();
             return View(schoolDiscussion);
@@ -154,9 +161,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var schoolDiscussion = _db.SchoolDiscussions.Find(id);
+            var discussionId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
+            var schoolDiscussion = _db.SchoolDiscussions.Find(discussionId);
             _db.SchoolDiscussions.Remove(schoolDiscussion);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -195,6 +203,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 }
                 discussionComment.DateCreated = DateTime.Now;
                 discussionComment.SchoolDiscussionId = long.Parse(collectedValues["DiscussionId"]);
+                if (loggedinuser != null) discussionComment.AppUserId = loggedinuser.AppUserId;
                 _dbc.SchoolDiscussionComments.Add(discussionComment);
                 _dbc.SaveChanges();
                 ModelState.Clear();

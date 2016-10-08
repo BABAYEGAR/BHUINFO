@@ -9,6 +9,7 @@ using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
 using BhuInfo.Data.Service.EmailService;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 using BhuInfo.Data.Service.FileUploader;
 
@@ -25,11 +26,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: Advertisements/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(string id)
         {
+            var advertId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var advertisement = _db.Advertisements.Find(id);
+            var advertisement = _db.Advertisements.Find(advertId);
             if (advertisement == null)
                 return HttpNotFound();
             return View(advertisement);
@@ -47,9 +49,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         /// <param name="Id"></param>
         /// <param name="actionType"></param>
         /// <returns></returns>
-        public ActionResult EnableOrDisableAdvert(long Id, string actionType)
+        public ActionResult EnableOrDisableAdvert(string Id, string actionType)
         {
-            var advertisement = new AdvertsiementFactory().GetAdvertById((int) Id);
+            var advertId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var advertisement = new AdvertsiementFactory().GetAdvertById((int)advertId);
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             if (loggedinuser != null)
             {
@@ -203,11 +206,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: Advertisements/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(string id)
         {
+            var advertId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var advertisement = _db.Advertisements.Find(id);
+            var advertisement = _db.Advertisements.Find(advertId);
             if (advertisement == null)
                 return HttpNotFound();
             var advertType = new SelectList(typeof(AdvertType).GetEnumNames());
@@ -229,7 +233,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             {
                 advertImage = Request.Files["Image"];
             }
-            var advertId = long.Parse(collectedValues["Id"]);
+            var Id = collectedValues["Id"];
+            var advertId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
             var companyName = collectedValues["AdvertCompanyName"];
             var advertisement = new AdvertsiementFactory().GetAdvertById((int)advertId);
             if (ModelState.IsValid)
@@ -260,11 +265,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: Advertisements/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(string id)
         {
+            var advertId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var advertisement = _db.Advertisements.Find(id);
+            var advertisement = _db.Advertisements.Find(advertId);
             if (advertisement == null)
                 return HttpNotFound();
             return View(advertisement);
@@ -274,9 +280,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var advertisement = _db.Advertisements.Find(id);
+            var advertId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
+            var advertisement = _db.Advertisements.Find(advertId);
             _db.Advertisements.Remove(advertisement);
             _db.SaveChanges();
             return RedirectToAction("Index");

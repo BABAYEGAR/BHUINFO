@@ -1,6 +1,7 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.Encryption
 @model SchoolDiscussion
 @{
     var discussionId = Model.SchoolDiscussionId;
@@ -18,8 +19,20 @@ else
 }
 @foreach (var item in schoolDiscussionComments)
 {
+    var commentBy = new AppUserFactory().GetAppUserById((int)item.AppUserId);
     <div class="comments-main">
-        <div class="col-md-12">
+        <div class="col-md-3 cmts-main-left">
+            @if (commentBy != null)
+            {
+                <a href="@Url.Action("ProfileDetails","Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(),true)})"><img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt=""></a>
+            }
+            else
+            {
+                <img src="../../AppTheme/images/avatar.jpg" alt="">
+            }
+        </div>
+
+        <div class="col-md-9 cmts-main-right">
             <h5 class="detailsDiv" style="font-family: sans-serif">@item.CommentBy</h5>
             <p>@item.Comment.</p>
             <div class="cmts">

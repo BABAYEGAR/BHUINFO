@@ -9,6 +9,7 @@
 @{
 
     Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
     var newsList = new NewsDataFactory().GetAllNews();
     var orderNews = newsList.OrderByDescending(n => n.DateCreated);
     var countedNews = orderNews.Take(4);
@@ -48,7 +49,7 @@
 }
 <style>
     ul > li {
-        display: none;
+        /*display: none;*/
         list-style-type: none;
     }
 </style>
@@ -181,7 +182,7 @@
         @foreach (var item in countedDiscussions)
         {
             <label style="font-weight: bold;">
-                <a style="color: #000" href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">@item.Topic</a>
+                <a style="color: #000" href="@Url.Action("Activity", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.SchoolDiscussionId.ToString(),true)})">@item.Topic</a>
             </label>
             <br/>
         }
@@ -247,8 +248,8 @@
             }
 
         </div>
-        <a id="btnLoadMore">Load More</a>
-        <a id="btnTop">Back To Top</a>
+        @*<a id="btnLoadMore">Load More</a>
+        <a id="btnTop">Back To Top</a>*@
 
     </div>
 </div>
@@ -364,53 +365,53 @@
     <script type="text/javascript">
         $(document)
             .ready(function() {
-                $("#btnTop").hide();
-                $(function() {
-                    $("li").slice(0, 10).show();
-                    $("#btnLoadMore")
-                        .on('click',
-                            function(e) {
-                                e.preventDefault();
-                                $("#btnTop").hide();
-                                $("ul > li:hidden").slice(0, 10).slideDown();
-                                if ($("ul > li:hidden").length === 0) {
-                                    $("#btnLoadMore").fadeOut('slow');
-                                    $("#btnTop").fadeIn('slow');
-                                }
-                                $('html, body')
-                                    .animate({
-                                            scrollTop: $(this).offset().top
-                                        },
-                                        1500);
-                            });
+                //$("#btnTop").hide();
+                //$(function() {
+                //    $("li").slice(0, 10).show();
+                //    $("#btnLoadMore")
+                //        .on('click',
+                //            function(e) {
+                //                e.preventDefault();
+                //                $("#btnTop").hide();
+                //                $("ul > li:hidden").slice(0, 10).slideDown();
+                //                if ($("ul > li:hidden").length === 0) {
+                //                    $("#btnLoadMore").fadeOut('slow');
+                //                    $("#btnTop").fadeIn('slow');
+                //                }
+                //                $('html, body')
+                //                    .animate({
+                //                            scrollTop: $(this).offset().top
+                //                        },
+                //                        1500);
+                //            });
 
-                });
-                $("#btnTop")
-                    .click(function() {
-                        $('body, html')
-                            .animate({
-                                    scrollTop: 0
-                                },
-                                600);
-                        return false;
+                //});
+                //$("#btnTop")
+                //    .click(function() {
+                //        $('body, html')
+                //            .animate({
+                //                    scrollTop: 0
+                //                },
+                //                600);
+                //        return false;
 
-                    });
+                //    });
 
 
                 $(function() {
                     setInterval(function() {
                             $('#likeOrDislikeDiv')
                                 .hide()
-                                .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
+                                .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true) })')
                                 .fadeIn(0.5);
                             $('#likedislikeinfo')
                                 .hide()
-                                .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
+                                .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true) })')
                                 .fadeIn(0.5);
-                            @*$('#commentDiv')
+                            $('#commentDiv')
                                 .hide()
                                 .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
-                                .fadeIn(0.5);*@
+                                .fadeIn(0.5);
                         },
                         1000);
                 });

@@ -9,6 +9,8 @@
     var newsList = new NewsDataFactory().GetAllNews().Where(n => n.NewsCategory.Name == NewsCategoryEnum.General.ToString());
     var sortedNews = newsList.Take(1);
     var recentNews = sortedNews.ToList();
+    Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
 
     var newsLists = new NewsDataFactory().GetTopNthPopularNews(4);
     var popularNews = newsLists.ToList();

@@ -8,6 +8,7 @@ using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Factory.BusinessFactory;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 using BhuInfo.Data.Service.FileUploader;
 
@@ -29,11 +30,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: News/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(string id)
         {
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var news = _db.News.Find(id);
+            var news = _db.News.Find(newsId);
             if (news == null)
                 return HttpNotFound();
             return View(news);
@@ -112,8 +114,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: News/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(string id)
         {
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var newsCategories = _db.NewsCategories.Select(c => new
@@ -122,7 +125,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 c.Name
             }).ToList();
             ViewBag.Categories = new SelectList(newsCategories, "NewsCategoryId", "Name");
-            var news = _db.News.Find(id);
+            var news = _db.News.Find(newsId);
             if (news == null)
                 return HttpNotFound();
             return View(news);
@@ -171,11 +174,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: News/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(string id)
         {
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var news = _db.News.Find(id);
+            var news = _db.News.Find(newsId);
             if (news == null)
                 return HttpNotFound();
             return View(news);
@@ -185,9 +189,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var news = _db.News.Find(id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
+            var news = _db.News.Find(newsId);
             _db.News.Remove(news);
             _db.SaveChanges();
             TempData["news"] = "This article has been deleted Succesfully!";
@@ -241,10 +246,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
         }
-        public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
+        public ActionResult LikeOrDislikeANewsComments(string Id, string actionType)
         {
-
-            var newsComments = _dbc.NewsComments.Find(Id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var newsComments = _dbc.NewsComments.Find(newsId);
             CommentStatus status = new CommentStatus();
             if (ModelState.IsValid)
             {
@@ -274,9 +279,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             return PartialView("_LikeOrDislikeCommentPartial", newsComments);
         }
         [HttpGet]
-        public ActionResult ReloadLikeDislikeCommentPartial(long Id)
+        public ActionResult ReloadLikeDislikeCommentPartial(string Id)
         {
-            var newsModel = new NewsCommentFactory().GetSingleNewsComments((int) Id);
+            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var newsModel = new NewsCommentFactory().GetSingleNewsComments((int) newsId);
             return PartialView("_LikeOrDislikeCommentPartial", newsModel);
         }
     }

@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @model IEnumerable<BhuInfo.Data.Objects.Entities.Event>
 
@@ -128,9 +129,9 @@
                                         @Html.DisplayFor(modelItem => item.DateCreated)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new {id = item.EventId}, new {@class = "btn btn-primary"}) |
-                                        @Html.ActionLink("Details", "Details", new {id = item.EventId}, new {@class = "btn btn-default"}) |
-                                        @Html.ActionLink("Delete", "Delete", new {id = item.EventId}, new {@class = "btn btn-danger"})
+                                        @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(item.EventId.ToString(), true) }, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = new Md5Ecryption().EncryptPrimaryKey(item.EventId.ToString(), true) }, new {@class = "btn btn-default"}) |
+                                        @Html.ActionLink("Delete", "Delete", new {id = new Md5Ecryption().EncryptPrimaryKey(item.EventId.ToString(), true) }, new {@class = "btn btn-danger"})
                                     </td>
                                 </tr>
                             }

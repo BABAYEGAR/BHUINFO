@@ -7,6 +7,8 @@
     var eventRestriction = Model.Where(n => n.EndDate >= DateTime.Now);
     var restriction = eventRestriction as IList<Event> ?? eventRestriction.ToList();
     var oderedEvent = restriction.OrderByDescending(n => n.StartDate);
+    Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }

@@ -27,11 +27,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: AppUsers/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(string id)
         {
+            var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = _db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(userId);
             if (appUser == null)
                 return HttpNotFound();
             return View(appUser);
@@ -207,11 +208,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: AppUsers/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(string id)
         {
+            var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = _db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(userId);
             if (appUser == null)
                 return HttpNotFound();
             var roles = new SelectList(typeof(UserType).GetEnumNames());
@@ -271,11 +273,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: AppUsers/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(string id)
         {
+            var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = _db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(userId);
             if (appUser == null)
                 return HttpNotFound();
             return View(appUser);
@@ -285,9 +288,10 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var appUser = _db.AppUsers.Find(id);
+            var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
+            var appUser = _db.AppUsers.Find(userId);
             _db.AppUsers.Remove(appUser);
             _db.SaveChanges();
             TempData["user"] = "This user has deleted succesfully!";
@@ -295,11 +299,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             return RedirectToAction("Index");
         }
         // GET: AppUsers/EditProfle/5
-        public ActionResult EditProfile(long? id)
+        public ActionResult EditProfile(string id)
         {
+            var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var appUser = _db.AppUsers.Find(id);
+            var appUser = _db.AppUsers.Find(userId);
             if (appUser == null)
                 return HttpNotFound();
             var roles = new SelectList(typeof(UserType).GetEnumNames());
@@ -318,7 +323,6 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                      "AppUserId,Firstname,Lastname,Email,Mobile,Password,DateLastModified,CreatedById,LastModifiedById")
             ] AppUser appUser, FormCollection collectedValues)
         {
-            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             HttpPostedFileBase profileImage = Request.Files["avatar-2"];
             if (ModelState.IsValid)
             {
@@ -344,7 +348,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     _db.SaveChanges();
                     TempData["user"] = "You have modified your profile details successfully!";
                     TempData["notificationtype"] = NotificationType.Info.ToString();
-                return RedirectToAction("ProfileDetails","Account");
+                return RedirectToAction("ProfileDetails","Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(appUser.AppUserId.ToString(), true) });
             }
             return View(appUser);
         }

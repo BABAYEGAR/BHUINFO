@@ -5,26 +5,28 @@ using System.Net;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class EventsController : Controller
     {
-        private readonly EventDataContext db = new EventDataContext();
+        private readonly EventDataContext _db = new EventDataContext();
 
         // GET: Events
         public ActionResult Index()
         {
-            return View(db.Events.ToList());
+            return View(_db.Events.ToList());
         }
 
         // GET: Events/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(string id)
         {
+            var eventId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var @event = db.Events.Find(id);
+            var @event = _db.Events.Find(eventId);
             if (@event == null)
                 return HttpNotFound();
             return View(@event);
@@ -62,8 +64,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     }
                     else
                     {
-                        db.Events.Add(@event);
-                        db.SaveChanges();
+                        _db.Events.Add(@event);
+                        _db.SaveChanges();
                         TempData["event"] = "New event Successfully Created!";
                         TempData["notificationtype"] = NotificationType.Success.ToString();
                     }
@@ -81,11 +83,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: Events/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(string id)
         {
+            var eventId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var @event = db.Events.Find(id);
+            var @event = _db.Events.Find(eventId);
             if (@event == null)
                 return HttpNotFound();
             return View(@event);
@@ -109,8 +112,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     @event.StartTime = collectedValues["StartTime"];
                     @event.EndTime = collectedValues["EndTime"];
                     @event.LastModifiedById = loggedinuser.AppUserId;
-                    db.Entry(@event).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(@event).State = EntityState.Modified;
+                    _db.SaveChanges();
                     TempData["event"] = "This Event has been modified successfully!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
@@ -126,11 +129,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: Events/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(string id)
         {
+            var eventId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var @event = db.Events.Find(id);
+            var @event = _db.Events.Find(eventId);
             if (@event == null)
                 return HttpNotFound();
             return View(@event);
@@ -140,11 +144,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var @event = db.Events.Find(id);
-            db.Events.Remove(@event);
-            db.SaveChanges();
+            var eventId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
+            var @event = _db.Events.Find(eventId);
+            _db.Events.Remove(@event);
+            _db.SaveChanges();
             TempData["event"] = "Event has been deleted successfully!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
@@ -153,7 +158,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -5,26 +5,28 @@ using System.Net;
 using System.Web.Mvc;
 using BhuInfo.Data.Context.DataContext;
 using BhuInfo.Data.Objects.Entities;
+using BhuInfo.Data.Service.Encryption;
 using BhuInfo.Data.Service.Enums;
 
 namespace BhuInfoWeb.Controllers.BhuWebControllers
 {
     public class NewsCategoriesController : Controller
     {
-        private readonly NewsCategoryDataContext db = new NewsCategoryDataContext();
+        private readonly NewsCategoryDataContext _db = new NewsCategoryDataContext();
 
         // GET: NewsCategories
         public ActionResult Index()
         {
-            return View(db.NewsCategories.ToList());
+            return View(_db.NewsCategories.ToList());
         }
 
         // GET: NewsCategories/Details/5
-        public ActionResult Details(long? id)
+        public ActionResult Details(string id)
         {
+            var newsCategoryId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = _db.NewsCategories.Find(newsCategoryId);
             if (newsCategory == null)
                 return HttpNotFound();
             return View(newsCategory);
@@ -52,8 +54,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     newsCategory.DateLastModified = DateTime.Now;
                     newsCategory.CreatedById = loggedinuser.AppUserId;
                     newsCategory.LastModifiedById = loggedinuser.AppUserId;
-                    db.NewsCategories.Add(newsCategory);
-                    db.SaveChanges();
+                    _db.NewsCategories.Add(newsCategory);
+                    _db.SaveChanges();
                     TempData["category"] = "This category has been created successfully!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
@@ -70,11 +72,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: NewsCategories/Edit/5
-        public ActionResult Edit(long? id)
+        public ActionResult Edit(string id)
         {
+            var newsCategoryId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = _db.NewsCategories.Find(newsCategoryId);
             if (newsCategory == null)
                 return HttpNotFound();
             return View(newsCategory);
@@ -96,8 +99,8 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     newsCategory.LastModifiedById = loggedinuser.AppUserId;
                     newsCategory.CreatedById = long.Parse(collectedValues["createdby"]);
                     newsCategory.DateCreated = Convert.ToDateTime(collectedValues["date"]);
-                    db.Entry(newsCategory).State = EntityState.Modified;
-                    db.SaveChanges();
+                    _db.Entry(newsCategory).State = EntityState.Modified;
+                    _db.SaveChanges();
                     TempData["category"] = "This category has been modified successfully!";
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                 }
@@ -113,11 +116,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         }
 
         // GET: NewsCategories/Delete/5
-        public ActionResult Delete(long? id)
+        public ActionResult Delete(string id)
         {
+            var newsCategoryId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var newsCategory = db.NewsCategories.Find(id);
+            var newsCategory = _db.NewsCategories.Find(newsCategoryId);
             if (newsCategory == null)
                 return HttpNotFound();
             return View(newsCategory);
@@ -127,11 +131,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        public ActionResult DeleteConfirmed(string id)
         {
-            var newsCategory = db.NewsCategories.Find(id);
-            db.NewsCategories.Remove(newsCategory);
-            db.SaveChanges();
+            var newsCategoryId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
+            var newsCategory = _db.NewsCategories.Find(newsCategoryId);
+            _db.NewsCategories.Remove(newsCategory);
+            _db.SaveChanges();
             TempData["category"] = "This category has deleted succesfully!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");
@@ -140,7 +145,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
             base.Dispose(disposing);
         }
     }
