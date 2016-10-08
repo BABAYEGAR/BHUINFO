@@ -1,15 +1,17 @@
-﻿@using BhuInfo.Data.Service.Enums
+﻿@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.AppUser
 @{
     ViewBag.Title = "ProfileDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Session["bhuinfologgedinuser"] = Model;
+    var user = Session["viewprofilebyotheruser"] as AppUser;
 }
 
 <div class="container">
     <div class="row">
         <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-            <p class=" text-info">@DateTime.Now</p>
+            <p class="text-info">@DateTime.Now</p>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 
@@ -61,20 +63,20 @@
 
                                 </tbody>
                             </table>
-                            <a href="@Url.Action("Index","Home")" data-original-title="Return to home page" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary">
-                                <i class="glyphicon glyphicon-backward"></i>
-                            </a>
-                            <span class="pull-right">
+                            @if (user == null)
+                            {
+                                <a href="@Url.Action("Index", "Home")" data-original-title="Return to home page" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary">
+                                    <i class="glyphicon glyphicon-backward"></i>
+                                </a>
+                                <span class="pull-right">
                                 <a href="" data-original-title="Edit" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                                 <a href="@Url.Action("ChangePassword")" data-original-title="Change Password" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-lock"></i></a>
                             </span>
+                            }
                         </div>
                     </div>
                 </div>
-                <div class="panel-footer">
-                  
-                </div>
-
+                <br/>
             </div>
         </div>
     </div>
@@ -108,12 +110,6 @@
 
 
                 $('[data-toggle="tooltip"]').tooltip();
-
-                $('button')
-                    .click(function(e) {
-                        e.preventDefault();
-                        alert("This is a demo.\n :-)");
-                    });
             });
     </script>
 }

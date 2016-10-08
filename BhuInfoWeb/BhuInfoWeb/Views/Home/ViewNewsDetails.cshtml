@@ -46,6 +46,13 @@
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.css"/>
     <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials-theme-flat.css"/>
 }
+<style>
+    ul > li {
+        display: none;
+        list-style-type: none;
+    }
+</style>
+
 <div class="container">
 <div class="content">
 <div class="single-page">
@@ -171,14 +178,13 @@
 <div class="col-md-7 single-content-left">
     <div class="features-list">
         <h3>Trending Discussion Topics</h3>
-        <ul>
-            @foreach (var item in countedDiscussions)
-            {
-                <li style="font-weight: bold">
-                    <a href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">@item.Topic</a>
-                </li>
-            }
-        </ul>
+        @foreach (var item in countedDiscussions)
+        {
+            <label style="font-weight: bold;">
+                <a style="color: #000" href="@Url.Action("Activity", "SchoolDiscussions", new {Id = item.SchoolDiscussionId})">@item.Topic</a>
+            </label>
+            <br/>
+        }
     </div>
     <div class="single">
         <div class="leave">
@@ -235,28 +241,15 @@
             Session["newsmodel"] = Model;
             <label>Please <a href="@Url.Action("Login", "Account", new {Id = Model.NewsId})" style="color: blue"> Sign In</a> to comment on this article</label>
         }
-        <div id="lazy-container">
-
-            <div class="comments1 lazy" id="commentDiv">
-                @{
-                    Html.RenderPartial("Comment", Model);
-                }
-
-            </div>
-        </div>
-
-        @*@if (enumerable.Count > 7)
-        {
-            var number = enumerable.Count - 7;
-            <a style="font-weight: bold" id="btnLoadMore">Load @number more comments</a>
-        }
-        <div class="comments1" id="commentMoreDiv">
+        <div class="comments1" id="commentDiv">
             @{
                 Html.RenderPartial("Comment", Model);
             }
 
+        </div>
+        <a id="btnLoadMore">Load More</a>
+        <a id="btnTop">Back To Top</a>
 
-        </div>*@
     </div>
 </div>
 <div class="col-md-5 content-right content-right-top">
@@ -367,13 +360,43 @@
 </div>
 @section Scripts
 {
-    <!-- jsDeliver -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.3.1/jssocials.min.js"></script>
     <script type="text/javascript">
         $(document)
             .ready(function() {
+                $("#btnTop").hide();
+                $(function() {
+                    $("li").slice(0, 10).show();
+                    $("#btnLoadMore")
+                        .on('click',
+                            function(e) {
+                                e.preventDefault();
+                                $("#btnTop").hide();
+                                $("ul > li:hidden").slice(0, 10).slideDown();
+                                if ($("ul > li:hidden").length === 0) {
+                                    $("#btnLoadMore").fadeOut('slow');
+                                    $("#btnTop").fadeIn('slow');
+                                }
+                                $('html, body')
+                                    .animate({
+                                            scrollTop: $(this).offset().top
+                                        },
+                                        1500);
+                            });
+
+                });
+                $("#btnTop")
+                    .click(function() {
+                        $('body, html')
+                            .animate({
+                                    scrollTop: 0
+                                },
+                                600);
+                        return false;
+
+                    });
+
+
                 $(function() {
                     setInterval(function() {
                             $('#likeOrDislikeDiv')
@@ -384,10 +407,10 @@
                                 .hide()
                                 .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
                                 .fadeIn(0.5);
-                            $('#commentDiv')
+                            @*$('#commentDiv')
                                 .hide()
                                 .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
-                                .fadeIn(0.5);
+                                .fadeIn(0.5);*@
                         },
                         1000);
                 });
@@ -397,71 +420,11 @@
                         showCount: true,
                         shares: ["email", "twitter", "facebook", "googleplus", "linkedin"]
                     });
-                $('#btnLoadMore')
-                    .click(function() {
-                        $('#commentText').val("");
 
-                    });
-                @*var that = $('#btnLoadMore');
-                that.click(function() {
-                    that.data('clicked', true);
-
-
-                    if (that.data('clicked')) {
-
-                        console.log(that.data('clicked'));
-                        $('#btnLoadMore').hide();
-                        $('#commentDiv').hide();
-                        $(function() {
-                            setInterval(function() {
-                                    $('#likeOrDislikeDiv')
-                                        .hide()
-                                        .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
-                                        .fadeIn(0.5);
-                                    $('#likedislikeinfo')
-                                        .hide()
-                                        .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
-                                        .fadeIn(0.5);
-                                    $('#commentMoreDiv')
-                                        .hide()
-                                        .load('@Url.Action("ReloadCompleteView", "Home", new {Id = Model.NewsId})')
-                                        .fadeIn(1);
-                                },
-                                2000);
-                        });
-                    }else if(that.data('clicked') !== true) {
-                        $(function() {
-                            setInterval(function() {
-                                    $('#likeOrDislikeDiv')
-                                        .hide()
-                                        .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = Model.NewsId})')
-                                        .fadeIn(0.5);
-                                    $('#likedislikeinfo')
-                                        .hide()
-                                        .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = Model.NewsId})')
-                                        .fadeIn(0.5);
-                                    $('#commentDiv')
-                                        .hide()
-                                        .load('@Url.Action("ReloadPartialView", "Home", new {Id = Model.NewsId})')
-                                        .fadeIn(0.5);
-                                },
-                                2000);
-                        });
-                        $('#commentMoreDiv').hide();
-                    }
-                });
-
-            });*@
-
-                $(function() {
-                    $('#lazy-container .lazy')
-                        .lazy({
-                            appendScroll: $('#lazy-container')
-                        });
-                });
             });
 
     </script>
 
 }
+
 </div>

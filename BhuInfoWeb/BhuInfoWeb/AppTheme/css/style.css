@@ -981,6 +981,9 @@ p.span a {
     padding: 10px 0px;
 }
 
+
+
+
 .cmnts-right a {
     -moz-transition: 0.5s all;
     -ms-transition: 0.5s all;
@@ -1003,8 +1006,8 @@ p.span a {
 }
 
 .cmts-main-right h5 {
-    color: #4e4e4b;
-    font-size: 1em;
+    color: black;
+    font-size: 1.5em;
     font-weight: 600;
     margin: 0px;
 }
@@ -1019,12 +1022,12 @@ p.span a {
 }
 
 .cmts-main-right p {
-    color: #333333;
-    font-size: 0.9em;
-    font-weight: 400;
-    line-height: 1.9em;
+    color: black;
+    font-size: 1.0em;
+    font-weight: 500;
+    line-height: 1.5em;
     margin: 2px 0 15px 0px;
-    opacity: 0.6;
+    opacity: 5.0;
 }
 
 .cmnts-left p {
@@ -1066,7 +1069,7 @@ p.span a {
 
     h5.head {
         font-size: 1.3em;
-        width: 24%;
+        width: 42%;
     }
 
     .article h6 {
