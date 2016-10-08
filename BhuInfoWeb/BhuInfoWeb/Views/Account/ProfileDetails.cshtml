@@ -2,13 +2,37 @@
 @using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.AppUser
 @{
+    AppUser user = null;
     ViewBag.Title = "ProfileDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Session["bhuinfologgedinuser"] = Model;
-    var user = Session["viewprofilebyotheruser"] as AppUser;
+    if (Session["bhuinfologgedinuser"] != null)
+    {
+        Session["bhuinfologgedinuser"] = Model;
+    }
+    if (Session["viewprofilebyotheruser"] != null)
+    {
+        Session["viewprofilebyotheruser"] = Model;
+        user = Session["viewprofilebyotheruser"] as AppUser;
+        Session["viewprofilebyotheruser"] = null;
+    }
 }
 
 <div class="container">
+    @if (TempData["user"] != null)
+    {
+        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
+        {
+            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+        {
+            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</div>
+        }
+        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+        {
+            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</div>
+        }
+    }
     <div class="row">
         <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
             <p class="text-info">@DateTime.Now</p>
@@ -69,7 +93,7 @@
                                     <i class="glyphicon glyphicon-backward"></i>
                                 </a>
                                 <span class="pull-right">
-                                <a href="" data-original-title="Edit" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a href="@Url.Action("EditProfile", "AppUsers", new {Id = Model.AppUserId})" data-original-title="Edit" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                                 <a href="@Url.Action("ChangePassword")" data-original-title="Change Password" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-lock"></i></a>
                             </span>
                             }

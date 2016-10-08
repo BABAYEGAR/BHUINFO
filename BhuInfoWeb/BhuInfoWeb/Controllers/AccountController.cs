@@ -25,7 +25,6 @@ namespace BhuInfoWeb.Controllers
         public ActionResult ProfileDetails()
         {
             var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
-            if(loggedinuser == null) { }
             return View("ProfileDetails",loggedinuser);
         }
         [AllowAnonymous]
