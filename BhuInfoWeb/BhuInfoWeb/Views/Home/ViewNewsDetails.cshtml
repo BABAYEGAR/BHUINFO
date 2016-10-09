@@ -5,9 +5,7 @@
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
 @model BhuInfo.Data.Objects.Entities.News
-
 @{
-
     Session["newsmodel"] = null;
     Session["activitymodel"] = Model;
     var newsList = new NewsDataFactory().GetAllNews();
@@ -265,9 +263,6 @@
                 Html.RenderPartial("Comment", Model);
             }
         </div>
-        @*<a id="btnLoadMore">Load More</a>
-        <a id="btnTop">Back To Top</a>*@
-
     </div>
 </div>
 <div class="col-md-5 content-right content-right-top">
@@ -508,6 +503,29 @@
                 });
 
             });
+        ; (function ($) {
+            $.fn.scrollPosReaload = function () {
+                if (localStorage) {
+                    var posReader = localStorage["posStorage"];
+                    if (posReader) {
+                        $("#lazy-container").scrollTop(posReader);
+                        localStorage.removeItem("posStorage");
+                    }
+                    $(this).click(function (e) {
+                        localStorage["posStorage"] = $("#lazy-container").scrollTop();
+                    });
+
+                    return true;
+                }
+
+                return false;
+            }
+            $(document).ready(function () {
+                // Feel free to set it for any element who trigger the reload
+                $('#commentDiv').scrollPosReaload();
+            });
+
+        }(jQuery));
 
     </script>
  

@@ -249,10 +249,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             TempData["notificationtype"] = NotificationType.Danger.ToString();
             return RedirectToAction("ViewNewsDetails", "Home", new { Id = newsId });
         }
-        public ActionResult LikeOrDislikeANewsComments(string Id, string actionType)
+        public ActionResult LikeOrDislikeANewsComments(long Id, string actionType)
         {
-            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
-            var newsComments = _dbc.NewsComments.Find(newsId);
+            var newsComments = _dbc.NewsComments.Find(Id);
             CommentStatus status = new CommentStatus();
             if (ModelState.IsValid)
             {
