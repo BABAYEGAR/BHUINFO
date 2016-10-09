@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Create";
     ViewBag.HeaderClass = "page-header";
-    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 }
 @{
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
@@ -79,7 +78,7 @@
                             <div class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</div>
                         }
                     }
-                    @using (Html.BeginForm("Create", "News", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form"}))
+                    @using (Html.BeginForm("Create", "News", FormMethod.Post, new {enctype = "multipart/form-data"}))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -142,7 +141,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="@Url.Action("Index", "Home")" class="btn btn-default">Cancel</a>
+                                <a href="@Url.Action("Index", "News")" class="btn btn-default">Cancel</a>
                                 <input type="submit" value="Create" class="btn btn-primary pull-right"/>
 
                             </div>
@@ -165,21 +164,6 @@
                 $('.select-dropdown').select2();
 
                 CKEDITOR.replace("content");
-                $('.select-dropdown input').select(function () {
-                    var sel = $(this).val(),
-                        extraimages = $('.extraiamges');
-
-                    if (sel === 'Annoucement') {
-                        extraimages.fadeIn();
-
-                    } else {
-                        extraimages.fadeOut();
-
-                        setTimeout(function () {
-                        }, 600);
-                    }
-
-                });
             })
     </script>
 }

@@ -1,49 +1,38 @@
-.user-row {
-    margin-bottom: 14px;
-}
+.user-row { margin-bottom: 14px; }
 
-.user-row:last-child {
-    margin-bottom: 0;
-}
+.user-row:last-child { margin-bottom: 0; }
 
 .dropdown-user {
+    height: 100%;
     margin: 13px 0;
     padding: 5px;
-    height: 100%;
 }
 
-.dropdown-user:hover {
-    cursor: pointer;
-}
+.dropdown-user:hover { cursor: pointer; }
 
-.table-user-information > tbody > tr {
-    border-top: 1px solid rgb(221, 221, 221);
-}
+.table-user-information > tbody > tr { border-top: 1px solid rgb(221, 221, 221); }
 
-.table-user-information > tbody > tr:first-child {
-    border-top: 0;
-}
+.table-user-information > tbody > tr:first-child { border-top: 0; }
 
 
-.table-user-information > tbody > tr > td {
-    border-top: 0;
-}
-.toppad
-{margin-top:20px;
-}
+.table-user-information > tbody > tr > td { border-top: 0; }
+
+.toppad { margin-top: 20px; }
 
 .navbar-login {
     padding: 10px;
     padding-bottom: 0px;
     width: 305px;
 }
-.kv-avatar .file-preview-frame,.kv-avatar .file-preview-frame:hover {
-    margin: 0;
-    padding: 0;
+
+.kv-avatar .file-preview-frame, .kv-avatar .file-preview-frame:hover {
     border: none;
     box-shadow: none;
+    margin: 0;
+    padding: 0;
     text-align: center;
 }
+
 .kv-avatar .file-input {
     display: table-cell;
     max-width: 220px;
@@ -54,22 +43,23 @@
     padding-bottom: 0;
     padding-top: 0;
 }
-.team_grid{
-	padding:2em 0;
-}
-.detailsLabel{
+
+.team_grid { padding: 2em 0; }
+
+.detailsLabel {
     color: black;
-    font-weight: bold;
-       
+    font-weight: bold;       
 }
+
 .btn-login {
     background-color: #1B4F72;
     border-color: #357ebd;
     color: #fff;
 }
+
 .detailsDiv {
     color: black;
-    font-weight: bolder;        
+    font-weight: bolder;
 }
 
 .navbar-footer { background-color: red; }
@@ -197,7 +187,7 @@ label { margin: 0; }
 .logo { float: left; }
 
 .logo a h1 {
-    color: #1ac7c3; 
+    color: #1ac7c3;
     font-family: 'Antonio-Regular';
     font-size: 3em;
     font-weight: 400;
@@ -557,8 +547,8 @@ p.comment-form-author { margin-bottom: 2em; }
     color: #000;
     display: block;
     font-family: 'Georgia';
-    font-weight: bold;
     font-size: 1em;
+    font-weight: bold;
     text-transform: uppercase;
 }
 
@@ -1274,9 +1264,11 @@ p.span a {
 
     .logo a h1 { font-size: 2em; }
 
-    .navigation ul li a { font-size: 1.0em;display: block;
-    padding: 10px 5px;
- }
+    .navigation ul li a {
+        display: block;
+        font-size: 1.0em;
+        padding: 10px 5px;
+    }
 
     .navigation ul li { margin: 0 0 0 0; }
 

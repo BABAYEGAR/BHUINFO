@@ -69,7 +69,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 HttpPostedFileBase thirdImage = Request.Files["thirdimage"];
                 if (user != null)
                 {
-                    if (firstImage != null || secondImage != null || thirdImage != null)
+                    if (thirdImage != null && (secondImage != null && (firstImage != null && (firstImage.FileName != "" || secondImage.FileName != "" || thirdImage.FileName != ""))))
                     {
                         news.DateCreated = DateTime.Now;
                         news.DateLastModified = DateTime.Now;
@@ -80,12 +80,15 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         news.Dislikes = 0;
                         news.NewsView = 0;
                         news.LastModifiedById = user.AppUserId;
-                        news.Image = new FileUploader().UploadFile(firstImage, UploadType.NewsImage);
-                        if (secondImage != null && secondImage.FileName != "")
+                        if (firstImage.FileName != "")
+                        {
+                            news.Image = new FileUploader().UploadFile(firstImage, UploadType.NewsImage);
+                        }
+                        if (secondImage.FileName != "")
                         {
                             news.SecondImage = new FileUploader().UploadFile(secondImage, UploadType.NewsImage);
                         }
-                        if (thirdImage != null && thirdImage.FileName != "")
+                        if (thirdImage.FileName != "")
                         {
                             news.ThirdImage = new FileUploader().UploadFile(thirdImage, UploadType.NewsImage);
                         }

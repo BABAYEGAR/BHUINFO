@@ -24,6 +24,17 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    ul > li {
+        /*display: none;*/
+        list-style-type: none;
+    }
+
+    ul#lazy-container {
+        height: 800px;
+        overflow: auto;
+    }
+</style>
 <header class="@ViewBag.HeaderClass">
     <div class="overlay"></div>
     <div class="container">
@@ -146,6 +157,9 @@
 </div>
 @section Scripts
 {
+        <!-- cdnjs -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript">
                 $(function() {
                     setInterval(function() {
@@ -156,6 +170,13 @@
                         },
                         2000);
                 });
+        $(function () {
+            $('#lazy-container .lazy').lazy({
+                appendScroll: $('#lazy-container')
+
+
+            });
+        });
 
         </script>
     }

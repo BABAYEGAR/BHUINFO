@@ -35,22 +35,24 @@
 {
     <h4>COMMENTS</h4>
 }
-<ul>
+<ul id="lazy-container">
     @foreach (var item in enumerable)
     {
-        var commentBy = new AppUserFactory().GetAppUserById((int)item.AppUserId);
+        var commentBy = new AppUserFactory().GetAppUserById((int) item.AppUserId);
         if (loggedinuser != null)
         {
             statusCheckForLike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Like.ToString()));
             statusCheckForDislike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Dislike.ToString()));
         }
 
-        <li>
+        <li class="lazy">
             <div class="comments-main">
                 <div class="col-md-3 cmts-main-left">
                     @if (commentBy != null)
                     {
-                        <a href="@Url.Action("ProfileDetails","Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(commentBy.AppUserId.ToString(),true)})"><img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt=""></a>
+                        <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(commentBy.AppUserId.ToString(), true)})">
+                            <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt="">
+                        </a>
                     }
                     else
                     {
@@ -61,7 +63,7 @@
                 <div class="col-md-9 cmts-main-right">
                     <h5 class="detailsDiv">
                         @if (commentBy != null)
-                {
+                        {
                             @commentBy.DisplayName
                         }
                     </h5>
@@ -72,7 +74,7 @@
 
                         <div class="clearfix"></div>
                         @if (statusCheckForLike != null)
-                {
+                        {
                             <label style="color: green">
                                 <i class="fa fa-thumbs-up">
                                     @*@Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
@@ -89,11 +91,11 @@
                             {
                                 <label style="color: green">
                                     <i class="fa fa-thumbs-up">
-                                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new { Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCommentId.ToString(), true), actionType = NewsActionType.Like.ToString() }, new AjaxOptions
-                                   {
-                                       HttpMethod = "Post",
-                                       UpdateTargetId = "likeOrDislikeDiv"
-                                   })
+                                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCommentId.ToString(), true), actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                                        {
+                                            HttpMethod = "Post",
+                                            UpdateTargetId = "likeOrDislikeDiv"
+                                        })
                                     </i>
                                 </label>
                             }
@@ -101,7 +103,7 @@
 
                         <label> </label>
                         @if (statusCheckForDislike != null)
-                {
+                        {
                             <label style="color: red">
                                 <i class="fa fa-thumbs-down">
                                     @*@Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
@@ -112,7 +114,7 @@
                                 </i>
 
                             </label>
-                            <br />
+                            <br/>
                         }
                         else
                         {
@@ -120,15 +122,15 @@
                             {
                                 <label style="color: red">
                                     <i class="fa fa-thumbs-down">
-                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new { Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCommentId.ToString(), true), actionType = NewsActionType.Dislike.ToString() }, new AjaxOptions
-                           {
-                               HttpMethod = "Post",
-                               UpdateTargetId = "likeOrDislikeDiv"
-                           })
+                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCommentId.ToString(), true), actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                                        {
+                                            HttpMethod = "Post",
+                                            UpdateTargetId = "likeOrDislikeDiv"
+                                        })
                                     </i>
 
                                 </label>
-                                <br />
+                                <br/>
                             }
                         }
                         <label id="likeOrDislikeDiv">
@@ -142,7 +144,5 @@
                 <div class="clearfix"></div>
             </div>
         </li>
-
-
-                                }
+    }
 </ul>
