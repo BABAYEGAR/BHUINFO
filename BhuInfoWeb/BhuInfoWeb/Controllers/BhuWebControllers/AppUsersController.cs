@@ -99,9 +99,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 {
                     appUser.DateCreated = DateTime.Now;
                     appUser.DateLastModified = DateTime.Now;
-                    appUser.CreatedById = 0;
+                    appUser.CreatedById = 1;
                     appUser.MatricNumber = collectedValues["MatricNumber"].Trim();
-                    appUser.LastModifiedById = 0;
+                    appUser.LastModifiedById = 1;
                     appUser.Role = UserType.Student.ToString();
                     var password = Membership.GeneratePassword(8, 1);
                     var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
@@ -120,6 +120,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     appUser.Password = password;
                     new MailerDaemon().NewUser(appUser);
+                    return RedirectToAction("Login", "Account");
                 }
                 return RedirectToAction("Login","Account");
             }
@@ -200,6 +201,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     TempData["notificationtype"] = NotificationType.Success.ToString();
                     appUser.Password = password;
                     new MailerDaemon().NewUser(appUser);
+                    return RedirectToAction("Login","Account");
                 }
                 return RedirectToAction("Index");
             }

@@ -31,7 +31,7 @@
                                 <p class="alert-info alert-dismissable" style="height: 30px">@TempData["student"]</p>
                             }
                         }
-                        @using (Html.BeginForm("Create","AppUsers",FormMethod.Post,new { enctype = "multipart/form-data", @class = "form" }))
+                        @using (Html.BeginForm("Create","AppUsers",FormMethod.Post,new { enctype = "multipart/form-data" }))
                         {
                             @Html.AntiForgeryToken()
                             @Html.Hidden("student",UserType.Student.ToString())

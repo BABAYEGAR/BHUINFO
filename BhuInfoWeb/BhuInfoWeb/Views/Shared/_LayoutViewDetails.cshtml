@@ -34,10 +34,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     }
                     else
                     {
-                        <li>
-                            <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
-                        </li>
+                        if (ViewBag.Title == "Sign-In")
+                        {
+                            <li>
+                                <a class="active" href="@Url.Action("Login", "Account")">Sign-In</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
+                            </li>
+                        }
+
                     }
+
                 </ul>
             </div>
             <div class="navigation">
