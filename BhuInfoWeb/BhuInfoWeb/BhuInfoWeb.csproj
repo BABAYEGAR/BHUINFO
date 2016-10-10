@@ -236,11 +236,14 @@
     <Content Include="AppTheme\images\abt_pic.jpg" />
     <Content Include="AppTheme\images\avatar.jpg" />
     <Content Include="AppTheme\images\bhulogo.jpg" />
+    <Content Include="AppTheme\images\default_avatar_male.jpg" />
     <Content Include="AppTheme\images\ep1.jpg" />
     <Content Include="AppTheme\images\ep2.jpg" />
     <Content Include="AppTheme\images\ep3.jpg" />
     <Content Include="AppTheme\images\ep4.jpg" />
     <Content Include="AppTheme\images\features-bg.jpg" />
+    <Content Include="AppTheme\images\loading-sm.gif" />
+    <Content Include="AppTheme\images\loading.gif" />
     <Content Include="AppTheme\images\nav.png" />
     <Content Include="AppTheme\images\p1.jpg" />
     <Content Include="AppTheme\images\p2.jpg" />

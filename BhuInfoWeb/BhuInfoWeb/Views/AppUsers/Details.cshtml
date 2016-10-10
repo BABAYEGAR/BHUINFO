@@ -144,27 +144,30 @@
                                 @Html.DisplayFor(model => model.DateLastModified)
                             </div>
                         </div>
+                        @if (Model.CreatedById != 0)
+                        {
+                            <div class="form-group col-md-12">
+                                <div class="col-md-3 detailsDiv">
+                                    @Html.DisplayName("Created By")
+                                </div>
 
-                        <div class="form-group col-md-12">
-                            <div class="col-md-3 detailsDiv">
-                                @Html.DisplayName("Created By")
+                                <div class="col-md-9">
+                                    @db.AppUsers.Find(Model.CreatedById).DisplayName
+                                </div>
                             </div>
+                        }
+                        @if (Model.LastModifiedById != 0)
+                        {
+                            <div class="form-group col-md-12">
+                                <div class="col-md-3 detailsDiv">
+                                    @Html.DisplayName("Last ModifiedBy")
+                                </div>
 
-                            <div class="col-md-9">
-                                @db.AppUsers.Find(Model.CreatedById).DisplayName
+                                <div class="col-md-9">
+                                    @db.AppUsers.Find(Model.LastModifiedById).DisplayName
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group col-md-12">
-                            <div class="col-md-3 detailsDiv">
-                                @Html.DisplayName("Last ModifiedBy")
-                            </div>
-
-                            <div class="col-md-9">
-                                @db.AppUsers.Find(Model.LastModifiedById).DisplayName
-                            </div>
-                        </div>
-
+                        }
 
                     </div>
                 </div>

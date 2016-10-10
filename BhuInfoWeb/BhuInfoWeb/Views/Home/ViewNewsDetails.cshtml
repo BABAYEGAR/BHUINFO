@@ -393,8 +393,10 @@
                                 .hide()
                                 .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
                                 .fadeIn(0.5);
+                            return false;
                         },
                         1000);
+
                     $("#lazy-container")
                         .scroll(function() {
                             sessionStorage.scrollTop = $(this).scrollTop();
@@ -519,32 +521,6 @@
                     });
 
             });;
-        (function($) {
-            $.fn.scrollPosReaload = function() {
-                if (localStorage) {
-                    var posReader = localStorage["posStorage"];
-                    if (posReader) {
-                        $("#lazy-container").scrollTop(posReader);
-                        localStorage.removeItem("posStorage");
-                    }
-                    $(this)
-                        .click(function(e) {
-                            localStorage["posStorage"] = $("#lazy-container").scrollTop();
-                        });
-
-                    return true;
-                }
-
-                return false;
-            };
-            $(document)
-                .ready(function() {
-                    // Feel free to set it for any element who trigger the reload
-                    $('#commentDiv').scrollPosReaload();
-                });
-
-        }(jQuery));
-
     </script>
 
 
