@@ -1,10 +1,9 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
-@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
-@model IEnumerable<News>
+@model IEnumerable<BhuInfo.Data.Objects.Entities.News>
 @{
     ViewBag.Title = "Fashion";
     Session["newsmodel"] = null;
@@ -57,12 +56,12 @@
                     {
                         <div class="print-grid">
                             <div class="print-img">
-                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                                     <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" class="img-responsive" alt=""/>
                                 </a>
                             </div>
                             <div class="print-text">
-                                <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title</a>
+                                <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title</a>
                                 <p>
                                     Posted by <a href="#">@mostRecentNewsPostedBy.DisplayName</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                 </p>
@@ -74,7 +73,7 @@
                                 {
                                     <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
                                 }
-                                <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">...Read More</a>
+                                <a class="more" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">...Read More</a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -92,7 +91,7 @@
                 {
                     foreach (var item in news)
                     {
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                             <div class="editor text-center">
                                 <h3>@item.Title</h3>
                                 @if (item.Content.Length > 40)
@@ -137,7 +136,7 @@
                         </a>
                     }
                 }
-                catch (ArgumentOutOfRangeException )
+                catch (ArgumentOutOfRangeException)
                 {
                 }
             </div>
@@ -149,7 +148,7 @@
                     {
                         <div class="editors-pic">
                             <div class="e-pic">
-                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                                     <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                                 </a>
                             </div>

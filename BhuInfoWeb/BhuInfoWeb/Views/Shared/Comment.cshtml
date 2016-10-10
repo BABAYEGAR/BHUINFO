@@ -112,7 +112,7 @@
                             {
                                 <label style="color: red">
                                     <i class="fa fa-thumbs-down">
-                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId , actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
                                         {
                                             HttpMethod = "Post",
                                             UpdateTargetId = "likeOrDislikeDiv"

@@ -99,24 +99,24 @@
                             </tr>
 
                             @foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateCreated)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateLastModified)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCategoryId.ToString(), true) }, new {@class = "btn btn-primary"}) |
-                                @Html.ActionLink("Details", "Details", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCategoryId.ToString(), true) }, new {@class = "btn btn-default"}) |
-                                @Html.ActionLink("Delete", "Delete", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCategoryId.ToString(), true) }, new {@class = "btn btn-danger"})
-                            </td>
-                        </tr>
-                        }
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateCreated)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateLastModified)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCategoryId.ToString(), true)}, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCategoryId.ToString(), true)}, new {@class = "btn btn-default"}) |
+                                        @Html.ActionLink("Delete", "Delete", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsCategoryId.ToString(), true)}, new {@class = "btn btn-danger"})
+                                    </td>
+                                </tr>
+                            }
 
                         </table>
                     </div>

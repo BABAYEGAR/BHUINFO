@@ -95,44 +95,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                     }
                                                 </p>
                                             </div>
-                                                  <div class="col-md-12 col-lg-12">
-                                                      
-                                                     
-                                                          <p class="text-left">
-                                                              <strong>@loggedinuser.DisplayName</strong>
-                                                          </p>
-                                                          <p class="text-left small">@loggedinuser.Email</p>
-                                                      <div class="row">
-                                                          <div class="col-md-12">
-                                                              @if (loggedinuser.Role == UserType.Administrator.ToString())
-                                                              {
-                                                                  <p>
-                                                                      <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary btn-block  "><span class="fa fa-home"></span> Dashboard</a>
-                                                                  </p>
-                                                                  <div class="clearfix"></div>
-                                                              }
-                                                              else if (loggedinuser.Role == UserType.Manager.ToString())
-                                                              {
-                                                                  <p>
-                                                                      <a href="@Url.Action("Index", "News")" class="btn btn-primary btn-block "><span class="fa fa-home"></span> Dashboard</a>
-                                                                  </p>
-                                                                  <div class="clearfix"></div>
-                                                              }
-                                                              else if (loggedinuser.Role == UserType.Student.ToString())
-                                                              {
+                                            <div class="col-md-12 col-lg-12">
 
-                                                              }
-                                                          </div>
-                                                      </div>
-                                                      <div class="row">
-                                                          <div class="col-md-12">
-                                                              <p >
-                                                                  <a href="@Url.Action("ProfileDetails", "Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(),true)})" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
-                                                              </p>
-                                                              <div class="clearfix"></div>
-                                                          </div>
-                                                      </div>
+
+                                                <p class="text-left">
+                                                    <strong>@loggedinuser.DisplayName</strong>
+                                                </p>
+                                                <p class="text-left small">@loggedinuser.Email</p>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                                        {
+                                                            <p>
+                                                                <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary btn-block  "><span class="fa fa-home"></span> Dashboard</a>
+                                                            </p>
+                                                            <div class="clearfix"></div>
+                                                        }
+                                                        else if (loggedinuser.Role == UserType.Manager.ToString())
+                                                        {
+                                                            <p>
+                                                                <a href="@Url.Action("Index", "News")" class="btn btn-primary btn-block "><span class="fa fa-home"></span> Dashboard</a>
+                                                            </p>
+                                                            <div class="clearfix"></div>
+                                                        }
+                                                        else if (loggedinuser.Role == UserType.Student.ToString())
+                                                        {
+                                                        }
+                                                    </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <p >
+                                                            <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(), true)})" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
+                                                        </p>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>

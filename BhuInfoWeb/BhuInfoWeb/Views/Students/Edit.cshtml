@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 @section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
 }
 @{
     ViewBag.HeaderClass = "page-header";
@@ -126,49 +126,49 @@
                         @Html.AntiForgeryToken()
 
                         <div class="form-horizontal">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                             @Html.HiddenFor(model => model.StudentId)
                             @Html.Hidden("date", Model.DateCreated)
                             @Html.Hidden("password", Model.Password)
                             @Html.Hidden("matric", Model.MatricNo)
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    @Html.LabelFor(model => model.Firstname, new { @class = "control-label col-md-3" })
+                                    @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.TextBoxFor(model => model.Firstname, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(model => model.Firstname, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    @Html.LabelFor(model => model.Lastname, new { @class = "control-label col-md-3" })
+                                    @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.TextBoxFor(model => model.Lastname, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(model => model.Lastname, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3" })
+                                    @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="form-group col-md-12">
-                                    @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-3" })
+                                    @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
                                     <div class="col-sm-6 col-md-9">
-                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(model => model.Mobile, new {@class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    @Html.ActionLink("Back to list", "Index", null, new { @class = "pull-left btn btn-default", style = "fa fa-pencil" })
-                                    <input type="submit" value="Save" class="btn btn-primary pull-right " />
+                                    @Html.ActionLink("Back to list", "Index", null, new {@class = "pull-left btn btn-default", style = "fa fa-pencil"})
+                                    <input type="submit" value="Save" class="btn btn-primary pull-right "/>
                                 </div>
                             </div>
                         </div>

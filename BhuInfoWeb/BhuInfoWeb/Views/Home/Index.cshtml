@@ -45,8 +45,8 @@
                     @foreach (var item in generalNews)
                     {
                         <h6>@item.NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title </a>
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title </a>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                             <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                         </a>
                         <div>
@@ -74,8 +74,8 @@
                     @foreach (var item in fashionNews)
                     {
                         <h6>@item.NewsCategory.Name </h6>
-                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title </a>
-                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title </a>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                             <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                         </a>
                         <div>
@@ -108,7 +108,7 @@
             <h5 class="head">Anouncements</h5>
             foreach (var item in annoucements)
             {
-                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                     <div class="editor text-center">
                         @if (Model != null)
                         {
@@ -127,25 +127,25 @@
                             <br/>
                             <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
                             <br/>
-                            if (item.Likes > 1 && item.Dislikes > 1)
+                            if ((item.Likes > 1) && (item.Dislikes > 1))
                             {
                                 <label>
                                     <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
                                 </label>
                             }
-                            if (item.Likes <= 1 && item.Dislikes <= 1)
+                            if ((item.Likes <= 1) && (item.Dislikes <= 1))
                             {
                                 <label>
                                     <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
                                 </label>
                             }
-                            if (item.Likes <= 1 && item.Dislikes > 1)
+                            if ((item.Likes <= 1) && (item.Dislikes > 1))
                             {
                                 <label>
                                     <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
                                 </label>
                             }
-                            if (item.Likes > 1 && item.Dislikes <= 1)
+                            if ((item.Likes > 1) && (item.Dislikes <= 1))
                             {
                                 <label>
                                     <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
@@ -172,41 +172,41 @@
                 {
                     <div class="editors-pic">
                         <div class="e-pic">
-                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                                 <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                             </a>
                         </div>
                         <div class="e-pic-info">
-                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title</a>
+                            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title</a>
                             <span></span>
                             <label style="font-weight: bold">
                                 @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                             </label><br/>
                             <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
                             <br/>
-                            @if (item.Likes > 1 && item.Dislikes > 1)
+                            @if ((item.Likes > 1) && (item.Dislikes > 1))
                             {
-                            <label>
-                                <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                            </label>
+                                <label>
+                                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                </label>
                             }
-                            @if (item.Likes <= 1 && item.Dislikes <= 1)
+                            @if ((item.Likes <= 1) && (item.Dislikes <= 1))
                             {
-                            <label>
-                                <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
-                            </label>
+                                <label>
+                                    <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
+                                </label>
                             }
-                            @if (item.Likes <= 1 && item.Dislikes > 1)
+                            @if ((item.Likes <= 1) && (item.Dislikes > 1))
                             {
-                            <label>
-                                <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                            </label>
+                                <label>
+                                    <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                                </label>
                             }
-                            @if (item.Likes > 1 && item.Dislikes <= 1)
+                            @if ((item.Likes > 1) && (item.Dislikes <= 1))
                             {
-                            <label>
-                                <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
-                            </label>
+                                <label>
+                                    <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
+                                </label>
                             }
                             <br/>
                         </div>
@@ -253,8 +253,8 @@ else
             @foreach (var item in sportNews)
             {
                 <h6>@item.NewsCategory.Name </h6>
-                <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">@item.Title </a>
-                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+                <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title </a>
+                <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                     <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt=""/>
                 </a>
                 if (item.Content.Length > 50)
@@ -278,7 +278,7 @@ catch (ArgumentOutOfRangeException)
         <h5 class="head">Popular</h5>
         foreach (var item in news)
         {
-            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(),true)})">
+            <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
                 <div class="editor text-center">
                     <h3>@item.Title</h3>
                     @if (item.Content.Length > 40)
@@ -295,29 +295,29 @@ catch (ArgumentOutOfRangeException)
                     <br/>
                     <label style="color: black"> @(new DateTimeCalculator().CommentAndViews(item)) </label>
                     <br/>
-                    @if (item.Likes > 1 && item.Dislikes > 1)
+                    @if ((item.Likes > 1) && (item.Dislikes > 1))
                     {
-                    <label>
-                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                    </label>
+                        <label>
+                            <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                        </label>
                     }
-                    @if (item.Likes <= 1 && item.Dislikes <= 1)
+                    @if ((item.Likes <= 1) && (item.Dislikes <= 1))
                     {
-                    <label>
-                        <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
-                    </label>
+                        <label>
+                            <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislike</label>
+                        </label>
                     }
-                    @if (item.Likes <= 1 && item.Dislikes > 1)
+                    @if ((item.Likes <= 1) && (item.Dislikes > 1))
                     {
-                    <label>
-                        <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
-                    </label>
+                        <label>
+                            <label style="color: green">@item.Likes Like</label> <label style="color: red">@item.Dislikes Dislikes</label>
+                        </label>
                     }
-                    @if (item.Likes > 1 && item.Dislikes <= 1)
+                    @if ((item.Likes > 1) && (item.Dislikes <= 1))
                     {
-                    <label>
-                        <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
-                    </label>
+                        <label>
+                            <label style="color: green">@item.Likes Likes</label> <label style="color: red">@item.Dislikes Dislike</label>
+                        </label>
                     }
                     <br/>
                     <span></span>

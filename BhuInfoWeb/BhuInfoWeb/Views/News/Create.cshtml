@@ -1,5 +1,4 @@
-﻿@using BhuInfo.Data.Objects.Entities
-@using BhuInfo.Data.Service.Enums
+﻿@using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.News
 
 @{
@@ -120,18 +119,18 @@
                                 </div>
                                 <div class="extraiamges">
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.SecondImage, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.SecondImage, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            <input type="file" name="secondimage" id="secondimage" style="width: 100%;" />
-                                            @Html.ValidationMessageFor(model => model.SecondImage, "", new { @class = "text-danger" })
+                                            <input type="file" name="secondimage" id="secondimage" style="width: 100%;"/>
+                                            @Html.ValidationMessageFor(model => model.SecondImage, "", new {@class = "text-danger"})
                                         </div>
 
                                     </div>
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.ThirdImage, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.ThirdImage, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            <input type="file" name="thirdimage" id="thirdimage" style="width: 100%;" />
-                                            @Html.ValidationMessageFor(model => model.ThirdImage, "", new { @class = "text-danger" })
+                                            <input type="file" name="thirdimage" id="thirdimage" style="width: 100%;"/>
+                                            @Html.ValidationMessageFor(model => model.ThirdImage, "", new {@class = "text-danger"})
                                         </div>
 
                                     </div>

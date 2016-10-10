@@ -2,11 +2,11 @@
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Encryption
-@model SchoolDiscussion
+@model BhuInfo.Data.Objects.Entities.SchoolDiscussion
 @{
     var discussionId = Model.SchoolDiscussionId;
 
-    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId).OrderByDescending(n=>n.DateCreated);
+    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId).OrderByDescending(n => n.DateCreated);
     var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
 }
 @if (schoolDiscussionComments.Count > 0)
@@ -15,18 +15,20 @@
 }
 else
 {
-  <h4></h4>
+    <h4></h4>
 }
 <ul id="lazy-container">
     @foreach (var item in schoolDiscussionComments)
     {
-        var commentBy = new AppUserFactory().GetAppUserById((int)item.AppUserId);
+        var commentBy = new AppUserFactory().GetAppUserById((int) item.AppUserId);
         <li class="lazy">
             <div class="comments-main">
                 <div class="col-md-3 cmts-main-left">
                     @if (commentBy != null)
                     {
-                        <a href="@Url.Action("ProfileDetails","Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(),true)})"><img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt=""></a>
+                        <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(), true)})">
+                            <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt="">
+                        </a>
                     }
                     else
                     {

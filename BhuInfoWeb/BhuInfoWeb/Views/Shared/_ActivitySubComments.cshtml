@@ -1,11 +1,11 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
-@model SchoolDiscussion
+@model BhuInfo.Data.Objects.Entities.SchoolDiscussion
 @{
     var discussionId = Model.SchoolDiscussionId;
 
-    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int)discussionId).OrderByDescending(n => n.DateCreated);
+    var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId).OrderByDescending(n => n.DateCreated);
     var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
     var countedDiscussionComments = schoolDiscussionComments.Take(7);
 }
@@ -15,7 +15,7 @@
 }
 else
 {
-  <h4></h4>
+    <h4></h4>
 }
 @foreach (var item in countedDiscussionComments)
 {

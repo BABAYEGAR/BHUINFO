@@ -46,7 +46,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <a class="active" href="@Url.Action("Index", "AppUsers")">Manager/Users</a>
                             </li>
                         }
-
                     }
 
                 </ul>
@@ -122,7 +121,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <p>
-                                                                    <a href="@Url.Action("ProfileDetails", "Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(),true)})" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
+                                                                    <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(), true)})" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
                                                                 </p>
                                                                 <div class="clearfix"></div>
                                                             </div>
@@ -157,7 +156,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         }
                     </ul>
                 }
-                
+
             </div>
             <div class="clearfix"></div>
         </div>

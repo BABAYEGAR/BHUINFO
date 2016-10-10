@@ -4,67 +4,64 @@
 @using BhuInfo.Data.Service.Enums
 @{
     var newsId = Model.NewsId;
-    NewsStatusDataContext dbd = new NewsStatusDataContext();
+    var dbd = new NewsStatusDataContext();
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     NewsStatus statusCheckForLike = null;
     NewsStatus statusCheckForDislike = null;
     if (loggedinuser != null)
     {
-
-       statusCheckForLike = dbd.NewsStatuses.ToList().FirstOrDefault(n => n.NewsId == newsId && n.LoggedInUserId == loggedinuser.AppUserId && n.Status == NewsActionType.Like.ToString());
-       statusCheckForDislike = dbd.NewsStatuses.ToList().FirstOrDefault(n => n.NewsId == newsId && n.LoggedInUserId == loggedinuser.AppUserId && n.Status == NewsActionType.Dislike.ToString());
+        statusCheckForLike = dbd.NewsStatuses.ToList().FirstOrDefault(n => (n.NewsId == newsId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Like.ToString()));
+        statusCheckForDislike = dbd.NewsStatuses.ToList().FirstOrDefault(n => (n.NewsId == newsId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Dislike.ToString()));
     }
 }
-    @if (statusCheckForLike != null)
-    {
-        <label style="color: green">
-            <i class="fa fa-thumbs-up">
-                @*@Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new { Id = Model.NewsId, actionType = NewsActionType.Like.ToString() }, new AjaxOptions
+@if (statusCheckForLike != null)
+{
+    <label style="color: green">
+        <i class="fa fa-thumbs-up">
+            @*@Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new { Id = Model.NewsId, actionType = NewsActionType.Like.ToString() }, new AjaxOptions
                     {
                         HttpMethod = "Post",
                         UpdateTargetId = "likeOrDislikeDiv"
                     })*@
-            </i>
-        </label>
-    }
-    else
-    {
-        <label style="color: green">
-            <i class="fa fa-thumbs-up">
-                @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true), actionType = NewsActionType.Like.ToString() }, new AjaxOptions
-           {
-               HttpMethod = "Post",
-               UpdateTargetId = "likeOrDislikeDiv"
-           })
-            </i>
-        </label>
-    }
-    <label> </label>
-    @if (statusCheckForDislike != null)
-    {
-        <label style="color: red">
-            <i class="fa fa-thumbs-down">
-                @*@Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+        </i>
+    </label>
+}
+else
+{
+    <label style="color: green">
+        <i class="fa fa-thumbs-up">
+            @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true), actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+            {
+                HttpMethod = "Post",
+                UpdateTargetId = "likeOrDislikeDiv"
+            })
+        </i>
+    </label>
+}
+<label> </label>
+@if (statusCheckForDislike != null)
+{
+    <label style="color: red">
+        <i class="fa fa-thumbs-down">
+            @*@Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = Model.NewsId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
                     {
                         HttpMethod = "Post",
                         UpdateTargetId = "likeOrDislikeDiv"
                     })*@
-            </i>
+        </i>
 
-        </label>
-    }
-    else
-    {
-        <label style="color: red">
-            <i class="fa fa-thumbs-down">
-                @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true), actionType = NewsActionType.Dislike.ToString() }, new AjaxOptions
-               {
-                   HttpMethod = "Post",
-                   UpdateTargetId = "likeOrDislikeDiv"
-               })
-            </i>
+    </label>
+}
+else
+{
+    <label style="color: red">
+        <i class="fa fa-thumbs-down">
+            @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true), actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+            {
+                HttpMethod = "Post",
+                UpdateTargetId = "likeOrDislikeDiv"
+            })
+        </i>
 
-        </label>
-    }
-
-
+    </label>
+}

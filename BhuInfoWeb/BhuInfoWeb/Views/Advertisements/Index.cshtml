@@ -107,47 +107,47 @@
                                 </th>
                                 <th>Action</th>
                                 @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                            {
-                            <th>Enable/Disable</th>
-                            }
+                                {
+                                    <th>Enable/Disable</th>
+                                }
                             </tr>
 
                             @foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AdvertCompanyName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AdvertType)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AccessCode)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Status)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true) }, new { @class = "btn btn-primary" }) |
-                                @Html.ActionLink("Details", "Details", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true) }, new { @class = "btn btn-default" })
-                            </td>
-                            @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
-                                {
-                                <td>
-                                    @Html.ActionLink("Delete", "Delete", new { id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true) }, new { @class = "btn btn-danger" })
-                                    @Html.ActionLink("Enable", "EnableOrDisableAdvert", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true), actionType = AdvertStatus.Enable.ToString()}, new {@class = "btn btn-success"}) |
-                                    @Html.ActionLink("Disable", "EnableOrDisableAdvert", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true), actionType = AdvertStatus.Disable.ToString()}, new {@class = "btn btn-danger"})|
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AdvertCompanyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AdvertType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccessCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true)}, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true)}, new {@class = "btn btn-default"})
+                                    </td>
+                                    @if ((loggedinuser != null) && (loggedinuser.Role == UserType.Administrator.ToString()))
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Delete", "Delete", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true)}, new {@class = "btn btn-danger"})
+                                            @Html.ActionLink("Enable", "EnableOrDisableAdvert", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true), actionType = AdvertStatus.Enable.ToString()}, new {@class = "btn btn-success"}) |
+                                            @Html.ActionLink("Disable", "EnableOrDisableAdvert", new {id = new Md5Ecryption().EncryptPrimaryKey(item.AdvertisementId.ToString(), true), actionType = AdvertStatus.Disable.ToString()}, new {@class = "btn btn-danger"})|
 
-                                </td>
-                                }
-                        </tr>
-                        }
+                                        </td>
+                                    }
+                                </tr>
+                            }
 
                         </table>
                     </div>

@@ -1,6 +1,6 @@
-﻿@model BhuInfo.Data.Objects.Entities.Advertisement
+﻿@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.Enums
-@using BhuInfo.Data.Objects.Entities
+@model BhuInfo.Data.Objects.Entities.Advertisement
 @{
     ViewBag.Title = "Create";
     ViewBag.HeaderClass = "page-header";
@@ -10,7 +10,7 @@
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
 @section css{
-    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
 }
 <div class="container">
     <div class="header-bottom">
@@ -77,44 +77,44 @@
                             <div class="alert-info alert-dismissable" style="height: 30px">@TempData["advert"]</div>
                         }
                     }
-                    @using (Html.BeginForm("Create","Advertisements", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
+                    @using (Html.BeginForm("Create", "Advertisements", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form"}))
                     {
                         @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                      
-                            <div class="form-horizontal">
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.AdvertCompanyName, new { @class = "control-label col-md-3" })
-                                        <div class="col-sm-6 col-md-9">
-                                            @Html.TextBoxFor(model => model.AdvertCompanyName, new { @class = "form-control", placeholder = "Enter a company name" })
-                                            @Html.ValidationMessageFor(model => model.AdvertCompanyName, "", new { @class = "text-danger" })
-                                        </div>
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.AdvertCompanyName, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.TextBoxFor(model => model.AdvertCompanyName, new {@class = "form-control", placeholder = "Enter a company name"})
+                                        @Html.ValidationMessageFor(model => model.AdvertCompanyName, "", new {@class = "text-danger"})
                                     </div>
-                                    <div class="clearfix"></div>
-                                    <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.AdvertType, new { @class = "control-label col-md-3" })
-                                        <div class="col-sm-6 col-md-9">
-                                            @Html.DropDownList("AdvertType", EnumHelper.GetSelectList(typeof(AdvertType)), "select an advert type", new { @class = "form-control select-dropdown" })
-                                        </div>
 
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3" })
-                                        <div class="col-sm-6 col-md-9">
-                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter an email" })
-                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                        </div>
-
-                                    </div>
                                 </div>
+                                <div class="clearfix"></div>
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.AdvertType, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.DropDownList("AdvertType", EnumHelper.GetSelectList(typeof(AdvertType)), "select an advert type", new {@class = "form-control select-dropdown"})
+                                    </div>
+
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="form-group col-md-12">
+                                    @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
+                                    <div class="col-sm-6 col-md-9">
+                                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control", placeholder = "Enter an email"})
+                                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <a href="@Url.Action("Index", "Advertisements")" class="btn btn-default">Cancel</a>
-                                <input type="submit" value="Create" class="btn btn-primary pull-right" />
+                                <input type="submit" value="Create" class="btn btn-primary pull-right"/>
 
                             </div>
                         </div>
@@ -134,7 +134,7 @@
 
                 // Init select2 for dropdown select
                 $('.select-dropdown').select2();
-               
+
             })
     </script>
 }

@@ -8,7 +8,7 @@ namespace BhuInfoWeb
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                           "~/Scripts/jquery-3.1.0.js",
+                           "~/Scripts/jquery-3.1.1.js",
                            "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

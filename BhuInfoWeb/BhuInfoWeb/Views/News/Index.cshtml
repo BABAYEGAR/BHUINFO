@@ -101,36 +101,36 @@
                             </tr>
 
                             @foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            @if (item.Content.Length > 10)
-                                {
-                                <td>
-                                    @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7) + "..."))
-                                </td>
-                                }
-                                else
-                                {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Content)
-                                </td>
-                                }
-                            <td>
-                                @Html.DisplayFor(modelItem => item.NewsCategory.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateCreated)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true) }, new {@class = "btn btn-primary"}) |
-                                @Html.ActionLink("Details", "Details", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true) }, new {@class = "btn btn-default"}) |
-                                @Html.ActionLink("Delete", "Delete", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true) }, new {@class = "btn btn-danger"})
-                            </td>
-                        </tr>
-                        }
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Title)
+                                    </td>
+                                    @if (item.Content.Length > 10)
+                                    {
+                                        <td>
+                                            @(new RemoveCharacters().RemoveSpecialCharacters(item.Content.Substring(0, 7) + "..."))
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Content)
+                                        </td>
+                                    }
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NewsCategory.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateCreated)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)}, new {@class = "btn btn-primary"}) |
+                                        @Html.ActionLink("Details", "Details", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)}, new {@class = "btn btn-default"}) |
+                                        @Html.ActionLink("Delete", "Delete", new {id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)}, new {@class = "btn btn-danger"})
+                                    </td>
+                                </tr>
+                            }
 
                         </table>
                     </div>

@@ -1,5 +1,4 @@
 ﻿@using BhuInfo.Data.Objects.Entities
-@using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.AppUser
 
 @{
@@ -10,7 +9,7 @@
 }
 @section css{
     <link href="~/Scripts/plugins/Form/css/select2.css" rel="stylesheet"/>
-<link href="~/AppTheme/fileinput.css" rel="stylesheet" />
+    <link href="~/AppTheme/fileinput.css" rel="stylesheet"/>
 }
 @{
     ViewBag.HeaderClass = "page-header";
@@ -66,13 +65,13 @@
 
             <div class="panel-body">
                 <div class="col-md-12">
-                    @using (Html.BeginForm("Edit", "AppUsers", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
+                    @using (Html.BeginForm("Edit", "AppUsers", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form"}))
                     {
                         @Html.AntiForgeryToken()
 
                         <div class="form-horizontal">
                             <div class="col-md-8">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
                                 @Html.HiddenFor(model => model.AppUserId)
                                 @Html.Hidden("date", Model.DateCreated)
                                 @Html.Hidden("password", Model.Password)
@@ -81,41 +80,41 @@
                                 @Html.Hidden("matric", Model.AppUserImage)
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Firstname, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.Firstname, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            @Html.TextBoxFor(model => model.Firstname, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.Firstname, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.Firstname, new {@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.Firstname, "", new {@class = "text-danger"})
                                         </div>
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Lastname, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.Lastname, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            @Html.TextBoxFor(model => model.Lastname, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.Lastname, new {@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.Lastname, "", new {@class = "text-danger"})
                                         </div>
                                     </div>
 
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.Mobile, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                                            @Html.TextBoxFor(model => model.Mobile, new {@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "text-danger"})
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Role, new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
                                         <div class="col-sm-6 col-md-9">
-                                            @Html.DropDownListFor(model => model.Role, (SelectList)ViewBag.roles, new { @class = "form-control select-dropdown" })
+                                            @Html.DropDownListFor(model => model.Role, (SelectList) ViewBag.roles, new {@class = "form-control select-dropdown"})
                                         </div>
                                     </div>
                                 </div>
@@ -123,20 +122,20 @@
                             <div class="col-md-3">
                                 <div class="row">
                                     <!-- the avatar markup -->
-                                    <div id="kv-avatar-errors-2" class="center-block" style="width:800px;display:none"></div>
-                                    <div class="kv-avatar center-block" style="width:200px">
+                                    <div id="kv-avatar-errors-2" class="center-block" style="display: none; width: 800px;"></div>
+                                    <div class="kv-avatar center-block" style="width: 200px">
                                         <input id="avatar-2" name="avatar-2" type="file" class="file-loading">
                                     </div>
                                     <!-- include other inputs if needed and include a form submit (save) button -->
                                 </div>
                             </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        @Html.ActionLink("Back to list", "Index", null, new { @class = "pull-left btn btn-default", style = "fa fa-pencil" })
-                                        <input type="submit" value="Save" class="btn btn-primary pull-right " />
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.ActionLink("Back to list", "Index", null, new {@class = "pull-left btn btn-default", style = "fa fa-pencil"})
+                                    <input type="submit" value="Save" class="btn btn-primary pull-right "/>
                                 </div>
                             </div>
+                        </div>
                     }
                 </div>
             </div>
@@ -145,7 +144,7 @@
 </div>
 @section scripts{
     <script src="~/Scripts/plugins/Form/js/select2.min.js"></script>
-<script src="~/Scripts/fileinput.js"></script>
+    <script src="~/Scripts/fileinput.js"></script>
     <script>
         $(document)
             .ready(function() {
@@ -155,26 +154,28 @@
                 // Init select2 for dropdown select
                 $('.select-dropdown').select2();
                 var btnCust = '<button type="button" class="btn btn-default" title="Add picture tags" ' +
-            'onclick="alert(\'Call your custom code here.\')">' +
-            '<i class="glyphicon glyphicon-tag"></i>' +
-            '</button>';
-               
-                $("#avatar-2").fileinput({
-    overwriteInitial: true,
-                    maxFileSize: 1500,
-                    showClose: false,
-                    showCaption: false,
-                    showBrowse: false,
-                    browseOnZoneClick: true,
-                    removeLabel: '',
-                    removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
-                    removeTitle: 'Cancel or reset changes',
-                    elErrorContainer: '#kv-avatar-errors-2',
-                    msgErrorClass: 'alert alert-block alert-danger',
-                    defaultPreviewContent: '<img src="../../UploadedFiles/ProfileImage/@Model.AppUserImage" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
-                    layoutTemplates: { main2: '{preview} ' + btnCust + ' {remove} {browse}' },
-                    allowedFileExtensions: ["jpg", "png", "gif"]
-                });
+                    'onclick="alert(\'Call your custom code here.\')">' +
+                    '<i class="glyphicon glyphicon-tag"></i>' +
+                    '</button>';
+
+                $("#avatar-2")
+                    .fileinput({
+                        overwriteInitial: true,
+                        maxFileSize: 1500,
+                        showClose: false,
+                        showCaption: false,
+                        showBrowse: false,
+                        browseOnZoneClick: true,
+                        removeLabel: '',
+                        removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                        removeTitle: 'Cancel or reset changes',
+                        elErrorContainer: '#kv-avatar-errors-2',
+                        msgErrorClass: 'alert alert-block alert-danger',
+                        defaultPreviewContent:
+                            '<img src="../../UploadedFiles/ProfileImage/@Model.AppUserImage" alt="Your Avatar" style="width:160px"><h6 class="text-muted">Click to select</h6>',
+                        layoutTemplates: { main2: '{preview} ' + btnCust + ' {remove} {browse}' },
+                        allowedFileExtensions: ["jpg", "png", "gif"]
+                    });
             })
     </script>
 }

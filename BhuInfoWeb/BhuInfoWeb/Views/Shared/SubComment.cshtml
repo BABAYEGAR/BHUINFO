@@ -13,23 +13,22 @@
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     CommentStatus statusCheckForLike = null;
     CommentStatus statusCheckForDislike = null;
-
 }
-    @if (TempData["news"] != null)
+@if (TempData["news"] != null)
+{
+    if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
     {
-        if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
-        {
-<p class="alert-success alert-dismissable" style="height: 30px">@TempData["news"]</p>
-        }
-        else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
-        {
-<p class="alert-danger alert-dismissable" style="height: 30px">@TempData["news"]</p>
-        }
-        else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
-        {
-<p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
-        }
+        <p class="alert-success alert-dismissable" style="height: 30px">@TempData["news"]</p>
     }
+    else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
+    {
+        <p class="alert-danger alert-dismissable" style="height: 30px">@TempData["news"]</p>
+    }
+    else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
+    {
+        <p class="alert-info alert-dismissable" style="height: 30px">@TempData["news"]</p>
+    }
+}
 @if (enumerable.Count > 0)
 
 {
@@ -54,74 +53,73 @@
 
                         <div class="clearfix"></div>
                         @if (statusCheckForLike != null)
-                {
-                <label style="color: green">
-                    <i class="fa fa-thumbs-up">
-                        @*@Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                        {
+                            <label style="color: green">
+                                <i class="fa fa-thumbs-up">
+                                    @*@Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
                             {
                                 HttpMethod = "Post",
                                 UpdateTargetId = "likeOrDislikeDiv"
                             })*@
-                    </i>
-                </label>
-                }
-                else
-                {
-                    if (loggedinuser != null)
-                    {
-                <label style="color: green">
-                    <i class="fa fa-thumbs-up">
-                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
-                                {
-                                    HttpMethod = "Post",
-                                    UpdateTargetId = "likeOrDislikeDiv"
-                                })
-                    </i>
-                </label>
-                    }
-                }
+                                </i>
+                            </label>
+                        }
+                        else
+                        {
+                            if (loggedinuser != null)
+                            {
+                                <label style="color: green">
+                                    <i class="fa fa-thumbs-up">
+                                        @Ajax.ActionLink("Like", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+                                        {
+                                            HttpMethod = "Post",
+                                            UpdateTargetId = "likeOrDislikeDiv"
+                                        })
+                                    </i>
+                                </label>
+                            }
+                        }
 
                         <label> </label>
                         @if (statusCheckForDislike != null)
-                {
-                <label style="color: red">
-                    <i class="fa fa-thumbs-down">
-                        @*@Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                        {
+                            <label style="color: red">
+                                <i class="fa fa-thumbs-down">
+                                    @*@Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
                             {
                                 HttpMethod = "Post",
                                 UpdateTargetId = "likeOrDislikeDiv"
                             })*@
-                    </i>
+                                </i>
 
-                </label>
-                <br />
-                }
-                else
-                {
-                    if (loggedinuser != null)
-                    {
-                <label style="color: red">
-                    <i class="fa fa-thumbs-down">
-                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
-                                {
-                                    HttpMethod = "Post",
-                                    UpdateTargetId = "likeOrDislikeDiv"
-                                })
-                    </i>
+                            </label>
+                            <br/>
+                        }
+                        else
+                        {
+                            if (loggedinuser != null)
+                            {
+                                <label style="color: red">
+                                    <i class="fa fa-thumbs-down">
+                                        @Ajax.ActionLink("Dislike", "LikeOrDislikeANewsComments", "News", new {Id = item.NewsCommentId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+                                        {
+                                            HttpMethod = "Post",
+                                            UpdateTargetId = "likeOrDislikeDiv"
+                                        })
+                                    </i>
 
-                </label>
-                    }
-                <br />
-                }
+                                </label>
+                            }
+                            <br/>
+                        }
                         <label id="likeOrDislikeDiv">
                             @{
-                        // var comment = new NewsCommentFactory().GetSingleNewsComments((int) item.NewsCommentId);
-                        var dbc = new NewsComentDataContext();
-                        var comment = dbc.NewsComments.Find(item.NewsCommentId);
-                        Html.RenderPartial("_LikeOrDislikeCommentPartial", comment);
-
+                                // var comment = new NewsCommentFactory().GetSingleNewsComments((int) item.NewsCommentId);
+                                var dbc = new NewsComentDataContext();
+                                var comment = dbc.NewsComments.Find(item.NewsCommentId);
+                                Html.RenderPartial("_LikeOrDislikeCommentPartial", comment);
                             }
-                        </label><br />
+                        </label><br/>
 
                     </div>
 
@@ -130,5 +128,5 @@
             </div>
 
         </li>
-                                }
-    </ul>
+    }
+</ul>

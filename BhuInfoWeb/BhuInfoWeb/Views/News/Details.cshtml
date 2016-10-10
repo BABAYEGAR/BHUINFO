@@ -1,7 +1,6 @@
 ﻿@using BhuInfo.Data.Context.DataContext
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.Encryption
-@using BhuInfo.Data.Service.Enums
 @model BhuInfo.Data.Objects.Entities.News
 
 
@@ -131,7 +130,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-right">
-            @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true) }, new {@class = "btn btn-primary pull-right"}) |
+            @Html.ActionLink("Edit", "Edit", new {id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)}, new {@class = "btn btn-primary pull-right"}) |
             @Html.ActionLink("Back to List", "Index", null, new {@class = "btn btn-default pull-left"})
         </div>
     </div>

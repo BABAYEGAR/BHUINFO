@@ -44,7 +44,7 @@
                 if (Model.Status == DiscussionState.Open.ToString())
                 {
                     <div class="col-lg-12">
-                        <a href="@Url.Action("CloseActivity", "SchoolDiscussions", new {Id =  new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})" class="btn btn-danger">Close Discussion</a>
+                        <a href="@Url.Action("CloseActivity", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})" class="btn btn-danger">Close Discussion</a>
                     </div>
                 }
                 else
@@ -157,26 +157,27 @@
 </div>
 @section Scripts
 {
-        <!-- cdnjs -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
+    <!-- cdnjs -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript">
-                $(function() {
-                    setInterval(function() {
-                            $('#commentDiv')
-                                .hide()
-                                .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true) })')
-                                .fadeIn(0.5);
-                        },
-                        2000);
+        $(function() {
+            setInterval(function() {
+                    $('#commentDiv')
+                        .hide()
+                        .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})')
+                        .fadeIn(0.5);
+                },
+                2000);
+        });
+        $(function() {
+            $('#lazy-container .lazy')
+                .lazy({
+                    appendScroll: $('#lazy-container')
+
+
                 });
-        $(function () {
-            $('#lazy-container .lazy').lazy({
-                appendScroll: $('#lazy-container')
-
-
-            });
         });
 
-        </script>
-    }
+    </script>
+}
