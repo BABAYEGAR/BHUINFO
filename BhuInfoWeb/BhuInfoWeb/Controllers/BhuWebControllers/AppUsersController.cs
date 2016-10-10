@@ -292,10 +292,12 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
+            var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
             var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(id, true));
             var appUser = _db.AppUsers.Find(userId);
             _db.AppUsers.Remove(appUser);
             _db.SaveChanges();
+            new MailerDaemon().UserDeleted(appUser,loggedinuser);
             TempData["user"] = "This user has deleted succesfully!";
             TempData["notificationtype"] = NotificationType.Success.ToString();
             return RedirectToAction("Index");

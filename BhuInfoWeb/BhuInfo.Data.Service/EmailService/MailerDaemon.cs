@@ -54,6 +54,53 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("FROM", Config.SupportEmailAddress);
         }
         /// <summary>
+        ///     This method sends an email containing a username and password to a newly created user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="loggedinuser"></param>
+        public void UserDeleted(AppUser user,AppUser loggedinuser)
+        {
+            var message = new MailMessage
+            {
+                From = new MailAddress(Config.SupportEmailAddress),
+                Subject = "Delete Action Details",
+                Priority = MailPriority.High,
+                SubjectEncoding = Encoding.UTF8,
+                Body = GetEmailBody_NewUserCreated(user),
+                IsBodyHtml = true
+            };
+            //message.To.Add(Config.DevEmailAddress);
+            message.To.Add(loggedinuser.Email);
+            try
+            {
+                new SmtpClient().Send(message);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
+        /// <summary>
+        ///     Html page content for the new user email
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="loggedinuser"></param>
+        /// <returns></returns>
+        private static string GetEmailBody_UserDeleted(AppUser user,AppUser loggedinuser)
+        {
+            
+            return
+                new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/UserDeleted.html")).ReadToEnd()
+                    .Replace("DISPLAYNAME", user.DisplayName)
+                    .Replace("USERNAME", user.Email)
+                    .Replace("URL", "http://localhost:51301/Account/Login")
+                    .Replace("DeletedBy", loggedinuser.DisplayName)
+                    .Replace("Date", DateTime.Now.ToShortDateString())
+                    .Replace("Time", DateTime.Now.ToShortTimeString())
+                    .Replace("FROM", Config.SupportEmailAddress);
+        }
+        /// <summary>
         ///     This method sends an email containing a username and access code to a newly subscribed advert
         /// </summary>
         /// <param name="advertisement"></param>
