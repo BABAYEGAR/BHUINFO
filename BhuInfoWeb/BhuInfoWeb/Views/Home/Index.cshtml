@@ -221,7 +221,7 @@
     </div>
 </div>
 <div class="clearfix"></div>
-@if (fullFrameAdvert != null)
+@if ((fullFrameAdvert.StartDate < DateTime.Now) && (fullFrameAdvert.EndDate > DateTime.Now))
 {
     if (fullFrameAdvert.AdvertImage != null)
     {
@@ -245,6 +245,7 @@ else
         <h2>Welcome To Bingham University...</h2>
     </div>
 }
+
 @try
 {
     <div class="col-md-7 content-left">

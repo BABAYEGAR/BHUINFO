@@ -33,6 +33,8 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
             Property(n => n.LastModifiedById).HasColumnName("LastModifiedById");
             Property(n => n.DateCreated).HasColumnName("DateCreated");
             Property(n => n.DateLastModified).HasColumnName("DateLastModified");
+            Property(n => n.StartDate).HasColumnName("StartDate");
+            Property(n => n.EndDate).HasColumnName("EndDate");
         }
     }
 }

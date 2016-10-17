@@ -66,7 +66,7 @@ namespace BhuInfo.Data.Service.EmailService
                 Subject = "Delete Action Details",
                 Priority = MailPriority.High,
                 SubjectEncoding = Encoding.UTF8,
-                Body = GetEmailBody_NewUserCreated(user),
+                Body = GetEmailBody_UserDeleted(user,loggedinuser),
                 IsBodyHtml = true
             };
             //message.To.Add(Config.DevEmailAddress);

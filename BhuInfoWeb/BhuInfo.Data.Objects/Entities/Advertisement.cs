@@ -27,5 +27,9 @@ namespace BhuInfo.Data.Objects.Entities
         public long CreatedById { get; set; }
 
         public long LastModifiedById { get; set; }
+        [DisplayName("Start Date")]
+        public DateTime StartDate { get; set; }
+        [DisplayName("End Date")]
+        public DateTime EndDate { get; set; }
     }
 }

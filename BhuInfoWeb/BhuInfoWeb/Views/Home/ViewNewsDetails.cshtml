@@ -274,7 +274,7 @@
                 <h3>@item.Title</h3>
                 @if (item.Content.Length > 40)
                 {
-                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 20) + "...")</p>
                 }
                 else
                 {
@@ -397,30 +397,16 @@
                         },
                         1000);
 
-                    $("#lazy-container")
-                        .scroll(function() {
-                            sessionStorage.scrollTop = $(this).scrollTop();
-                            console.log(sessionStorage.scrollTop);
-                        });
-
-                    $("#commentDiv")
-                        .ready(function() {
-                            if (sessionStorage.scrollTop != "undefined") {
-                                $("#commentDiv").scrollTop(sessionStorage.scrollTop);
-                            }
-                        });
                 });
 
                 $(function() {
                     $('#lazy-container .lazy')
                         .lazy({
-                            appendScroll: $('#lazy-container')
-
-
+                            //appendScroll: $('#lazy-container')
+                            appendScroll: $('#salim')
                         });
 
                 });
-
                 $("#share")
                     .jsSocials({
                         showLabel: false,
