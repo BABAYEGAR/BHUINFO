@@ -9,19 +9,19 @@
 }
 
 <div class="container">
-    @if (TempData["user"] != null)
+    @if (TempData["profile"] != null)
     {
         if (TempData["notificationtype"].Equals(NotificationType.Success.ToString()))
         {
-            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["user"]</div>
+            <div class="alert-success alert-dismissable" style="height: 30px">@TempData["profile"]</div>
         }
         else if (TempData["notificationtype"].Equals(NotificationType.Danger.ToString()))
         {
-            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["user"]</div>
+            <div class="alert-danger alert-dismissable" style="height: 30px">@TempData["profile"]</div>
         }
         else if (TempData["notificationtype"].Equals(NotificationType.Info.ToString()))
         {
-            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["user"]</div>
+            <div class="alert-info alert-dismissable" style="height: 30px">@TempData["profile"]</div>
         }
     }
     <div class="row">

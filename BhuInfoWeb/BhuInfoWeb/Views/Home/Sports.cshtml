@@ -65,7 +65,7 @@
                             <div class="print-text">
                                 <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title</a>
                                 <p>
-                                    Posted by <a href="#">@(new AppUserFactory().GetAppUserById((int) item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
+                                    Posted by <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.CreatedById.ToString(), true)})">@(new AppUserFactory().GetAppUserById((int) item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                 </p>
                                 @if (item.Content.Length > 40)
                                 {

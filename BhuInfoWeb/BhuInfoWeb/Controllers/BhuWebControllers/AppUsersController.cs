@@ -350,7 +350,7 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     appUser.Role = collectedValues["role"];
                     _db.Entry(appUser).State = EntityState.Modified;
                     _db.SaveChanges();
-                    TempData["user"] = "You have modified your profile details successfully!";
+                    TempData["profile"] = "You have modified your profile details successfully!";
                     TempData["notificationtype"] = NotificationType.Info.ToString();
                 return RedirectToAction("ProfileDetails","Account",new {Id = new Md5Ecryption().EncryptPrimaryKey(appUser.AppUserId.ToString(), true) });
             }
