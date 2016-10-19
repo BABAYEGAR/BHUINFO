@@ -262,6 +262,17 @@
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\SrcImages\asssecgen.jpg" />
     <Content Include="Content\SrcImages\dos.jpg" />
+    <Content Include="Content\SrcImages\DSC_1404.jpg" />
+    <Content Include="Content\SrcImages\DSC_1405.jpg" />
+    <Content Include="Content\SrcImages\DSC_1406.jpg" />
+    <Content Include="Content\SrcImages\DSC_1408.jpg" />
+    <Content Include="Content\SrcImages\DSC_1409.jpg" />
+    <Content Include="Content\SrcImages\DSC_1413.jpg" />
+    <Content Include="Content\SrcImages\DSC_1416.jpg" />
+    <Content Include="Content\SrcImages\DSC_1417.jpg" />
+    <Content Include="Content\SrcImages\DSC_1420.jpg" />
+    <Content Include="Content\SrcImages\DSC_1422%281%29.jpg" />
+    <Content Include="Content\SrcImages\DSC_1424.jpg" />
     <Content Include="Content\SrcImages\promale.jpg" />
     <Content Include="Content\SrcImages\sports.jpg" />
     <Content Include="Content\SrcImages\tresurer.jpg" />
