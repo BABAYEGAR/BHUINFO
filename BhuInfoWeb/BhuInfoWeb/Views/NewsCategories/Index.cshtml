@@ -12,6 +12,10 @@
 @{
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
+@section css{
+
+    <link href="~/Scripts/plugins/dataTables/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+}
 <div class="container">
     <div class="header-bottom">
         <div class="type">
@@ -84,7 +88,8 @@
                         </p>
                     }
                     <div class="table-responsive">
-                        <table class="table table-condensed table-hover dataTable">
+                        <table class="table table-condensed table-hover" id="newscategory">
+                            <thead>
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Name)
@@ -97,7 +102,9 @@
                                 </th>
                                 <th></th>
                             </tr>
+                            </thead>
 
+                            <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
@@ -117,7 +124,7 @@
                                     </td>
                                 </tr>
                             }
-
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -125,3 +132,16 @@
         </div>
     </div>
 </div>
+@section scripts {
+
+    <script src="~/JqueryPlugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/plugins/dataTables/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(document)
+            .ready(function() {
+                $('#newscategory').DataTable();
+            });
+
+    </script>
+}

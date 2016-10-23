@@ -36,8 +36,8 @@
     <h4>COMMENTS</h4>
 }
 
-    <ul id="lazy-container">
-        @foreach (var item in enumerable)
+<ul id="lazy-container">
+    @foreach (var item in enumerable)
     {
         var commentBy = new AppUserFactory().GetAppUserById((int) item.AppUserId);
         if (loggedinuser != null)
@@ -105,7 +105,7 @@
                                 </i>
 
                             </label>
-                            <br />
+                            <br/>
                         }
                         else
                         {
@@ -121,7 +121,7 @@
                                     </i>
 
                                 </label>
-                                <br />
+                                <br/>
                             }
                         }
                         <label id="likeOrDislikeDiv">
@@ -136,5 +136,4 @@
             </div>
         </li>
     }
-    </ul>
-
+</ul>

@@ -14,7 +14,7 @@
     Layout = "~/Views/Shared/_LayoutViewDetails.cshtml";
 }
 @section css{
-    <link href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="~/Scripts/plugins/dataTables/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
 }
 <div class="container">
     <div class="header-bottom">
@@ -93,6 +93,7 @@
                     }
                     <div class="table-responsive">
                         <table class="table table-condensed table-hover" id="appusers">
+                            <thead>
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Firstname)
@@ -114,7 +115,8 @@
                                     <th>Action</th>
                                 }
                             </tr>
-
+                            </thead>
+                            <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
@@ -143,7 +145,7 @@
                                     }
                                 </tr>
                             }
-
+                            </tbody>
                         </table>
                     </div>
 
@@ -154,7 +156,8 @@
 </div>
 @section scripts {
 
-    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="~/JqueryPlugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/plugins/dataTables/js/dataTables.bootstrap.min.js"></script>
     <script>
         $(document)
             .ready(function() {

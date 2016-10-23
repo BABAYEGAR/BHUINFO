@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using BhuInfo.Data.Context.DataContext;
@@ -12,7 +14,7 @@ namespace BhuInfoWeb.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-
+        private readonly AppUserDataContext _db = new AppUserDataContext();
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -21,10 +23,11 @@ namespace BhuInfoWeb.Controllers
             Session["bhuinfologgedinuser"] = null;
             return View();
         }
+
         [AllowAnonymous]
         public ActionResult ProfileDetails(string Id)
         {
-            var userId  = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
+            var userId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
             var user = new AppUserFactory().GetAppUserById((int) userId);
             Session["viewprofilebyotheruser"] = user;
             return View("ProfileDetails", user);
@@ -50,14 +53,16 @@ namespace BhuInfoWeb.Controllers
                     {
                         Session["newsmodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(model.NewsId.ToString(), true) });
+                        return RedirectToAction("ViewNewsDetails", "Home",
+                            new {Id = new Md5Ecryption().EncryptPrimaryKey(model.NewsId.ToString(), true)});
                     }
                     if (activityModel != null)
                     {
                         var schoolDiscussionId = activityModel.SchoolDiscussionId;
                         Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true) });
+                        return RedirectToAction("Activity", "SchoolDiscussions",
+                            new {Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true)});
                     }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
@@ -70,20 +75,34 @@ namespace BhuInfoWeb.Controllers
                         var newsId = model.NewsId;
                         Session["newsmodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(newsId.ToString(), true) });
+                        return RedirectToAction("ViewNewsDetails", "Home",
+                            new {Id = new Md5Ecryption().EncryptPrimaryKey(newsId.ToString(), true)});
                     }
                     if (activityModel != null)
                     {
                         var schoolDiscussionId = activityModel.SchoolDiscussionId;
                         Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true) });
+                        return RedirectToAction("Activity", "SchoolDiscussions",
+                            new {Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true)});
                     }
                     Session["bhuinfologgedinuser"] = appUser;
+                    var authTicket = new FormsAuthenticationTicket(
+                        1,
+                        appUser.DisplayName,
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(20),
+                        appUser.RememberMe,
+                        "", //roles 
+                        "/"
+                    );
+                    //encrypt the ticket and add it to a cookie
+                    HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+                    Response.Cookies.Add(cookie);
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "News");
                 }
-                
+
                 if (role == UserType.Student.ToString())
                 {
                     if (model != null)
@@ -91,14 +110,16 @@ namespace BhuInfoWeb.Controllers
                         var newsId = model.NewsId;
                         Session["newsmodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("ViewNewsDetails", "Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(newsId.ToString(),true) });
+                        return RedirectToAction("ViewNewsDetails", "Home",
+                            new {Id = new Md5Ecryption().EncryptPrimaryKey(newsId.ToString(), true)});
                     }
                     if (activityModel != null)
                     {
                         var schoolDiscussionId = activityModel.SchoolDiscussionId;
                         Session["activitymodel"] = null;
                         Session["bhuinfologgedinuser"] = appUser;
-                        return RedirectToAction("Activity", "SchoolDiscussions", new { Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true) });
+                        return RedirectToAction("Activity", "SchoolDiscussions",
+                            new {Id = new Md5Ecryption().EncryptPrimaryKey(schoolDiscussionId.ToString(), true)});
                     }
                     Session["bhuinfologgedinuser"] = appUser;
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
@@ -106,6 +127,7 @@ namespace BhuInfoWeb.Controllers
                 }
             }
             TempData["login"] = "Check your login details and make sure you selected the correct user type!";
+
             return RedirectToAction("Login", "Account");
         }
 
