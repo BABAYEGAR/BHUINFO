@@ -12,6 +12,9 @@ namespace BhuInfo.Data.Objects.Entities
         public String AlertType { get; set; }
         public String Message { get; set; }
         public long MessageId { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public long CreatedBy { get; set; }
 
     }
 }
