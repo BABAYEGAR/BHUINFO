@@ -47,6 +47,7 @@
     <Compile Include="Encryption\Md5Ecryption.cs" />
     <Compile Include="Encryption\QueryStingEncoder.cs" />
     <Compile Include="Enums\AdvertStatus.cs" />
+    <Compile Include="Enums\AlertType.cs" />
     <Compile Include="Enums\NewsCategoryEnum.cs" />
     <Compile Include="Enums\UploadType.cs" />
     <Compile Include="Enums\NotificationType.cs" />
