@@ -814,6 +814,7 @@
     <Content Include="Scripts\plugins\dataTables\js\jquery.dataTables.js" />
     <Content Include="Scripts\plugins\dataTables\js\jquery.dataTables.min.js" />
     <Content Include="Scripts\plugins\dataTables\js\jquery.js" />
+    <Content Include="Scripts\plugins\jquery.jscroll.min.js" />
     <Content Include="Scripts\plugins\moment\lib\create\check-overflow.js" />
     <Content Include="Scripts\plugins\moment\lib\create\date-from-array.js" />
     <Content Include="Scripts\plugins\moment\lib\create\from-anything.js" />
