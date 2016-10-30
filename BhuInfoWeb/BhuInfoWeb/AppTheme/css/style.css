@@ -180,9 +180,11 @@ label { margin: 0; }
     text-decoration: none;
 }*/
 
-/*.navigation ul li a.active { color: #1ac7c3; }
+.navigation ul li a.active { color: #1ac7c3; }
 
-.navigation ul li a:hover { color: #1ac7c3; }*/
+.navigation ul li a:hover { color: #1ac7c3; }
+
+.nav ul li a:hover { color: #1ac7c3; }
 
 .logo { float: left; }
 

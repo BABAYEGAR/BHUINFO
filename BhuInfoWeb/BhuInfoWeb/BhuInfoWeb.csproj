@@ -236,6 +236,7 @@
     <Content Include="AppTheme\images\a2.jpg" />
     <Content Include="AppTheme\images\abt_pic.jpg" />
     <Content Include="AppTheme\images\avatar.jpg" />
+    <Content Include="AppTheme\images\bhuinfo.png" />
     <Content Include="AppTheme\images\bhulogo.jpg" />
     <Content Include="AppTheme\images\default_avatar_male.jpg" />
     <Content Include="AppTheme\images\ep1.jpg" />

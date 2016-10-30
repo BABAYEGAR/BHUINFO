@@ -1,16 +1,20 @@
-﻿@using BhuInfo.Data.Objects.Entities
+﻿@using BhuInfo.Data.Context.DataContext
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
-@using BhuInfo.Data.Context.DataContext;
-@using BhuInfo.Data.Service.DateTimeHelper
+@using BhuInfo.Data.Service.TextFormatter
 @{
-     AlertDataContext dbc = new AlertDataContext();
+    var dbc = new AlertDataContext();
+    var dbd = new NewsDataContext();
     var latestEvent = dbc.Alerts.FirstOrDefault(n => n.AlertType == AlertType.LatestEvents.ToString());
+    var news = dbd.News.OrderByDescending(n => n.DateCreated);
+    var latestNews = news.Take(5);
 }
 <!DOCTYPE html>
 <html>
 <head>
-  
+
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -21,7 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      </script>
 
     <title>@ViewBag.Title</title>
-    <link rel="icon" href="~/AppTheme/images/bhulogo.jpg" type="image/x-icon">
+    <link rel="icon" href="~/AppTheme/images/bhuinfo.png" type="image/x-icon">
     @Styles.Render("~/Content/css")
     @Styles.Render("~/fonts/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -30,210 +34,232 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     @{
         var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     }
+    <style>
+        
+        .navigation ul li a.active { color: #1ac7c3; }
+
+        .navigation ul li a:hover { color: #1ac7c3; }
+
+    </style>
 </head>
 <body>
 <!-- header-section-starts -->
 <div class="header">
-    <div class="container">
-        <div class="logo">
-            <a href="@Url.Action("Index", "Home")">
-                <h1>Bhu-Info</h1>
-            </a>
-        </div>
-        <div class="pages">
+<div class="container">
+<div class="logo">
+    <a href="@Url.Action("Index", "Home")">
+        <h1>
+            <img src="../../AppTheme/images/bhuinfo.png" width="200px" height="100px"/>
+        </h1>
+    </a>
+</div>
+@*<div class="pages">
             <ul>
                 <li>
                     <a class="active" href="@Url.Action("Index", "Home")">News/Articles</a>
                 </li>
             </ul>
-        </div>
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+        </div>*@
+<div class="navigation">
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" style="color: white">
+                <i class="fa fa-newspaper-o fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-messages">
+                @foreach (var item in latestNews)
+                {
+                    <li>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
+                            <div>
+                                <strong>@item.Title</strong>
+                                <span class="pull-right text-muted">
+                                        <em>@(new DateTimeCalculator().TimeAgo(item.DateCreated))</em>
+                                    </span>
+                            </div>
+                            <div>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 5))</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                }
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Latest News</strong>
+                        <i class="fa fa-angle-right"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li style="color: white">
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        @if (latestEvent != null)
-                        {
-                            <li>
-                                <a href="">
-                                    <div>
-                                        <i class="fa fa-ellipsis-v fa-fw"></i>New Event
-
-                                        <span class="pull-right text-muted small">@(new DateTimeCalculator().TimeAgo(@latestEvent.DateCreated))</span>
-                                    </div>
-                                </a>
-                            </li>
-                        }
-                      
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
                 </li>
-                @if (ViewBag.Title == "About")
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" style="color: white">
+                <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts">
+                <li style="color: white">
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-comment fa-fw"></i> New Comment
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                @if (latestEvent != null)
                 {
                     <li>
-                        <a href="@Url.Action("About", "Home")" class="active">About Us</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Contact", "Home")">Contact Us</a>
+                        <a>
+                            <div>
+                                <i class="fa fa-ellipsis-v fa-fw"></i>New Event
+
+                                <span class="pull-right text-muted small">@(new DateTimeCalculator().TimeAgo(latestEvent.DateCreated))</span>
+                            </div>
+                        </a>
                     </li>
                 }
-                else if (ViewBag.Title == "Contact")
-                {
-                    <li>
-                        <a href="@Url.Action("About", "Home")">About Us</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Contact", "Home")" class="active">Contact Us</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("About", "Home")">About Us</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Contact", "Home")">Contact Us</a>
-                    </li>
-                }
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-envelope fa-fw"></i> Message Sent
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-tasks fa-fw"></i> New Task
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-alerts -->
+        </li>
+        @if (ViewBag.Title == "About")
+        {
+            <li>
+                <a href="@Url.Action("About", "Home")" class="active">About Us</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Contact", "Home")" style="color: white">Contact Us</a>
+            </li>
+        }
+        else if (ViewBag.Title == "Contact")
+        {
+            <li>
+                <a href="@Url.Action("About", "Home")" style="color: white">About Us</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Contact", "Home")" class="active">Contact Us</a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("About", "Home")" style="color: white">About Us</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Contact", "Home")" style="color: white">Contact Us</a>
+            </li>
+        }
 
-                @if (loggedinuser != null)
-                {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-user"></span>
-                                <strong>@loggedinuser.Firstname</strong>
-                                <span class="glyphicon glyphicon-chevron-down"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="navbar-login">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <p class="text-center">
-                                                    @if (loggedinuser.AppUserImage == null)
-                                                    {
-                                                        <span class="glyphicon glyphicon-user icon-size"></span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <span class="icon-size"><img src="../../UploadedFiles/ProfileImage/@loggedinuser.AppUserImage"/></span>
-                                                    }
-                                                </p>
-                                            </div>
-                                            <div class="col-md-12 col-lg-12">
-
-
-                                                <p class="text-left">
-                                                    <strong>@loggedinuser.DisplayName</strong>
-                                                </p>
-                                                <p class="text-left small">@loggedinuser.Email</p>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        @if (loggedinuser.Role == UserType.Administrator.ToString())
-                                                        {
-                                                            <p>
-                                                                <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary btn-block  "><span class="fa fa-home"></span> Dashboard</a>
-                                                            </p>
-                                                            <div class="clearfix"></div>
-                                                        }
-                                                        else if (loggedinuser.Role == UserType.Manager.ToString())
-                                                        {
-                                                            <p>
-                                                                <a href="@Url.Action("Index", "News")" class="btn btn-primary btn-block "><span class="fa fa-home"></span> Dashboard</a>
-                                                            </p>
-                                                            <div class="clearfix"></div>
-                                                        }
-                                                        else if (loggedinuser.Role == UserType.Student.ToString())
-                                                        {
-                                                        }
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <p >
-                                                            <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(), true)})" class="btn btn-success btn-block "><span class="fa fa-cog"></span>Profile</a>
-                                                        </p>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+        @if (loggedinuser != null)
+        {
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white">
+                        <span class="glyphicon glyphicon-user" ></span>
+                        <strong>@loggedinuser.Firstname</strong>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            @if (loggedinuser.AppUserImage == null)
+                                            {
+                                                <span class="glyphicon glyphicon-user icon-size"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="icon-size"><img src="../../UploadedFiles/ProfileImage/@loggedinuser.AppUserImage" /></span>
+                                            }
+                                        </p>
                                     </div>
-                                </li>
+                                    <div class="col-lg-8">
+                                        <p class="text-left">
+                                            <strong>@loggedinuser.DisplayName</strong>
+                                        </p>
+                                        <p class="text-left small">@loggedinuser.Email</p>
+                                        @if (loggedinuser.Role == UserType.Administrator.ToString())
+                                        {
+                                            <p class="text-left">
 
+                                                <a href="@Url.Action("Index", "AppUsers")" class="btn btn-primary btn-block btn-sm fa fa-home">Dashboard</a>
+                                            </p>
+                                        }@if (loggedinuser.Role == UserType.Manager.ToString())
+                                         {
+                                             <p class="text-left">
+                                                 <a href="@Url.Action("Index", "News")" class="btn btn-primary btn-block btn-sm fa fa-home">Dashboard</a>
+                                             </p>
+                                         }
 
-                                <li class="navbar-login-session-bg">
-                                    <div class="navbar-login navbar-login-session">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p>
-                                                    <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block"><span class="fa fa-user"></span> Logout</a>
-                                                </p>
-                                            </div>
-                                        </div>
+                                        <p class="text-left">
+                                            <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(loggedinuser.AppUserId.ToString(), true)})" class="btn btn-success btn-block btn-sm fa fa-user-secret">Profile</a>
+                                        </p>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="@Url.Action("LogOut", "Account")" class="btn btn-danger btn-block"><span class="fa fa-user"></span> Logout</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
-                }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Login", "Account")">Log In</a>
-                    </li>
-                }
-
+                </li>
             </ul>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+        }
+        else
+        {
+            <li>
+                <a href="@Url.Action("Login", "Account")" style="color: white">Log In</a>
+            </li>
+        }
 
+    </ul>
+</div>
+
+</div>
+<div class="clearfix"></div>
 </div>
 <div class="container">
     @if (ViewBag.Title != "Register")
@@ -416,6 +442,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     }
 </div>
+<script>
+
+
+
+</script>
 @RenderBody()
 <div class="footer">
     <div class="footer-top">

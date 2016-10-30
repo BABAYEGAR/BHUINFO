@@ -29,7 +29,8 @@ namespace BhuInfoWeb
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/AppTheme/css/style.css"));
+                      "~/AppTheme/css/style.css",
+                      "~/AppTheme/css/sb-admin-2.min.css"));
 
             bundles.Add(new StyleBundle("~/fonts/css").Include(
                       "~/Content/font-awesome/css/font-awesome.min.css", new CssRewriteUrlTransform()));
