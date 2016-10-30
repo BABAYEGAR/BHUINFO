@@ -84,13 +84,25 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                         {
                             news.Image = new FileUploader().UploadFile(firstImage, UploadType.NewsImage);
                         }
+                        else
+                        {
+                            news.Image = null;
+                        }
                         if (secondImage.FileName != "")
                         {
                             news.SecondImage = new FileUploader().UploadFile(secondImage, UploadType.NewsImage);
                         }
+                        else
+                        {
+                            news.SecondImage = null;
+                        }
                         if (thirdImage.FileName != "")
                         {
                             news.ThirdImage = new FileUploader().UploadFile(thirdImage, UploadType.NewsImage);
+                        }
+                        else
+                        {
+                            news.ThirdImage = null;
                         }
                         _db.News.Add(news);
                         _db.SaveChanges();

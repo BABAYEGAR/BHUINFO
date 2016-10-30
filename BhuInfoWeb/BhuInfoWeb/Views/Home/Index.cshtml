@@ -113,7 +113,7 @@
                             <h3>@item.Title</h3>
                             if (item.Content.Length > 50)
                             {
-                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                                <p>@(new RemoveCharacters().RemoveSpecialCharacters((new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")))</p>
                             }
                             else
                             {

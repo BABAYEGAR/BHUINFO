@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace BhuInfo.Data.Service.TextFormatter
 {
@@ -14,7 +12,17 @@ namespace BhuInfo.Data.Service.TextFormatter
         public string RemoveSpecialCharacters(string text)
         {
             var pattern = @"<(.|\n)*?>";
-            return Regex.Replace(text, pattern, String.Empty);
+            return Regex.Replace(text, pattern, string.Empty);
+        }
+
+        /// <summary>
+        ///     This method removes enodings froma string
+        /// </summary>
+        /// <param name="inputValue"></param>
+        /// <returns></returns>
+        public static string StripUnicodeCharactersFromString(string inputValue)
+        {
+            return Regex.Replace(inputValue, @"[^\u0000-\u007F]", string.Empty);
         }
     }
 }
