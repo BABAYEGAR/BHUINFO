@@ -16,11 +16,11 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public AppUser GetAppUserByLogin(string email, string password, string role)
+        public AppUser GetAppUserByLogin(string email, string password)
         {
             email = email.Trim();
             var appUser =
-                _db.AppUsers.FirstOrDefault(n => (n.Email == email || n.MatricNumber == email) && (n.Password == password) && (n.Role == role));
+                _db.AppUsers.FirstOrDefault(n => (n.Email == email || n.MatricNumber == email) && (n.Password == password));
             return appUser;
         }
 

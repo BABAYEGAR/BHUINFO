@@ -19,10 +19,10 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public AppUser AuthenticateAppUserLogin(string email, string password, string role)
+        public AppUser AuthenticateAppUserLogin(string email, string password)
         {
             var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());
-            var user = new AppUserFactory().GetAppUserByLogin(email, hashPassword, role);
+            var user = new AppUserFactory().GetAppUserByLogin(email, hashPassword);
             return user;
         }
         /// <summary>

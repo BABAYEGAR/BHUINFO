@@ -39,15 +39,14 @@ namespace BhuInfoWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AppLogin(FormCollection collectedValues)
         {
-            var role = typeof(UserType).GetEnumName(int.Parse(collectedValues["Role"]));
             var appUser = new AuthenticationFactory().AuthenticateAppUserLogin(collectedValues["Email"].Trim(),
-                collectedValues["Password"].Trim(), role);
+                collectedValues["Password"].Trim());
             var model = Session["newsmodel"] as News;
             var activityModel = Session["activitymodel"] as SchoolDiscussion;
             if (appUser != null)
             {
                 Session["bhuinfologgedinuser"] = appUser;
-                if (role == UserType.Administrator.ToString())
+                if (appUser.Role == UserType.Administrator.ToString())
                 {
                     if (model != null)
                     {
@@ -68,7 +67,7 @@ namespace BhuInfoWeb.Controllers
                     TempData["login"] = "Welcome " + appUser.DisplayName + "!";
                     return RedirectToAction("Index", "AppUsers");
                 }
-                if (role == UserType.Manager.ToString())
+                if (appUser.Role == UserType.Manager.ToString())
                 {
                     if (model != null)
                     {
@@ -103,7 +102,7 @@ namespace BhuInfoWeb.Controllers
                     return RedirectToAction("Index", "News");
                 }
 
-                if (role == UserType.Student.ToString())
+                if (appUser.Role == UserType.Student.ToString())
                 {
                     if (model != null)
                     {

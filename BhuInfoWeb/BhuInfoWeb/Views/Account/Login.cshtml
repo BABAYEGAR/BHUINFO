@@ -75,13 +75,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        @Html.LabelFor(model => model.Role, new {@class = "control-label col-md-3"})
-                                        <div class="col-sm-6 col-md-9">
-                                            @Html.DropDownList("Role", EnumHelper.GetSelectList(typeof(UserType)), "Select Login role", new {@class = "form-control select-dropdown"})
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group col-md-12">
                                         <input type="submit" value="Log in" class="btn btn-login pull-right" aria-hidden="True"/>
                                     </div>
                                     <p>

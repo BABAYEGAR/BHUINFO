@@ -1,9 +1,16 @@
 ﻿@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
+@using BhuInfo.Data.Context.DataContext;
+@using BhuInfo.Data.Service.DateTimeHelper
+@{
+     AlertDataContext dbc = new AlertDataContext();
+    var latestEvent = dbc.Alerts.FirstOrDefault(n => n.AlertType == AlertType.LatestEvents.ToString());
+}
 <!DOCTYPE html>
 <html>
 <head>
+  
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -40,8 +47,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
             </ul>
         </div>
-        <div class="navigation">
-            <ul class="nav navbar">
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li style="color: white">
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        @if (latestEvent != null)
+                        {
+                            <li>
+                                <a href="">
+                                    <div>
+                                        <i class="fa fa-ellipsis-v fa-fw"></i>New Event
+
+                                        <span class="pull-right text-muted small">@(new DateTimeCalculator().TimeAgo(@latestEvent.DateCreated))</span>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                      
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-alerts -->
+                </li>
                 @if (ViewBag.Title == "About")
                 {
                     <li>

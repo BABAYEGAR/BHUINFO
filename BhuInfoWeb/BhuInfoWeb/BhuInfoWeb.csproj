@@ -228,6 +228,7 @@
   <ItemGroup>
     <Content Include="AppTheme\css\AccountSnippet.css" />
     <Content Include="AppTheme\css\bootstrap.css" />
+    <Content Include="AppTheme\css\sb-admin-2.min.css" />
     <Content Include="AppTheme\css\style.css" />
     <Content Include="AppTheme\fileinput.css" />
     <Content Include="AppTheme\fonts\SIL Open Font License.txt" />
@@ -260,6 +261,8 @@
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\metisMenu.min.css" />
+    <Content Include="Content\morris.css" />
     <Content Include="Content\SrcImages\asssecgen.jpg" />
     <Content Include="Content\SrcImages\dos.jpg" />
     <Content Include="Content\SrcImages\DSC_1404.jpg" />

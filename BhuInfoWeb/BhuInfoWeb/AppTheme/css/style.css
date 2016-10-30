@@ -132,7 +132,7 @@ label { margin: 0; }
 
 .header {
     background: #282828;
-    padding: 4em 0;
+    padding: 1em 0;
 }
 
 .pages {
@@ -164,25 +164,25 @@ label { margin: 0; }
     padding: 22px;
 }
 
-.navigation { margin-top: 0.3em; }
+/*.navigation { margin-top: 0.3em; }
 
 .navigation ul li {
     display: inline-block;
     margin: 0 0 0 2.5em;
-}
+}*/
 
-.navigation ul li a {
-    color: #fff;
+/*.navigation ul li a {
+    color: white;
     font-family: 'Times-Italic';
     font-size: 1.2em;
     font-style: italic;
     font-weight: 300;
     text-decoration: none;
-}
+}*/
 
-.navigation ul li a.active { color: #1ac7c3; }
+/*.navigation ul li a.active { color: #1ac7c3; }
 
-.navigation ul li a:hover { color: #1ac7c3; }
+.navigation ul li a:hover { color: #1ac7c3; }*/
 
 .logo { float: left; }
 
@@ -1418,7 +1418,7 @@ p.span a {
 
     .navigation { margin-top: 0.1em; }
 
-    .header { padding: 1.2em 0; }
+    .header { padding: 1em 0; }
 
     .single-page { padding: 2em 1em; }
 }
