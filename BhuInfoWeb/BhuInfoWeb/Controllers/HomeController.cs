@@ -37,7 +37,11 @@ namespace BhuInfoWeb.Controllers
         {
             return View();
         }
-
+        public ActionResult AllPastNews()
+        {
+            var allNews = _db.News.ToList();
+            return View(allNews);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ContactUs([Bind(Include = "SenderName,Message,Email")] ContactUs contact,

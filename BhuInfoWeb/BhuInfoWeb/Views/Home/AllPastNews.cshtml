@@ -1,0 +1,52 @@
+﻿@using System.Linq
+@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
+@using BhuInfo.Data.Service.Encryption
+@using BhuInfo.Data.Service.Enums
+@model List<BhuInfo.Data.Objects.Entities.News>
+
+@{
+    ViewBag.Title = "Events";
+    var allNews = Model.ToList();
+    var notTodayNews = allNews.Where(n => n.DateCreated < DateTime.Now);
+    var orderednews = notTodayNews.OrderByDescending(n => n.DateCreated);
+    Session["newsmodel"] = null;
+    Session["activitymodel"] = Model;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="@ViewBag.HeaderClass">
+    <div class="overlay"></div>
+</header>
+<div class="container">
+    <div class="content">
+
+        <div class="col-md-12 content-right content-right-top">
+            <div class="editors-pic-grids">
+
+                <h5 class="head" style="color: #1ac7c3">Past News</h5>
+                @foreach (var item in orderednews)
+                {
+                    <div class="editor text-center">
+                        <a href="@Url.Action("ViewNewsDetails","Home", new { Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true) })">
+                            <h2 style="color: #1ac7c3; font-family: -apple-system; font-weight: bolder;">@item.Title</h2>
+                            <label style="color: black">Posted By: @(new AppUserFactory().GetAppUserById((int)item.CreatedById).DisplayName) </label><br />
+                            <label style="color: black">Date: @item.DateCreated.ToShortDateString()</label><br />
+                            <label style="color: green">Comments: @item.NewComments.Count(n => n.NewsId == item.NewsId)</label><br />
+                            <label style="color: blue">Likes: @item.Likes</label><br />
+                            <label style="color: red">Dislikes: @item.Dislikes</label><br />
+                        </a>
+
+
+                        <span></span>
+
+                    </div>
+                }
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

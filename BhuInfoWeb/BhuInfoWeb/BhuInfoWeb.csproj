@@ -1364,6 +1364,7 @@
     <Content Include="Views\Advertisements\VerifyAccessCode.cshtml" />
     <Content Include="Views\Account\ProfileDetails.cshtml" />
     <Content Include="Views\AppUsers\EditProfile.cshtml" />
+    <Content Include="Views\Home\AllPastNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
