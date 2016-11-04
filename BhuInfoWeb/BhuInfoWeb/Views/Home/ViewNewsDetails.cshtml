@@ -234,7 +234,8 @@
                 new AjaxOptions
                 {
                     HttpMethod = "Post",
-                    UpdateTargetId = "commentDiv", OnSuccess = "OnSuccess"
+                    UpdateTargetId = "commentDiv",
+                    OnSuccess = "OnSuccess",
                 }, null, new {id = "commentForm"}))
             {
                 @Html.AntiForgeryToken()
