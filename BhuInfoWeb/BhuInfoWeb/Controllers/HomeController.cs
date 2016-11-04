@@ -78,14 +78,13 @@ namespace BhuInfoWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult LikeOrDislikeANews(string Id, string actionType)
+        public ActionResult LikeOrDislikeANews(long Id, string actionType)
         {
-            var newsId = Convert.ToInt64(new Md5Ecryption().DecryptPrimaryKey(Id, true));
             NewsStatus status = new NewsStatus();
             if (ModelState.IsValid)
             {
                 var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
-                var newsModel = new NewsDataFactory().GetNewsById(newsId);
+                var newsModel = new NewsDataFactory().GetNewsById(Id);
                 var news = _db.News.Find(Id);
                 if (actionType == NewsActionType.Like.ToString())
                 {
@@ -107,7 +106,7 @@ namespace BhuInfoWeb.Controllers
                 _dbe.SaveChanges();
                 return PartialView("_LikeOrDislikePartial", newsModel);
             }
-            var newsToRedirect = _db.News.Find(newsId);
+            var newsToRedirect = _db.News.Find(Id);
             return View("ViewNewsDetails", newsToRedirect);
         }
 

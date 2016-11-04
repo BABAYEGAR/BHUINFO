@@ -30,7 +30,7 @@ else
 {
     <label style="color: green">
         <i class="fa fa-thumbs-up">
-            @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true), actionType = NewsActionType.Like.ToString()}, new AjaxOptions
+            @Ajax.ActionLink("Like", "LikeOrDislikeANews", "Home", new {Id = newsId, actionType = NewsActionType.Like.ToString()}, new AjaxOptions
             {
                 HttpMethod = "Post",
                 UpdateTargetId = "likeOrDislikeDiv"
@@ -56,7 +56,7 @@ else
 {
     <label style="color: red">
         <i class="fa fa-thumbs-down">
-            @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true), actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
+            @Ajax.ActionLink("Dislike", "LikeOrDislikeANews", "Home", new {Id = newsId, actionType = NewsActionType.Dislike.ToString()}, new AjaxOptions
             {
                 HttpMethod = "Post",
                 UpdateTargetId = "likeOrDislikeDiv"
