@@ -244,6 +244,7 @@
     <Content Include="AppTheme\images\ep3.jpg" />
     <Content Include="AppTheme\images\ep4.jpg" />
     <Content Include="AppTheme\images\features-bg.jpg" />
+    <Content Include="AppTheme\images\images.png" />
     <Content Include="AppTheme\images\loading-sm.gif" />
     <Content Include="AppTheme\images\loading.gif" />
     <Content Include="AppTheme\images\nav.png" />
@@ -262,6 +263,9 @@
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\Gruntfile.js" />
+    <Content Include="Content\jquery.jscroll.js" />
+    <Content Include="Content\jquery.jscroll.min.js" />
     <Content Include="Content\metisMenu.min.css" />
     <Content Include="Content\morris.css" />
     <Content Include="Content\SrcImages\asssecgen.jpg" />

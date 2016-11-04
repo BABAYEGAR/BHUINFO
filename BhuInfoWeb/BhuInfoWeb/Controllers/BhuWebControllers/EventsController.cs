@@ -13,7 +13,6 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
     public class EventsController : Controller
     {
         private readonly EventDataContext _db = new EventDataContext();
-        private readonly AlertDataContext _dbc = new AlertDataContext();
 
         // GET: Events
         public ActionResult Index()
@@ -57,27 +56,16 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                     @event.LastModifiedById = loggedinuser.AppUserId;
                     @event.StartTime = collectedValues["StartTime"];
                     @event.EndTime = collectedValues["EndTime"];
-                    var alert = new Alert();
-                    alert.AlertType = AlertType.LatestEvents.ToString();
-                    alert.MessageId = @event.EventId;
-                    alert.DateCreated = @event.DateCreated;
-                    alert.Message = @event.EventName;
-                    alert.CreatedBy = @event.CreatedById;
                     if (@event.EndDate < @event.StartDate)
                     {
                         TempData["event"] = "The End date cannot be less than the start date!";
                         TempData["notificationtype"] = NotificationType.Danger.ToString();
                         return View(@event);
                     }
-                    else
-                    {
                         _db.Events.Add(@event);
                         _db.SaveChanges();
-                        _dbc.Alerts.Add(alert);
-                        _dbc.SaveChanges();
                         TempData["event"] = "New event Successfully Created!";
                         TempData["notificationtype"] = NotificationType.Success.ToString();
-                    }
                 }
                 else
                 {

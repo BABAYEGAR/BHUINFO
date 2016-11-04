@@ -5,9 +5,7 @@
 @using BhuInfo.Data.Service.Enums
 @using BhuInfo.Data.Service.TextFormatter
 @{
-    var dbc = new AlertDataContext();
     var dbd = new NewsDataContext();
-    var latestEvent = dbc.Alerts.FirstOrDefault(n => n.AlertType == AlertType.LatestEvents.ToString());
     var news = dbd.News.OrderByDescending(n => n.DateCreated);
     var latestNews = news.Take(5);
 }
@@ -91,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </ul>
                 <!-- /.dropdown-messages -->
             </li>
-            <li class="dropdown">
+            @*<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" style="color: white">
                     <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
@@ -152,8 +150,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-alerts -->
-            </li>
+                 /.dropdown-alerts 
+            </li>*@
             @if (ViewBag.Title == "Contact")
             {
                 <li>

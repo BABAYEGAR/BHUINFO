@@ -1,11 +1,12 @@
 ﻿@using BhuInfo.Data.Context.DataContext
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.Encryption
+@using BhuInfo.Data.Service.TextFormatter
 @model BhuInfo.Data.Objects.Entities.News
 
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "View";
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
     var db = new AppUserDataContext();
@@ -78,7 +79,7 @@
                         </div>
 
                         <div class="col-md-9">
-                            @Html.DisplayFor(model => model.Content)
+                            @(new RemoveCharacters().RemoveSpecialCharacters(Model.Content))
                         </div>
                     </div>
                     <div class="form-group col-md-12">

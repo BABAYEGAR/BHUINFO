@@ -52,14 +52,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\AdvertisementDataContext.cs" />
-    <Compile Include="DataContext\AlertTypeMapping.cs" />
     <Compile Include="DataContext\NewsStatusDataContext.cs" />
     <Compile Include="DataContext\CommentStatusDataContext.cs" />
     <Compile Include="DataContext\EventDataContext.cs" />
     <Compile Include="DataContext\AppUserDataContext.cs" />
     <Compile Include="DataContext\ContactUsDataContext.cs" />
     <Compile Include="DataContext\NewsCommentDataContext.cs" />
-    <Compile Include="DataContext\AlertDataContext.cs" />
     <Compile Include="DataContext\SchoolDiscussionCommentDataContext.cs" />
     <Compile Include="DataContext\SchoolDiscussionDataContext.cs" />
     <Compile Include="DataContext\NewsDataContext.cs" />

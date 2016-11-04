@@ -36,7 +36,7 @@
     <h4>COMMENTS</h4>
 }
 
-<ul id="lazy-container">
+<div id="infinite_scroll">
     @foreach (var item in enumerable)
     {
         var commentBy = new AppUserFactory().GetAppUserById((int) item.AppUserId);
@@ -46,7 +46,7 @@
             statusCheckForDislike = dbd.CommentStatuses.ToList().FirstOrDefault(n => (n.CommentId == item.NewsCommentId) && (n.LoggedInUserId == loggedinuser.AppUserId) && (n.Status == NewsActionType.Dislike.ToString()));
         }
 
-        <li class="lazy">
+        <div id="refresh">
             <div class="comments-main">
                 <div class="col-md-3 cmts-main-left">
                     @if (commentBy != null)
@@ -134,6 +134,6 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-        </li>
+        </div>
     }
-</ul>
+</div>
