@@ -49,7 +49,7 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("DISPLAYNAME", user.Firstname)
                     .Replace("USERNAME", user.Email)
                     .Replace("PASSWORD", user.Password)
-                    .Replace("URL", "http://localhost:51301/Account/Login")
+                    .Replace("URL", "http://10.10.15.77/Account/Login")
                     .Replace("ROLE", user.Role)
                     .Replace("FROM", Config.SupportEmailAddress);
         }
@@ -94,7 +94,7 @@ namespace BhuInfo.Data.Service.EmailService
                 new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/UserDeleted.html")).ReadToEnd()
                     .Replace("DISPLAYNAME", user.DisplayName)
                     .Replace("USERNAME", user.Email)
-                    .Replace("URL", "http://localhost:51301/Account/Login")
+                    .Replace("URL", "http://10.10.15.77/Account/Login")
                     .Replace("DeletedBy", loggedinuser.DisplayName)
                     .Replace("Date", DateTime.Now.ToShortDateString())
                     .Replace("Time", DateTime.Now.ToShortTimeString())
@@ -139,7 +139,7 @@ namespace BhuInfo.Data.Service.EmailService
                     .Replace("DISPLAYNAME", advertisement.AdvertCompanyName)
                     .Replace("EMAIL", advertisement.Email)
                     .Replace("PASSWORD", advertisement.AccessCode)
-                    .Replace("URL", "http://localhost:51301")
+                    .Replace("URL", "http://10.10.15.77")
                     .Replace("CODE", advertisement.AccessCode)
                     .Replace("FROM", Config.SupportEmailAddress);
         }
@@ -180,7 +180,7 @@ namespace BhuInfo.Data.Service.EmailService
                     .ReadToEnd()
                     .Replace("FROM",Config.SupportEmailAddress)
                     .Replace("DISPLAYNAME", user.Firstname)
-                    .Replace("URL","http://localhost:51301/Account/ResetPassword/"+user.AppUserId.ToString());
+                    .Replace("URL", "http://10.10.15.77/Account/ResetPassword/" + user.AppUserId.ToString());
         }
         /// <summary>
         /// This method sends emails to the support of the bhuinfo application
@@ -219,7 +219,7 @@ namespace BhuInfo.Data.Service.EmailService
                 new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ContactUs.html"))
                     .ReadToEnd()
                     .Replace("DISPLAYNAME", senderName)
-                    .Replace("URL", "http://localhost:51301/")
+                    .Replace("URL", "http://10.10.15.77/")
                     .Replace("MESSAGE", senderMessage);
         }
     }

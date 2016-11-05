@@ -1,4 +1,5 @@
 ﻿@using BhuInfo.Data.Factory.BusinessFactory
+@using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Encryption
 @using BhuInfo.Data.Service.Enums
@@ -17,6 +18,7 @@
 
     var recentNews = Model.Take(4);
     var mostRecentSingleNews = new NewsDataFactory().GetMostRecentSingleNewsByCategory(NewsCategoryEnum.General);
+    var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
     if (mostRecentSingleNews == null)
     {
         new HttpStatusCodeResult(HttpStatusCode.NotFound);
@@ -62,9 +64,18 @@
                             </div>
                             <div class="print-text">
                                 <a class="bhead" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title</a>
+                               @if (loggedinuser != null)
+                               {
+                                   <p>
+                                       Posted by <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.CreatedById.ToString(), true)})">@(new AppUserFactory().GetAppUserById((int) item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
+                                   </p>
+                               }
+                               else
+                               {
                                 <p>
-                                    Posted by <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.CreatedById.ToString(), true)})">@(new AppUserFactory().GetAppUserById((int) item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
+                                    Posted by <a>@(new AppUserFactory().GetAppUserById((int)item.CreatedById).DisplayName);</a> @(new DateTimeCalculator().TimeAgo(item.DateCreated))
                                 </p>
+                               }
                                 @if (item.Content.Length > 40)
                                 {
                                     <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>

@@ -29,7 +29,7 @@ namespace BhuInfo.Data.Service.Encryption
             byte[] keyArray;
             byte[] toEncryptArray = Encoding.UTF8.GetBytes(toEncrypt);
 
-            System.Configuration.AppSettingsReader settingsReader =
+            AppSettingsReader settingsReader =
                                                 new AppSettingsReader();
             // Get the key from config file
 
@@ -82,7 +82,7 @@ namespace BhuInfo.Data.Service.Encryption
 
             byte[] toEncryptArray = Convert.FromBase64String(cipherString);
 
-            System.Configuration.AppSettingsReader settingsReader =
+            AppSettingsReader settingsReader =
                                                 new AppSettingsReader();
             //Get your key from config file to open the lock!
             string key = (string)settingsReader.GetValue("SecurityKey",

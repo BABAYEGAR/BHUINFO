@@ -18,6 +18,7 @@ namespace BhuInfo.Data.Service.Encryption
             byte[] encoded = Convert.FromBase64String(decodeMe);
             return (int) double.Parse(Encoding.UTF8.GetString(encoded));
         }
+
     }
 }
 
