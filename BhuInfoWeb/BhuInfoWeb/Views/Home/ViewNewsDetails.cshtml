@@ -385,15 +385,15 @@
                             $('#likeOrDislikeDiv')
                                 .hide()
                                 .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                .fadeIn(0.5);
+                                .fadeIn(0.05);
                             $('#likedislikeinfo')
                                 .hide()
                                 .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                .fadeIn(0.5);
+                                .fadeIn(0.05);
                             $('#commentDiv')
                                 .hide()
                                 .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                .fadeIn(0.5);
+                                .fadeIn(0.05);
                             return false;
                         },
                         1000);

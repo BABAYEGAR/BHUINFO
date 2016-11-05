@@ -46,6 +46,7 @@
     <Compile Include="DateTimeHelper\DateTimeCalculator.cs" />
     <Compile Include="Encryption\Md5Ecryption.cs" />
     <Compile Include="Encryption\QueryStingEncoder.cs" />
+    <Compile Include="Enums\PasswordResetStatus.cs" />
     <Compile Include="Enums\AdvertStatus.cs" />
     <Compile Include="Enums\AlertType.cs" />
     <Compile Include="Enums\NewsCategoryEnum.cs" />

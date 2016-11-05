@@ -37,6 +37,7 @@ namespace BhuInfo.Data.Objects.Entities
         public long LastModifiedById { get; set; }
         public string AppUserImage { get; set; }
         public bool RememberMe { get; set; }
+        public string Token { get; set; }
 
         public string DisplayName
             => Firstname + " " + Lastname;

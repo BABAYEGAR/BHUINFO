@@ -207,7 +207,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BhuWebControllers\AdminController.cs" />
     <Compile Include="Controllers\BhuWebControllers\AdvertisementsController.cs" />
     <Compile Include="Controllers\BhuWebControllers\AppUsersController.cs" />
     <Compile Include="Controllers\BhuWebControllers\EventsController.cs" />

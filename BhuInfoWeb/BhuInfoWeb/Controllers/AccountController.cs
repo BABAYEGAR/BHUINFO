@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -15,6 +16,8 @@ namespace BhuInfoWeb.Controllers
     public class AccountController : Controller
     {
         private readonly AppUserDataContext _db = new AppUserDataContext();
+        private readonly PasswordResetDataContext _dbc = new PasswordResetDataContext();
+        //
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -156,7 +159,22 @@ namespace BhuInfoWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userId = new AppUserFactory().GetAppUserByEmail(collectedValues["Email"].Trim()).AppUserId;
+                var passwordReset = new PasswordReset();
+                var token  = Membership.GeneratePassword(8, 0);
+                passwordReset.ExpiryDate = DateTime.Now.AddMinutes(2);
+                passwordReset.AppUserId = userId;
+                passwordReset.Token = token;
+                _dbc.PasswordResets.Add(passwordReset);
+                _dbc.SaveChanges();
+
+                var user = _db.AppUsers.Find(userId);
+                user.Token = token;
+                Session["token"] = token;
+                _db.Entry(user).State = EntityState.Modified;
+                _db.SaveChanges();
                 new AuthenticationFactory().ForgotPasswordRequest(collectedValues["Email"].Trim());
+           
                 return RedirectToAction("Login");
             }
             return View();
@@ -221,7 +239,16 @@ namespace BhuInfoWeb.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(int Id)
         {
+            var token = Session["token"];
             var user = new AppUserFactory().GetAppUserById(Id);
+            var passwordReset = _dbc.PasswordResets.ToList();
+            var userPasswordReset = passwordReset.Single(n => n.AppUserId == Id && n.Token == (string) token );
+            if (userPasswordReset.ExpiryDate < DateTime.Now)
+            {
+                TempData["password"] = "The password Reset Link has expired!";
+                TempData["notificationtype"] = NotificationType.Info.ToString();
+                return View("Login");
+            }
             return View(user);
         }
 
@@ -236,6 +263,7 @@ namespace BhuInfoWeb.Controllers
             if (password == confirmPassword)
             {
                 new AuthenticationFactory().ResetUserPassword(collectedValues["confirmPassword"], userId);
+
             }
             else
             {

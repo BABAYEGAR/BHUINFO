@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\PasswordReset.cs" />
     <Compile Include="Entities\Advertisement.cs" />
     <Compile Include="Entities\NewsStatus.cs" />
     <Compile Include="Entities\CommentStatus.cs" />

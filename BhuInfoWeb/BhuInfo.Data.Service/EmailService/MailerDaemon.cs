@@ -178,9 +178,9 @@ namespace BhuInfo.Data.Service.EmailService
             return
                 new StreamReader(HttpContext.Current.Server.MapPath("~/EmailTemplates/ResetPassword.html"))
                     .ReadToEnd()
-                    .Replace("FROM",Config.SupportEmailAddress)
+                    .Replace("FROM", Config.SupportEmailAddress)
                     .Replace("DISPLAYNAME", user.Firstname)
-                    .Replace("URL", "http://10.10.15.77/bhuinfo/Account/ResetPassword/" + user.AppUserId.ToString());
+                    .Replace("URL", "http://10.10.15.77/bhuinfo/Account/ResetPassword/" + user.AppUserId);
         }
         /// <summary>
         /// This method sends emails to the support of the bhuinfo application
