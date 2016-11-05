@@ -17,8 +17,6 @@ namespace BhuInfo.Data.Object.Mapping.ObjectMappings
                 .IsRequired();
             Property(n => n.Email)
                 .IsRequired();
-            Property(n => n.Password)
-                .IsRequired();
             Property(n => n.Mobile)
                 .IsRequired();
             Property(n => n.Role)

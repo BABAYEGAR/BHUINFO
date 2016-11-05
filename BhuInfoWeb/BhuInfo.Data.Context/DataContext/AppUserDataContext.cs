@@ -23,7 +23,7 @@ namespace BhuInfo.Data.Context.DataContext
         public virtual DbSet<AppUser> AppUsers { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           // Database.SetInitializer<AppUserDataContext>(null);
+            //Database.SetInitializer<AppUserDataContext>(null);
             modelBuilder.Configurations.Add(new AppUserMapping());
         }
     }

@@ -17,7 +17,6 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <param name="role"></param>
         /// <returns></returns>
         public AppUser AuthenticateAppUserLogin(string email, string password)
         {
@@ -34,11 +33,12 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         {
             email = email.Trim();
             var user = new AppUserFactory().GetAppUserByEmail(email);
+            var appuser = _db.AppUsers.Find(user.AppUserId);
             var newPassword = Membership.GeneratePassword(8, 1);
-            user.Password = newPassword;
-            _db.Entry(user).State = EntityState.Modified;
-            new MailerDaemon().ResetUserPassword(user);
+            appuser.Password = newPassword;
+            _db.Entry(appuser).State = EntityState.Modified; 
             _db.SaveChanges();
+            new MailerDaemon().ResetUserPassword(appuser);
             return user;
         }
 
@@ -49,7 +49,7 @@ namespace BhuInfo.Data.Factory.BusinessFactory
         /// <param name="userId"></param>
         public void ResetUserPassword(string newPassword, int userId)
         {
-            var user = new AppUserFactory().GetAppUserById(userId);
+            var user = _db.AppUsers.Find(userId);
             user.Password = newPassword;
             var hashPasword = new Md5Ecryption().ConvertStringToMd5Hash(newPassword);
             _db.Entry(user).State = EntityState.Modified;
