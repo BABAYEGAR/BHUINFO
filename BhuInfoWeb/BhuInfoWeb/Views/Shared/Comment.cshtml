@@ -105,7 +105,7 @@
                                 </i>
 
                             </label>
-                            <br/>
+                          
                         }
                         else
                         {
@@ -121,9 +121,25 @@
                                     </i>
 
                                 </label>
-                                <br/>
+                             
                             }
                         }
+                        @if (loggedinuser != null && loggedinuser.AppUserId == dbc.NewsComments.Find(item.NewsCommentId).AppUserId)
+                        {
+                            <label style="color: red">
+                                <i class="fa fa-recycle">
+                                    @Ajax.ActionLink("Delete", "DeleteNewsComment", "News", new {newsCommentId = item.NewsCommentId }, new AjaxOptions
+                               {
+                                   HttpMethod = "Post",
+                                   UpdateTargetId = "commentDiv"
+
+                               })
+                                </i>
+
+                            </label>
+                           
+                        }
+                        <br />
                         <label id="likeOrDislikeDiv">
                             @{
                                 var comment = dbc.NewsComments.Find(item.NewsCommentId);

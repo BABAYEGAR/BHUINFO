@@ -191,8 +191,8 @@ namespace BhuInfo.Data.Service.EmailService
         public void ContactUs(string senderName,string senderMessage,string email)
         {
             var message = new MailMessage();
-            message.From = new MailAddress(Config.SupportEmailAddress);
-            message.To.Add(email);
+            message.From = new MailAddress(email);
+            message.To.Add(Config.SupportEmailAddress);
             message.Subject = "New Contact";
             message.Priority = MailPriority.High;
             message.SubjectEncoding = Encoding.UTF8;

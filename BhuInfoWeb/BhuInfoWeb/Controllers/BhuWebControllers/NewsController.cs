@@ -215,6 +215,15 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult DeleteNewsComment(long newsCommentId)
+        {
+            var newsComments = _dbc.NewsComments.Find(newsCommentId);
+            var news = _db.News.Find(newsComments.NewsId);
+            _dbc.NewsComments.Remove(newsComments);
+            _dbc.SaveChanges();
+            return PartialView("Comment", news);
+        }
 
         // POST: News/CreateNewsComments
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

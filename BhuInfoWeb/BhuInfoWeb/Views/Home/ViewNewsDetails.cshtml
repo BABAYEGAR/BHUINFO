@@ -1,4 +1,5 @@
-﻿@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using System.Data.Entity.Core.Common.EntitySql
+@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Encryption
@@ -230,13 +231,19 @@
         }
         @if (loggedinuser != null)
         {
+                <script type="text/javascript">
+                    function() {
+               $('#commentText').val('');
+              }
+             
+                </script>
             using (Ajax.BeginForm("CreateNewsComment", "News",
                 new AjaxOptions
                 {
                     HttpMethod = "Post",
                     UpdateTargetId = "commentDiv",
-                    OnSuccess = "OnSuccess",
-                }, null, new {id = "commentForm"}))
+                    OnSuccess = "function() {$('#commentText').val('');} "
+                }, null, new { id = "commentForm" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -258,6 +265,7 @@
             Session["newsmodel"] = Model;
             <label>Please <a href="@Url.Action("Login", "Account", new {Id = Model.NewsId})" style="color: blue"> Sign In</a> to comment on this article</label>
         }
+    
         <div class="comments1" id="commentDiv">
             @{
                 Html.RenderPartial("Comment", Model);
@@ -379,7 +387,8 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript">
         $(document)
-            .ready(function() {
+            .ready(function () {
+            
                 $(function() {
                     setInterval(function() {
                             $('#likeOrDislikeDiv')
