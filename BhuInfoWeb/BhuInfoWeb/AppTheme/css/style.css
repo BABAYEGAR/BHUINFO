@@ -6,7 +6,9 @@
     height: 100%;
     margin: 13px 0;
     padding: 5px;
+
 }
+
 
 .dropdown-user:hover { cursor: pointer; }
 
@@ -124,6 +126,7 @@ p { margin: 0; }
 ul {
     margin: 0;
     padding: 0;
+
 }
 
 label { margin: 0; }
@@ -131,8 +134,8 @@ label { margin: 0; }
 /*-----start-header----*/
 
 .header {
-    background: #282828;
     padding: 1em 0;
+    background-image: url('../images/bhuinfoheader.png');
 }
 
 .pages {

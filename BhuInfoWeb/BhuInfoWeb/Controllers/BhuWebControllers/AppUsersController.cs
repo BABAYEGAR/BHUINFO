@@ -180,9 +180,9 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 {
                     appUser.DateCreated = DateTime.Now;
                     appUser.DateLastModified = DateTime.Now;
-                    appUser.CreatedById = 0;
+                    appUser.CreatedById = 1;
                     appUser.MatricNumber = collectedValues["MatricNumber"].Trim();
-                    appUser.LastModifiedById = 0;
+                    appUser.LastModifiedById = 1;
                     appUser.Role = UserType.Student.ToString();
                     var password = Membership.GeneratePassword(8, 1);
                     var hashPassword = new Md5Ecryption().ConvertStringToMd5Hash(password.Trim());

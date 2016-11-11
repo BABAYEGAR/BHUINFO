@@ -23,6 +23,7 @@
     var fashionNews = fashionList.ToList();
 
     var fullFrameAdvert = new AdvertsiementFactory().GetAdvertByType(AdvertType.FullFrameAdvert.ToString());
+    var halfFrameAdvert = new AdvertsiementFactory().GetAdvertByType(AdvertType.BasicFrameAdvert.ToString());
 
     var recentNews = Model.Take(6);
 }
@@ -97,6 +98,36 @@
     catch (ArgumentOutOfRangeException)
     {
     }
+    <div class="article">
+        @if (Model != null)
+            {
+            <div class="article">
+                <h5 class="head"></h5>
+                @foreach (var item in fashionNews)
+                {
+                    <h6>@item.NewsCategory.Name </h6>
+                        <a class="title" href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">@item.Title </a>
+                        <a href="@Url.Action("ViewNewsDetails", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.NewsId.ToString(), true)})">
+                            <img src="~/UploadedFiles/@UploadType.NewsImage/@item.Image" alt="" />
+                        </a>
+                        <div>
+                            <p style="text-align: justify">
+                                @if (item.Content.Length > 50)
+                                {
+                                <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content).Substring(0, 80) + "...")</p>
+                                }
+                                else
+                                {
+                                    <p>@(new RemoveCharacters().RemoveSpecialCharacters(item.Content))</p>
+                                }
+
+                                </p>
+                            </div>
+                }
+            </div>
+        }
+    </div>
+
 </div>
 
 <div class="col-md-5 content-right">

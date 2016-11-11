@@ -1,5 +1,4 @@
-﻿@using System.Data.Entity.Core.Common.EntitySql
-@using BhuInfo.Data.Factory.BusinessFactory
+﻿@using BhuInfo.Data.Factory.BusinessFactory
 @using BhuInfo.Data.Objects.Entities
 @using BhuInfo.Data.Service.DateTimeHelper
 @using BhuInfo.Data.Service.Encryption
@@ -231,19 +230,14 @@
         }
         @if (loggedinuser != null)
         {
-                <script type="text/javascript">
-                    function() {
-               $('#commentText').val('');
-              }
-             
-                </script>
             using (Ajax.BeginForm("CreateNewsComment", "News",
                 new AjaxOptions
                 {
                     HttpMethod = "Post",
                     UpdateTargetId = "commentDiv",
-                    OnSuccess = "function() {$('#commentText').val('');} "
-                }, null, new { id = "commentForm" }))
+                    OnSuccess = "ClearInputField",
+                    OnFailure = "ClearInputField"
+                }, null, new {id = "commentForm"}))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
@@ -265,7 +259,15 @@
             Session["newsmodel"] = Model;
             <label>Please <a href="@Url.Action("Login", "Account", new {Id = Model.NewsId})" style="color: blue"> Sign In</a> to comment on this article</label>
         }
-    
+        <script type="text/javascript">
+
+            function ClearInputField() {
+                document.getElementById('submitComment').onClick({
+                    
+                });
+            }
+
+        </script>
         <div class="comments1" id="commentDiv">
             @{
                 Html.RenderPartial("Comment", Model);
@@ -387,8 +389,8 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
     <script type="text/javascript">
         $(document)
-            .ready(function () {
-            
+            .ready(function() {
+
                 $(function() {
                     setInterval(function() {
                             $('#likeOrDislikeDiv')
@@ -399,21 +401,35 @@
                                 .hide()
                                 .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
                                 .fadeIn(0.05);
+                        },
+                        3000);
+
+                });
+                $(function() {
+                    setInterval(function() {
                             $('#commentDiv')
                                 .hide()
                                 .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
                                 .fadeIn(0.05);
                             return false;
                         },
-                        1000);
+                        60000);
 
                 });
+                $('#submitComment')
+                    .click(function() {
+                        $(function() {
+                            setInterval(function() {
+                                    $('#commentDiv')
+                                        .hide()
+                                        .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
+                                        .fadeIn(0.05);
+                                    return false;
+                                },
+                                3000);
 
-                //$(function() {
-                //    $('#lazy-container .lazy')
-                //        .lazy();
-
-                //});
+                        });
+                    });
                 $("#share")
                     .jsSocials({
                         showLabel: false,

@@ -262,7 +262,6 @@ namespace BhuInfoWeb.Controllers.BhuWebControllers
                 _dbc.NewsComments.Add(newsComments);
                 _dbc.SaveChanges();
                 ModelState.Clear();
-
                 return PartialView("Comment", news);
             }
 

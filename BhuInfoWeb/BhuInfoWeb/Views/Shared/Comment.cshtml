@@ -51,9 +51,18 @@
                 <div class="col-md-3 cmts-main-left">
                     @if (commentBy != null)
                     {
-                        <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(commentBy.AppUserId.ToString(), true)})">
-                            <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt="">
-                        </a>
+                        if (loggedinuser != null)
+                        {
+                            <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(commentBy.AppUserId.ToString(), true)})">
+                                <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt="">
+                            </a>
+                        }
+                        else
+                        {
+                            <a>
+                                <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt="">
+                            </a>
+                        }
                     }
                     else
                     {

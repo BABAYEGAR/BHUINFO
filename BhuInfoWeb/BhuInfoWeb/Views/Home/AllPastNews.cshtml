@@ -33,8 +33,8 @@
                             <h2 style="color: #1ac7c3; font-family: -apple-system; font-weight: bolder;">@item.Title</h2>
                             <label style="color: black">Posted By: @(new AppUserFactory().GetAppUserById((int)item.CreatedById).DisplayName) </label><br />
                             <label style="color: black">Date: @item.DateCreated.ToShortDateString()</label><br />
-                            <label style="color: green">Comments: @item.NewComments.Count(n => n.NewsId == item.NewsId)</label><br />
-                            <label style="color: blue">Likes: @item.Likes</label><br />
+                            <label style="color: black">Comments: @item.NewComments.Count(n => n.NewsId == item.NewsId)</label><br />
+                            <label style="color: green">Likes: @item.Likes</label><br />
                             <label style="color: red">Dislikes: @item.Dislikes</label><br />
                         </a>
 
