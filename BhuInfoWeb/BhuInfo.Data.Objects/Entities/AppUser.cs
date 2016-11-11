@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BhuInfo.Data.Objects.Entities
@@ -23,6 +24,7 @@ namespace BhuInfo.Data.Objects.Entities
         [MaxLength(100, ErrorMessage = "This field is does not support more than 100 characters")]
         [RegularExpression("^[0-9]*$")]
         public string Mobile { get; set; }
+        [DisplayName("Matriculation #")]
         public string MatricNumber { get; set; }
 
         public string Password { get; set; }

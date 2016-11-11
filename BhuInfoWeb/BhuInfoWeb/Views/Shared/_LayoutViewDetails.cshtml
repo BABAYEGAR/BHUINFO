@@ -60,6 +60,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li>
                             <a href="@Url.Action("Register", "AppUsers")" style="color: white">Registration</a>
                         </li>
+                        @if (ViewBag.Title == "Advertisement")
+                        {
+                            <li>
+                                <a href="@Url.Action("VerifyAccessCode", "Advertisements")" class="active">Advertisement</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("VerifyAccessCode", "Advertisements")">Advertisement</a>
+                            </li>
+                        }
                         <li>
                             <a href="@Url.Action("Contact", "Home")" style="color: white">Contact Us</a>
                         </li>
