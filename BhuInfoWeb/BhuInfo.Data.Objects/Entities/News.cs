@@ -12,7 +12,6 @@ namespace BhuInfo.Data.Objects.Entities
         public long NewsId { get; set; }
         [AllowHtml]
         [Required(ErrorMessage = "This field is compulsory")]
-        [RegularExpression("^[a-zA-Z][a-zA-Z\\s]+$", ErrorMessage = "Name consist of only letters")]
         public string Title { get; set; }
         [AllowHtml]
         [Required(ErrorMessage = "This field is compulsory")]
