@@ -94,6 +94,7 @@ C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfoWeb\bin\Micr
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.csprojResolveAssemblyReference.cache
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.dll
 C:\Users\PC\documents\visual studio 2015\Projects\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.pdb
+C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.csprojResolveAssemblyReference.cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\ApplicationInsights.config
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\csc.exe
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\roslyn\csc.exe.config
@@ -127,7 +128,6 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfoWeb.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Antlr3.Runtime.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Context.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Factory.dll
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Object.Mapping.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Objects.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Service.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\EntityFramework.dll
@@ -168,7 +168,6 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\System.Web.WebPages.R
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\WebGrease.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Context.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Factory.pdb
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Object.Mapping.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Objects.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\BhuInfo.Data.Service.pdb
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Antlr3.Runtime.pdb
@@ -203,6 +202,5 @@ C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Microsoft.Owin.Securi
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.csprojResolveAssemblyReference.cache
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.dll
 C:\Users\PC\Source\Repos\BHUINFO\BhuInfoWeb\BhuInfoWeb\obj\Debug\BhuInfoWeb.pdb

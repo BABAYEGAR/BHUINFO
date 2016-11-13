@@ -64,13 +64,14 @@
     <Compile Include="DataContext\NewsDataContext.cs" />
     <Compile Include="DataContext\NewsCategoryDataContext.cs" />
     <Compile Include="DataManager\DataManager.cs" />
+    <Compile Include="Migrations\201611131114529_migration1.cs" />
+    <Compile Include="Migrations\201611131114529_migration1.Designer.cs">
+      <DependentUpon>201611131114529_migration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BhuInfo.Data.Object.Mapping\BhuInfo.Data.Object.Mapping.csproj">
-      <Project>{41ee7f19-87fc-416a-909f-0071dd041854}</Project>
-      <Name>BhuInfo.Data.Object.Mapping</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BhuInfo.Data.Objects\BhuInfo.Data.Objects.csproj">
       <Project>{e0d5cc1c-9e28-40a6-9dff-3ad71cdf7f52}</Project>
       <Name>BhuInfo.Data.Objects</Name>
@@ -79,6 +80,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611131114529_migration1.resx">
+      <DependentUpon>201611131114529_migration1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,4 @@
 using System.Data.Entity;
-using BhuInfo.Data.Object.Mapping.ObjectMappings;
 using BhuInfo.Data.Objects.Entities;
 
 namespace BhuInfo.Data.Context.DataContext
@@ -28,7 +27,7 @@ namespace BhuInfo.Data.Context.DataContext
         {
             
             //Database.SetInitializer<NewsCategoryDataContext>(null);
-            modelBuilder.Configurations.Add(new NewsCategoryMapping());
+           
         }
 
     }

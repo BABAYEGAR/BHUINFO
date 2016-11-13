@@ -4,13 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BhuInfoWeb", "BhuInfoWeb\BhuInfoWeb.csproj", "{6CDF5D5C-E2AB-42F9-A71F-933386795A02}"
-	ProjectSection(ProjectDependencies) = postProject
-		{41EE7F19-87FC-416A-909F-0071DD041854} = {41EE7F19-87FC-416A-909F-0071DD041854}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BhuInfo.Data.Objects", "BhuInfo.Data.Objects\BhuInfo.Data.Objects.csproj", "{E0D5CC1C-9E28-40A6-9DFF-3AD71CDF7F52}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BhuInfo.Data.Object.Mapping", "BhuInfo.Data.Object.Mapping\BhuInfo.Data.Object.Mapping.csproj", "{41EE7F19-87FC-416A-909F-0071DD041854}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BhuInfo.Data.Context", "BhuInfo.Data.Context\BhuInfo.Data.Context.csproj", "{0EB4C43B-DE74-48CC-BFF9-E30602D11C45}"
 EndProject
@@ -32,10 +27,6 @@ Global
 		{E0D5CC1C-9E28-40A6-9DFF-3AD71CDF7F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D5CC1C-9E28-40A6-9DFF-3AD71CDF7F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D5CC1C-9E28-40A6-9DFF-3AD71CDF7F52}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41EE7F19-87FC-416A-909F-0071DD041854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41EE7F19-87FC-416A-909F-0071DD041854}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41EE7F19-87FC-416A-909F-0071DD041854}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41EE7F19-87FC-416A-909F-0071DD041854}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0EB4C43B-DE74-48CC-BFF9-E30602D11C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0EB4C43B-DE74-48CC-BFF9-E30602D11C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EB4C43B-DE74-48CC-BFF9-E30602D11C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
