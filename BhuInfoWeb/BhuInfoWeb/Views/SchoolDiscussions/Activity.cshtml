@@ -10,7 +10,6 @@
 
     var discussionComments = new DiscussionCommentFactory().GetDiscussionComments((int) discussionId);
     var schoolDiscussionComments = discussionComments as IList<SchoolDiscussionComment> ?? discussionComments.ToList();
-    var enumerable = schoolDiscussionComments.ToList();
 
     var loggedinuser = Session["bhuinfologgedinuser"] as AppUser;
 
@@ -30,7 +29,7 @@
         list-style-type: none;
     }
 
-    /*ul#lazy-container {
+/*ul#lazy-container {
         height: 800px;
         overflow: auto;
     }*/
@@ -118,14 +117,14 @@
                                 @Html.Hidden("DiscussionId", Model.SchoolDiscussionId)
                                 <div class="form-group col-md-12">
                                     @Html.Label("Comment", null, new {@class = "control-label"})
-                                    @Html.TextArea("Comment", null, new {@class = "form-control"})
+                                    @Html.TextArea("Comment", null, new {@class = "form-control", id = "commentText"})
                                     @Html.ValidationMessage("Comment", "", new {@class = "text-danger"})
 
                                 </div>
 
                                 <div class="col-md-12">
                                     @*<a href="@Url.Action("Index", "SchoolDiscussions")" class="btn btn-default btn-sm pull-left">Back</a>*@
-                                    <input type="submit" value="submit" class="btn btn-primary btn-sm pull-right"/>
+                                    <input type="submit" value="submit" id="submitComment" class="btn btn-primary btn-sm pull-right"/>
 
                                 </div>
                             }
@@ -158,26 +157,28 @@
 @section Scripts
 {
     <!-- cdnjs -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>
+    @*<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.3/jquery.lazy.plugins.min.js"></script>*@
     <script type="text/javascript">
         $(function() {
             setInterval(function() {
                     $('#commentDiv')
-                        .hide()
-                        .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})')
-                        .fadeIn(0.5);
+                        .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})');
                 },
                 2000);
         });
-        //$(function() {
-        //    $('#lazy-container .lazy')
-        //        .lazy({
-        //            appendScroll: $('#lazy-container')
+        $('#submitComment')
+            .click(function() {
+                $(function() {
+                    setInterval(function() {
+                            $('#commentDiv')
+                                .load('@Url.Action("GetCompleteDiscussionComments", "SchoolDiscussions", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.SchoolDiscussionId.ToString(), true)})');
+                        },
+                        3000);
+                    $('#commentText').val('');
 
+                });
 
-        //        });
-        //});
-
+            });
     </script>
 }
