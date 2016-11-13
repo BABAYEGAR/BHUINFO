@@ -63,7 +63,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-top-links navbar-right">
-            <li class="dropdown">
+            @if (ViewBag.Title == "Advertisement")
+            {
+                <li>
+                    <a href="@Url.Action("VerifyAccessCode", "Advertisements")" class="active">Ads</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="@Url.Action("VerifyAccessCode", "Advertisements")" style="color: white">Ads</a>
+                </li>
+            }
+            @*<li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" style="color: white">
                     <i class="fa fa-newspaper-o fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
@@ -90,8 +102,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </a>
                     </li>
                 </ul>
-                <!-- /.dropdown-messages -->
-            </li>
+                 /.dropdown-messages 
+            </li>*@
             @*<li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false" style="color: white">
                             <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -299,10 +311,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 {
                     <h5 style="font-weight: bold">Article Category</h5>
                 }
-                @if (ViewBag.Title == "Advertisement")
-                {
-                    <h5 style="font-weight: bold">Article Category</h5>
-                }
             </div>
             <span class="menu"></span>
             @if (ViewBag.Title != "Register")
@@ -397,18 +405,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         {
                             <li>
                                 <a href="@Url.Action("SrcTeam", "Home")">SRC Team</a>
-                            </li>
-                        }
-                        @if (ViewBag.Title == "Advertisement")
-                        {
-                            <li>
-                                <a href="@Url.Action("VerifyAccessCode", "Advertisements")" class="active">Advertisement</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="@Url.Action("VerifyAccessCode", "Advertisements")">Advertisement</a>
                             </li>
                         }
                  
