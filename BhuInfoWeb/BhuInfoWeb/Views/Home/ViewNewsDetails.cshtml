@@ -234,9 +234,7 @@
                 new AjaxOptions
                 {
                     HttpMethod = "Post",
-                    UpdateTargetId = "commentDiv",
-                    OnSuccess = "ClearInputField",
-                    OnFailure = "ClearInputField"
+                    UpdateTargetId = "commentDiv"
                 }, null, new {id = "commentForm"}))
             {
                 @Html.AntiForgeryToken()
@@ -262,9 +260,10 @@
         <script type="text/javascript">
 
             function ClearInputField() {
-                document.getElementById('submitComment').onClick({
+                document.getElementById('submitComment')
+                    .onClick({
                     
-                });
+                    });
             }
 
         </script>
@@ -394,26 +393,13 @@
                 $(function() {
                     setInterval(function() {
                             $('#likeOrDislikeDiv')
-                                .hide()
-                                .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                .fadeIn(0.05);
+                                .load('@Url.Action("ReloadLikeDislikePartial", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})');
+
                             $('#likedislikeinfo')
-                                .hide()
-                                .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                .fadeIn(0.05);
+                                .load('@Url.Action("ReloadLikeDislikeInfo", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})');
+
                         },
                         3000);
-
-                });
-                $(function() {
-                    setInterval(function() {
-                            $('#commentDiv')
-                                .hide()
-                                .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                .fadeIn(0.05);
-                            return false;
-                        },
-                        60000);
 
                 });
                 $('#submitComment')
@@ -421,14 +407,13 @@
                         $(function() {
                             setInterval(function() {
                                     $('#commentDiv')
-                                        .hide()
-                                        .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})')
-                                        .fadeIn(0.05);
-                                    return false;
+                                        .load('@Url.Action("ReloadCompleteView", "Home", new {Id = new Md5Ecryption().EncryptPrimaryKey(Model.NewsId.ToString(), true)})');
                                 },
                                 3000);
+                            $('#commentText').val('');
 
                         });
+
                     });
                 $("#share")
                     .jsSocials({

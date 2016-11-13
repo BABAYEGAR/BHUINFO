@@ -8,7 +8,9 @@
     padding: 5px;
 
 }
+        .navigation ul li a.active { color: #1ac7c3; }
 
+        .navigation ul li a:hover { color: #1ac7c3; }
 
 .dropdown-user:hover { cursor: pointer; }
 

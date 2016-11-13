@@ -27,7 +27,7 @@ else
                     @if (commentBy != null)
                     {
                         <a href="@Url.Action("ProfileDetails", "Account", new {Id = new Md5Ecryption().EncryptPrimaryKey(item.AppUserId.ToString(), true)})">
-                            <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage" class="img-responsive" alt="">
+                            <img src="../../UploadedFiles/ProfileImage/@commentBy.AppUserImage"  width="85px" height="80px" class="img-responsive" alt="">
                         </a>
                     }
                     else
